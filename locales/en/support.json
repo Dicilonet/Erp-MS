@@ -1,0 +1,76 @@
+
+{
+    "page": {
+        "title": "Support Management",
+        "createButton": "Create Ticket"
+    },
+    "list": {
+        "title": "All Tickets",
+        "description": "A list of all support requests registered in the system.",
+        "noTickets": "No tickets found.",
+        "table": {
+            "customer": "Customer",
+            "subject": "Subject",
+            "priority": "Priority",
+            "status": "Status",
+            "agent": "Agent",
+            "createdAt": "Creation Date",
+            "audio": "Audio",
+            "actions": "Actions",
+            "viewDetails": "View Details"
+        }
+    },
+    "form": {
+        "createTitle": "Create New Support Ticket",
+        "createDescription": "Fill in the details to register a new support request.",
+        "customerLabel": "Customer",
+        "customerPlaceholder": "Select a customer",
+        "subjectLabel": "Subject",
+        "subjectPlaceholder": "E.g.: Problem with billing",
+        "descriptionLabel": "Problem Description (Written)",
+        "descriptionPlaceholder": "Describe the customer's request in detail.",
+        "audioLabel": "Voice Message (Optional)",
+        "recordPrompt": "Press the microphone to record a voice message.",
+        "recording": "Recording...",
+        "priorityLabel": "Priority",
+        "priorityPlaceholder": "Set a priority",
+        "agentLabel": "Assigned Agent",
+        "agentPlaceholder": "E.g.: John Doe",
+        "cancel": "Cancel",
+        "submit": "Create Ticket",
+        "submitting": "Saving...",
+        "stopRecordingPrompt": "Stop recording first",
+        "toast": {
+            "recordingStarted": {
+                "title": "Recording started",
+                "description": "Speak now. Press stop when you're done."
+            },
+            "micError": {
+                "title": "Microphone Error",
+                "description": "Could not access the microphone. Check permissions."
+            },
+            "recordingStopped": {
+                "title": "Recording stopped",
+                "description": "The audio is ready to be attached."
+            },
+            "audioDeleted": {
+                "title": "Audio deleted",
+                "description": "The recording has been discarded."
+            },
+            "success": {
+                "title": "Ticket Created!",
+                "description": "The ticket \"{{subject}}\" has been registered successfully."
+            },
+            "error": {
+                "title": "Error Creating Ticket",
+                "description": "There was a problem saving the ticket. Please try again."
+            }
+        }
+    },
+    "priorities": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+    }
+}

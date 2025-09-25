@@ -1,0 +1,41 @@
+{
+    "title": "Send Transactional Email",
+    "composer": {
+        "title": "Compose Email",
+        "description": "Find the customer or enter the address and send an email to any recipient through the ERP.",
+        "customerSelectLabel": "Send to Customer (Optional)",
+        "customerSelectPlaceholder": "Select a customer to autofill email",
+        "toLabel": "Recipient (To)",
+        "toPlaceholder": "recipient@example.com",
+        "showCcBcc": "Show CC/BCC",
+        "hideCcBcc": "Hide CC/BCC",
+        "ccLabel": "CC",
+        "ccPlaceholder": "cc@example.com, another@example.com",
+        "bccLabel": "BCC",
+        "bccPlaceholder": "bcc@example.com",
+        "subjectLabel": "Subject",
+        "subjectPlaceholder": "Subject of the email",
+        "bodyLabel": "Message Body",
+        "bodyPlaceholder": "Write your message here...",
+        "bodyDescription": "You can use basic HTML for formatting.",
+        "attachmentsLabel": "Attachments",
+        "addFilesButton": "Add File(s)",
+        "maxSizeNotice": "Maximum total size: {{maxSize}} MB.",
+        "sendButton": "Send Email",
+        "sendingButton": "Sending...",
+        "toast": {
+            "sent": {
+                "title": "Email Sent!",
+                "description": "The email to {{to}} was sent successfully."
+            },
+            "error": {
+                "title": "Error Sending",
+                "description": "Could not send the email via the function."
+            },
+            "sizeLimit": {
+                "title": "Size limit exceeded",
+                "description": "Total attachment size cannot exceed {{maxSize}} MB."
+            }
+        }
+    }
+}

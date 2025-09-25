@@ -1,0 +1,58 @@
+
+{
+    "title": "Ajustes",
+    "tabs": {
+        "account": "Mi Cuenta",
+        "appearance": "Apariencia",
+        "profile": "Perfil",
+        "security": "Seguridad"
+    },
+    "account": {
+        "title": "Resumen de la Cuenta",
+        "description": "Esta es la información de tu cuenta. Algunos detalles se pueden editar en la pestaña Perfil.",
+        "email": "Email",
+        "uid": "ID de Usuario",
+        "loading": "Cargando..."
+    },
+    "appearance": {
+        "title": "Apariencia",
+        "description": "Personaliza la apariencia de la aplicación.",
+        "light": "Claro",
+        "dark": "Oscuro",
+        "system": "Sistema",
+        "unimplemented": "(Actualmente, la funcionalidad de cambio de tema no está implementada)."
+    },
+    "profile": {
+        "title": "Mi Perfil",
+        "description": "Actualiza tu información personal aquí.",
+        "fullName": "Nombre Completo",
+        "fullNamePlaceholder": "Ej: Juan Pérez",
+        "preferredLanguage": "Idioma de Preferencia",
+        "saveButton": "Guardar Cambios",
+        "savingButton": "Guardando...",
+        "toast": {
+            "successTitle": "Perfil Actualizado",
+            "successDescription": "La información de tu perfil ha sido guardada.",
+            "errorTitle": "Error al Actualizar",
+            "errorDescription": "No se pudo guardar tu perfil."
+        }
+    },
+    "security": {
+        "title": "Seguridad",
+        "description": "Gestiona tus ajustes de seguridad, incluyendo tu contraseña.",
+        "changePasswordTitle": "Cambiar Contraseña",
+        "currentPassword": "Contraseña Actual",
+        "newPassword": "Nueva Contraseña",
+        "confirmPassword": "Confirmar Nueva Contraseña",
+        "saveButton": "Cambiar Contraseña",
+        "savingButton": "Cambiando...",
+        "toast": {
+            "successTitle": "¡Contraseña Cambiada!",
+            "successDescription": "Tu contraseña se ha actualizado correctamente.",
+            "errorTitle": "Error al Cambiar la Contraseña",
+            "errorMismatch": "Las nuevas contraseñas no coinciden.",
+            "errorWeak": "La nueva contraseña es demasiado débil.",
+            "errorGeneric": "No se pudo cambiar la contraseña."
+        }
+    }
+}

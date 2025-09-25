@@ -1,0 +1,41 @@
+{
+    "title": "Enviar Correo Transaccional",
+    "composer": {
+        "title": "Redactar Correo",
+        "description": "Busca el cliente o escribe la dirección y envía un correo electrónico a cualquier destinatario a través del ERP.",
+        "customerSelectLabel": "Enviar a Cliente (Opcional)",
+        "customerSelectPlaceholder": "Selecciona un cliente para autocompletar el email",
+        "toLabel": "Destinatario (Para)",
+        "toPlaceholder": "destinatario@ejemplo.com",
+        "showCcBcc": "Mostrar CC/CCO",
+        "hideCcBcc": "Ocultar CC/CCO",
+        "ccLabel": "CC",
+        "ccPlaceholder": "cc@ejemplo.com, otro@ejemplo.com",
+        "bccLabel": "CCO",
+        "bccPlaceholder": "cco@ejemplo.com",
+        "subjectLabel": "Asunto",
+        "subjectPlaceholder": "Asunto del correo",
+        "bodyLabel": "Cuerpo del Mensaje",
+        "bodyPlaceholder": "Escribe tu mensaje aquí...",
+        "bodyDescription": "Puedes usar HTML básico para formatear el texto.",
+        "attachmentsLabel": "Archivos Adjuntos",
+        "addFilesButton": "Añadir Archivo(s)",
+        "maxSizeNotice": "Tamaño máximo total: {{maxSize}} MB.",
+        "sendButton": "Enviar Correo",
+        "sendingButton": "Enviando...",
+        "toast": {
+            "sent": {
+                "title": "¡Correo Enviado!",
+                "description": "El correo a {{to}} se ha enviado correctamente."
+            },
+            "error": {
+                "title": "Error al Enviar",
+                "description": "No se pudo enviar el correo a través de la función."
+            },
+            "sizeLimit": {
+                "title": "Límite de tamaño excedido",
+                "description": "El tamaño total de los archivos adjuntos no puede superar los {{maxSize}} MB."
+            }
+        }
+    }
+}

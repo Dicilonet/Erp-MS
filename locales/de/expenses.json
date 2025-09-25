@@ -1,0 +1,74 @@
+
+{
+    "page": {
+        "title": "Ausgabenverwaltung",
+        "addButton": "Ausgabe hinzufügen"
+    },
+    "list": {
+        "title": "Ausgabenverlauf",
+        "description": "Eine Liste aller im System erfassten Ausgaben mit Mehrwertsteueraufschlüsselung.",
+        "noExpenses": "Keine Ausgaben gefunden.",
+        "table": {
+            "customer": "Zugeordnet zu",
+            "description": "Beschreibung",
+            "category": "Kategorie",
+            "date": "Datum",
+            "subtotal": "Nettobetrag",
+            "tax": "MwSt.",
+            "total": "Gesamtbetrag",
+            "general": "Allgemeine Ausgabe"
+        }
+    },
+    "form": {
+        "createTitle": "Neue Ausgabe mit KI erfassen",
+        "createDescription": "Laden Sie eine Rechnung hoch oder verwenden Sie Ihre Kamera. Die KI extrahiert die Daten, und Sie bestätigen sie.",
+        "uploadButton": "Rechnung hochladen",
+        "cameraButton": "Kamera verwenden (in Kürze)",
+        "processing": "Analysiere...",
+        "associateCustomer": "Einem Kunden zuordnen?",
+        "customerLabel": "Kunde",
+        "customerPlaceholder": "Einen Kunden auswählen",
+        "descriptionLabel": "Beschreibung der Ausgabe",
+        "descriptionPlaceholder": "Z.B.: Jährliche Design-Softwarelizenz",
+        "subtotalLabel": "Nettobetrag (€)",
+        "taxRateLabel": "MwSt. (%)",
+        "totalLabel": "Gesamtbetrag",
+        "categoryLabel": "Kategorie",
+        "categoryPlaceholder": "Kategorie auswählen",
+        "dateLabel": "Ausgabedatum",
+        "datePlaceholder": "Datum auswählen",
+        "cancel": "Abbrechen",
+        "submit": "Ausgabe erstellen",
+        "submitting": "Speichern...",
+        "processingToast": {
+            "title": "Rechnung wird verarbeitet...",
+            "description": "Die KI analysiert das Bild. Dies kann einige Sekunden dauern."
+        },
+        "successToast": {
+            "title": "Informationen extrahiert!",
+            "description": "Die Felder wurden ausgefüllt. Bitte überprüfen Sie sie."
+        },
+        "errorToast": {
+            "title": "KI-Fehler",
+            "description": "Das Bild konnte nicht verarbeitet werden."
+        },
+        "saveSuccessToast": {
+            "title": "Ausgabe erfasst!",
+            "description": "Die Ausgabe von {{total}} wurde erfolgreich gespeichert."
+        },
+        "saveErrorToast": {
+            "title": "Fehler beim Erfassen der Ausgabe",
+            "description": "Beim Speichern der Ausgabe ist ein Problem aufgetreten. Bitte versuchen Sie es erneut."
+        },
+        "categories": {
+            "software": "Software",
+            "marketing": "Marketing",
+            "hardware": "Hardware",
+            "office": "Büro",
+            "consulting": "Beratung",
+            "transport": "Transport",
+            "food": "Verpflegung",
+            "other": "Sonstiges"
+        }
+    }
+}

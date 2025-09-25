@@ -1,0 +1,68 @@
+
+{
+    "title": "Project Management",
+    "description": "Search, view, and manage all projects.",
+    "searchPlaceholder": "Search by project or client...",
+    "createButton": "Create Project",
+    "list": {
+        "title": "Project List",
+        "description": "Overview of all projects, sorted by status and date.",
+        "table": {
+            "name": "Project Name",
+            "client": "Client",
+            "owner": "Owner",
+            "status": "Status",
+            "endDate": "End Date",
+            "actions": "Actions"
+        },
+        "noProjects": "No projects yet. Create the first one!",
+        "noResults": "No projects found for \"{{term}}\".",
+        "unassigned": "Unassigned",
+        "viewDetails": "View Details"
+    },
+    "detail": {
+        "backButton": "Back to Projects",
+        "editButton": "Edit Project",
+        "clientLabel": "Client",
+        "delete": {
+            "button": "Delete",
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone. This will permanently delete the project \"{{projectName}}\" and all its associated tasks.",
+            "cancel": "Cancel",
+            "confirm": "Yes, delete project",
+            "deleting": "Deleting...",
+            "successTitle": "Project Deleted",
+            "successDescription": "The project and all its tasks have been deleted.",
+            "errorTitle": "Error Deleting"
+        },
+        "tabs": {
+            "summary": "Summary",
+            "tasks": "Tasks",
+            "marketing": "Marketing",
+            "finance": "Finance"
+        },
+        "kanban": {
+            "title": "Task Board by Phases",
+            "description": "Manage the tasks for each project phase.",
+            "phaseNote": "Phase Note",
+            "addTaskButton": "Add Task to this Phase"
+        },
+        "summary": {
+            "title": "Project Summary",
+            "description": "Key information and current status of the project.",
+            "status": "Status",
+            "type": "Project Type",
+            "duration": "Duration",
+            "budget": "Budget",
+            "notDefined": "Not defined",
+            "owner": "Owner",
+            "unassigned": "Unassigned",
+            "team": "Assigned Team",
+            "noTeamMembers": "No members on the team."
+        },
+        "finance": {
+            "title": "Finance & Budget",
+            "description": "The financial breakdown of the project will go here."
+        }
+    }
+}

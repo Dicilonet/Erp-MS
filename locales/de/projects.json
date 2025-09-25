@@ -1,0 +1,68 @@
+
+{
+    "title": "Projektmanagement",
+    "description": "Suchen, anzeigen und verwalten Sie alle Projekte.",
+    "searchPlaceholder": "Nach Projekt oder Kunde suchen...",
+    "createButton": "Projekt erstellen",
+    "list": {
+        "title": "Projektliste",
+        "description": "Übersicht aller Projekte, sortiert nach Status und Datum.",
+        "table": {
+            "name": "Projektname",
+            "client": "Kunde",
+            "owner": "Verantwortlicher",
+            "status": "Status",
+            "endDate": "Enddatum",
+            "actions": "Aktionen"
+        },
+        "noProjects": "Keine Projekte vorhanden. Erstellen Sie das erste!",
+        "noResults": "Keine Projekte für \"{{term}}\" gefunden.",
+        "unassigned": "Nicht zugewiesen",
+        "viewDetails": "Details anzeigen"
+    },
+    "detail": {
+        "backButton": "Zurück zu den Projekten",
+        "editButton": "Projekt bearbeiten",
+        "clientLabel": "Kunde",
+        "delete": {
+            "button": "Löschen",
+            "title": "Sind Sie absolut sicher?",
+            "description": "Diese Aktion kann nicht rückgängig gemacht werden. Dadurch wird das Projekt \"{{projectName}}\" und alle zugehörigen Aufgaben dauerhaft gelöscht.",
+            "cancel": "Abbrechen",
+            "confirm": "Ja, Projekt löschen",
+            "deleting": "Wird gelöscht...",
+            "successTitle": "Projekt gelöscht",
+            "successDescription": "Das Projekt und alle seine Aufgaben wurden gelöscht.",
+            "errorTitle": "Fehler beim Löschen"
+        },
+        "tabs": {
+            "summary": "Übersicht",
+            "tasks": "Aufgaben",
+            "marketing": "Marketing",
+            "finance": "Finanzen"
+        },
+        "kanban": {
+            "title": "Aufgaben-Board nach Phasen",
+            "description": "Verwalten Sie die Aufgaben jeder Projektphase.",
+            "phaseNote": "Phasennotiz",
+            "addTaskButton": "Aufgabe zu dieser Phase hinzufügen"
+        },
+        "summary": {
+            "title": "Projektübersicht",
+            "description": "Wichtige Informationen und aktueller Status des Projekts.",
+            "status": "Status",
+            "type": "Projekttyp",
+            "duration": "Dauer",
+            "budget": "Budget",
+            "notDefined": "Nicht definiert",
+            "owner": "Verantwortlicher",
+            "unassigned": "Nicht zugewiesen",
+            "team": "Zugewiesenes Team",
+            "noTeamMembers": "Keine Mitglieder im Team."
+        },
+        "finance": {
+            "title": "Finanzen & Budget",
+            "description": "Hier wird die finanzielle Aufschlüsselung des Projekts angezeigt."
+        }
+    }
+}

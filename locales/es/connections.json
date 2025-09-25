@@ -1,0 +1,77 @@
+
+{
+    "title": "Conexiones",
+    "add": "Añadir Conexión",
+    "edit": "Editar Conexión",
+    "form": {
+        "title": "Añadir/Editar Conexión",
+        "description": "Rellena o modifica los detalles para una nueva integración.",
+        "type": "Tipo de Conexión",
+        "typePlaceholder": "Selecciona un tipo",
+        "descriptionLabel": "Descripción",
+        "descriptionPlaceholder": "Ej: Cuenta principal de marketing",
+        "userLabel": "Usuario / Email",
+        "userPlaceholder": "usuario@email.com",
+        "statusLabel": "Estado",
+        "statusPlaceholder": "Selecciona un estado",
+        "status": {
+            "Conectado": "Conectado",
+            "Desconectado": "Desconectado",
+            "Error": "Error"
+        },
+        "cancel": "Cancelar",
+        "save": "Guardar Cambios",
+        "create": "Crear Conexión"
+    },
+    "deleteDialog": {
+        "title": "¿Estás seguro?",
+        "description": "Esta acción eliminará la conexión para {{description}}.",
+        "confirm": "Sí, eliminar"
+    },
+    "toast": {
+        "deleted": "Conexión eliminada",
+        "deleteError": "Error al eliminar",
+        "updated": "¡Conexión actualizada!",
+        "created": "¡Conexión creada!"
+    },
+    "card": {
+        "title": "Gestión de Conexiones",
+        "description": "Un listado de todas las integraciones activas a nivel de empresa.",
+        "noConnections": "No hay conexiones. Añade una para empezar.",
+        "button": "Añadir nueva conexión",
+        "sync": "Sincronización de archivos",
+        "editButton": "Editar",
+        "deleteButton": "Eliminar"
+    },
+    "serviceCatalog": {
+        "title": "Catálogo de Herramientas",
+        "description": "Una colección curada y editable de herramientas para marketing, diseño, desarrollo y más.",
+        "selectCategoryPlaceholder": "Seleccionar categoría...",
+        "searchPlaceholder": "Buscar en esta categoría...",
+        "addTool": "Añadir Herramienta",
+        "restore": "Restaurar",
+        "apiKeyLabel": "API Key / Token",
+        "noResults": "No se encontraron herramientas para \"{{searchTerm}}\".",
+        "noToolsInCategory": "No hay herramientas en esta categoría.",
+        "sortBy": {
+            "placeholder": "Ordenar por...",
+            "alphabetical": "Orden Alfabético (A-Z)",
+            "mostSearched": "Más Buscado",
+            "lastOpened": "Último Abierto"
+        },
+        "deleteDialog": {
+            "title": "¿Estás seguro?",
+            "description": "Esta acción no se puede deshacer. Se eliminará permanentemente la herramienta \"{{name}}\".",
+            "cancel": "Cancelar",
+            "confirm": "Eliminar"
+        },
+        "toast": {
+            "copiedTitle": "Copiado",
+            "copiedDescription": "La clave de API ha sido copiada al portapapeles.",
+            "deletedTitle": "Herramienta Eliminada",
+            "deletedDescription": "La herramienta ha sido eliminada del catálogo.",
+            "deleteErrorTitle": "Error al Eliminar",
+            "deleteErrorDescription": "No se pudo eliminar la herramienta."
+        }
+    }
+}

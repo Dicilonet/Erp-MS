@@ -1,0 +1,16 @@
+# Ignorar carpetas de dependencias y de compilación en cualquier nivel
+node_modules
+.next
+
+# Cache y logs de Firebase
+.firebase/
+functions/.next/
+
+# Archivos de entorno y logs
+.env
+*.log
+
+# Archivos comprimidos que hemos creado
+*.zip
+*.tar.gz
+*.bundle

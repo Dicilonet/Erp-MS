@@ -1,0 +1,76 @@
+
+{
+    "page": {
+        "title": "Support-Verwaltung",
+        "createButton": "Ticket erstellen"
+    },
+    "list": {
+        "title": "Alle Tickets",
+        "description": "Eine Liste aller im System registrierten Support-Anfragen.",
+        "noTickets": "Keine Tickets gefunden.",
+        "table": {
+            "customer": "Kunde",
+            "subject": "Betreff",
+            "priority": "Priorität",
+            "status": "Status",
+            "agent": "Agent",
+            "createdAt": "Erstellungsdatum",
+            "audio": "Audio",
+            "actions": "Aktionen",
+            "viewDetails": "Details anzeigen"
+        }
+    },
+    "form": {
+        "createTitle": "Neues Support-Ticket erstellen",
+        "createDescription": "Füllen Sie die Details aus, um eine neue Support-Anfrage zu registrieren.",
+        "customerLabel": "Kunde",
+        "customerPlaceholder": "Einen Kunden auswählen",
+        "subjectLabel": "Betreff",
+        "subjectPlaceholder": "Z.B.: Problem mit der Abrechnung",
+        "descriptionLabel": "Problembeschreibung (schriftlich)",
+        "descriptionPlaceholder": "Beschreiben Sie die Anfrage des Kunden im Detail.",
+        "audioLabel": "Sprachnachricht (Optional)",
+        "recordPrompt": "Drücken Sie das Mikrofon, um eine Sprachnachricht aufzunehmen.",
+        "recording": "Aufnahme läuft...",
+        "priorityLabel": "Priorität",
+        "priorityPlaceholder": "Priorität festlegen",
+        "agentLabel": "Zugewiesener Agent",
+        "agentPlaceholder": "Z.B.: Max Mustermann",
+        "cancel": "Abbrechen",
+        "submit": "Ticket erstellen",
+        "submitting": "Speichern...",
+        "stopRecordingPrompt": "Zuerst die Aufnahme stoppen",
+        "toast": {
+            "recordingStarted": {
+                "title": "Aufnahme gestartet",
+                "description": "Sprechen Sie jetzt. Drücken Sie Stopp, wenn Sie fertig sind."
+            },
+            "micError": {
+                "title": "Mikrofonfehler",
+                "description": "Auf das Mikrofon konnte nicht zugegriffen werden. Überprüfen Sie die Berechtigungen."
+            },
+            "recordingStopped": {
+                "title": "Aufnahme gestoppt",
+                "description": "Das Audio ist bereit zum Anhängen."
+            },
+            "audioDeleted": {
+                "title": "Audio gelöscht",
+                "description": "Die Aufnahme wurde verworfen."
+            },
+            "success": {
+                "title": "Ticket erstellt!",
+                "description": "Das Ticket \"{{subject}}\" wurde erfolgreich registriert."
+            },
+            "error": {
+                "title": "Fehler beim Erstellen des Tickets",
+                "description": "Beim Speichern des Tickets ist ein Problem aufgetreten. Bitte versuchen Sie es erneut."
+            }
+        }
+    },
+    "priorities": {
+        "low": "Niedrig",
+        "medium": "Mittel",
+        "high": "Hoch",
+        "critical": "Kritisch"
+    }
+}

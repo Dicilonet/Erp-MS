@@ -1,0 +1,74 @@
+
+{
+    "page": {
+        "title": "Expense Management",
+        "addButton": "Add Expense"
+    },
+    "list": {
+        "title": "Expense History",
+        "description": "A list of all expenses recorded in the system, with VAT breakdown.",
+        "noExpenses": "No expenses found.",
+        "table": {
+            "customer": "Associated with",
+            "description": "Description",
+            "category": "Category",
+            "date": "Date",
+            "subtotal": "Subtotal",
+            "tax": "VAT",
+            "total": "Total",
+            "general": "General Expense"
+        }
+    },
+    "form": {
+        "createTitle": "Record New Expense with AI",
+        "createDescription": "Upload an invoice or use your camera. The AI will extract the data, and you confirm it.",
+        "uploadButton": "Upload Invoice",
+        "cameraButton": "Use Camera (Coming Soon)",
+        "processing": "Analyzing...",
+        "associateCustomer": "Associate with a customer?",
+        "customerLabel": "Customer",
+        "customerPlaceholder": "Select a customer",
+        "descriptionLabel": "Expense Description",
+        "descriptionPlaceholder": "E.g.: Annual design software license",
+        "subtotalLabel": "Subtotal (€)",
+        "taxRateLabel": "VAT (%)",
+        "totalLabel": "Total",
+        "categoryLabel": "Category",
+        "categoryPlaceholder": "Select category",
+        "dateLabel": "Expense Date",
+        "datePlaceholder": "Select a date",
+        "cancel": "Cancel",
+        "submit": "Create Expense",
+        "submitting": "Saving...",
+        "processingToast": {
+            "title": "Processing invoice...",
+            "description": "The AI is analyzing the image. This may take a few seconds."
+        },
+        "successToast": {
+            "title": "Information Extracted!",
+            "description": "The fields have been filled in. Please review them."
+        },
+        "errorToast": {
+            "title": "AI Error",
+            "description": "Could not process the image."
+        },
+        "saveSuccessToast": {
+            "title": "Expense Recorded!",
+            "description": "The expense of {{total}} has been saved successfully."
+        },
+        "saveErrorToast": {
+            "title": "Error Recording Expense",
+            "description": "There was a problem saving the expense. Please try again."
+        },
+        "categories": {
+            "software": "Software",
+            "marketing": "Marketing",
+            "hardware": "Hardware",
+            "office": "Office",
+            "consulting": "Consulting",
+            "transport": "Transport",
+            "food": "Food",
+            "other": "Other"
+        }
+    }
+}

@@ -1,0 +1,58 @@
+
+{
+    "title": "Settings",
+    "tabs": {
+        "account": "My Account",
+        "appearance": "Appearance",
+        "profile": "Profile",
+        "security": "Security"
+    },
+    "account": {
+        "title": "Account Overview",
+        "description": "This is your account information. Some details can be edited in the Profile tab.",
+        "email": "Email",
+        "uid": "User ID",
+        "loading": "Loading..."
+    },
+    "appearance": {
+        "title": "Appearance",
+        "description": "Customize the look and feel of the application.",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System",
+        "unimplemented": "(Theme switching functionality is not currently implemented.)"
+    },
+    "profile": {
+        "title": "My Profile",
+        "description": "Update your personal information here.",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "E.g. John Doe",
+        "preferredLanguage": "Preferred Language",
+        "saveButton": "Save Changes",
+        "savingButton": "Saving...",
+        "toast": {
+            "successTitle": "Profile Updated",
+            "successDescription": "Your profile information has been saved.",
+            "errorTitle": "Error Updating",
+            "errorDescription": "Your profile could not be saved."
+        }
+    },
+    "security": {
+        "title": "Security",
+        "description": "Manage your security settings, including your password.",
+        "changePasswordTitle": "Change Password",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "saveButton": "Change Password",
+        "savingButton": "Changing...",
+        "toast": {
+            "successTitle": "Password Changed!",
+            "successDescription": "Your password has been successfully updated.",
+            "errorTitle": "Error Changing Password",
+            "errorMismatch": "The new passwords do not match.",
+            "errorWeak": "The new password is too weak.",
+            "errorGeneric": "Could not change the password."
+        }
+    }
+}

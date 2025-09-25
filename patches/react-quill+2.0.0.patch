@@ -1,0 +1,65 @@
+diff --git a/node_modules/react-quill/lib/component.js b/node_modules/react-quill/lib/component.js
+index 273e86c..4d5d44a 100644
+--- a/node_modules/react-quill/lib/component.js
++++ b/node_modules/react-quill/lib/component.js
+@@ -370,7 +370,7 @@
+ 	},
+ 
+ 	getEditor: function() {
+-		return this.editor;
++		return this.quill;
+ 	},
+ 
+ 	getEditingArea: function() {
+diff --git a/node_modules/react-quill/lib/index.js b/node_modules/react-quill/lib/index.js
+index 994a595..81c8185 100644
+--- a/node_modules/react-quill/lib/index.js
++++ b/node_modules/react-quill/lib/index.js
+@@ -193,7 +193,7 @@
+       // We can't pass a ref to a functional component that doesn't use
+       // forwardRef. The solution is to pass our own ref and then expose
+       // it manually.
+-      (0, _react.useEffect)(function () {
++      (0, _react.useLayoutEffect)(function () {
+         if (ref) {
+           ref.current = {
+             getEditor: getEditor
+diff --git a/node_modules/react-quill/lib/mixin.js b/node_modules/react-quill/lib/mixin.js
+index 45b84a1..b5239a0 100644
+--- a/node_modules/react-quill/lib/mixin.js
++++ b/node_modules/react-quill/lib/mixin.js
+@@ -1,5 +1,6 @@
+ 'use strict';
+ 
++var _reactDom = _interopRequireDefault(require('react-dom'));
+ var _quill = _interopRequireDefault(require('quill'));
+ 
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+@@ -124,7 +125,7 @@
+   },
+ 
+   getEditingArea: function getEditingArea() {
+-    return this.editingArea;
++    return _reactDom.default.findDOMNode(this.editingArea);
+   },
+ 
+   getEditor: function getEditor() {
+diff --git a/node_modules/react-quill/src/mixin.js b/node_modules/react-quill/src/mixin.js
+index a20371a..b20531c 100644
+--- a/node_modules/react-quill/src/mixin.js
++++ b/node_modules/react-quill/src/mixin.js
+@@ -1,3 +1,4 @@
++import ReactDOM from 'react-dom';
+ import Quill from 'quill';
+ 
+ /*
+@@ -126,7 +127,7 @@
+ 	},
+ 
+ 	getEditingArea: function() {
+-		return this.editingArea;
++		return ReactDOM.findDOMNode(this.editingArea);
+ 	},
+ 
+ 	getEditor: function() {
+

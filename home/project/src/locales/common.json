@@ -1,0 +1,152 @@
+
+{
+    "searchPlaceholder": "Suchen...",
+    "changeLanguage": "Sprache ändern",
+    "toggleNotifications": "Benachrichtigungen umschalten",
+    "user": "Benutzer",
+    "notAuthenticated": "Nicht authentifiziert",
+    "settings": "Einstellungen",
+    "logout": {
+        "button": "Abmelden",
+        "toastTitle": "Abgemeldet",
+        "toastDescription": "Sie haben sich erfolgreich abgemeldet.",
+        "toastError": "Abmeldung fehlgeschlagen. Bitte versuchen Sie es erneut."
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "customers": "Kunden",
+        "projects": "Projekte",
+        "connections": "Verbindungen",
+        "communications": "Kommunikation",
+        "email": "E-Mail",
+        "articles": "Artikel",
+        "offers": "Angebote",
+        "expenses": "Ausgaben",
+        "teams": "Team-Verwaltung",
+        "todoList": "Aufgabenliste",
+        "marketing": "Marketing",
+        "support": "Support",
+        "chat": "Chat"
+    },
+    "articles": {
+        "title": "Artikel",
+        "description": "Produkte und Dienstleistungen, die Sie Ihren Kunden anbieten.",
+        "new": "Neuer Artikel",
+        "searchPlaceholder": "Artikel suchen...",
+        "tabs": {
+            "all": "ALLE",
+            "products": "PRODUKTE",
+            "services": "SERVICES"
+        },
+        "table": {
+            "number": "Artikel-Nr.",
+            "name": "Name",
+            "unit": "Einheit",
+            "priceNet": "Verkaufspreis (Netto)",
+            "tax": "Steuer",
+            "actions": "Aktionen"
+        },
+        "form": {
+            "createTitle": "Neuen Artikel erstellen",
+            "createDescription": "Füllen Sie die Details aus, um ein neues Produkt oder eine neue Dienstleistung zu Ihrem Katalog hinzuzufügen.",
+            "editTitle": "Artikel bearbeiten",
+            "editDescription": "Ändern Sie die Details dieses Produkts oder dieser Dienstleistung.",
+            "type": "Typ",
+            "product": "Produkt",
+            "service": "Dienstleistung",
+            "articleNumber": "Artikelnummer",
+            "articleNumberPlaceholder": "Z.B.: SW-001",
+            "name": "Artikelname",
+            "namePlaceholder": "Z.B.: Jährliche Softwarelizenz",
+            "unit": "Einheit",
+            "unitPlaceholder": "Z.B.: Stk, h, km, Pauschale",
+            "description": "Beschreibung",
+            "descriptionPlaceholder": "Fügen Sie Details über das Produkt oder die Dienstleistung hinzu...",
+            "tax": "Steuer",
+            "priceNet": "Verkaufspreis (Netto)",
+            "priceGross": "Endpreis (Brutto)",
+            "save": "Artikel speichern",
+            "saving": "Speichern...",
+            "saveChanges": "Änderungen speichern",
+            "creating": "Erstellen...",
+            "cancel": "Abbrechen"
+        },
+        "toast": {
+            "created": {
+                "title": "Artikel erstellt",
+                "description": "Der Artikel \"{{name}}\" wurde zu Ihrem Katalog hinzugefügt."
+            },
+            "updated": {
+                "title": "Artikel aktualisiert",
+                "description": "Der Artikel \"{{name}}\" wurde gespeichert."
+            },
+            "error": {
+                "title": "Fehler beim Speichern",
+                "description": "Der Artikel konnte nicht gespeichert werden."
+            }
+        },
+        "noArticles": "Keine Artikel. Erstellen Sie den ersten, um zu beginnen."
+    },
+    "calendar": {
+        "allDay": "Ganztägig",
+        "previous": "Zurück",
+        "next": "Weiter",
+        "today": "Heute",
+        "month": "Monat",
+        "week": "Woche",
+        "day": "Tag",
+        "agenda": "Agenda",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "event": "Ereignis",
+        "noEventsInRange": "Es gibt keine Ereignisse in diesem Bereich.",
+        "more": "weitere"
+    },
+    "connections": {
+        "title": "Verbindungen",
+        "add": "Verbindung hinzufügen",
+        "edit": "Verbindung bearbeiten",
+        "form": {
+            "title": "Verbindung hinzufügen/bearbeiten",
+            "description": "Details für eine neue Integration ausfüllen oder ändern.",
+            "type": "Verbindungstyp",
+            "typePlaceholder": "Typ auswählen",
+            "descriptionLabel": "Beschreibung",
+            "descriptionPlaceholder": "z.B. Haupt-Marketingkonto",
+            "userLabel": "Benutzer/E-Mail",
+            "userPlaceholder": "user@email.com",
+            "statusLabel": "Status",
+            "statusPlaceholder": "Status auswählen",
+            "status": {
+                "connected": "Verbunden",
+                "disconnected": "Getrennt",
+                "error": "Fehler"
+            },
+            "cancel": "Abbrechen",
+            "save": "Änderungen speichern",
+            "create": "Verbindung herstellen"
+        },
+        "deleteDialog": {
+            "title": "Sind Sie sicher?",
+            "description": "Diese Aktion wird die Verbindung für {{description}} entfernen.",
+            "confirm": "Ja, löschen"
+        },
+        "toast": {
+            "deleted": "Verbindung gelöscht",
+            "deleteError": "Fehler beim Löschen",
+            "updated": "Verbindung aktualisiert!",
+            "created": "Verbindung erstellt!"
+        },
+        "card": {
+            "title": "Verbundene Konten des Unternehmens",
+            "description": "Eine Liste aller aktiven Integrationen auf Unternehmensebene.",
+            "noConnections": "Keine Verbindungen. Fügen Sie eine hinzu, um zu beginnen.",
+            "button": "Neue Verbindung hinzufügen",
+            "sync": "Dateisynchronisation",
+            "editButton": "Bearbeiten",
+            "deleteButton": "Löschen"
+        }
+    }
+}
+
+    

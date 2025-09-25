@@ -1,0 +1,58 @@
+
+{
+    "title": "Einstellungen",
+    "tabs": {
+        "account": "Mein Konto",
+        "appearance": "Erscheinungsbild",
+        "profile": "Profil",
+        "security": "Sicherheit"
+    },
+    "account": {
+        "title": "Kontoübersicht",
+        "description": "Dies sind Ihre Kontoinformationen. Einige Details können im Profil-Tab bearbeitet werden.",
+        "email": "E-Mail",
+        "uid": "Benutzer-ID",
+        "loading": "Wird geladen..."
+    },
+    "appearance": {
+        "title": "Erscheinungsbild",
+        "description": "Passen Sie das Aussehen der Anwendung an.",
+        "light": "Hell",
+        "dark": "Dunkel",
+        "system": "System",
+        "unimplemented": "(Die Funktion zum Ändern des Themes ist derzeit nicht implementiert.)"
+    },
+    "profile": {
+        "title": "Mein Profil",
+        "description": "Aktualisieren Sie hier Ihre persönlichen Daten.",
+        "fullName": "Vollständiger Name",
+        "fullNamePlaceholder": "z.B. Erika Mustermann",
+        "preferredLanguage": "Bevorzugte Sprache",
+        "saveButton": "Änderungen speichern",
+        "savingButton": "Speichern...",
+        "toast": {
+            "successTitle": "Profil aktualisiert",
+            "successDescription": "Ihre Profilinformationen wurden gespeichert.",
+            "errorTitle": "Fehler beim Aktualisieren",
+            "errorDescription": "Ihr Profil konnte nicht gespeichert werden."
+        }
+    },
+    "security": {
+        "title": "Sicherheit",
+        "description": "Verwalten Sie Ihre Sicherheitseinstellungen, einschließlich Ihres Passworts.",
+        "changePasswordTitle": "Passwort ändern",
+        "currentPassword": "Aktuelles Passwort",
+        "newPassword": "Neues Passwort",
+        "confirmPassword": "Neues Passwort bestätigen",
+        "saveButton": "Passwort ändern",
+        "savingButton": "Ändern...",
+        "toast": {
+            "successTitle": "Passwort geändert!",
+            "successDescription": "Ihr Passwort wurde erfolgreich aktualisiert.",
+            "errorTitle": "Fehler beim Ändern des Passworts",
+            "errorMismatch": "Die neuen Passwörter stimmen nicht überein.",
+            "errorWeak": "Das neue Passwort ist zu schwach.",
+            "errorGeneric": "Das Passwort konnte nicht geändert werden."
+        }
+    }
+}

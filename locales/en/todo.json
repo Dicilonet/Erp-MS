@@ -1,0 +1,40 @@
+
+{
+    "title": "My To-Do List",
+    "description": "Organize your personal tasks and never forget an idea.",
+    "addTask": "Add Task",
+    "quickTaskTitle": "Quick Task",
+    "noTasksInCategory": "No tasks in this category.",
+    "tabs": {
+        "all": "All",
+        "important": "Important",
+        "normal": "Normal",
+        "ideas": "Ideas",
+        "completed": "Completed"
+    },
+    "priorities": {
+        "importante": "Important",
+        "media": "Normal",
+        "idea": "Idea"
+    },
+    "form": {
+        "addTitle": "Add New Task",
+        "addDescription": "Jot down something quick so you don't forget.",
+        "editTitle": "Edit Task",
+        "editDescription": "Modify the details of your task.",
+        "titleLabel": "Title (Optional)",
+        "titlePlaceholder": "E.g.: Call the client...",
+        "detailsLabel": "Details",
+        "detailsPlaceholder": "Add more details about the task.",
+        "priorityLabel": "Priority",
+        "cancel": "Cancel",
+        "save": "Save Changes",
+        "create": "Create Task"
+    },
+    "toast": {
+        "created": "Task created",
+        "updated": "Task updated",
+        "errorTitle": "Error",
+        "errorMessage": "Could not save the task."
+    }
+}

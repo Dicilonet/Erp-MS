@@ -1,0 +1,74 @@
+
+{
+    "page": {
+        "title": "Gestión de Gastos",
+        "addButton": "Añadir Gasto"
+    },
+    "list": {
+        "title": "Historial de Gastos",
+        "description": "Una lista de todos los gastos registrados en el sistema, con desglose de IVA.",
+        "noExpenses": "No se han encontrado gastos.",
+        "table": {
+            "customer": "Asociado a",
+            "description": "Descripción",
+            "category": "Categoría",
+            "date": "Fecha",
+            "subtotal": "Subtotal",
+            "tax": "IVA",
+            "total": "Total",
+            "general": "Gasto General"
+        }
+    },
+    "form": {
+        "createTitle": "Registrar Nuevo Gasto con IA",
+        "createDescription": "Sube una factura o usa tu cámara. La IA extraerá los datos y tú los confirmas.",
+        "uploadButton": "Subir Factura",
+        "cameraButton": "Usar Cámara (Próximamente)",
+        "processing": "Analizando...",
+        "associateCustomer": "¿Asociar a un cliente?",
+        "customerLabel": "Cliente",
+        "customerPlaceholder": "Selecciona un cliente",
+        "descriptionLabel": "Descripción del Gasto",
+        "descriptionPlaceholder": "Ej: Licencia anual de software de diseño",
+        "subtotalLabel": "Subtotal (€)",
+        "taxRateLabel": "IVA (%)",
+        "totalLabel": "Total",
+        "categoryLabel": "Categoría",
+        "categoryPlaceholder": "Selecciona categoría",
+        "dateLabel": "Fecha del Gasto",
+        "datePlaceholder": "Selecciona una fecha",
+        "cancel": "Cancelar",
+        "submit": "Crear Gasto",
+        "submitting": "Guardando...",
+        "processingToast": {
+            "title": "Procesando factura...",
+            "description": "La IA está analizando la imagen. Esto puede tardar unos segundos."
+        },
+        "successToast": {
+            "title": "¡Información Extraída!",
+            "description": "Los campos han sido rellenados. Por favor, revísalos."
+        },
+        "errorToast": {
+            "title": "Error de IA",
+            "description": "No se pudo procesar la imagen."
+        },
+        "saveSuccessToast": {
+            "title": "¡Gasto Registrado!",
+            "description": "El gasto de {{total}} se ha guardado correctamente."
+        },
+        "saveErrorToast": {
+            "title": "Error al Registrar Gasto",
+            "description": "Hubo un problema al guardar el gasto. Por favor, intenta de nuevo."
+        },
+        "categories": {
+            "software": "Software",
+            "marketing": "Marketing",
+            "hardware": "Hardware",
+            "office": "Oficina",
+            "consulting": "Consultoría",
+            "transport": "Transporte",
+            "food": "Comida",
+            "other": "Otros"
+        }
+    }
+}

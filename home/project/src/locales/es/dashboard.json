@@ -1,0 +1,173 @@
+
+{
+    "title": "Dashboard Principal",
+    "googleDrive": {
+        "title": "Conexión con Drive",
+        "description": "Sincroniza tus archivos y documentos.",
+        "button": "Conectar Google Drive"
+    },
+    "interestingPrograms": {
+        "title": "Programas de Interés",
+        "description": "Herramientas y plataformas recomendadas.",
+        "add": "Añadir",
+        "noPrograms": "No hay programas para mostrar. Comienza añadiendo uno.",
+        "deleteDialog": {
+            "title": "¿Estás seguro?",
+            "description": "Esta acción no se puede deshacer. Esto eliminará permanentemente el programa \"{{name}}\" de la lista.",
+            "cancel": "Cancelar",
+            "confirm": "Sí, eliminar"
+        }
+    },
+    "unifiedComms": {
+        "title": "Vista de Comunicaciones Unificada",
+        "description": "Conecta y visualiza tus canales de comunicación.",
+        "sources": {
+            "diciSearch": "Búsquedas Activas",
+            "email": "Correos no Leídos",
+            "googleSheets": "Hojas Sincronizadas",
+            "airtable": "Bases Activas"
+        }
+    },
+    "notifications": {
+        "title": "Notificaciones Prioritarias",
+        "description": "{{count}} notificaciones no leídas",
+        "items": {
+            "onboarding": {
+                "title": "Onboarding del cliente 'Innovate Inc.'",
+                "description": "Finalizar detalles del contrato."
+            },
+            "deadline": {
+                "title": "Fecha límite del Proyecto Alpha",
+                "description": "La entrega es en 2 días."
+            },
+            "followUp": {
+                "title": "Seguimiento con 'Tech Solutions'",
+                "description": "Propuesta enviada, esperando respuesta."
+            },
+            "meeting": {
+                "title": "Reunión de equipo para plan Q3",
+                "description": "Agendada para mañana a las 10 AM."
+            },
+            "newLead": {
+                "title": "Nuevo lead desde DiciSearch",
+                "description": "Contactar a 'Future Gadgets'."
+            }
+        }
+    },
+    "teams": {
+        "description": "Añade o visualiza miembros del equipo.",
+        "addMember": "Añadir Miembro",
+        "tabs": {
+            "collaborators": "Colaboradores",
+            "teamOffice": "TeamOffice"
+        },
+        "table": {
+            "name": "Nombre",
+            "country": "País",
+            "whatsapp": "WhatsApp",
+            "email": "Email",
+            "actions": "Acciones",
+            "viewProfile": "Ver Perfil",
+            "noUsers": "No se han encontrado usuarios con este rol.",
+            "colaborador": {
+                "title": "Colaboradores",
+                "description": "Una lista de todos los usuarios con el rol de colaborador."
+            },
+            "teamoffice": {
+                "title": "Miembros de TeamOffice",
+                "description": "Una lista de todos los usuarios con el rol de teamoffice."
+            }
+        },
+        "profile": {
+            "backButton": "Volver a Equipos",
+            "profileCard": {
+                "title": "Perfil",
+                "role": {
+                    "superadmin": "Super Admin",
+                    "colaborador": "Colaborador",
+                    "teamoffice": "TeamOffice"
+                },
+                "memberSince": "Miembro desde",
+                "uid": "ID de Usuario"
+            },
+            "permissionsCard": {
+                "title": "Permisos de Módulos",
+                "description": "Selecciona los módulos a los que este usuario tendrá acceso.",
+                "description_viewer": "Estos son los módulos a los que tienes acceso.",
+                "saveButton": "Guardar Cambios",
+                "savingButton": "Guardando...",
+                "noPermission": "No tienes permisos para cambiar roles.",
+                "success": "Permisos Actualizados",
+                "successDescription": "Se han guardado los permisos para {{name}}.",
+                "error": "Error al Guardar"
+            }
+        },
+        "createForm": {
+            "title": "Añadir Nuevo Miembro al Equipo",
+            "description": "Completa los detalles para registrar un nuevo usuario interno.",
+            "fullName": "Nombre Completo",
+            "fullNamePlaceholder": "Ej: Ana García",
+            "email": "Email",
+            "emailPlaceholder": "miembro@dicilo.com",
+            "country": "País",
+            "countryPlaceholder": "Ej: España",
+            "whatsapp": "WhatsApp",
+            "whatsappPlaceholder": "+34 123 456 789",
+            "password": "Contraseña Inicial",
+            "passwordPlaceholder": "Contraseña segura",
+            "role": "Tipo de Miembro",
+            "rolePlaceholder": "Selecciona un rol",
+            "cancel": "Cancelar",
+            "submit": "Crear Miembro",
+            "submitting": "Creando...",
+            "successTitle": "¡Miembro Creado!",
+            "successDescription": "El usuario {{name}} ha sido creado con el rol de {{role}}.",
+            "errorTitle": "Error al Crear Miembro",
+            "errorDescription": "Hubo un problema al crear el usuario. Revisa los logs."
+        }
+    },
+    "tasks": {
+        "title": "Tareas Prioritarias",
+        "description": "Las 7 tareas más importantes y próximas a vencer.",
+        "noTasks": "¡Buen trabajo! No hay tareas pendientes.",
+        "dueDate": "Vence",
+        "in": "En",
+        "unknownProject": "Proyecto Desconocido",
+        "viewAll": "Ver todos los proyectos y tareas"
+    },
+    "search": {
+        "title": "Búsqueda Unificada",
+        "description": "Encuentra clientes e interacciones a través de todas tus fuentes.",
+        "placeholder": "Buscar por nombre, email o contenido de interacción...",
+        "noResults": "No se encontraron resultados para \"{{term}}\".",
+        "unknownCustomer": "Cliente desconocido",
+        "interactionLabel": "Interacción",
+        "errorTitle": "Error de Búsqueda",
+        "errorDescription": "No se pudo realizar la búsqueda. Inténtalo de nuevo."
+    },
+    "quickTasks": {
+        "title": "Tareas Rápidas",
+        "description": "Tus próximas tareas pendientes.",
+        "noTasks": "¡Enhorabuena! No tienes tareas importantes pendientes.",
+        "viewAll": "Ver todas las tareas"
+    },
+    "calculator": {
+        "title": "Calculadora"
+    },
+    "aiSummary": {
+        "title": "Resúmenes con IA",
+        "description": "Genera un resumen de una interacción para registrarlo como nota de cliente.",
+        "interactionTextLabel": "Texto de la Interacción",
+        "interactionTextPlaceholder": "Pega o escribe aquí el texto de la interacción con el cliente...",
+        "suggestedSummaryLabel": "Resumen Sugerido",
+        "copyAction": "Copiar resumen",
+        "generateButton": "Generar Resumen",
+        "generatingButton": "Generando...",
+        "toast": {
+            "copiedTitle": "¡Copiado!",
+            "copiedDescription": "El resumen ha sido copiado al portapapeles.",
+            "errorTitle": "Error al Generar Resumen",
+            "errorDescription": "Hubo un problema conectando con el servicio de IA. Inténtalo más tarde."
+        }
+    }
+}

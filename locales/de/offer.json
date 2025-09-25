@@ -1,0 +1,102 @@
+
+{
+    "page": {
+        "title": "Angebotsverwaltung",
+        "createButton": "Angebot erstellen"
+    },
+    "list": {
+        "title": "Angebotshistorie",
+        "description": "Eine Liste aller im System erstellten Angebote.",
+        "noOffers": "Keine Angebote gefunden.",
+        "table": {
+            "number": "Angebots-Nr.",
+            "customer": "Kunde",
+            "issueDate": "Ausstellungsdatum",
+            "status": "Status",
+            "total": "Gesamt"
+        },
+        "status": {
+            "Borrador": "Entwurf",
+            "Enviada": "Gesendet",
+            "Visto": "Gesehen",
+            "Aceptada": "Angenommen",
+            "Rechazada": "Abgelehnt",
+            "Vencida": "Abgelaufen"
+        },
+        "actions": {
+            "title": "Aktionen",
+            "edit": "Bearbeiten",
+            "duplicate": "Duplizieren"
+        }
+    },
+    "form": {
+        "createTitle": "Neues Angebot",
+        "editTitle": "Angebot bearbeiten",
+        "customer": {
+            "label": "Kunde",
+            "placeholder": "Kunden auswählen..."
+        },
+        "documentTitle": {
+            "label": "Dokumententitel"
+        },
+        "introductoryText": {
+            "label": "Einleitungstext"
+        },
+        "offerNumber": {
+            "label": "Angebots-Nr.",
+            "auto": "wird automatisch vergeben"
+        },
+        "customerNumber": {
+            "label": "Kundennummer"
+        },
+        "issueDate": {
+            "label": "Datum",
+            "placeholder": "Datum auswählen"
+        },
+        "expiryDate": {
+            "label": "Gültig bis",
+            "placeholder": "Datum auswählen"
+        },
+        "items": {
+            "quantity": "Menge",
+            "unit": "Einheit",
+            "price": "Einzelpreis",
+            "discount": "Rabatt %",
+            "tax": "Steuer",
+            "total": "Gesamt",
+            "descriptionPlaceholder": "Artikel- oder Leistungsbeschreibung...",
+            "addItem": "Position hinzufügen"
+        },
+        "notes": {
+            "label": "Schlusstext"
+        },
+        "totals": {
+            "subtotal": "Zwischensumme (Netto)",
+            "tax": "+ USt.",
+            "total": "Gesamtbetrag"
+        },
+        "actions": {
+            "cancel": "Abbrechen",
+            "saveDraft": "Als Entwurf speichern",
+            "saveAndSend": "Speichern und Senden",
+            "createAndSend": "Erstellen und Senden"
+        },
+        "defaultIntro": "Sehr geehrte Damen und Herren,\n\nvielen Dank für Ihre Anfrage. Gerne bieten wir Ihnen an:",
+        "defaultIntroWithCustomer": "Sehr geehrte/r {{name}},\n\nvielen Dank für Ihre Anfrage. Gerne bieten wir Ihnen an:",
+        "defaultNotes": "Alle Preise verstehen sich zzgl. der gesetzlichen Mehrwertsteuer. Unsere Angebote sind freibleibend. Es gelten unsere AGB."
+    },
+    "toast": {
+        "sent": {
+            "title": "Angebot gesendet!",
+            "description": "Das Angebot {{offerNumber}} wurde erfolgreich erstellt und versendet."
+        },
+        "draft": {
+            "title": "Entwurf gespeichert!",
+            "description": "Das Angebot {{offerNumber}} wurde erfolgreich gespeichert."
+        },
+        "error": {
+            "title": "Fehler beim Speichern",
+            "unknown": "Ein unbekannter Fehler ist aufgetreten."
+        }
+    }
+}

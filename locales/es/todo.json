@@ -1,0 +1,40 @@
+
+{
+    "title": "Mi Lista de Tareas",
+    "description": "Organiza tus tareas personales y nunca olvides una idea.",
+    "addTask": "Añadir Tarea",
+    "quickTaskTitle": "Tarea Rápida",
+    "noTasksInCategory": "No hay tareas en esta categoría.",
+    "tabs": {
+        "all": "Todas",
+        "important": "Importantes",
+        "normal": "Normales",
+        "ideas": "Ideas",
+        "completed": "Completadas"
+    },
+    "priorities": {
+        "importante": "Importante",
+        "media": "Normal",
+        "idea": "Idea"
+    },
+    "form": {
+        "addTitle": "Añadir Nueva Tarea",
+        "addDescription": "Anota algo rápido para que no se te olvide.",
+        "editTitle": "Editar Tarea",
+        "editDescription": "Modifica los detalles de tu tarea.",
+        "titleLabel": "Título (Opcional)",
+        "titlePlaceholder": "Ej: Llamar al cliente...",
+        "detailsLabel": "Detalles",
+        "detailsPlaceholder": "Añade más detalles sobre la tarea.",
+        "priorityLabel": "Prioridad",
+        "cancel": "Cancelar",
+        "save": "Guardar Cambios",
+        "create": "Crear Tarea"
+    },
+    "toast": {
+        "created": "Tarea creada",
+        "updated": "Tarea actualizada",
+        "errorTitle": "Error",
+        "errorMessage": "No se pudo guardar la tarea."
+    }
+}

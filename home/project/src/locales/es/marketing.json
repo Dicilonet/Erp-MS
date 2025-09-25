@@ -1,0 +1,309 @@
+
+{
+    "nav": {
+        "contentPool": "Arsenal de Contenido",
+        "marketingPlan": "Marketing",
+        "geomarketing": "Geomarketing",
+        "coupons": "Cupones",
+        "scanner": "Escanear",
+        "designer": "Diseñador",
+        "connections": "Conexiones",
+        "automation": "Calendario"
+    },
+    "marketingSuite": {
+        "title": "Suite de Marketing Conectado",
+        "connections": {
+            "title": "Conexiones Sociales",
+            "description": "Conecta tus cuentas de redes sociales para automatizar publicaciones.",
+            "manageTitle": "Gestionar Conexiones",
+            "manageDescription": "Autoriza al ERP a publicar en tu nombre.",
+            "connectFacebook": "Conectar Facebook",
+            "connectInstagram": "Conectar Instagram",
+            "connected": "Conectado",
+            "notConnected": "No conectado",
+            "infoTitle": "Nota sobre Instagram",
+            "infoDescription": "Para conectar una cuenta de Instagram Business, primero debes conectar la página de Facebook a la que está vinculada."
+        },
+        "composer": {
+            "title": "Crear Nueva Publicación",
+            "createButton": "Crear Publicación",
+            "placeholder": "¿Qué tienes en mente?",
+            "scheduleButton": "Programar Publicación",
+            "platforms": "Plataformas",
+            "media": "Adjuntar Imagen/Video",
+            "scheduleAt": "Programar para"
+        },
+        "calendar": {
+            "title": "Calendario de Contenidos",
+            "description": "Visualiza y gestiona todas tus publicaciones programadas."
+        }
+    },
+    "designer": {
+        "title": "Diseñador de Redes Sociales",
+        "description": "Crea imágenes profesionales para redes sociales de forma rápida y sencilla.",
+        "layouts": {
+            "layout1": "Cuadrado (Título, Imagen, Pie)",
+            "layout2": "Cuadrado (Imagen, Pie)",
+            "layout3": "Horizontal (Imagen, Lateral)",
+            "layout4": "Vertical (4:5)",
+            "layout5": "Story (9:16)"
+        },
+        "editor": {
+            "title": "Editor",
+            "layout": "Diseño",
+            "image": "Fondo / Imagen",
+            "logo": "Logo",
+            "titleLabel": "Título",
+            "icon": "Icono",
+            "web": "Web",
+            "contact": "Contacto",
+            "bgColor": "Color de fondo del texto"
+        },
+        "export": {
+            "share": "Compartir",
+            "publishing": "Publicando...",
+            "publish": "Publicar Ahora"
+        },
+        "share": {
+            "title": "¡Mira este diseño!",
+            "text": "Creado con el Diseñador de Redes Sociales del ERP.",
+            "notSupported": "Tu navegador no soporta la API para compartir."
+        },
+        "imageSource": {
+            "button": "Seleccionar Fuente de Imagen...",
+            "title": "Fuente de Imagen",
+            "description": "Elige cómo quieres añadir una imagen.",
+            "tabs": {
+                "upload": "Subir",
+                "ai": "Generar con IA",
+                "camera": "Cámara"
+            },
+            "uploadLabel": "Seleccionar archivo de imagen",
+            "promptPlaceholder": "Describe la imagen que quieres crear...",
+            "generateButton": "Generar Imagen",
+            "generatingButton": "Generando...",
+            "generatingToast": {
+                "title": "Generando imagen...",
+                "description": "La IA está creando tu imagen. Esto puede tardar un momento."
+            },
+            "errorToast": {
+                "title": "Error de Generación de Imagen",
+                "description": "No se pudo generar la imagen."
+            },
+            "cameraError": {
+                "title": "Error de Cámara",
+                "description": "Se denegó el acceso a la cámara. Revisa los permisos."
+            },
+            "captureButton": "Tomar Foto",
+            "dictationError": {
+                "title": "Error de Dictado",
+                "notSupported": "El reconocimiento de voz no es compatible con este navegador."
+            },
+            "dictation": {
+                "start": "Dictar prompt",
+                "stop": "Detener dictado"
+            }
+        }
+    },
+    "scanner": {
+        "title": "Escáner de Cupones",
+        "description": "Usa la cámara de tu dispositivo para escanear un código QR y verificar el estado de un cupón al instante.",
+        "notSupportedTitle": "Navegador no Compatible",
+        "notSupported": "Tu navegador no soporta la detección de códigos QR de forma nativa. Por favor, usa una versión reciente de Chrome, Edge o Safari en un dispositivo compatible.",
+        "cameraErrorTitle": "Acceso a la Cámara Denegado",
+        "cameraError": "Para escanear cupones, necesitas dar permiso a esta página para usar tu cámara en los ajustes del navegador.",
+        "errorTitle": "Error",
+        "scanning": "Buscando código QR...",
+        "ready": "Listo para escanear",
+        "prompt": "Pulsa el botón para iniciar la cámara",
+        "start": "Iniciar Escáner",
+        "stop": "Detener",
+        "foundTitle": "Cupón Encontrado",
+        "notFound": "Cupón con código \"{{code}}\" no encontrado.",
+        "redeemButton": "Canjear Cupón",
+        "redeeming": "Canjeando...",
+        "redeemSuccessTitle": "¡Cupón Canjeado!",
+        "redeemSuccessDescription": "El cupón {{code}} ha sido marcado como canjeado.",
+        "redeemErrorTitle": "Error al Canjear",
+        "scanNext": "Escanear Siguiente Cupón"
+    },
+    "coupons": {
+        "tabs": {
+            "batch": "Crear Lote",
+            "individual": "Cupón Individual",
+            "list": "Lista de Cupones"
+        },
+        "individual": {
+            "title": "Crear Cupón Individual",
+            "description": "Genera un único cupón personalizado con una imagen y dedicatoria especiales.",
+            "defaultTitle": "Invitación Personal",
+            "recipient": "Para (Destinatario)",
+            "recipientPlaceholder": "Nombre de la persona",
+            "sender": "De (Emisor)",
+            "imageLabel": "Imagen de Fondo (Opcional)",
+            "for": "Para: {{recipientName}}",
+            "from": "De: {{senderName}}",
+            "preview": "Vista Previa",
+            "createButton": "Generar Cupón Individual",
+            "creatingButton": "Generando...",
+            "newButton": "Crear Otro",
+            "successToast": {
+                "title": "¡Cupón Individual Creado!",
+                "description": "Se ha generado el cupón {{code}} y se ha enviado una notificación."
+            },
+            "errorToast": {
+                "title": "Error al Crear Cupón",
+                "description": "No se pudo generar el cupón individual."
+            }
+        },
+        "title": "Gestión de Cupones",
+        "description": "Crea, administra y sigue el rendimiento de tus campañas de cupones.",
+        "batchCreator": {
+            "title": "Crear Lote de Cupones",
+            "description": "Configura y genera un nuevo set de cupones. Utiliza la vista previa en vivo para ajustar el diseño.",
+            "count": "Cantidad",
+            "value": "Valor del Cupón (Texto)",
+            "valuePlaceholder": "Ej: 10 €, 15%, Envío Gratis",
+            "titleLabel": "Título del Cupón",
+            "titlePlaceholder": "Ej: Descuento de Verano",
+            "subtitle": "Subtítulo",
+            "subtitlePlaceholder": "Ej: ¡Actívalo ahora!",
+            "backgroundImage": "URL de Imagen de Fondo",
+            "backgroundImagePlaceholder": "https://... (opcional)",
+            "expires": "Vence el (opcional)",
+            "terms": "Términos y Condiciones",
+            "termsPlaceholder": "Ej: Válido para un solo uso...",
+            "error": "Error: {{message}}",
+            "createButton": "Crear {{count}} cupones",
+            "creatingButton": "Creando...",
+            "successToast": "¡Lote creado!",
+            "successDescription": "Se han generado {{count}} nuevos cupones.",
+            "errorToast": "Error al crear el lote"
+        },
+        "adminList": {
+            "searchPlaceholder": "Buscar por código, título, valor...",
+            "month": "Mes",
+            "export": "Exportar CSV",
+            "refresh": "Refrescar",
+            "loading": "Cargando...",
+            "status": "Estado",
+            "redeemedOn": "Canjeado el",
+            "noCoupons": "No hay cupones para este mes. ¡Crea un nuevo lote!"
+        },
+        "redeem": {
+            "title": "Canjear Cupón",
+            "searching": "Buscando cupón...",
+            "code": "Código",
+            "status": "Estado",
+            "redeemedOn": "Canjeado el",
+            "expired": "Vencido",
+            "redeemNow": "Canjear ahora",
+            "name": "Nombre",
+            "contact": "Contacto (WhatsApp/Email/Telegram)",
+            "channel": "Canal",
+            "confirm": "Confirmar Canje",
+            "alreadyRedeemed": "Este cupón ya fue canjeado.",
+            "notAvailable": "Este cupón no está disponible.",
+            "fillFields": "Completa nombre y contacto",
+            "success": "¡Cupón canjeado correctamente!",
+            "error": "Error: {{message}}",
+            "statuses": {
+                "active": "Activo",
+                "redeemed": "Canjeado",
+                "expired": "Expirado"
+            }
+        }
+    },
+    "contentPool": {
+        "title": "Arsenal de Contenido",
+        "description": "Busca, filtra y gestiona todos tus activos de marketing reutilizables.",
+        "createAsset": "Crear Activo de Contenido",
+        "filterByTags": "Filtrar por etiquetas...",
+        "filterByBrands": "Filtrar por marcas...",
+        "loadMore": "+{{count}} más",
+        "noAssets": "No se encontraron activos.",
+        "noAssetsDescription": "Comienza por crear un nuevo activo de contenido para verlo aquí."
+    },
+    "createAssetForm": {
+        "title": "Crear Nuevo Activo de Contenido",
+        "editTitle": "Editar Activo de Contenido",
+        "description": "Rellena los detalles para crear una nueva plantilla de marketing.",
+        "editDescription": "Modifica los detalles de este activo de marketing.",
+        "assetName": "Nombre del Activo",
+        "assetNamePlaceholder": "Ej: Post Promocional de Verano",
+        "assetType": "Tipo de Activo",
+        "selectAssetType": "Selecciona un tipo...",
+        "socialPost": "Post para Redes Sociales",
+        "campaignTemplate": "Plantilla de Campaña",
+        "tags": "Etiquetas (separadas por comas)",
+        "tagsPlaceholder": "oferta, verano, producto",
+        "brands": "Marcas (separadas por comas)",
+        "brandsPlaceholder": "marca-a, marca-b",
+        "text": "Texto del Contenido",
+        "textPlaceholder": "¡No te pierdas nuestras ofertas de verano!",
+        "imageUrl": "URL de la Imagen (Opcional)",
+        "imageUrlPlaceholder": "https://...",
+        "channels": "Canales de Publicación",
+        "save": "Guardar Activo",
+        "saving": "Guardando...",
+        "update": "Actualizar Activo",
+        "updating": "Actualizando..."
+    },
+    "page": {
+        "title": "Marketing",
+        "description": "Selecciona un cliente para ver y gestionar su calendario de marketing."
+    },
+    "toasts": {
+        "seed": {
+            "title": "Datos de Prueba Creados",
+            "description": "Se han añadido 3 clientes de ejemplo a tu base de datos."
+        },
+        "seedError": {
+            "title": "Error al Crear Datos de Prueba",
+            "description": "No se pudieron crear los datos de prueba."
+        },
+        "loadError": {
+            "title": "Error",
+            "description": "No se pudieron cargar los eventos."
+        },
+        "customerNeeded": {
+            "title": "Acción requerida",
+            "description": "Por favor, selecciona un cliente antes de programar un evento.",
+            "descriptionProject": "Este proyecto no está asociado a un cliente, por lo que no se pueden programar posts."
+        }
+    },
+    "projectCalendar": {
+        "title": "Plan de Marketing del Proyecto",
+        "description": "Calendario de publicaciones y eventos de marketing asociados a este proyecto.",
+        "scheduleButton": "Programar Post"
+    },
+    "modal": {
+        "title": "Programar Nuevo Post",
+        "description": "Selecciona un activo del Content Pool para programar en el día {{date}}.",
+        "project": {
+            "label": "Proyecto",
+            "placeholder": "Selecciona un proyecto para asociarlo"
+        },
+        "asset": {
+            "label": "Activo del Content Pool",
+            "placeholder": "Selecciona una plantilla..."
+        },
+        "text": {
+            "label": "Texto Final del Post"
+        },
+        "cancel": "Cancelar",
+        "submit": "Programar Evento",
+        "toast": {
+            "success": {
+                "title": "Evento Programado",
+                "description": "El post ha sido añadido al calendario del proyecto."
+            },
+            "error": {
+                "title": "Error",
+                "description": "No se pudo programar el evento."
+            }
+        }
+    }
+}
+
+    

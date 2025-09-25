@@ -1,0 +1,102 @@
+
+{
+    "page": {
+        "title": "Gestión de Ofertas",
+        "createButton": "Crear Oferta"
+    },
+    "list": {
+        "title": "Historial de Ofertas",
+        "description": "Una lista de todas las ofertas generadas en el sistema.",
+        "noOffers": "No se han encontrado ofertas.",
+        "table": {
+            "number": "Nº Oferta",
+            "customer": "Cliente",
+            "issueDate": "Fecha Emisión",
+            "status": "Estado",
+            "total": "Total"
+        },
+        "status": {
+            "Borrador": "Borrador",
+            "Enviada": "Enviada",
+            "Visto": "Visto",
+            "Aceptada": "Aceptada",
+            "Rechazada": "Rechazada",
+            "Vencida": "Vencida"
+        },
+        "actions": {
+            "title": "Acciones",
+            "edit": "Editar",
+            "duplicate": "Duplicar"
+        }
+    },
+    "form": {
+        "createTitle": "Nueva Oferta",
+        "editTitle": "Editar Oferta",
+        "customer": {
+            "label": "Cliente",
+            "placeholder": "Seleccionar un cliente..."
+        },
+        "documentTitle": {
+            "label": "Título del Documento"
+        },
+        "introductoryText": {
+            "label": "Texto de Introducción"
+        },
+        "offerNumber": {
+            "label": "Nº de Oferta",
+            "auto": "se asigna al guardar"
+        },
+        "customerNumber": {
+            "label": "Nº de Cliente"
+        },
+        "issueDate": {
+            "label": "Fecha",
+            "placeholder": "Seleccionar fecha"
+        },
+        "expiryDate": {
+            "label": "Válida hasta",
+            "placeholder": "Seleccionar fecha"
+        },
+        "items": {
+            "quantity": "Cant.",
+            "unit": "Unidad",
+            "price": "P. Unitario",
+            "discount": "Dto. %",
+            "tax": "Impuesto",
+            "total": "Total",
+            "descriptionPlaceholder": "Descripción del artículo o servicio...",
+            "addItem": "Añadir Ítem"
+        },
+        "notes": {
+            "label": "Texto Final / Notas"
+        },
+        "totals": {
+            "subtotal": "Subtotal (Neto)",
+            "tax": "+ IVA",
+            "total": "Total"
+        },
+        "actions": {
+            "cancel": "Cancelar",
+            "saveDraft": "Guardar Borrador",
+            "saveAndSend": "Guardar y Enviar",
+            "createAndSend": "Crear y Enviar"
+        },
+        "defaultIntro": "Estimados señores y señoras,\n\nMuchas gracias por su consulta. Nos complace ofrecerles:",
+        "defaultIntroWithCustomer": "Estimado/a {{name}},\n\nMuchas gracias por su consulta. Nos complace ofrecerles:",
+        "defaultNotes": "Todos los precios son netos, más el IVA legal. Nuestras ofertas no son vinculantes. Se aplican nuestros Términos y Condiciones Generales."
+    },
+    "toast": {
+        "sent": {
+            "title": "¡Oferta Enviada!",
+            "description": "La oferta {{offerNumber}} ha sido creada y enviada correctamente."
+        },
+        "draft": {
+            "title": "¡Borrador Guardado!",
+            "description": "La oferta {{offerNumber}} ha sido guardada correctamente."
+        },
+        "error": {
+            "title": "Error al Guardar",
+            "unknown": "Ha ocurrido un error desconocido."
+        }
+    }
+}

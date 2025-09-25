@@ -1,0 +1,40 @@
+
+{
+    "title": "Meine Aufgabenliste",
+    "description": "Organisieren Sie Ihre persönlichen Aufgaben und vergessen Sie nie eine Idee.",
+    "addTask": "Aufgabe hinzufügen",
+    "quickTaskTitle": "Schnelle Aufgabe",
+    "noTasksInCategory": "Keine Aufgaben in dieser Kategorie.",
+    "tabs": {
+        "all": "Alle",
+        "important": "Wichtig",
+        "normal": "Normal",
+        "ideas": "Ideen",
+        "completed": "Erledigt"
+    },
+    "priorities": {
+        "importante": "Wichtig",
+        "media": "Normal",
+        "idea": "Idee"
+    },
+    "form": {
+        "addTitle": "Neue Aufgabe hinzufügen",
+        "addDescription": "Notieren Sie schnell etwas, damit Sie es nicht vergessen.",
+        "editTitle": "Aufgabe bearbeiten",
+        "editDescription": "Ändern Sie die Details Ihrer Aufgabe.",
+        "titleLabel": "Titel (Optional)",
+        "titlePlaceholder": "Z.B.: Den Kunden anrufen...",
+        "detailsLabel": "Details",
+        "detailsPlaceholder": "Fügen Sie weitere Details zur Aufgabe hinzu.",
+        "priorityLabel": "Priorität",
+        "cancel": "Abbrechen",
+        "save": "Änderungen speichern",
+        "create": "Aufgabe erstellen"
+    },
+    "toast": {
+        "created": "Aufgabe erstellt",
+        "updated": "Aufgabe aktualisiert",
+        "errorTitle": "Fehler",
+        "errorMessage": "Die Aufgabe konnte nicht gespeichert werden."
+    }
+}

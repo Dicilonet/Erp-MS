@@ -1,0 +1,77 @@
+
+{
+    "title": "Verbindungen",
+    "add": "Verbindung hinzufügen",
+    "edit": "Verbindung bearbeiten",
+    "form": {
+        "title": "Verbindung hinzufügen/bearbeiten",
+        "description": "Details für eine neue Integration ausfüllen oder ändern.",
+        "type": "Verbindungstyp",
+        "typePlaceholder": "Typ auswählen",
+        "descriptionLabel": "Beschreibung",
+        "descriptionPlaceholder": "z.B. Haupt-Marketingkonto",
+        "userLabel": "Benutzer/E-Mail",
+        "userPlaceholder": "user@email.com",
+        "statusLabel": "Status",
+        "statusPlaceholder": "Status auswählen",
+        "status": {
+            "Conectado": "Verbunden",
+            "Desconectado": "Getrennt",
+            "Error": "Fehler"
+        },
+        "cancel": "Abbrechen",
+        "save": "Änderungen speichern",
+        "create": "Verbindung herstellen"
+    },
+    "deleteDialog": {
+        "title": "Sind Sie sicher?",
+        "description": "Diese Aktion wird die Verbindung für {{description}} entfernen.",
+        "confirm": "Ja, löschen"
+    },
+    "toast": {
+        "deleted": "Verbindung gelöscht",
+        "deleteError": "Fehler beim Löschen",
+        "updated": "Verbindung aktualisiert!",
+        "created": "Verbindung erstellt!"
+    },
+    "card": {
+        "title": "Verbindungs-Management",
+        "description": "Eine Liste aller aktiven Integrationen auf Unternehmensebene.",
+        "noConnections": "Keine Verbindungen. Fügen Sie eine hinzu, um zu beginnen.",
+        "button": "Neue Verbindung hinzufügen",
+        "sync": "Dateisynchronisation",
+        "editButton": "Bearbeiten",
+        "deleteButton": "Löschen"
+    },
+    "serviceCatalog": {
+        "title": "Werkzeugkatalog",
+        "description": "Eine kuratierte und bearbeitbare Sammlung von Werkzeugen für Marketing, Design, Entwicklung und mehr.",
+        "selectCategoryPlaceholder": "Kategorie auswählen...",
+        "searchPlaceholder": "In dieser Kategorie suchen...",
+        "addTool": "Werkzeug hinzufügen",
+        "restore": "Wiederherstellen",
+        "apiKeyLabel": "API-Schlüssel / Token",
+        "noResults": "Keine Werkzeuge für \"{{searchTerm}}\" gefunden.",
+        "noToolsInCategory": "Keine Werkzeuge in dieser Kategorie.",
+        "sortBy": {
+            "placeholder": "Sortieren nach...",
+            "alphabetical": "Alphabetisch (A-Z)",
+            "mostSearched": "Meistgesucht",
+            "lastOpened": "Zuletzt geöffnet"
+        },
+        "deleteDialog": {
+            "title": "Sind Sie sicher?",
+            "description": "Diese Aktion kann nicht rückgängig gemacht werden. Das Werkzeug \"{{name}}\" wird dauerhaft gelöscht.",
+            "cancel": "Abbrechen",
+            "confirm": "Löschen"
+        },
+        "toast": {
+            "copiedTitle": "Kopiert",
+            "copiedDescription": "Der API-Schlüssel wurde in die Zwischenablage kopiert.",
+            "deletedTitle": "Werkzeug gelöscht",
+            "deletedDescription": "Das Werkzeug wurde aus dem Katalog entfernt.",
+            "deleteErrorTitle": "Fehler beim Löschen",
+            "deleteErrorDescription": "Das Werkzeug konnte nicht gelöscht werden."
+        }
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "title": "Transaktions-E-Mail senden",
+    "composer": {
+        "title": "E-Mail verfassen",
+        "description": "Suchen Sie den Kunden oder geben Sie die Adresse ein und senden Sie eine E-Mail an einen beliebigen Empfänger über das ERP.",
+        "customerSelectLabel": "An Kunden senden (Optional)",
+        "customerSelectPlaceholder": "Wählen Sie einen Kunden zum automatischen Ausfüllen",
+        "toLabel": "Empfänger (An)",
+        "toPlaceholder": "empfaenger@beispiel.com",
+        "showCcBcc": "CC/BCC anzeigen",
+        "hideCcBcc": "CC/BCC ausblenden",
+        "ccLabel": "CC",
+        "ccPlaceholder": "cc@beispiel.com, anderer@beispiel.com",
+        "bccLabel": "BCC",
+        "bccPlaceholder": "bcc@beispiel.com",
+        "subjectLabel": "Betreff",
+        "subjectPlaceholder": "Betreff der E-Mail",
+        "bodyLabel": "Nachrichtentext",
+        "bodyPlaceholder": "Schreiben Sie hier Ihre Nachricht...",
+        "bodyDescription": "Sie können einfaches HTML zur Formatierung verwenden.",
+        "attachmentsLabel": "Anhänge",
+        "addFilesButton": "Datei(en) hinzufügen",
+        "maxSizeNotice": "Maximale Gesamtgröße: {{maxSize}} MB.",
+        "sendButton": "E-Mail senden",
+        "sendingButton": "Senden...",
+        "toast": {
+            "sent": {
+                "title": "E-Mail gesendet!",
+                "description": "Die E-Mail an {{to}} wurde erfolgreich gesendet."
+            },
+            "error": {
+                "title": "Fehler beim Senden",
+                "description": "Die E-Mail konnte nicht über die Funktion gesendet werden."
+            },
+            "sizeLimit": {
+                "title": "Größenlimit überschritten",
+                "description": "Die Gesamtgröße der Anhänge darf {{maxSize}} MB nicht überschreiten."
+            }
+        }
+    }
+}

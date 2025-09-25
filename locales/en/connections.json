@@ -1,0 +1,77 @@
+
+{
+    "title": "Connections",
+    "add": "Add Connection",
+    "edit": "Edit Connection",
+    "form": {
+        "title": "Add/Edit Connection",
+        "description": "Fill in or modify the details for a new integration.",
+        "type": "Connection Type",
+        "typePlaceholder": "Select a type",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "E.g., Main marketing account",
+        "userLabel": "User / Email",
+        "userPlaceholder": "user@email.com",
+        "statusLabel": "Status",
+        "statusPlaceholder": "Select a status",
+        "status": {
+            "Conectado": "Connected",
+            "Desconectado": "Disconnected",
+            "Error": "Error"
+        },
+        "cancel": "Cancel",
+        "save": "Save Changes",
+        "create": "Create Connection"
+    },
+    "deleteDialog": {
+        "title": "Are you sure?",
+        "description": "This action will remove the connection for {{description}}.",
+        "confirm": "Yes, delete"
+    },
+    "toast": {
+        "deleted": "Connection deleted",
+        "deleteError": "Error deleting",
+        "updated": "Connection updated!",
+        "created": "Connection created!"
+    },
+    "card": {
+        "title": "Connection Management",
+        "description": "A list of all active integrations at the company level.",
+        "noConnections": "No connections. Add one to get started.",
+        "button": "Add New Connection",
+        "sync": "File Sync",
+        "editButton": "Edit",
+        "deleteButton": "Delete"
+    },
+    "serviceCatalog": {
+        "title": "Tool Catalog",
+        "description": "A curated and editable collection of tools for marketing, design, development, and more.",
+        "selectCategoryPlaceholder": "Select category...",
+        "searchPlaceholder": "Search in this category...",
+        "addTool": "Add Tool",
+        "restore": "Restore",
+        "apiKeyLabel": "API Key / Token",
+        "noResults": "No tools found for \"{{searchTerm}}\".",
+        "noToolsInCategory": "No tools in this category.",
+        "sortBy": {
+            "placeholder": "Sort by...",
+            "alphabetical": "Alphabetical (A-Z)",
+            "mostSearched": "Most Searched",
+            "lastOpened": "Last Opened"
+        },
+        "deleteDialog": {
+            "title": "Are you sure?",
+            "description": "This action cannot be undone. It will permanently delete the tool \"{{name}}\".",
+            "cancel": "Cancel",
+            "confirm": "Delete"
+        },
+        "toast": {
+            "copiedTitle": "Copied",
+            "copiedDescription": "The API key has been copied to the clipboard.",
+            "deletedTitle": "Tool Deleted",
+            "deletedDescription": "The tool has been removed from the catalog.",
+            "deleteErrorTitle": "Error Deleting",
+            "deleteErrorDescription": "Could not delete the tool."
+        }
+    }
+}

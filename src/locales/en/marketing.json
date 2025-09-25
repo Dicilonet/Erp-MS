@@ -1,0 +1,307 @@
+{
+    "nav": {
+      "contentPool": "Content Pool",
+      "marketingPlan": "Marketing",
+      "geomarketing": "Geomarketing",
+      "coupons": "Coupons",
+      "scanner": "Scan",
+      "designer": "Designer",
+      "connections": "Connections",
+      "automation": "Calendar"
+    },
+    "marketingSuite": {
+      "title": "Connected Marketing Suite",
+      "connections": {
+        "title": "Social Connections",
+        "description": "Connect your social media accounts to automate posts.",
+        "manageTitle": "Manage Connections",
+        "manageDescription": "Authorize the ERP to post on your behalf.",
+        "connectFacebook": "Connect Facebook",
+        "connectInstagram": "Connect Instagram",
+        "connected": "Connected",
+        "notConnected": "Not Connected",
+        "infoTitle": "Note on Instagram",
+        "infoDescription": "To connect an Instagram Business account, you must first connect the linked Facebook page."
+      },
+      "composer": {
+        "title": "Create New Post",
+        "createButton": "Create Post",
+        "placeholder": "What's on your mind?",
+        "scheduleButton": "Schedule Post",
+        "platforms": "Platforms",
+        "media": "Attach Image/Video",
+        "scheduleAt": "Schedule for"
+      },
+      "calendar": {
+        "title": "Content Calendar",
+        "description": "Visualize and manage all your scheduled publications."
+      }
+    },
+    "designer": {
+      "title": "Social Media Designer",
+      "description": "Quickly and easily create professional images for social networks.",
+      "layouts": {
+        "layout1": "Square (Title, Image, Footer)",
+        "layout2": "Square (Image, Footer)",
+        "layout3": "Horizontal (Image, Side)",
+        "layout4": "Vertical (4:5)",
+        "layout5": "Story (9:16)"
+      },
+      "editor": {
+        "title": "Editor",
+        "layout": "Layout",
+        "image": "Background / Image",
+        "logo": "Logo",
+        "titleLabel": "Title",
+        "icon": "Icon",
+        "web": "Website",
+        "contact": "Contact",
+        "bgColor": "Text Background Color"
+      },
+      "export": {
+        "share": "Share",
+        "publishing": "Publishing...",
+        "publish": "Publish Now"
+      },
+      "share": {
+        "title": "Check out this design!",
+        "text": "Created with the ERP Social Media Designer.",
+        "notSupported": "Your browser does not support the Web Share API."
+      },
+      "imageSource": {
+        "button": "Select Image Source...",
+        "title": "Image Source",
+        "description": "Choose how you want to add an image.",
+        "tabs": {
+          "upload": "Upload",
+          "ai": "Generate with AI",
+          "camera": "Camera"
+        },
+        "uploadLabel": "Select image file",
+        "promptPlaceholder": "Describe the image you want to create...",
+        "generateButton": "Generate Image",
+        "generatingButton": "Generating...",
+        "generatingToast": {
+          "title": "Generating Image...",
+          "description": "The AI is creating your image. This may take a moment."
+        },
+        "errorToast": {
+          "title": "Image Generation Error",
+          "description": "Could not generate the image."
+        },
+        "cameraError": {
+          "title": "Camera Error",
+          "description": "Camera access was denied. Please check your permissions."
+        },
+        "captureButton": "Take Photo",
+        "dictationError": {
+          "title": "Dictation Error",
+          "notSupported": "Speech recognition is not supported in this browser."
+        },
+        "dictation": {
+          "start": "Dictate prompt",
+          "stop": "Stop dictating"
+        }
+      }
+    },
+    "scanner": {
+      "title": "Coupon Scanner",
+      "description": "Use your device's camera to scan a QR code and instantly check a coupon's status.",
+      "notSupportedTitle": "Browser Not Supported",
+      "notSupported": "Your browser does not support QR code detection natively. Please use a recent version of Chrome, Edge, or Safari on a compatible device.",
+      "cameraErrorTitle": "Camera Access Denied",
+      "cameraError": "To scan coupons, you need to grant this page permission to use your camera in your browser settings.",
+      "errorTitle": "Error",
+      "scanning": "Searching for QR code...",
+      "ready": "Ready to Scan",
+      "prompt": "Press the button to start the camera",
+      "start": "Start Scanner",
+      "stop": "Stop Scanner",
+      "foundTitle": "Coupon Found",
+      "notFound": "Coupon with code \"{{code}}\" not found.",
+      "redeemButton": "Redeem Coupon",
+      "redeeming": "Redeeming...",
+      "redeemSuccessTitle": "Coupon Redeemed!",
+      "redeemSuccessDescription": "Coupon {{code}} has been successfully marked as redeemed.",
+      "redeemErrorTitle": "Redemption Error",
+      "scanNext": "Scan Next Coupon"
+    },
+    "coupons": {
+      "tabs": {
+        "batch": "Create Batch",
+        "individual": "Individual Coupon",
+        "list": "Coupon List"
+      },
+      "individual": {
+        "title": "Create Individual Coupon",
+        "description": "Generate a single, personalized coupon with a special image and dedication.",
+        "defaultTitle": "Personal Invitation",
+        "recipient": "For (Recipient)",
+        "recipientPlaceholder": "Name of the person",
+        "sender": "From (Sender)",
+        "imageLabel": "Background Image (Optional)",
+        "for": "For: {{recipientName}}",
+        "from": "From: {{senderName}}",
+        "preview": "Live Preview",
+        "createButton": "Generate Individual Coupon",
+        "creatingButton": "Generating...",
+        "newButton": "Create Another",
+        "successToast": {
+          "title": "Individual Coupon Created!",
+          "description": "Coupon {{code}} has been generated and a notification has been sent."
+        },
+        "errorToast": {
+          "title": "Error Creating Coupon",
+          "description": "Could not generate the individual coupon."
+        }
+      },
+      "title": "Coupon Management",
+      "description": "Create, manage, and track the performance of your coupon campaigns.",
+      "batchCreator": {
+        "title": "Create Coupon Batch",
+        "description": "Configure and generate a new set of coupons. Use the live preview to adjust the design.",
+        "count": "Quantity",
+        "value": "Coupon Value (Text)",
+        "valuePlaceholder": "E.g.: 10 €, 15%, Free Shipping",
+        "titleLabel": "Coupon Title",
+        "titlePlaceholder": "E.g.: Summer Discount",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "E.g.: Activate now!",
+        "backgroundImage": "Background Image URL",
+        "backgroundImagePlaceholder": "https://... (optional)",
+        "expires": "Expires on (optional)",
+        "terms": "Terms and Conditions",
+        "termsPlaceholder": "E.g.: Valid for a single use...",
+        "error": "Error: {{message}}",
+        "createButton": "Create {{count}} coupons",
+        "creatingButton": "Creating...",
+        "successToast": "Batch created!",
+        "successDescription": "{{count}} new coupons have been generated.",
+        "errorToast": "Error creating batch"
+      },
+      "adminList": {
+        "searchPlaceholder": "Search by code, title, value...",
+        "month": "Month",
+        "export": "Export CSV",
+        "refresh": "Refresh",
+        "loading": "Loading...",
+        "status": "Status",
+        "redeemedOn": "Redeemed on",
+        "noCoupons": "No coupons for this month. Create a new batch!"
+      },
+      "redeem": {
+        "title": "Redeem Coupon",
+        "searching": "Searching for coupon...",
+        "code": "Code",
+        "status": "Status",
+        "redeemedOn": "Redeemed on",
+        "expired": "Expired",
+        "redeemNow": "Redeem Now",
+        "name": "Name",
+        "contact": "Contact (WhatsApp/Email/Telegram)",
+        "channel": "Channel",
+        "confirm": "Confirm Redemption",
+        "alreadyRedeemed": "This coupon has already been redeemed.",
+        "notAvailable": "This coupon is not available.",
+        "fillFields": "Please fill in name and contact",
+        "success": "Coupon redeemed successfully!",
+        "error": "Error: {{message}}",
+        "statuses": {
+          "active": "Active",
+          "redeemed": "Redeemed",
+          "expired": "Expired"
+        }
+      }
+    },
+    "contentPool": {
+      "title": "Content Pool",
+      "description": "Search, filter, and manage all your reusable marketing assets.",
+      "createAsset": "Create Content Asset",
+      "filterByTags": "Filter by tags...",
+      "filterByBrands": "Filter by brands...",
+      "loadMore": "+{{count}} more",
+      "noAssets": "No assets found.",
+      "noAssetsDescription": "Start by creating a new content asset to see it here."
+    },
+    "createAssetForm": {
+      "title": "Create New Content Asset",
+      "editTitle": "Edit Content Asset",
+      "description": "Fill in the details to create a new marketing template.",
+      "editDescription": "Modify the details of this marketing asset.",
+      "assetName": "Asset Name",
+      "assetNamePlaceholder": "E.g: Summer Promo Post",
+      "assetType": "Asset Type",
+      "selectAssetType": "Select a type...",
+      "socialPost": "Social Media Post",
+      "campaignTemplate": "Campaign Template",
+      "tags": "Tags (comma-separated)",
+      "tagsPlaceholder": "deal, summer, product",
+      "brands": "Brands (comma-separated)",
+      "brandsPlaceholder": "brand-a, brand-b",
+      "text": "Content Text",
+      "textPlaceholder": "Don't miss out on our summer deals!",
+      "imageUrl": "Image URL (Optional)",
+      "imageUrlPlaceholder": "https://...",
+      "channels": "Publishing Channels",
+      "save": "Save Asset",
+      "saving": "Saving...",
+      "update": "Update Asset",
+      "updating": "Updating..."
+    },
+    "page": {
+      "title": "Marketing",
+      "description": "Select a customer to view and manage their marketing calendar.",
+      "selectPlaceholder": "Select a customer..."
+    },
+    "toasts": {
+      "seed": {
+        "title": "Test Data Created",
+        "description": "3 sample customers have been added to your database."
+      },
+      "seedError": {
+        "title": "Error Creating Test Data",
+        "description": "Could not create the test data."
+      },
+      "loadError": {
+        "title": "Error",
+        "description": "Could not load the events."
+      },
+      "customerNeeded": {
+        "title": "Action required",
+        "description": "Please select a customer before scheduling an event.",
+        "descriptionProject": "This project is not associated with a customer, so posts cannot be scheduled."
+      }
+    },
+    "projectCalendar": {
+      "title": "Project Marketing Plan",
+      "description": "Calendar of publications and marketing events associated with this project.",
+      "scheduleButton": "Schedule Post"
+    },
+    "modal": {
+      "title": "Schedule New Post",
+      "description": "Select an asset from the Content Pool to schedule for {{date}}.",
+      "project": {
+        "label": "Project",
+        "placeholder": "Select a project to associate with"
+      },
+      "asset": {
+        "label": "Content Pool Asset",
+        "placeholder": "Select a template..."
+      },
+      "text": {
+        "label": "Final Post Text"
+      },
+      "cancel": "Cancel",
+      "submit": "Schedule Event",
+      "toast": {
+        "success": {
+          "title": "Event Scheduled",
+          "description": "The post has been added to the project calendar."
+        },
+        "error": {
+          "title": "Error",
+          "description": "Could not schedule the event."
+        }
+      }
+    }
+  }

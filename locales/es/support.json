@@ -1,0 +1,76 @@
+
+{
+    "page": {
+        "title": "Gestión de Soporte",
+        "createButton": "Crear Ticket"
+    },
+    "list": {
+        "title": "Todos los Tickets",
+        "description": "Una lista de todas las solicitudes de soporte registradas en el sistema.",
+        "noTickets": "No se han encontrado tickets.",
+        "table": {
+            "customer": "Cliente",
+            "subject": "Asunto",
+            "priority": "Prioridad",
+            "status": "Estado",
+            "agent": "Agente",
+            "createdAt": "Fecha de Creación",
+            "audio": "Audio",
+            "actions": "Acciones",
+            "viewDetails": "Ver Detalles"
+        }
+    },
+    "form": {
+        "createTitle": "Crear Nuevo Ticket de Soporte",
+        "createDescription": "Completa los detalles para registrar una nueva solicitud de soporte.",
+        "customerLabel": "Cliente",
+        "customerPlaceholder": "Selecciona un cliente",
+        "subjectLabel": "Asunto",
+        "subjectPlaceholder": "Ej: Problema con la facturación",
+        "descriptionLabel": "Descripción del Problema (Escrita)",
+        "descriptionPlaceholder": "Describe detalladamente la solicitud del cliente.",
+        "audioLabel": "Mensaje de Voz (Opcional)",
+        "recordPrompt": "Pulsa el micrófono para grabar un mensaje de voz.",
+        "recording": "Grabando...",
+        "priorityLabel": "Prioridad",
+        "priorityPlaceholder": "Establece una prioridad",
+        "agentLabel": "Agente Asignado",
+        "agentPlaceholder": "Ej: Juan Pérez",
+        "cancel": "Cancelar",
+        "submit": "Crear Ticket",
+        "submitting": "Guardando...",
+        "stopRecordingPrompt": "Detén la grabación primero",
+        "toast": {
+            "recordingStarted": {
+                "title": "Grabación iniciada",
+                "description": "Habla ahora. Pulsa detener cuando termines."
+            },
+            "micError": {
+                "title": "Error de Micrófono",
+                "description": "No se pudo acceder al micrófono. Revisa los permisos."
+            },
+            "recordingStopped": {
+                "title": "Grabación detenida",
+                "description": "El audio está listo para adjuntarse."
+            },
+            "audioDeleted": {
+                "title": "Audio eliminado",
+                "description": "La grabación ha sido descartada."
+            },
+            "success": {
+                "title": "¡Ticket Creado!",
+                "description": "El ticket \"{{subject}}\" se ha registrado correctamente."
+            },
+            "error": {
+                "title": "Error al Crear Ticket",
+                "description": "Hubo un problema al guardar el ticket. Por favor, intenta de nuevo."
+            }
+        }
+    },
+    "priorities": {
+        "low": "Baja",
+        "medium": "Media",
+        "high": "Alta",
+        "critical": "Crítica"
+    }
+}

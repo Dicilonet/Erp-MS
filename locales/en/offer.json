@@ -1,0 +1,102 @@
+
+{
+    "page": {
+        "title": "Offer Management",
+        "createButton": "Create Offer"
+    },
+    "list": {
+        "title": "Offer History",
+        "description": "A list of all offers generated in the system.",
+        "noOffers": "No offers found.",
+        "table": {
+            "number": "Offer No.",
+            "customer": "Customer",
+            "issueDate": "Issue Date",
+            "status": "Status",
+            "total": "Total"
+        },
+        "status": {
+            "Borrador": "Draft",
+            "Enviada": "Sent",
+            "Visto": "Viewed",
+            "Aceptada": "Accepted",
+            "Rechazada": "Rejected",
+            "Vencida": "Expired"
+        },
+        "actions": {
+            "title": "Actions",
+            "edit": "Edit",
+            "duplicate": "Duplicate"
+        }
+    },
+    "form": {
+        "createTitle": "New Offer",
+        "editTitle": "Edit Offer",
+        "customer": {
+            "label": "Customer",
+            "placeholder": "Select a customer..."
+        },
+        "documentTitle": {
+            "label": "Document Title"
+        },
+        "introductoryText": {
+            "label": "Introductory Text"
+        },
+        "offerNumber": {
+            "label": "Offer No.",
+            "auto": "assigned on save"
+        },
+        "customerNumber": {
+            "label": "Customer No."
+        },
+        "issueDate": {
+            "label": "Date",
+            "placeholder": "Select a date"
+        },
+        "expiryDate": {
+            "label": "Valid until",
+            "placeholder": "Select a date"
+        },
+        "items": {
+            "quantity": "Qty.",
+            "unit": "Unit",
+            "price": "Unit Price",
+            "discount": "Disc. %",
+            "tax": "Tax",
+            "total": "Total",
+            "descriptionPlaceholder": "Item or service description...",
+            "addItem": "Add Item"
+        },
+        "notes": {
+            "label": "Closing Text / Notes"
+        },
+        "totals": {
+            "subtotal": "Subtotal (Net)",
+            "tax": "+ VAT",
+            "total": "Total"
+        },
+        "actions": {
+            "cancel": "Cancel",
+            "saveDraft": "Save as Draft",
+            "saveAndSend": "Save and Send",
+            "createAndSend": "Create and Send"
+        },
+        "defaultIntro": "Dear Sir or Madam,\n\nThank you for your inquiry. We are pleased to offer you the following:",
+        "defaultIntroWithCustomer": "Dear {{name}},\n\nThank you for your inquiry. We are pleased to offer you the following:",
+        "defaultNotes": "All prices are net, plus statutory VAT. Our offers are subject to change. Our General Terms and Conditions apply."
+    },
+    "toast": {
+        "sent": {
+            "title": "Offer Sent!",
+            "description": "The offer {{offerNumber}} has been successfully created and sent."
+        },
+        "draft": {
+            "title": "Draft Saved!",
+            "description": "The offer {{offerNumber}} has been successfully saved."
+        },
+        "error": {
+            "title": "Error Saving",
+            "unknown": "An unknown error occurred."
+        }
+    }
+}

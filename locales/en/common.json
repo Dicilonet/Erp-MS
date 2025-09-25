@@ -1,0 +1,150 @@
+
+{
+    "searchPlaceholder": "Search...",
+    "changeLanguage": "Change language",
+    "toggleNotifications": "Toggle notifications",
+    "user": "User",
+    "notAuthenticated": "Not authenticated",
+    "settings": "Settings",
+    "logout": {
+        "button": "Sign Out",
+        "toastTitle": "Signed Out",
+        "toastDescription": "You have successfully signed out.",
+        "toastError": "Could not sign out. Please try again."
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "customers": "Customers",
+        "projects": "Projects",
+        "connections": "Connections",
+        "communications": "Communications",
+        "email": "Email",
+        "articles": "Articles",
+        "offers": "Offers",
+        "expenses": "Expenses",
+        "teams": "Team Management",
+        "todoList": "To-Do List",
+        "marketingPlan": "Marketing Plan",
+        "support": "Support",
+        "chat": "Chat"
+    },
+    "articles": {
+        "title": "Articles",
+        "description": "Products and services you offer to your customers.",
+        "new": "New Article",
+        "searchPlaceholder": "Search articles...",
+        "tabs": {
+            "all": "ALL",
+            "products": "PRODUCTS",
+            "services": "SERVICES"
+        },
+        "table": {
+            "number": "Article No.",
+            "name": "Name",
+            "unit": "Unit",
+            "priceNet": "Sale Price (Net)",
+            "tax": "Tax",
+            "actions": "Actions"
+        },
+        "form": {
+            "createTitle": "Create New Article",
+            "createDescription": "Fill in the details to add a new product or service to your catalog.",
+            "editTitle": "Edit Article",
+            "editDescription": "Modify the details of this product or service.",
+            "type": "Type",
+            "product": "Product",
+            "service": "Service",
+            "articleNumber": "Article Number",
+            "articleNumberPlaceholder": "E.g.: SW-001",
+            "name": "Article Name",
+            "namePlaceholder": "E.g.: Annual Software License",
+            "unit": "Unit",
+            "unitPlaceholder": "E.g.: pcs, h, km, flat rate",
+            "description": "Description",
+            "descriptionPlaceholder": "Add details about the product or service...",
+            "tax": "Tax",
+            "priceNet": "Sale Price (Net)",
+            "priceGross": "Final Price (Gross)",
+            "save": "Save Article",
+            "saving": "Saving...",
+            "saveChanges": "Save Changes",
+            "creating": "Creating...",
+            "cancel": "Cancel"
+        },
+        "toast": {
+            "created": {
+                "title": "Article Created",
+                "description": "The article \"{{name}}\" has been added to your catalog."
+            },
+            "updated": {
+                "title": "Article Updated",
+                "description": "The article \"{{name}}\" has been saved."
+            },
+            "error": {
+                "title": "Error Saving",
+                "description": "There was a problem saving the article."
+            }
+        },
+        "noArticles": "No articles. Create the first one to get started."
+    },
+    "calendar": {
+        "allDay": "All Day",
+        "previous": "Back",
+        "next": "Next",
+        "today": "Today",
+        "month": "Month",
+        "week": "Week",
+        "day": "Day",
+        "agenda": "Agenda",
+        "date": "Date",
+        "time": "Time",
+        "event": "Event",
+        "noEventsInRange": "There are no events in this range.",
+        "more": "more"
+    },
+    "connections": {
+        "title": "Connections",
+        "add": "Add Connection",
+        "edit": "Edit Connection",
+        "form": {
+            "title": "Add/Edit Connection",
+            "description": "Fill in or modify the details for a new integration.",
+            "type": "Connection Type",
+            "typePlaceholder": "Select a type",
+            "descriptionLabel": "Description",
+            "descriptionPlaceholder": "E.g., Main marketing account",
+            "userLabel": "User / Email",
+            "userPlaceholder": "user@email.com",
+            "statusLabel": "Status",
+            "statusPlaceholder": "Select a status",
+            "status": {
+                "connected": "Connected",
+                "disconnected": "Disconnected",
+                "error": "Error"
+            },
+            "cancel": "Cancel",
+            "save": "Save Changes",
+            "create": "Create Connection"
+        },
+        "deleteDialog": {
+            "title": "Are you sure?",
+            "description": "This action will remove the connection for {{description}}.",
+            "confirm": "Yes, delete"
+        },
+        "toast": {
+            "deleted": "Connection deleted",
+            "deleteError": "Error deleting",
+            "updated": "Connection updated!",
+            "created": "Connection created!"
+        },
+        "card": {
+            "title": "Company Connected Accounts",
+            "description": "A list of all active integrations at the company level.",
+            "noConnections": "No connections. Add one to get started.",
+            "button": "Add New Connection",
+            "sync": "File Sync",
+            "editButton": "Edit",
+            "deleteButton": "Delete"
+        }
+    }
+}

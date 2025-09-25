@@ -1,0 +1,46 @@
+**Título de Campaña Sugerido:** ERP Dicilo: El Sistema Operativo Inteligente para tu Negocio.
+
+**Subtítulo:** Centraliza, Automatiza y Expande tu Empresa con una Sola Herramienta.
+
+---
+
+**Resumen General:**
+
+ERP Dicilo es una plataforma de gestión empresarial todo en uno, diseñada para equipos modernos que buscan eficiencia, inteligencia y crecimiento. Olvídate de alternar entre decenas de aplicaciones; Dicilo integra la gestión de clientes (CRM), proyectos, marketing, finanzas y comunicaciones en un único panel de control intuitivo y potente. Con herramientas de IA integradas y una arquitectura robusta, Dicilo no solo organiza tu presente, sino que te prepara para el futuro.
+
+---
+
+**Desglose de Módulos y Beneficios Clave:**
+
+**Módulo 1: Dashboard Principal - Tu Centro de Mando**
+Visión 360° de tu negocio en tiempo real. Accede instantáneamente a tareas prioritarias de todos los proyectos, gestiona tu equipo, revisa notificaciones importantes y utiliza herramientas de búsqueda unificada para encontrar cualquier cliente o interacción al instante. Es el punto de partida para un día productivo.
+
+**Módulo 2: Gestión de Clientes (CRM) - Conoce a tus Clientes, Impulsa tus Ventas**
+Más que una base de datos, es tu centro de inteligencia de clientes. Sincroniza prospectos automáticamente, registra cada llamada o correo (con resúmenes sugeridos por IA), y visualiza todos los servicios y ofertas asociados a cada cliente. Transforma datos en relaciones duraderas y oportunidades de venta.
+
+**Módulo 3: Gestión de Proyectos - Claridad y Control Total**
+Ejecuta tus proyectos con precisión milimétrica. Utiliza un tablero Kanban visual para gestionar tareas, asigna responsables, establece fechas de entrega y supervisa el progreso de cada fase, desde la planificación hasta la finalización. La colaboración y la eficiencia nunca han sido tan sencillas.
+
+**Módulo 4: Gestión de Artículos - Tu Catálogo de Ventas Centralizado**
+Administra todos tus productos y servicios desde un único lugar. Define precios, impuestos y unidades, y tenlos listos para ser añadidos a tus ofertas con un solo clic. Simplifica la creación de presupuestos y mantén la consistencia en tu facturación.
+
+**Módulo 5: Gestión de Ofertas - Crea y Envía Presupuestos Profesionales**
+Diseña, personaliza y envía ofertas (presupuestos) impecables en minutos. Añade artículos dinámicamente, calcula totales automáticamente y envía directamente al cliente por correo electrónico. Sigue el estado de cada oferta, desde "Borrador" hasta "Aceptada".
+
+**Módulo 6: Gestión de Gastos con IA - Contabilidad sin Esfuerzo**
+Digitaliza tu contabilidad. Simplemente sube una foto de una factura o recibo, y deja que nuestra IA extraiga y clasifique automáticamente la descripción, el importe, el IVA y la fecha. Controlar tus gastos nunca ha sido tan rápido y preciso.
+
+**Módulo 7: Comunicaciones Integradas - Tu Centro de Mensajería Profesional**
+Envía correos electrónicos profesionales directamente desde el ERP, sin salir de la plataforma. Usa plantillas, adjunta archivos y mantén un registro de todas las comunicaciones importantes vinculadas a tus clientes y proyectos.
+
+**Módulo 8: Marketing Inteligente - Planifica, Crea y Ejecuta**
+Tu suite de marketing completa. Gestiona un "Arsenal de Contenido" con plantillas reutilizables, planifica tus publicaciones en un calendario de marketing visual y, con el revolucionario **Módulo de Geomarketing**, encuentra y visualiza clientes potenciales en un mapa interactivo para dirigir tus campañas con precisión geográfica.
+
+**Módulo 9: Conexiones y Herramientas - El Ecosistema de tu Empresa**
+Centraliza todas tus herramientas y servicios externos en un catálogo dinámico. Guarda y gestiona de forma segura tus claves de API y tokens de acceso para más de 140 servicios de marketing, diseño, IA y desarrollo. Edita, añade y organiza tu stack tecnológico desde un solo lugar.
+
+**Módulo 10: Gestión de Equipos y Permisos - Control y Seguridad (Superadmins)**
+Administra a tu equipo con total control. Crea usuarios, asigna roles y define con precisión a qué módulos puede acceder cada miembro. Asegura que la información correcta llegue a las personas correctas.
+
+**Módulo 11: Chat Interno y Tareas Personales - Fomenta la Productividad**
+Facilita la comunicación en tiempo real entre los miembros de tu equipo con un chat interno integrado. Además, permite que cada usuario gestione su propia lista de tareas personales, ideas y recordatorios para maximizar la organización individual.

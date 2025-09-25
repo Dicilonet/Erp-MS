@@ -1,0 +1,20 @@
+
+{
+    "title": "Interner Chat",
+    "description": "Kommunizieren Sie mit anderen Teammitgliedern.",
+    "selectConversation": "Wählen Sie ein Gespräch aus, um mit dem Chatten zu beginnen",
+    "placeholder": "Nachricht schreiben...",
+    "newConversation": "Neues Gespräch",
+    "searchUser": "Benutzer suchen...",
+    "noUsersFound": "Keine Benutzer gefunden.",
+    "users": "Benutzer",
+    "changeStatus": "Status ändern",
+    "status": {
+        "abierta": "Offen",
+        "en proceso": "In Bearbeitung",
+        "cerrada": "Geschlossen"
+    },
+    "toast": {
+        "statusChanged": "Status geändert auf {{status}}"
+    }
+}

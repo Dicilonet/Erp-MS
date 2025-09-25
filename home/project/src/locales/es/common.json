@@ -1,0 +1,150 @@
+
+{
+    "searchPlaceholder": "Buscar...",
+    "changeLanguage": "Cambiar idioma",
+    "toggleNotifications": "Alternar notificaciones",
+    "user": "Usuario",
+    "notAuthenticated": "No autenticado",
+    "settings": "Ajustes",
+    "logout": {
+        "button": "Cerrar Sesión",
+        "toastTitle": "Sesión Cerrada",
+        "toastDescription": "Has cerrado sesión correctamente.",
+        "toastError": "No se pudo cerrar la sesión. Intenta de nuevo."
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "customers": "Clientes",
+        "projects": "Proyectos",
+        "connections": "Conexiones",
+        "communications": "Comunicaciones",
+        "email": "Correo",
+        "articles": "Artículos",
+        "offers": "Ofertas",
+        "expenses": "Gastos",
+        "teams": "Gestión de Equipos",
+        "todoList": "Lista de Tareas",
+        "marketingPlan": "Plan de Marketing",
+        "support": "Soporte",
+        "chat": "Chat"
+    },
+    "articles": {
+        "title": "Artículos",
+        "description": "Productos y servicios que ofreces a tus clientes.",
+        "new": "Nuevo Artículo",
+        "searchPlaceholder": "Buscar artículos...",
+        "tabs": {
+            "all": "TODOS",
+            "products": "PRODUCTOS",
+            "services": "SERVICIOS"
+        },
+        "table": {
+            "number": "Nº Artículo",
+            "name": "Nombre",
+            "unit": "Unidad",
+            "priceNet": "Precio Venta (Neto)",
+            "tax": "Impuesto",
+            "actions": "Acciones"
+        },
+        "form": {
+            "createTitle": "Crear Nuevo Artículo",
+            "createDescription": "Rellena los detalles para añadir un nuevo producto o servicio a tu catálogo.",
+            "editTitle": "Editar Artículo",
+            "editDescription": "Modifica los detalles de este producto o servicio.",
+            "type": "Tipo",
+            "product": "Producto",
+            "service": "Servicio",
+            "articleNumber": "Número de Artículo",
+            "articleNumberPlaceholder": "Ej: SW-001",
+            "name": "Nombre del Artículo",
+            "namePlaceholder": "Ej: Licencia de Software Anual",
+            "unit": "Unidad",
+            "unitPlaceholder": "Ej: pza, h, km, tarifa plana",
+            "description": "Descripción",
+            "descriptionPlaceholder": "Añade detalles sobre el producto o servicio...",
+            "tax": "Impuesto",
+            "priceNet": "Precio Venta (Neto)",
+            "priceGross": "Precio Final (Bruto)",
+            "save": "Guardar Artículo",
+            "saving": "Guardando...",
+            "saveChanges": "Guardar Cambios",
+            "creating": "Creando...",
+            "cancel": "Cancelar"
+        },
+        "toast": {
+            "created": {
+                "title": "Artículo Creado",
+                "description": "El artículo \"{{name}}\" ha sido añadido a tu catálogo."
+            },
+            "updated": {
+                "title": "Artículo Actualizado",
+                "description": "El artículo \"{{name}}\" ha sido guardado."
+            },
+            "error": {
+                "title": "Error al Guardar",
+                "description": "Hubo un problema al guardar el artículo."
+            }
+        },
+        "noArticles": "No hay artículos. Crea el primero para empezar."
+    },
+    "calendar": {
+        "allDay": "Todo el día",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "today": "Hoy",
+        "month": "Mes",
+        "week": "Semana",
+        "day": "Día",
+        "agenda": "Agenda",
+        "date": "Fecha",
+        "time": "Hora",
+        "event": "Evento",
+        "noEventsInRange": "No hay eventos en este rango.",
+        "more": "más"
+    },
+    "connections": {
+        "title": "Conexiones",
+        "add": "Añadir Conexión",
+        "edit": "Editar Conexión",
+        "form": {
+            "title": "Añadir/Editar Conexión",
+            "description": "Rellena o modifica los detalles para una nueva integración.",
+            "type": "Tipo de Conexión",
+            "typePlaceholder": "Selecciona un tipo",
+            "descriptionLabel": "Descripción",
+            "descriptionPlaceholder": "Ej: Cuenta principal de marketing",
+            "userLabel": "Usuario / Email",
+            "userPlaceholder": "usuario@email.com",
+            "statusLabel": "Estado",
+            "statusPlaceholder": "Selecciona un estado",
+            "status": {
+                "connected": "Conectado",
+                "disconnected": "Desconectado",
+                "error": "Error"
+            },
+            "cancel": "Cancelar",
+            "save": "Guardar Cambios",
+            "create": "Crear Conexión"
+        },
+        "deleteDialog": {
+            "title": "¿Estás seguro?",
+            "description": "Esta acción eliminará la conexión para {{description}}.",
+            "confirm": "Sí, eliminar"
+        },
+        "toast": {
+            "deleted": "Conexión eliminada",
+            "deleteError": "Error al eliminar",
+            "updated": "¡Conexión actualizada!",
+            "created": "¡Conexión creada!"
+        },
+        "card": {
+            "title": "Cuentas Conectadas de la Empresa",
+            "description": "Un listado de todas las integraciones activas a nivel de empresa.",
+            "noConnections": "No hay conexiones. Añade una para empezar.",
+            "button": "Añadir nueva conexión",
+            "sync": "Sincronización de archivos",
+            "editButton": "Editar",
+            "deleteButton": "Eliminar"
+        }
+    }
+}

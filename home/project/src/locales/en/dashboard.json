@@ -1,0 +1,173 @@
+
+{
+    "title": "Main Dashboard",
+    "googleDrive": {
+        "title": "Drive Connection",
+        "description": "Sync your files and documents.",
+        "button": "Connect Google Drive"
+    },
+    "interestingPrograms": {
+        "title": "Programs of Interest",
+        "description": "Recommended tools and platforms.",
+        "add": "Add",
+        "noPrograms": "No programs to show. Start by adding one.",
+        "deleteDialog": {
+            "title": "Are you sure?",
+            "description": "This action cannot be undone. This will permanently delete the program \"{{name}}\" from the list.",
+            "cancel": "Cancel",
+            "confirm": "Yes, delete"
+        }
+    },
+    "unifiedComms": {
+        "title": "Unified Communications View",
+        "description": "Connect and visualize your communication channels.",
+        "sources": {
+            "diciSearch": "Active Searches",
+            "email": "Unread Emails",
+            "googleSheets": "Synced Sheets",
+            "airtable": "Active Bases"
+        }
+    },
+    "notifications": {
+        "title": "Priority Notifications",
+        "description": "{{count}} unread notifications",
+        "items": {
+            "onboarding": {
+                "title": "Client 'Innovate Inc.' onboarding",
+                "description": "Finalize contract details."
+            },
+            "deadline": {
+                "title": "Project Alpha deadline",
+                "description": "Submission due in 2 days."
+            },
+            "followUp": {
+                "title": "Follow up with 'Tech Solutions'",
+                "description": "Sent proposal, awaiting feedback."
+            },
+            "meeting": {
+                "title": "Team meeting for Q3 planning",
+                "description": "Scheduled for tomorrow 10 AM."
+            },
+            "newLead": {
+                "title": "New lead from DiciSearch",
+                "description": "Contact 'Future Gadgets'."
+            }
+        }
+    },
+    "teams": {
+        "description": "Add or view team members.",
+        "addMember": "Add Member",
+        "tabs": {
+            "collaborators": "Collaborators",
+            "teamOffice": "TeamOffice"
+        },
+        "table": {
+            "name": "Name",
+            "country": "Country",
+            "whatsapp": "WhatsApp",
+            "email": "Email",
+            "actions": "Actions",
+            "viewProfile": "View Profile",
+            "noUsers": "No users found with this role.",
+            "colaborador": {
+                "title": "Collaborators",
+                "description": "A list of all users with the collaborator role."
+            },
+            "teamoffice": {
+                "title": "TeamOffice Members",
+                "description": "A list of all users with the teamoffice role."
+            }
+        },
+        "profile": {
+            "backButton": "Back to Teams",
+            "profileCard": {
+                "title": "Profile",
+                "role": {
+                    "superadmin": "Super Admin",
+                    "colaborador": "Collaborator",
+                    "teamoffice": "TeamOffice"
+                },
+                "memberSince": "Member since",
+                "uid": "User ID"
+            },
+            "permissionsCard": {
+                "title": "Module Permissions",
+                "description": "Select the modules this user will have access to.",
+                "description_viewer": "These are the modules you have access to.",
+                "saveButton": "Save Changes",
+                "savingButton": "Saving...",
+                "noPermission": "You do not have permission to change roles.",
+                "success": "Permissions Updated",
+                "successDescription": "Permissions for {{name}} have been saved.",
+                "error": "Error Saving"
+            }
+        },
+        "createForm": {
+            "title": "Add New Team Member",
+            "description": "Fill in the details to register a new internal user.",
+            "fullName": "Full Name",
+            "fullNamePlaceholder": "E.g.: Jane Doe",
+            "email": "Email",
+            "emailPlaceholder": "member@dicilo.com",
+            "country": "Country",
+            "countryPlaceholder": "E.g.: USA",
+            "whatsapp": "WhatsApp",
+            "whatsappPlaceholder": "+1 123 456 7890",
+            "password": "Initial Password",
+            "passwordPlaceholder": "Secure password",
+            "role": "Member Type",
+            "rolePlaceholder": "Select a role",
+            "cancel": "Cancel",
+            "submit": "Create Member",
+            "submitting": "Creating...",
+            "successTitle": "Member Created!",
+            "successDescription": "User {{name}} has been created with the role of {{role}}.",
+            "errorTitle": "Error Creating Member",
+            "errorDescription": "There was a problem creating the user. Please check the logs."
+        }
+    },
+    "tasks": {
+        "title": "Priority Tasks",
+        "description": "The 7 most important and upcoming tasks.",
+        "noTasks": "Good job! No pending tasks.",
+        "dueDate": "Due",
+        "in": "In",
+        "unknownProject": "Unknown Project",
+        "viewAll": "View all projects and tasks"
+    },
+    "search": {
+        "title": "Unified Search",
+        "description": "Find customers and interactions across all your sources.",
+        "placeholder": "Search by name, email, or interaction content...",
+        "noResults": "No results found for \"{{term}}\".",
+        "unknownCustomer": "Unknown Customer",
+        "interactionLabel": "Interaction",
+        "errorTitle": "Search Error",
+        "errorDescription": "Could not perform search. Please try again."
+    },
+    "quickTasks": {
+        "title": "Quick Tasks",
+        "description": "Your next pending tasks.",
+        "noTasks": "Congratulations! You have no important pending tasks.",
+        "viewAll": "View all tasks"
+    },
+    "calculator": {
+        "title": "Calculator"
+    },
+    "aiSummary": {
+        "title": "AI-Suggested Summaries",
+        "description": "Generate a summary of an interaction to post as a client notification.",
+        "interactionTextLabel": "Interaction Text",
+        "interactionTextPlaceholder": "Paste or type the client interaction text here...",
+        "suggestedSummaryLabel": "Suggested Summary",
+        "copyAction": "Copy summary",
+        "generateButton": "Generate Summary",
+        "generatingButton": "Generating...",
+        "toast": {
+            "copiedTitle": "Copied!",
+            "copiedDescription": "The summary has been copied to the clipboard.",
+            "errorTitle": "Error Generating Summary",
+            "errorDescription": "There was a problem connecting to the AI service. Please try again later."
+        }
+    }
+}

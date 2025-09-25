@@ -1,0 +1,68 @@
+
+{
+    "title": "Gestión de Proyectos",
+    "description": "Busca, visualiza y gestiona todos los proyectos.",
+    "searchPlaceholder": "Buscar por proyecto o cliente...",
+    "createButton": "Crear Proyecto",
+    "list": {
+        "title": "Listado de Proyectos",
+        "description": "Vista general de todos los proyectos, ordenados por estado y fecha.",
+        "table": {
+            "name": "Nombre del Proyecto",
+            "client": "Cliente",
+            "owner": "Responsable",
+            "status": "Estado",
+            "endDate": "Fecha de Fin",
+            "actions": "Acciones"
+        },
+        "noProjects": "No hay proyectos. ¡Crea el primero!",
+        "noResults": "No se encontraron proyectos para \"{{term}}\".",
+        "unassigned": "Sin asignar",
+        "viewDetails": "Ver Detalles"
+    },
+    "detail": {
+        "backButton": "Volver a Proyectos",
+        "editButton": "Editar Proyecto",
+        "clientLabel": "Cliente",
+        "delete": {
+            "button": "Eliminar",
+            "title": "¿Estás absolutamente seguro?",
+            "description": "Esta acción no se puede deshacer. Esto eliminará permanentemente el proyecto \"{{projectName}}\" y todas sus tareas asociadas.",
+            "cancel": "Cancelar",
+            "confirm": "Sí, eliminar proyecto",
+            "deleting": "Eliminando...",
+            "successTitle": "Proyecto Eliminado",
+            "successDescription": "El proyecto y todas sus tareas han sido eliminados.",
+            "errorTitle": "Error al Eliminar"
+        },
+        "tabs": {
+            "summary": "Resumen",
+            "tasks": "Tareas",
+            "marketing": "Marketing",
+            "finance": "Finanzas"
+        },
+        "kanban": {
+            "title": "Tablero de Tareas por Fases",
+            "description": "Gestiona las tareas de cada fase del proyecto.",
+            "phaseNote": "Nota de la Fase",
+            "addTaskButton": "Añadir Tarea a esta Fase"
+        },
+        "summary": {
+            "title": "Resumen del Proyecto",
+            "description": "Información clave y estado actual del proyecto.",
+            "status": "Estado",
+            "type": "Tipo de Proyecto",
+            "duration": "Duración",
+            "budget": "Presupuesto",
+            "notDefined": "No definido",
+            "owner": "Responsable",
+            "unassigned": "No asignado",
+            "team": "Equipo Asignado",
+            "noTeamMembers": "No hay miembros en el equipo."
+        },
+        "finance": {
+            "title": "Finanzas y Presupuesto",
+            "description": "Aquí irá el desglose financiero del proyecto."
+        }
+    }
+}
