@@ -23,3 +23,6 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DICILONET_ERP_MS }}'
           projectId: erp-dicilo
           channelId: live
+        # >>> LA CORRECCIÓN ES ESTA SECCIÓN NUEVA <<<
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
