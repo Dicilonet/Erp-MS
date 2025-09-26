@@ -1065,9 +1065,7 @@ exports.setSuperAdminRole = onCall(
  * ¡IMPORTANTE! Esta función se debe ejecutar una sola vez.
  * ======================================================================================
  */
-exports.addCompanyIdToUsers = functions
-  .region('europe-west1') // Mantenemos tu región estándar
-  .https.onRequest(async (req, res) => {
+exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, res) => {
     // ----------------------------------------------------------------------------------
     //  ACCIÓN REQUERIDA: CONFIGURA EL ID DE LA EMPRESA POR DEFECTO
     //  Este será el ID que se asigne a todos tus usuarios existentes.
