@@ -1,307 +1,278 @@
+
 {
     "nav": {
-      "contentPool": "Content-Pool",
-      "marketingPlan": "Marketing",
-      "geomarketing": "Geomarketing",
-      "coupons": "Gutscheine",
-      "scanner": "Scannen",
-      "designer": "Designer",
-      "connections": "Verbindungen",
-      "automation": "Kalender"
-    },
-    "marketingSuite": {
-      "title": "Verbundene Marketing-Suite",
-      "connections": {
-        "title": "Soziale Verbindungen",
-        "description": "Verbinde deine Social-Media-Konten, um Beiträge zu automatisieren.",
-        "manageTitle": "Verbindungen verwalten",
-        "manageDescription": "Autorisiere das ERP, in deinem Namen zu posten.",
-        "connectFacebook": "Facebook verbinden",
-        "connectInstagram": "Instagram verbinden",
-        "connected": "Verbunden",
-        "notConnected": "Nicht verbunden",
-        "infoTitle": "Hinweis zu Instagram",
-        "infoDescription": "Um ein Instagram-Business-Konto zu verbinden, musst du zuerst die verknüpfte Facebook-Seite verbinden."
-      },
-      "composer": {
-        "title": "Neuen Beitrag erstellen",
-        "createButton": "Beitrag erstellen",
-        "placeholder": "Wie geht's dir?",
-        "scheduleButton": "Beitrag planen",
-        "platforms": "Plattformen",
-        "media": "Bild/Video anhängen",
-        "scheduleAt": "Planen für"
-      },
-      "calendar": {
-        "title": "Inhaltskalender",
-        "description": "Visualisiere und verwalte alle deine geplanten Veröffentlichungen."
-      }
+        "contentPool": "Content-Pool",
+        "marketing": "Marketing",
+        "geomarketing": "Geomarketing",
+        "coupons": "Gutscheine",
+        "scanner": "Scannen",
+        "designer": "Designer"
     },
     "designer": {
-      "title": "Social-Media-Designer",
-      "description": "Erstelle schnell und einfach professionelle Bilder für soziale Netzwerke.",
-      "layouts": {
-        "layout1": "Quadratisch (Titel, Bild, Fußzeile)",
-        "layout2": "Quadratisch (Bild, Fußzeile)",
-        "layout3": "Horizontal (Bild, Seite)",
-        "layout4": "Vertikal (4:5)",
-        "layout5": "Story (9:16)"
-      },
-      "editor": {
-        "title": "Editor",
-        "layout": "Layout",
-        "image": "Hintergrund / Bild",
-        "logo": "Logo",
-        "titleLabel": "Titel",
-        "icon": "Icon",
-        "web": "Webseite",
-        "contact": "Kontakt",
-        "bgColor": "Texthintergrundfarbe"
-      },
-      "export": {
-        "share": "Teilen",
-        "publishing": "Wird veröffentlicht...",
-        "publish": "Jetzt veröffentlichen"
-      },
-      "share": {
-        "title": "Schau dir dieses Design an!",
-        "text": "Erstellt mit dem Social-Media-Designer der ERP.",
-        "notSupported": "Dein Browser unterstützt die Web Share API nicht."
-      },
-      "imageSource": {
-        "button": "Bildquelle auswählen...",
-        "title": "Bildquelle",
-        "description": "Wähle, wie du ein Bild hinzufügen möchtest.",
-        "tabs": {
-          "upload": "Hochladen",
-          "ai": "KI generieren",
-          "camera": "Kamera"
+        "title": "Social-Media-Designer",
+        "description": "Erstellen Sie schnell und einfach professionelle Bilder für soziale Netzwerke.",
+        "layouts": {
+            "layout1": "Quadrat (Titel, Bild, Fußzeile)",
+            "layout2": "Quadrat (Bild, Fußzeile)",
+            "layout3": "Horizontal (Bild, Seite)",
+            "layout4": "Vertikal (4:5)",
+            "layout5": "Story (9:16)"
         },
-        "uploadLabel": "Bilddatei auswählen",
-        "promptPlaceholder": "Beschreibe das Bild, das du erstellen möchtest...",
-        "generateButton": "Bild generieren",
-        "generatingButton": "Wird generiert...",
-        "generatingToast": {
-          "title": "Bild wird generiert...",
-          "description": "Die KI erstellt dein Bild. Das kann einen Moment dauern."
+        "editor": {
+            "title": "Editor",
+            "layout": "Layout",
+            "image": "Hintergrund / Bild",
+            "logo": "Logo",
+            "titleLabel": "Titel",
+            "icon": "Icon",
+            "web": "Webseite",
+            "contact": "Kontakt",
+            "bgColor": "Hintergrundfarbe für Text"
         },
-        "errorToast": {
-          "title": "Fehler beim Erstellen des Bildes",
-          "description": "Das Bild konnte nicht generiert werden."
+        "export": {
+            "share": "Teilen",
+            "publishing": "Veröffentlichen...",
+            "publish": "Jetzt veröffentlichen"
         },
-        "cameraError": {
-          "title": "Kamerafehler",
-          "description": "Kamerazugriff verweigert. Bitte überprüfe die Berechtigungen."
+        "share": {
+            "title": "Schau dir dieses Design an!",
+            "text": "Erstellt mit dem ERP Social Media Designer.",
+            "notSupported": "Ihr Browser unterstützt die Web-Share-API nicht."
         },
-        "captureButton": "Foto aufnehmen",
-        "dictationError": {
-          "title": "Diktierfehler",
-          "notSupported": "Spracherkennung wird in diesem Browser nicht unterstützt."
-        },
-        "dictation": {
-          "start": "Prompt diktieren",
-          "stop": "Diktieren beenden"
+        "imageSource": {
+            "button": "Bildquelle auswählen...",
+            "title": "Bildquelle",
+            "description": "Wählen Sie, wie Sie ein Bild hinzufügen möchten.",
+            "tabs": {
+                "upload": "Hochladen",
+                "ai": "KI-Generierung",
+                "camera": "Kamera"
+            },
+            "uploadLabel": "Bilddatei auswählen",
+            "promptPlaceholder": "Beschreiben Sie das Bild, das Sie erstellen möchten...",
+            "generateButton": "Bild generieren",
+            "generatingButton": "Wird generiert...",
+            "generatingToast": {
+                "title": "Bild wird generiert...",
+                "description": "Die KI erstellt Ihr Bild. Dies kann einen Moment dauern."
+            },
+            "errorToast": {
+                "title": "Fehler bei der Bilderzeugung",
+                "description": "Das Bild konnte nicht generiert werden."
+            },
+            "cameraError": {
+                "title": "Kamerafehler",
+                "description": "Der Zugriff auf die Kamera wurde verweigert. Bitte überprüfen Sie die Berechtigungen."
+            },
+            "captureButton": "Foto aufnehmen",
+            "dictationError": {
+                "title": "Diktierfehler",
+                "notSupported": "Die Spracherkennung wird von diesem Browser nicht unterstützt."
+            },
+            "dictation": {
+                "start": "Prompt diktieren",
+                "stop": "Diktat stoppen"
+            }
         }
-      }
     },
     "scanner": {
-      "title": "Gutschein-Scanner",
-      "description": "Verwende die Kamera deines Geräts, um einen QR-Code zu scannen und den Status eines Gutscheins sofort zu prüfen.",
-      "notSupportedTitle": "Browser nicht unterstützt",
-      "notSupported": "Dein Browser unterstützt die QR-Code-Erkennung nicht nativ. Bitte verwende eine aktuelle Version von Chrome, Edge oder Safari auf einem kompatiblen Gerät.",
-      "cameraErrorTitle": "Kamerazugriff verweigert",
-      "cameraError": "Um Gutscheine zu scannen, musst du dieser Seite in den Browsereinstellungen Zugriff auf deine Kamera gewähren.",
-      "errorTitle": "Fehler",
-      "scanning": "Suche nach QR-Code...",
-      "ready": "Bereit zum Scannen",
-      "prompt": "Drücke die Taste, um die Kamera zu starten",
-      "start": "Scanner starten",
-      "stop": "Stoppen",
-      "foundTitle": "Gutschein gefunden",
-      "notFound": "Gutschein mit Code \"{{code}}\" nicht gefunden.",
-      "redeemButton": "Gutschein einlösen",
-      "redeeming": "Wird eingelöst...",
-      "redeemSuccessTitle": "Gutschein eingelöst!",
-      "redeemSuccessDescription": "Der Gutschein {{code}} wurde erfolgreich als eingelöst markiert.",
-      "redeemErrorTitle": "Fehler beim Einlösen",
-      "scanNext": "Nächsten Gutschein scannen"
+        "title": "Gutschein-Scanner",
+        "description": "Verwenden Sie die Kamera Ihres Geräts, um einen QR-Code zu scannen und den Status eines Gutscheins sofort zu überprüfen.",
+        "notSupportedTitle": "Browser nicht unterstützt",
+        "notSupported": "Ihr Browser unterstützt die native QR-Code-Erkennung nicht. Bitte verwenden Sie eine aktuelle Version von Chrome, Edge oder Safari auf einem kompatiblen Gerät.",
+        "cameraErrorTitle": "Kamerazugriff verweigert",
+        "cameraError": "Um Gutscheine zu scannen, müssen Sie dieser Seite in den Browsereinstellungen die Erlaubnis zur Kameranutzung erteilen.",
+        "errorTitle": "Fehler",
+        "scanning": "Suche nach QR-Code...",
+        "ready": "Bereit zum Scannen",
+        "prompt": "Drücken Sie die Taste, um die Kamera zu starten",
+        "start": "Scanner starten",
+        "stop": "Stopp",
+        "foundTitle": "Gutschein gefunden",
+        "notFound": "Gutschein mit Code \"{{code}}\" nicht gefunden.",
+        "redeemButton": "Gutschein einlösen",
+        "redeeming": "Wird eingelöst...",
+        "redeemSuccessTitle": "Gutschein eingelöst!",
+        "redeemSuccessDescription": "Gutschein {{code}} wurde erfolgreich als eingelöst markiert.",
+        "redeemErrorTitle": "Fehler beim Einlösen",
+        "scanNext": "Nächsten Gutschein scannen"
     },
     "coupons": {
-      "tabs": {
-        "batch": "Batch erstellen",
-        "individual": "Einzelgutschein",
-        "list": "Gutscheinliste"
-      },
-      "individual": {
-        "title": "Einzelgutschein erstellen",
-        "description": "Erstelle einen einzelnen, personalisierten Gutschein mit einem besonderen Bild und einer persönlichen Widmung.",
-        "defaultTitle": "Persönliche Einladung",
-        "recipient": "Für (Empfänger)",
-        "recipientPlaceholder": "Name der Person",
-        "sender": "Von (Absender)",
-        "imageLabel": "Hintergrundbild (optional)",
-        "for": "Für: {{recipientName}}",
-        "from": "Von: {{senderName}}",
-        "preview": "Live-Vorschau",
-        "createButton": "Einzelgutschein generieren",
-        "creatingButton": "Wird generiert...",
-        "newButton": "Weiteren erstellen",
-        "successToast": {
-          "title": "Einzelgutschein erstellt!",
-          "description": "Gutschein {{code}} wurde generiert und eine Benachrichtigung gesendet."
+        "tabs": {
+            "batch": "Stapel Erstellen",
+            "individual": "Einzelner Gutschein",
+            "list": "Gutscheinliste"
         },
-        "errorToast": {
-          "title": "Fehler beim Erstellen des Gutscheins",
-          "description": "Der Einzelgutschein konnte nicht generiert werden."
+        "individual": {
+            "title": "Einzelnen Gutschein Erstellen",
+            "description": "Generieren Sie einen einzigen, personalisierten Gutschein mit einem besonderen Bild und einer Widmung.",
+            "defaultTitle": "Persönliche Einladung",
+            "recipient": "Für (Empfänger)",
+            "recipientPlaceholder": "Name der Person",
+            "sender": "Von (Absender)",
+            "imageLabel": "Hintergrundbild (Optional)",
+            "for": "Für: {{recipientName}}",
+            "from": "Von: {{senderName}}",
+            "preview": "Live-Vorschau",
+            "createButton": "Einzelnen Gutschein Generieren",
+            "creatingButton": "Wird generiert...",
+            "newButton": "Weiteren Erstellen",
+            "successToast": {
+                "title": "Einzelner Gutschein Erstellt!",
+                "description": "Gutschein {{code}} wurde generiert und eine Benachrichtigung wurde gesendet."
+            },
+            "errorToast": {
+                "title": "Fehler beim Erstellen des Gutscheins",
+                "description": "Der einzelne Gutschein konnte nicht generiert werden."
+            }
+        },
+        "title": "Gutscheinverwaltung",
+        "description": "Erstellen, verwalten und verfolgen Sie die Leistung Ihrer Gutscheinkampagnen.",
+        "batchCreator": {
+            "title": "Gutschein-Stapel erstellen",
+            "description": "Konfigurieren und generieren Sie einen neuen Satz von Gutscheinen. Verwenden Sie die Live-Vorschau, um das Design anzupassen.",
+            "count": "Anzahl",
+            "value": "Gutscheinwert (Text)",
+            "valuePlaceholder": "z.B.: 10 €, 15 %, Kostenloser Versand",
+            "titleLabel": "Gutscheintitel",
+            "titlePlaceholder": "z.B.: Sommerrabatt",
+            "subtitle": "Untertitel",
+            "subtitlePlaceholder": "z.B.: Jetzt aktivieren!",
+            "backgroundImage": "Hintergrundbild-URL",
+            "backgroundImagePlaceholder": "https://... (optional)",
+            "expires": "Gültig bis (optional)",
+            "terms": "Allgemeine Geschäftsbedingungen",
+            "termsPlaceholder": "z.B.: Nur einmal verwendbar...",
+            "error": "Fehler: {{message}}",
+            "createButton": "{{count}} Gutscheine erstellen",
+            "creatingButton": "Wird erstellt...",
+            "successToast": "Stapel erstellt!",
+            "successDescription": "{{count}} neue Gutscheine wurden generiert.",
+            "errorToast": "Fehler beim Erstellen des Stapels"
+        },
+        "adminList": {
+            "searchPlaceholder": "Nach Code, Titel, Wert suchen...",
+            "month": "Monat",
+            "export": "CSV exportieren",
+            "refresh": "Aktualisieren",
+            "loading": "Laden...",
+            "status": "Status",
+            "redeemedOn": "Eingelöst am",
+            "noCoupons": "Keine Gutscheine für diesen Monat. Erstellen Sie einen neuen Stapel!"
+        },
+        "redeem": {
+            "title": "Gutschein einlösen",
+            "searching": "Gutschein wird gesucht...",
+            "code": "Code",
+            "status": "Status",
+            "redeemedOn": "Eingelöst am",
+            "expired": "Abgelaufen",
+            "redeemNow": "Jetzt einlösen",
+            "name": "Name",
+            "contact": "Kontakt (WhatsApp/E-Mail/Telegram)",
+            "channel": "Kanal",
+            "confirm": "Einlösung bestätigen",
+            "alreadyRedeemed": "Dieser Gutschein wurde bereits eingelöst.",
+            "notAvailable": "Dieser Gutschein ist nicht verfügbar.",
+            "fillFields": "Bitte Name und Kontakt ausfüllen",
+            "success": "Gutschein erfolgreich eingelöst!",
+            "error": "Fehler: {{message}}",
+            "statuses": {
+                "active": "Aktiv",
+                "redeemed": "Eingelöst",
+                "expired": "Abgelaufen"
+            }
         }
-      },
-      "title": "Gutscheinverwaltung",
-      "description": "Erstelle, verwalte und verfolge die Leistung deiner Gutschein-Kampagnen.",
-      "batchCreator": {
-        "title": "Gutschein-Batch erstellen",
-        "description": "Konfiguriere und generiere einen neuen Satz von Gutscheinen. Verwende die Live-Vorschau, um das Design anzupassen.",
-        "count": "Anzahl",
-        "value": "Gutscheinwert (Text)",
-        "valuePlaceholder": "z. B. 10 €, 15%, Kostenloser Versand",
-        "titleLabel": "Gutscheintitel",
-        "titlePlaceholder": "z. B. Sommerrabatt",
-        "subtitle": "Untertitel",
-        "subtitlePlaceholder": "z. B. Jetzt aktivieren!",
-        "backgroundImage": "URL des Hintergrundbildes",
-        "backgroundImagePlaceholder": "https://... (optional)",
-        "expires": "Läuft ab am (optional)",
-        "terms": "Geschäftsbedingungen",
-        "termsPlaceholder": "z. B. Nur einmal gültig...",
-        "error": "Fehler: {{message}}",
-        "createButton": "{{count}} Gutscheine erstellen",
-        "creatingButton": "Wird erstellt...",
-        "successToast": "Batch erstellt!",
-        "successDescription": "{{count}} neue Gutscheine wurden generiert.",
-        "errorToast": "Fehler beim Erstellen des Batches"
-      },
-      "adminList": {
-        "searchPlaceholder": "Suche nach Code, Titel, Wert...",
-        "month": "Monat",
-        "export": "CSV exportieren",
-        "refresh": "Aktualisieren",
-        "loading": "Wird geladen...",
-        "status": "Status",
-        "redeemedOn": "Eingelöst am",
-        "noCoupons": "Keine Gutscheine für diesen Monat. Erstelle einen neuen Batch!"
-      },
-      "redeem": {
-        "title": "Gutschein einlösen",
-        "searching": "Suche nach Gutschein...",
-        "code": "Code",
-        "status": "Status",
-        "redeemedOn": "Eingelöst am",
-        "expired": "Abgelaufen",
-        "redeemNow": "Jetzt einlösen",
-        "name": "Name",
-        "contact": "Kontakt (WhatsApp/E-Mail/Telegram)",
-        "channel": "Kanal",
-        "confirm": "Einlösung bestätigen",
-        "alreadyRedeemed": "Dieser Gutschein wurde bereits eingelöst.",
-        "notAvailable": "Dieser Gutschein ist nicht verfügbar.",
-        "fillFields": "Bitte Name und Kontakt ausfüllen",
-        "success": "Gutschein erfolgreich eingelöst!",
-        "error": "Fehler: {{message}}",
-        "statuses": {
-          "active": "Aktiv",
-          "redeemed": "Eingelöst",
-          "expired": "Abgelaufen"
-        }
-      }
     },
     "contentPool": {
-      "title": "Content-Pool",
-      "description": "Durchsuche, filtere und verwalte alle deine wiederverwendbaren Marketing-Inhalte.",
-      "createAsset": "Inhalts-Asset erstellen",
-      "filterByTags": "Nach Tags filtern...",
-      "filterByBrands": "Nach Marken filtern...",
-      "loadMore": "+{{count}} mehr",
-      "noAssets": "Keine Inhalte gefunden.",
-      "noAssetsDescription": "Erstelle ein neues Inhalts-Asset, um es hier zu sehen."
+        "title": "Content-Arsenal",
+        "description": "Suchen, filtern und verwalten Sie alle Ihre wiederverwendbaren Marketing-Assets.",
+        "createAsset": "Content-Asset erstellen",
+        "filterByTags": "Nach Tags filtern...",
+        "filterByBrands": "Nach Marken filtern...",
+        "loadMore": "+{{count}} mehr",
+        "noAssets": "Keine Assets gefunden.",
+        "noAssetsDescription": "Erstellen Sie ein neues Content-Asset, um es hier anzuzeigen."
     },
     "createAssetForm": {
-      "title": "Neues Inhalts-Asset erstellen",
-      "editTitle": "Inhalts-Asset bearbeiten",
-      "description": "Fülle die Details aus, um eine neue Marketing-Vorlage zu erstellen.",
-      "editDescription": "Bearbeite die Details dieses Marketing-Assets.",
-      "assetName": "Asset-Name",
-      "assetNamePlaceholder": "z. B. Sommer-Promo-Post",
-      "assetType": "Asset-Typ",
-      "selectAssetType": "Wähle einen Typ...",
-      "socialPost": "Social-Media-Beitrag",
-      "campaignTemplate": "Kampagnen-Vorlage",
-      "tags": "Tags (kommagetrennt)",
-      "tagsPlaceholder": "angebot, sommer, produkt",
-      "brands": "Marken (kommagetrennt)",
-      "brandsPlaceholder": "marke-a, marke-b",
-      "text": "Inhaltstext",
-      "textPlaceholder": "Verpasse nicht unsere Sommerangebote!",
-      "imageUrl": "Bild-URL (optional)",
-      "imageUrlPlaceholder": "https://...",
-      "channels": "Veröffentlichungskanäle",
-      "save": "Asset speichern",
-      "saving": "Wird gespeichert...",
-      "update": "Asset aktualisieren",
-      "updating": "Wird aktualisiert..."
+        "title": "Neues Content-Asset erstellen",
+        "editTitle": "Content-Asset bearbeiten",
+        "description": "Füllen Sie die Details aus, um eine neue Marketingvorlage zu erstellen.",
+        "editDescription": "Ändern Sie die Details dieses Marketing-Assets.",
+        "assetName": "Asset-Name",
+        "assetNamePlaceholder": "Z.B.: Sommer-Promo-Beitrag",
+        "assetType": "Asset-Typ",
+        "selectAssetType": "Wählen Sie einen Typ...",
+        "socialPost": "Social-Media-Beitrag",
+        "campaignTemplate": "Kampagnenvorlage",
+        "tags": "Tags (durch Komma getrennt)",
+        "tagsPlaceholder": "angebot, sommer, produkt",
+        "brands": "Marken (durch Komma getrennt)",
+        "brandsPlaceholder": "marke-a, marke-b",
+        "text": "Inhaltstext",
+        "textPlaceholder": "Verpassen Sie nicht unsere Sommerangebote!",
+        "imageUrl": "Bild-URL (Optional)",
+        "imageUrlPlaceholder": "https://...",
+        "channels": "Veröffentlichungskanäle",
+        "save": "Asset speichern",
+        "saving": "Speichern...",
+        "update": "Asset aktualisieren",
+        "updating": "Aktualisieren..."
     },
     "page": {
-      "title": "Marketing",
-      "description": "Wähle einen Kunden aus, um seinen Marketing-Kalender anzuzeigen und zu verwalten.",
-      "selectPlaceholder": "Wähle einen Kunden..."
+        "title": "Marketing",
+        "description": "Wählen Sie einen Kunden aus, um dessen Marketingkalender anzuzeigen und zu verwalten.",
+        "selectPlaceholder": "Wählen Sie einen Kunden..."
     },
     "toasts": {
-      "seed": {
-        "title": "Testdaten erstellt",
-        "description": "3 Beispielkunden wurden deiner Datenbank hinzugefügt."
-      },
-      "seedError": {
-        "title": "Fehler beim Erstellen der Testdaten",
-        "description": "Die Testdaten konnten nicht erstellt werden."
-      },
-      "loadError": {
-        "title": "Fehler",
-        "description": "Die Ereignisse konnten nicht geladen werden."
-      },
-      "customerNeeded": {
-        "title": "Aktion erforderlich",
-        "description": "Bitte wähle einen Kunden aus, bevor du einen Termin planst.",
-        "descriptionProject": "Dieses Projekt ist keinem Kunden zugeordnet, daher können keine Beiträge geplant werden."
-      }
+        "seed": {
+            "title": "Testdaten erstellt",
+            "description": "3 Beispielkunden wurden Ihrer Datenbank hinzugefügt."
+        },
+        "seedError": {
+            "title": "Fehler beim Erstellen der Testdaten",
+            "description": "Die Testdaten konnten nicht erstellt werden."
+        },
+        "loadError": {
+            "title": "Fehler",
+            "description": "Die Ereignisse konnten nicht geladen werden."
+        },
+        "customerNeeded": {
+            "title": "Aktion erforderlich",
+            "description": "Bitte wählen Sie einen Kunden aus, bevor Sie ein Ereignis planen.",
+            "descriptionProject": "Dieses Projekt ist keinem Kunden zugeordnet, daher können keine Beiträge geplant werden."
+        }
     },
     "projectCalendar": {
-      "title": "Projekt-Marketingplan",
-      "description": "Kalender der Veröffentlichungen und Marketing-Events dieses Projekts.",
-      "scheduleButton": "Beitrag planen"
+        "title": "Projekt-Marketingplan",
+        "description": "Kalender der mit diesem Projekt verbundenen Veröffentlichungen und Marketingereignisse.",
+        "scheduleButton": "Beitrag planen"
     },
     "modal": {
-      "title": "Neuen Beitrag planen",
-      "description": "Wähle ein Asset aus dem Content-Pool für den {{date}}.",
-      "project": {
-        "label": "Projekt",
-        "placeholder": "Wähle ein zugehöriges Projekt"
-      },
-      "asset": {
-        "label": "Content-Pool-Asset",
-        "placeholder": "Wähle eine Vorlage..."
-      },
-      "text": {
-        "label": "Endgültiger Beitragstext"
-      },
-      "cancel": "Abbrechen",
-      "submit": "Ereignis planen",
-      "toast": {
-        "success": {
-          "title": "Ereignis geplant",
-          "description": "Der Beitrag wurde dem Projekt-Kalender hinzugefügt."
+        "title": "Neuen Beitrag planen",
+        "description": "Wählen Sie ein Asset aus dem Content-Pool aus, um es für den {{date}} zu planen.",
+        "project": {
+            "label": "Projekt",
+            "placeholder": "Wählen Sie ein Projekt zur Zuordnung aus"
         },
-        "error": {
-          "title": "Fehler",
-          "description": "Das Ereignis konnte nicht geplant werden."
+        "asset": {
+            "label": "Content-Pool-Asset",
+            "placeholder": "Wählen Sie eine Vorlage..."
+        },
+        "text": {
+            "label": "Finaler Beitragstext"
+        },
+        "cancel": "Abbrechen",
+        "submit": "Ereignis planen",
+        "toast": {
+            "success": {
+                "title": "Ereignis geplant",
+                "description": "Der Beitrag wurde dem Projektkalender hinzugefügt."
+            },
+            "error": {
+                "title": "Fehler",
+                "description": "Das Ereignis konnte nicht geplant werden."
+            }
         }
-      }
     }
-  }
+}
