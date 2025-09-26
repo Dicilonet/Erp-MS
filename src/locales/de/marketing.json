@@ -274,5 +274,23 @@
                 "description": "Das Ereignis konnte nicht geplant werden."
             }
         }
+    },
+    "marketingSuite": {
+        "connections": {
+            "title": "Marketing-Verbindungen",
+            "description": "Verknüpfen und verwalten Sie Ihre Social-Media-Konten und andere Plattformen.",
+            "manageTitle": "Verbindungen verwalten",
+            "manageDescription": "Synchronisieren Sie Ihre Konten, um automatisches Posten und andere Integrationen zu ermöglichen.",
+            "infoTitle": "Information",
+            "infoDescription": "Verbindungen werden genutzt, um Inhalte direkt aus dem Content-Pool zu veröffentlichen und für zukünftige Automatisierungen.",
+            "notConnected": "Nicht verbunden",
+            "connectFacebook": "Facebook verbinden",
+            "connectInstagram": "Instagram verbinden",
+            "connectWhatsApp": "WhatsApp verbinden",
+            "connectTelegram": "Telegram verbinden",
+            "connectTikTok": "TikTok verbinden",
+            "connectLinkedIn": "LinkedIn verbinden",
+            "connectXING": "XING verbinden"
+        }
     }
 }

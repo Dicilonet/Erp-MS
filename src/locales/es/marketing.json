@@ -274,5 +274,23 @@
                 "description": "No se pudo programar el evento."
             }
         }
+    },
+    "marketingSuite": {
+        "connections": {
+            "title": "Conexiones de Marketing",
+            "description": "Vincula y gestiona tus cuentas de redes sociales y otras plataformas.",
+            "manageTitle": "Gestionar Conexiones",
+            "manageDescription": "Sincroniza tus cuentas para activar la publicación automática y otras integraciones.",
+            "infoTitle": "Información",
+            "infoDescription": "Las conexiones se utilizan para publicar contenido directamente desde el Content-Pool y para futuras automatizaciones.",
+            "notConnected": "No conectado",
+            "connectFacebook": "Conectar Facebook",
+            "connectInstagram": "Conectar Instagram",
+            "connectWhatsApp": "Conectar WhatsApp",
+            "connectTelegram": "Conectar Telegram",
+            "connectTikTok": "Conectar TikTok",
+            "connectLinkedIn": "Conectar LinkedIn",
+            "connectXING": "Conectar XING"
+        }
     }
 }

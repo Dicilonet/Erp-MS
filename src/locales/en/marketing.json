@@ -1,4 +1,3 @@
-
 {
     "nav": {
         "contentPool": "Content Pool",
@@ -273,6 +272,24 @@
                 "title": "Error",
                 "description": "Could not schedule the event."
             }
+        }
+    },
+    "marketingSuite": {
+        "connections": {
+            "title": "Marketing Connections",
+            "description": "Link and manage your social media accounts and other platforms.",
+            "manageTitle": "Manage Connections",
+            "manageDescription": "Synchronize your accounts to enable automatic posting and other integrations.",
+            "infoTitle": "Information",
+            "infoDescription": "Connections are used to publish content directly from the Content-Pool and for future automations.",
+            "notConnected": "Not connected",
+            "connectFacebook": "Connect Facebook",
+            "connectInstagram": "Connect Instagram",
+            "connectWhatsApp": "Connect WhatsApp",
+            "connectTelegram": "Connect Telegram",
+            "connectTikTok": "Connect TikTok",
+            "connectLinkedIn": "Connect LinkedIn",
+            "connectXING": "Connect XING"
         }
     }
 }
