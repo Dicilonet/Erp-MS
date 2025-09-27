@@ -7,7 +7,32 @@
       "scanner": "Scan",
       "designer": "Designer",
       "connections": "Connections",
-      "automation": "Calendar"
+      "automation": "Calendar",
+      "campaigns": "Campaigns"
+    },
+    "campaigns": {
+      "title": "Campaign Dashboard",
+      "description": "Manage marketing campaigns for your clients.",
+      "customerList": {
+        "title": "Customer List",
+        "description": "Select a customer to view their campaign.",
+        "searchPlaceholder": "Search customer...",
+        "noResults": "No customers found."
+      },
+      "selectCustomerPrompt": "Select a customer from the list to view their campaign details.",
+      "details": {
+        "title": "Campaign Details for {{customerName}}",
+        "source": "Source"
+      },
+      "tasks": {
+        "done": "Done",
+        "todo": "To-Do",
+        "nextSteps": "Next Steps"
+      },
+      "tools": {
+        "title": "Marketing Tools",
+        "description": "Access tools to perform actions for {{customerName}}."
+      }
     },
     "marketingSuite": {
       "title": "Connected Marketing Suite",

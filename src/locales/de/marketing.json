@@ -1,13 +1,38 @@
 {
     "nav": {
       "contentPool": "Content-Pool",
-      "marketingPlan": "Marketing",
+      "marketingPlan": "Marketingplan",
       "geomarketing": "Geomarketing",
       "coupons": "Gutscheine",
       "scanner": "Scannen",
       "designer": "Designer",
       "connections": "Verbindungen",
-      "automation": "Kalender"
+      "automation": "Kalender",
+      "campaigns": "Kampagnen"
+    },
+    "campaigns": {
+      "title": "Kampagnen-Dashboard",
+      "description": "Verwalten Sie Marketingkampagnen für Ihre Kunden.",
+      "customerList": {
+        "title": "Kundenliste",
+        "description": "Wählen Sie einen Kunden aus, um dessen Kampagne anzuzeigen.",
+        "searchPlaceholder": "Kunde suchen...",
+        "noResults": "Keine Kunden gefunden."
+      },
+      "selectCustomerPrompt": "Wählen Sie einen Kunden aus der Liste aus, um dessen Kampagnendetails anzuzeigen.",
+      "details": {
+        "title": "Kampagnendetails für {{customerName}}",
+        "source": "Quelle"
+      },
+      "tasks": {
+        "done": "Erledigt",
+        "todo": "Zu erledigen",
+        "nextSteps": "Nächste Schritte"
+      },
+      "tools": {
+        "title": "Marketing-Tools",
+        "description": "Greifen Sie auf Tools zu, um Aktionen für {{customerName}} durchzuführen."
+      }
     },
     "marketingSuite": {
       "title": "Verbundene Marketing-Suite",

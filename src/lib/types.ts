@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { FC, ReactNode } from 'react';
@@ -349,6 +348,16 @@ export interface MarketingEvent {
   finalContent: {
       text: string;
       imageUrl?: string;
+  }
+}
+
+// --- Tipos para Campañas ---
+export interface Campaign {
+  source: 'Dicilo' | 'Externa';
+  tasks: {
+    done: string[];
+    todo: string[];
+    nextSteps: string[];
   }
 }
 

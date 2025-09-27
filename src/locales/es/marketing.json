@@ -7,7 +7,32 @@
       "scanner": "Escanear",
       "designer": "Diseñador",
       "connections": "Conexiones",
-      "automation": "Calendario"
+      "automation": "Calendario",
+      "campaigns": "Campañas"
+    },
+    "campaigns": {
+      "title": "Panel de Campañas",
+      "description": "Gestiona las campañas de marketing para tus clientes.",
+      "customerList": {
+        "title": "Lista de Clientes",
+        "description": "Selecciona un cliente para ver su campaña.",
+        "searchPlaceholder": "Buscar cliente...",
+        "noResults": "No se encontraron clientes."
+      },
+      "selectCustomerPrompt": "Selecciona un cliente de la lista para ver los detalles de su campaña.",
+      "details": {
+        "title": "Detalles de Campaña para {{customerName}}",
+        "source": "Fuente"
+      },
+      "tasks": {
+        "done": "Hecho",
+        "todo": "Por Hacer",
+        "nextSteps": "Próximos Pasos"
+      },
+      "tools": {
+        "title": "Herramientas de Marketing",
+        "description": "Accede a las herramientas para realizar acciones para {{customerName}}."
+      }
     },
     "marketingSuite": {
       "title": "Suite de Marketing Conectado",
