@@ -1,6 +1,8 @@
+
 {
     "page": {
-        "title": "Customer Management"
+        "title": "Customer Management",
+        "description": "View, sync, and add customers to your ERP."
     },
     "nav": {
         "management": "Management",

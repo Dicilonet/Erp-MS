@@ -1,6 +1,8 @@
+
 {
     "page": {
-        "title": "Gestión de Clientes"
+        "title": "Gestión de Clientes",
+        "description": "Visualiza, sincroniza y añade clientes a tu ERP."
     },
     "nav": {
         "management": "Gestión",

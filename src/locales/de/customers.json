@@ -1,6 +1,8 @@
+
 {
     "page": {
-        "title": "Kundenverwaltung"
+        "title": "Kundenverwaltung",
+        "description": "Kunden in Ihrem ERP anzeigen, synchronisieren und hinzufügen."
     },
     "nav": {
         "management": "Verwaltung",

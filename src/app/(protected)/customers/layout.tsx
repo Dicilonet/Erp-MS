@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useTranslation } from 'react-i18next';
@@ -15,34 +16,40 @@ export default function CustomersLayout({ children }: { children: React.ReactNod
   const { t } = useTranslation('customers');
   const pathname = usePathname();
 
-  // Encuentra la pestaña activa, incluso para subrutas como /customers/[id]
   const getCurrentTab = () => {
-    const bestMatch = customerNavItems
-        .filter(item => pathname.startsWith(item.href))
-        .sort((a, b) => b.href.length - a.href.length)[0];
-    return bestMatch ? bestMatch.href : '/customers';
+    // Exact match first
+    if (pathname === '/customers/metrics') {
+      return '/customers/metrics';
+    }
+    // Default to management for the root or any other sub-path like customer details
+    return '/customers';
   };
   
   return (
     <div className="space-y-6">
-       <div className="flex items-center gap-4 mt-4 sm:mt-0">
-          <h1 className="text-2xl sm:text-3xl font-bold">{t('page.title')}</h1>
-       </div>
-      <Tabs value={getCurrentTab()} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 md:grid-cols-8 h-auto">
-            {customerNavItems.map(item => (
-                <TabsTrigger key={item.href} value={item.href} asChild className="flex-col sm:flex-row h-auto py-2 sm:py-1.5">
-                    <Link href={item.href} className="flex items-center gap-2">
-                        {item.icon}
-                        <span>{t(item.labelKey as any)}</span>
-                    </Link>
-                </TabsTrigger>
-            ))}
-        </TabsList>
-         <div className="mt-6">
-            {children}
+        <div className="flex items-center gap-4 mt-4 sm:mt-0">
+            <Users className="h-8 w-8" />
+            <div>
+                <h1 className="text-2xl sm:text-3xl font-bold">{t('page.title')}</h1>
+                <p className="text-muted-foreground">{t('page.description')}</p>
+            </div>
         </div>
-      </Tabs>
+
+        <Tabs value={getCurrentTab()} className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+                {customerNavItems.map(item => (
+                    <TabsTrigger key={item.href} value={item.href} asChild>
+                        <Link href={item.href}>
+                             {item.icon}
+                             <span className="ml-2">{t(item.labelKey as any)}</span>
+                        </Link>
+                    </TabsTrigger>
+                ))}
+            </TabsList>
+            <div className="mt-6">
+                {children}
+            </div>
+        </Tabs>
     </div>
   );
 }
