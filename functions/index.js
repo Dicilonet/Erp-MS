@@ -1808,7 +1808,8 @@ exports.createSingleCoupon = onCall({region: 'europe-west1', secrets: [smtpPassN
             code: newCode,
             month_key: `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}`,
             title: title,
-            subtitle: `Para: ${recipientName}`, // Subtítulo construido en el backend
+            recipientName: recipientName,
+            senderName: senderName,
             value_text: value_text,
             bg_image_url: bg_image_url || null,
             terms: terms || null,
@@ -1817,8 +1818,6 @@ exports.createSingleCoupon = onCall({region: 'europe-west1', secrets: [smtpPassN
             created_by: request.auth.uid,
             created_at: FieldValue.serverTimestamp(),
             isIndividual: true,
-            recipientName: recipientName,
-            senderName: senderName,
         };
         
         const couponRef = await db.collection('coupons').add(newCouponData);
@@ -2002,5 +2001,34 @@ exports.publishSocialPost = onCall({region: 'europe-west1'}, async (request) => 
     return { success: true, message: "Publicación enviada al gestor de redes." };
 });
 
+exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request) => {
+    if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
+    }
 
-    
+    const { customerId, metrics } = request.data;
+    if (!customerId || !Array.isArray(metrics)) {
+        throw new HttpsError('invalid-argument', 'Faltan datos para guardar las métricas.');
+    }
+
+    try {
+        const metricsRef = db.collection(`customers/${customerId}/metrics`);
+        const batch = db.batch();
+
+        const newMetricRecord = {
+            createdAt: FieldValue.serverTimestamp(),
+            createdBy: request.auth.uid,
+            responses: metrics,
+        };
+
+        batch.set(metricsRef.doc(), newMetricRecord);
+        
+        await batch.commit();
+        
+        return { success: true };
+
+    } catch (error) {
+        console.error("Error al guardar las métricas del cliente:", error);
+        throw new HttpsError('internal', 'No se pudieron guardar las métricas.');
+    }
+});

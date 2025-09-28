@@ -1,0 +1,31 @@
+{
+    "page": {
+        "title": "Gestión de Clientes"
+    },
+    "nav": {
+        "management": "Gestión",
+        "metrics": "Métricas"
+    },
+    "metrics": {
+        "title": "Métricas de Interés del Cliente",
+        "description": "Rellena este formulario durante o después de una conversación con el cliente para registrar su interés en los diferentes servicios.",
+        "customerList": {
+            "title": "Selección de Cliente",
+            "description": "Elige un cliente para rellenar su formulario de métricas.",
+            "searchPlaceholder": "Buscar cliente...",
+            "noResults": "No se encontraron clientes."
+        },
+        "selectCustomerPrompt": "Selecciona un cliente para comenzar a registrar métricas.",
+        "form": {
+            "title": "Formulario de Métricas para {{customerName}}",
+            "description": "Valora el interés del cliente en cada servicio de 0 (ningún interés) a 10 (interés máximo).",
+            "saveButton": "Guardar Métricas",
+            "savingButton": "Guardando...",
+            "toast": {
+                "successTitle": "Métricas Guardadas",
+                "successDescription": "Se ha guardado el formulario para {{customerName}}.",
+                "errorTitle": "Error al Guardar"
+            }
+        }
+    }
+}

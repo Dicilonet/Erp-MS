@@ -1,0 +1,31 @@
+{
+    "page": {
+        "title": "Customer Management"
+    },
+    "nav": {
+        "management": "Management",
+        "metrics": "Metrics"
+    },
+    "metrics": {
+        "title": "Customer Interest Metrics",
+        "description": "Fill out this form during or after a conversation with the client to record their interest in different services.",
+        "customerList": {
+            "title": "Customer Selection",
+            "description": "Choose a customer to fill out their metrics form.",
+            "searchPlaceholder": "Search customer...",
+            "noResults": "No customers found."
+        },
+        "selectCustomerPrompt": "Select a customer to start recording metrics.",
+        "form": {
+            "title": "Metrics Form for {{customerName}}",
+            "description": "Rate the client's interest in each service from 0 (no interest) to 10 (maximum interest).",
+            "saveButton": "Save Metrics",
+            "savingButton": "Saving...",
+            "toast": {
+                "successTitle": "Metrics Saved",
+                "successDescription": "The form for {{customerName}} has been saved.",
+                "errorTitle": "Error Saving"
+            }
+        }
+    }
+}

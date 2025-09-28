@@ -1,0 +1,31 @@
+{
+    "page": {
+        "title": "Kundenverwaltung"
+    },
+    "nav": {
+        "management": "Verwaltung",
+        "metrics": "Metriken"
+    },
+    "metrics": {
+        "title": "Kundeninteresse-Metriken",
+        "description": "Füllen Sie dieses Formular während oder nach einem Gespräch mit dem Kunden aus, um dessen Interesse an verschiedenen Dienstleistungen zu erfassen.",
+        "customerList": {
+            "title": "Kundenauswahl",
+            "description": "Wählen Sie einen Kunden aus, um dessen Metrik-Formular auszufüllen.",
+            "searchPlaceholder": "Kunde suchen...",
+            "noResults": "Keine Kunden gefunden."
+        },
+        "selectCustomerPrompt": "Wählen Sie einen Kunden aus, um mit der Erfassung von Metriken zu beginnen.",
+        "form": {
+            "title": "Metrik-Formular für {{customerName}}",
+            "description": "Bewerten Sie das Interesse des Kunden an jeder Dienstleistung von 0 (kein Interesse) bis 10 (maximales Interesse).",
+            "saveButton": "Metriken speichern",
+            "savingButton": "Speichern...",
+            "toast": {
+                "successTitle": "Metriken gespeichert",
+                "successDescription": "Das Formular für {{customerName}} wurde gespeichert.",
+                "errorTitle": "Fehler beim Speichern"
+            }
+        }
+    }
+}

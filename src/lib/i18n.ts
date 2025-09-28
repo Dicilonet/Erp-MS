@@ -15,7 +15,7 @@ if (typeof window !== 'undefined') {
     .init({
       fallbackLng: 'es', // Idioma de respaldo
       debug: process.env.NODE_ENV === 'development',
-      ns: ['common', 'dashboard', 'marketing', 'offer', 'todo', 'projects', 'expenses', 'support', 'communications', 'connections', 'settings', 'chat'], // Namespaces a cargar
+      ns: ['common', 'dashboard', 'marketing', 'offer', 'todo', 'projects', 'expenses', 'support', 'communications', 'connections', 'settings', 'chat', 'customers'], // Namespaces a cargar
       defaultNS: 'common',
       interpolation: {
         escapeValue: false, // React ya protege contra XSS
