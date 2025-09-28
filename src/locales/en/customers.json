@@ -8,6 +8,42 @@
         "management": "Management",
         "metrics": "Metrics"
     },
+    "list": {
+        "title": "Customers in ERP",
+        "description": "This is the list of customers currently in your system.",
+        "buttons": {
+            "cleanup": "Cleanup Duplicates",
+            "sync": "Sync New",
+            "add": "Add Customer"
+        },
+        "table": {
+            "name": "Business Name",
+            "category": "Category",
+            "location": "Location",
+            "assignedTo": "Assigned To",
+            "unassigned": "Unassigned",
+            "actions": "Actions",
+            "viewButton": "View Panel"
+        },
+        "noCustomers": "No customers in the ERP. Sync or add one to get started.",
+        "deleteDialog": {
+            "title": "Are you sure?",
+            "description": "This action cannot be undone. This will permanently delete the customer \"{{customerName}}\" and all their associated data (offers, interactions, etc.).",
+            "cancel": "Cancel",
+            "confirm": "Confirm Deletion"
+        },
+        "toast": {
+            "syncSuccessTitle": "Sync Complete",
+            "syncSuccessDescription": "{{count}} new customers have been added. The list will update shortly.",
+            "syncErrorTitle": "Sync Error",
+            "cleanupSuccessTitle": "Cleanup Complete",
+            "cleanupSuccessDescription": "{{count}} duplicate customers were deleted.",
+            "cleanupErrorTitle": "Cleanup Error",
+            "deleteSuccessTitle": "Customer Deleted",
+            "deleteSuccessDescription": "Customer \"{{customerName}}\" has been permanently deleted.",
+            "deleteErrorTitle": "Error Deleting"
+        }
+    },
     "metrics": {
         "title": "Customer Interest Metrics",
         "description": "Fill out this form during or after a conversation with the client to record their interest in different services.",

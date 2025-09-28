@@ -8,6 +8,42 @@
         "management": "Gestión",
         "metrics": "Métricas"
     },
+    "list": {
+        "title": "Clientes en el ERP",
+        "description": "Esta es la lista de clientes actualmente en tu sistema.",
+        "buttons": {
+            "cleanup": "Limpiar Duplicados",
+            "sync": "Sincronizar Nuevos",
+            "add": "Añadir Cliente"
+        },
+        "table": {
+            "name": "Nombre del Negocio",
+            "category": "Categoría",
+            "location": "Ubicación",
+            "assignedTo": "Asignado a",
+            "unassigned": "Sin asignar",
+            "actions": "Acciones",
+            "viewButton": "Ver Panel"
+        },
+        "noCustomers": "No hay clientes en el ERP. Sincroniza o añade uno para empezar.",
+        "deleteDialog": {
+            "title": "¿Estás seguro?",
+            "description": "Esta acción no se puede deshacer. Esto eliminará permanentemente al cliente \"{{customerName}}\" y todos sus datos asociados (ofertas, interacciones, etc.).",
+            "cancel": "Cancelar",
+            "confirm": "Confirmar Eliminación"
+        },
+        "toast": {
+            "syncSuccessTitle": "Sincronización Completa",
+            "syncSuccessDescription": "Se han añadido {{count}} nuevos clientes. La lista se actualizará en breve.",
+            "syncErrorTitle": "Error de Sincronización",
+            "cleanupSuccessTitle": "Limpieza Completada",
+            "cleanupSuccessDescription": "Se eliminaron {{count}} clientes duplicados.",
+            "cleanupErrorTitle": "Error en la Limpieza",
+            "deleteSuccessTitle": "Cliente Eliminado",
+            "deleteSuccessDescription": "El cliente \"{{customerName}}\" ha sido eliminado permanentemente.",
+            "deleteErrorTitle": "Error al Eliminar"
+        }
+    },
     "metrics": {
         "title": "Métricas de Interés del Cliente",
         "description": "Rellena este formulario durante o después de una conversación con el cliente para registrar su interés en los diferentes servicios.",

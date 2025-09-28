@@ -8,6 +8,42 @@
         "management": "Verwaltung",
         "metrics": "Metriken"
     },
+    "list": {
+        "title": "Kunden im ERP",
+        "description": "Dies ist die Liste der Kunden, die sich derzeit in Ihrem System befinden.",
+        "buttons": {
+            "cleanup": "Duplikate bereinigen",
+            "sync": "Neue synchronisieren",
+            "add": "Kunde hinzufügen"
+        },
+        "table": {
+            "name": "Geschäftsname",
+            "category": "Kategorie",
+            "location": "Standort",
+            "assignedTo": "Zuständig",
+            "unassigned": "Nicht zugewiesen",
+            "actions": "Aktionen",
+            "viewButton": "Panel anzeigen"
+        },
+        "noCustomers": "Keine Kunden im ERP. Synchronisieren oder fügen Sie einen hinzu, um zu beginnen.",
+        "deleteDialog": {
+            "title": "Sind Sie sicher?",
+            "description": "Diese Aktion kann nicht rückgängig gemacht werden. Dadurch wird der Kunde \"{{customerName}}\" und alle zugehörigen Daten (Angebote, Interaktionen usw.) dauerhaft gelöscht.",
+            "cancel": "Abbrechen",
+            "confirm": "Löschung bestätigen"
+        },
+        "toast": {
+            "syncSuccessTitle": "Synchronisierung abgeschlossen",
+            "syncSuccessDescription": "{{count}} neue Kunden wurden hinzugefügt. Die Liste wird in Kürze aktualisiert.",
+            "syncErrorTitle": "Synchronisierungsfehler",
+            "cleanupSuccessTitle": "Bereinigung abgeschlossen",
+            "cleanupSuccessDescription": "{{count}} doppelte Kunden wurden gelöscht.",
+            "cleanupErrorTitle": "Fehler bei der Bereinigung",
+            "deleteSuccessTitle": "Kunde gelöscht",
+            "deleteSuccessDescription": "Der Kunde \"{{customerName}}\" wurde dauerhaft gelöscht.",
+            "deleteErrorTitle": "Fehler beim Löschen"
+        }
+    },
     "metrics": {
         "title": "Kundeninteresse-Metriken",
         "description": "Füllen Sie dieses Formular während oder nach einem Gespräch mit dem Kunden aus, um dessen Interesse an verschiedenen Dienstleistungen zu erfassen.",

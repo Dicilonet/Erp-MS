@@ -17,6 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { CreateCustomerForm } from '@/components/create-customer-form';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { useTranslation } from 'react-i18next';
 
 
 // Usamos el tipo Customer de types.ts para consistencia
@@ -25,6 +26,7 @@ interface ErpCustomer extends Customer {
 }
 
 export function CustomerList() {
+    const { t } = useTranslation('customers');
     const { user, isSuperadmin } = useAuth();
     const [customers, setCustomers] = useState<ErpCustomer[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -71,12 +73,12 @@ export function CustomerList() {
             const data = result.data as { success: boolean, newCount: number };
 
             toast({
-                title: 'Sincronización Completa',
-                description: `Se han añadido ${data.newCount} nuevos clientes. La lista se actualizará en breve.`,
+                title: t('list.toast.syncSuccessTitle'),
+                description: t('list.toast.syncSuccessDescription', { count: data.newCount }),
             });
             
         } catch (error: any) {
-            toast({ variant: 'destructive', title: 'Error de Sincronización', description: error.message });
+            toast({ variant: 'destructive', title: t('list.toast.syncErrorTitle'), description: error.message });
         } finally {
             setIsSyncing(false);
         }
@@ -92,14 +94,14 @@ export function CustomerList() {
             
             if (result.data.success) {
                  toast({
-                    title: 'Limpieza Completada',
-                    description: result.data.message,
+                    title: t('list.toast.cleanupSuccessTitle'),
+                    description: t('list.toast.cleanupSuccessDescription', { count: result.data.deletedCount }),
                 });
             } else {
                  throw new Error(result.data.message || "Ocurrió un error desconocido durante la limpieza.");
             }
         } catch (error: any) {
-            toast({ variant: 'destructive', title: 'Error en la Limpieza', description: error.message });
+            toast({ variant: 'destructive', title: t('list.toast.cleanupErrorTitle'), description: error.message });
         } finally {
             setIsCleaning(false);
         }
@@ -112,11 +114,11 @@ export function CustomerList() {
             const deleteCustomerFunc = httpsCallable(functions, 'deleteCustomer');
             await deleteCustomerFunc({ customerId });
             toast({
-                title: 'Cliente Eliminado',
-                description: `El cliente "${customerName}" ha sido eliminado permanentemente.`,
+                title: t('list.toast.deleteSuccessTitle'),
+                description: t('list.toast.deleteSuccessDescription', { customerName }),
             });
         } catch (error: any) {
-            toast({ variant: 'destructive', title: 'Error al Eliminar', description: error.message });
+            toast({ variant: 'destructive', title: t('list.toast.deleteErrorTitle'), description: error.message });
         } finally {
             setIsDeleting(null);
         }
@@ -193,26 +195,26 @@ export function CustomerList() {
 
     return (
         <Card>
-            <CardHeader className="flex-col sm:flex-row sm:items-center sm:justify-between">
+            <CardHeader className="flex-col sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                    <CardTitle>Clientes en el ERP</CardTitle>
-                    <CardDescription>Esta es la lista de clientes actualmente en tu sistema.</CardDescription>
+                    <CardTitle>{t('list.title')}</CardTitle>
+                    <CardDescription>{t('list.description')}</CardDescription>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
                     {isSuperadmin && (
-                        <Button onClick={handleCleanup} variant="outline" disabled={isCleaning} className="w-full">
+                        <Button onClick={handleCleanup} variant="outline" disabled={isCleaning} className="w-full sm:w-auto">
                             {isCleaning ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}
-                            Limpiar Duplicados
+                            {t('list.buttons.cleanup')}
                         </Button>
                     )}
-                    <Button onClick={handleSync} variant="outline" disabled={isSyncing} className="w-full">
+                    <Button onClick={handleSync} variant="outline" disabled={isSyncing} className="w-full sm:w-auto">
                         {isSyncing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
-                        Sincronizar Nuevos
+                        {t('list.buttons.sync')}
                     </Button>
                     <CreateCustomerForm>
-                        <div className="flex items-center w-full">
+                        <div className="flex items-center justify-center w-full">
                             <PlusCircle className="mr-2 h-4 w-4" />
-                            Añadir Cliente
+                            {t('list.buttons.add')}
                         </div>
                     </CreateCustomerForm>
                 </div>
@@ -221,7 +223,7 @@ export function CustomerList() {
                 {/* Mobile Card View */}
                 <div className="md:hidden space-y-4">
                     {customers.length === 0 ? (
-                            <p className="text-center text-muted-foreground py-10">No hay clientes. Sincroniza o añade uno.</p>
+                            <p className="text-center text-muted-foreground py-10">{t('list.noCustomers')}</p>
                     ) : customers.map(customer => (
                         <Card key={customer.id} className="p-4">
                             <div className="flex items-center gap-4 mb-4">
@@ -234,13 +236,13 @@ export function CustomerList() {
                                 </div>
                             </div>
                             <div className="space-y-2 text-sm mb-4">
-                                <p><strong>Ubicación:</strong> {customer.location}</p>
-                                <p><strong>Asignado a:</strong> {customer.assignedTo || 'Sin asignar'}</p>
+                                <p><strong>{t('list.table.location')}:</strong> {customer.location}</p>
+                                <p><strong>{t('list.table.assignedTo')}:</strong> {customer.accountManager?.userName || t('list.table.unassigned')}</p>
                             </div>
                             <div className="flex gap-2">
                                 <Link href={`/customers/${customer.customerId}`} passHref className="flex-1">
                                     <Button variant="outline" className="w-full">
-                                        Ver Panel
+                                        {t('list.table.viewButton')}
                                     </Button>
                                 </Link>
                                 {isSuperadmin && (
@@ -252,12 +254,12 @@ export function CustomerList() {
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
-                                                <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                                                <AlertDialogDescription>Esta acción no se puede deshacer. Esto eliminará permanentemente al cliente "{customer.name}" y todos sus datos asociados.</AlertDialogDescription>
+                                                <AlertDialogTitle>{t('list.deleteDialog.title')}</AlertDialogTitle>
+                                                <AlertDialogDescription>{t('list.deleteDialog.description', { customerName: customer.name })}</AlertDialogDescription>
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
-                                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)}>Eliminar</AlertDialogAction>
+                                                <AlertDialogCancel>{t('list.deleteDialog.cancel')}</AlertDialogCancel>
+                                                <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)}>{t('list.deleteDialog.confirm')}</AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
                                     </AlertDialog>
@@ -272,18 +274,18 @@ export function CustomerList() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Nombre del Negocio</TableHead>
-                                <TableHead>Categoría</TableHead>
-                                <TableHead>Ubicación</TableHead>
-                                <TableHead>Asignado a</TableHead>
-                                <TableHead className="text-right">Acciones</TableHead>
+                                <TableHead>{t('list.table.name')}</TableHead>
+                                <TableHead>{t('list.table.category')}</TableHead>
+                                <TableHead>{t('list.table.location')}</TableHead>
+                                <TableHead>{t('list.table.assignedTo')}</TableHead>
+                                <TableHead className="text-right">{t('list.table.actions')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                         {customers.length === 0 ? (
                                 <TableRow>
                                     <TableCell colSpan={5} className="h-24 text-center">
-                                        No hay clientes en el ERP. Sincroniza para empezar.
+                                        {t('list.noCustomers')}
                                     </TableCell>
                                 </TableRow>
                             ) : customers.map((customer) => (
@@ -298,11 +300,11 @@ export function CustomerList() {
                                     </TableCell>
                                     <TableCell>{customer.category}</TableCell>
                                     <TableCell>{customer.location}</TableCell>
-                                    <TableCell>{customer.assignedTo || 'Sin asignar'}</TableCell>
+                                    <TableCell>{customer.accountManager?.userName || t('list.table.unassigned')}</TableCell>
                                     <TableCell className="text-right">
                                         <Link href={`/customers/${customer.customerId}`} passHref>
                                             <Button variant="outline" size="sm">
-                                                Ver Panel
+                                                {t('list.table.viewButton')}
                                             </Button>
                                         </Link>
                                         {isSuperadmin && (
@@ -314,12 +316,12 @@ export function CustomerList() {
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
-                                                        <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                                                        <AlertDialogDescription>Esta acción no se puede deshacer. Esto eliminará permanentemente al cliente "{customer.name}" y todos sus datos asociados (ofertas, interacciones, etc.).</AlertDialogDescription>
+                                                        <AlertDialogTitle>{t('list.deleteDialog.title')}</AlertDialogTitle>
+                                                        <AlertDialogDescription>{t('list.deleteDialog.description', { customerName: customer.name })}</AlertDialogDescription>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)} className="bg-destructive hover:bg-destructive/90">Confirmar Eliminación</AlertDialogAction>
+                                                        <AlertDialogCancel>{t('list.deleteDialog.cancel')}</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)} className="bg-destructive hover:bg-destructive/90">{t('list.deleteDialog.confirm')}</AlertDialogAction>
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>
