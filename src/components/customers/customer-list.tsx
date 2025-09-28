@@ -131,8 +131,7 @@ export function CustomerList() {
         return name.substring(0, 2).toUpperCase();
     }
     
-    const renderSkeletons = (isMobile: boolean) => {
-        const count = isMobile ? 3 : 5;
+    const renderSkeletons = (count: number, isMobile: boolean) => {
         return Array.from({ length: count }).map((_, i) => (
             isMobile ? (
                 <Card key={i} className="p-4 space-y-3">
@@ -157,149 +156,181 @@ export function CustomerList() {
         ));
     };
 
-
-    return (
-        <>
+    if (isLoading) {
+       return (
             <Card>
                 <CardHeader className="flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <CardTitle>Clientes en el ERP</CardTitle>
-                        <CardDescription>Esta es la lista de clientes actualmente en tu sistema.</CardDescription>
-                    </div>
-                    <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
-                        {isSuperadmin && (
-                            <Button onClick={handleCleanup} variant="outline" disabled={isCleaning} className="w-full">
-                                {isCleaning ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}
-                                Limpiar Duplicados
-                            </Button>
-                        )}
-                        <Button onClick={handleSync} variant="outline" disabled={isSyncing} className="w-full">
-                            {isSyncing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
-                            Sincronizar Nuevos
-                        </Button>
-                        <CreateCustomerForm>
-                            <div className="flex items-center w-full">
-                               <PlusCircle className="mr-2 h-4 w-4" />
-                               Añadir Cliente
-                            </div>
-                        </CreateCustomerForm>
+                    <Skeleton className="h-10 w-64" />
+                    <div className="flex gap-2">
+                        <Skeleton className="h-10 w-36" />
+                        <Skeleton className="h-10 w-36" />
                     </div>
                 </CardHeader>
                 <CardContent>
-                    {/* Mobile Card View */}
-                    <div className="md:hidden space-y-4">
-                        {isLoading ? renderSkeletons(3, true) : customers.length === 0 ? (
-                             <p className="text-center text-muted-foreground py-10">No hay clientes. Sincroniza o añade uno.</p>
-                        ) : customers.map(customer => (
-                            <Card key={customer.id} className="p-4">
-                                <div className="flex items-center gap-4 mb-4">
-                                     <Avatar>
-                                        <AvatarFallback>{getInitials(customer.name)}</AvatarFallback>
-                                    </Avatar>
-                                    <div>
-                                        <p className="font-semibold">{customer.name}</p>
-                                        <p className="text-sm text-muted-foreground">{customer.category}</p>
-                                    </div>
-                                </div>
-                                <div className="space-y-2 text-sm mb-4">
-                                    <p><strong>Ubicación:</strong> {customer.location}</p>
-                                    <p><strong>Asignado a:</strong> {customer.assignedTo || 'Sin asignar'}</p>
-                                </div>
-                                <div className="flex gap-2">
-                                    <Link href={`/customers/${customer.customerId}`} passHref className="flex-1">
-                                        <Button variant="outline" className="w-full">
-                                            Ver Panel
-                                        </Button>
-                                    </Link>
-                                    {isSuperadmin && (
-                                        <AlertDialog>
-                                            <AlertDialogTrigger asChild>
-                                                <Button variant="destructive" size="icon" disabled={isDeleting === customer.customerId}>
-                                                    {isDeleting === customer.customerId ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                                                </Button>
-                                            </AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                    <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                                                    <AlertDialogDescription>Esta acción no se puede deshacer. Esto eliminará permanentemente al cliente "{customer.name}" y todos sus datos asociados.</AlertDialogDescription>
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                    <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)}>Eliminar</AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                        </AlertDialog>
-                                    )}
-                                </div>
-                            </Card>
-                        ))}
-                    </div>
-
-                    {/* Desktop Table View */}
-                    <div className="hidden md:block">
+                    <div className="hidden md:block border rounded-lg">
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Nombre del Negocio</TableHead>
-                                    <TableHead>Categoría</TableHead>
-                                    <TableHead>Ubicación</TableHead>
-                                    <TableHead>Asignado a</TableHead>
-                                    <TableHead className="text-right">Acciones</TableHead>
+                                    <TableHead><Skeleton className="h-5 w-40" /></TableHead>
+                                    <TableHead><Skeleton className="h-5 w-24" /></TableHead>
+                                    <TableHead><Skeleton className="h-5 w-28" /></TableHead>
+                                    <TableHead><Skeleton className="h-5 w-24" /></TableHead>
+                                    <TableHead className="text-right"><Skeleton className="h-5 w-20" /></TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                            {isLoading ? renderSkeletons(5, false) : customers.length === 0 ? (
-                                    <TableRow>
-                                        <TableCell colSpan={5} className="h-24 text-center">
-                                            No hay clientes en el ERP. Sincroniza para empezar.
-                                        </TableCell>
-                                    </TableRow>
-                                ) : customers.map((customer) => (
-                                    <TableRow key={customer.id}>
-                                        <TableCell className="font-medium">
-                                            <div className="flex items-center gap-3">
-                                                <Avatar>
-                                                    <AvatarFallback>{getInitials(customer.name)}</AvatarFallback>
-                                                </Avatar>
-                                                <span>{customer.name}</span>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>{customer.category}</TableCell>
-                                        <TableCell>{customer.location}</TableCell>
-                                        <TableCell>{customer.assignedTo || 'Sin asignar'}</TableCell>
-                                        <TableCell className="text-right">
-                                            <Link href={`/customers/${customer.customerId}`} passHref>
-                                                <Button variant="outline" size="sm">
-                                                    Ver Panel
-                                                </Button>
-                                            </Link>
-                                            {isSuperadmin && (
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger asChild>
-                                                        <Button variant="ghost" size="icon" disabled={isDeleting === customer.customerId} className="ml-2 text-destructive hover:text-destructive">
-                                                             {isDeleting === customer.customerId ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                                                        </Button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                                                            <AlertDialogDescription>Esta acción no se puede deshacer. Esto eliminará permanentemente al cliente "{customer.name}" y todos sus datos asociados (ofertas, interacciones, etc.).</AlertDialogDescription>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)} className="bg-destructive hover:bg-destructive/90">Confirmar Eliminación</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            )}
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
+                               {renderSkeletons(5, false)}
                             </TableBody>
                         </Table>
                     </div>
+                    <div className="md:hidden space-y-4">
+                        {renderSkeletons(3, true)}
+                    </div>
                 </CardContent>
             </Card>
-        </>
+       );
+    }
+
+    return (
+        <Card>
+            <CardHeader className="flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <CardTitle>Clientes en el ERP</CardTitle>
+                    <CardDescription>Esta es la lista de clientes actualmente en tu sistema.</CardDescription>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
+                    {isSuperadmin && (
+                        <Button onClick={handleCleanup} variant="outline" disabled={isCleaning} className="w-full">
+                            {isCleaning ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}
+                            Limpiar Duplicados
+                        </Button>
+                    )}
+                    <Button onClick={handleSync} variant="outline" disabled={isSyncing} className="w-full">
+                        {isSyncing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
+                        Sincronizar Nuevos
+                    </Button>
+                    <CreateCustomerForm>
+                        <div className="flex items-center w-full">
+                            <PlusCircle className="mr-2 h-4 w-4" />
+                            Añadir Cliente
+                        </div>
+                    </CreateCustomerForm>
+                </div>
+            </CardHeader>
+            <CardContent>
+                {/* Mobile Card View */}
+                <div className="md:hidden space-y-4">
+                    {customers.length === 0 ? (
+                            <p className="text-center text-muted-foreground py-10">No hay clientes. Sincroniza o añade uno.</p>
+                    ) : customers.map(customer => (
+                        <Card key={customer.id} className="p-4">
+                            <div className="flex items-center gap-4 mb-4">
+                                <Avatar>
+                                    <AvatarFallback>{getInitials(customer.name)}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <p className="font-semibold">{customer.name}</p>
+                                    <p className="text-sm text-muted-foreground">{customer.category}</p>
+                                </div>
+                            </div>
+                            <div className="space-y-2 text-sm mb-4">
+                                <p><strong>Ubicación:</strong> {customer.location}</p>
+                                <p><strong>Asignado a:</strong> {customer.assignedTo || 'Sin asignar'}</p>
+                            </div>
+                            <div className="flex gap-2">
+                                <Link href={`/customers/${customer.customerId}`} passHref className="flex-1">
+                                    <Button variant="outline" className="w-full">
+                                        Ver Panel
+                                    </Button>
+                                </Link>
+                                {isSuperadmin && (
+                                    <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                            <Button variant="destructive" size="icon" disabled={isDeleting === customer.customerId}>
+                                                {isDeleting === customer.customerId ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                                                <AlertDialogDescription>Esta acción no se puede deshacer. Esto eliminará permanentemente al cliente "{customer.name}" y todos sus datos asociados.</AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)}>Eliminar</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
+                                )}
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+
+                {/* Desktop Table View */}
+                <div className="hidden md:block">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Nombre del Negocio</TableHead>
+                                <TableHead>Categoría</TableHead>
+                                <TableHead>Ubicación</TableHead>
+                                <TableHead>Asignado a</TableHead>
+                                <TableHead className="text-right">Acciones</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                        {customers.length === 0 ? (
+                                <TableRow>
+                                    <TableCell colSpan={5} className="h-24 text-center">
+                                        No hay clientes en el ERP. Sincroniza para empezar.
+                                    </TableCell>
+                                </TableRow>
+                            ) : customers.map((customer) => (
+                                <TableRow key={customer.id}>
+                                    <TableCell className="font-medium">
+                                        <div className="flex items-center gap-3">
+                                            <Avatar>
+                                                <AvatarFallback>{getInitials(customer.name)}</AvatarFallback>
+                                            </Avatar>
+                                            <span>{customer.name}</span>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell>{customer.category}</TableCell>
+                                    <TableCell>{customer.location}</TableCell>
+                                    <TableCell>{customer.assignedTo || 'Sin asignar'}</TableCell>
+                                    <TableCell className="text-right">
+                                        <Link href={`/customers/${customer.customerId}`} passHref>
+                                            <Button variant="outline" size="sm">
+                                                Ver Panel
+                                            </Button>
+                                        </Link>
+                                        {isSuperadmin && (
+                                            <AlertDialog>
+                                                <AlertDialogTrigger asChild>
+                                                    <Button variant="ghost" size="icon" disabled={isDeleting === customer.customerId} className="ml-2 text-destructive hover:text-destructive">
+                                                            {isDeleting === customer.customerId ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                                                    </Button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                                                        <AlertDialogDescription>Esta acción no se puede deshacer. Esto eliminará permanentemente al cliente "{customer.name}" y todos sus datos asociados (ofertas, interacciones, etc.).</AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleDelete(customer.customerId, customer.name)} className="bg-destructive hover:bg-destructive/90">Confirmar Eliminación</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            </CardContent>
+        </Card>
     );
 }

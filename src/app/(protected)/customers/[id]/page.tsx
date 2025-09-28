@@ -94,9 +94,6 @@ export default function CustomerDetailPage() {
   return (
     <>
       <div className="mt-4 sm:mt-0">
-          <Link href="/customers" passHref>
-              <Button variant="outline" className="mb-4">← Volver a Clientes</Button>
-          </Link>
           <h1 className="text-3xl font-bold">{customer.name}</h1>
           <p className="text-muted-foreground">{customer.contactEmail}</p>
       </div>
