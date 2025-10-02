@@ -3,6 +3,82 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 15 de Agosto de 2024
+
+### 1. [ID de Cambio: 15e8f1d3] Corrección de Responsividad en Gestión de Clientes
+
+*   **¿Qué se hizo?** Se corrigió un problema de diseño en la cabecera de la lista de clientes (`customer-list.tsx`) que provocaba que los botones se desbordaran en pantallas pequeñas.
+    1.  **Diagnóstico:** Se observó que el contenedor de los botones de acción ("Limpiar", "Sincronizar", "Añadir") no se adaptaba correctamente en vistas móviles.
+    2.  **Solución:** Se ajustaron las clases de Tailwind CSS en el `CardHeader` para que los elementos se apilen verticalmente (`flex-col`) en la vista por defecto (móvil) y cambien a una fila (`sm:flex-row`) en pantallas más grandes.
+    3.  **Resultado:** El layout ahora es completamente responsivo, asegurando una buena experiencia de usuario tanto en escritorio como en dispositivos móviles.
+
+*   **¿Por qué se hizo?** Para solucionar un error de diseño que afectaba la usabilidad y la apariencia profesional del módulo de clientes en dispositivos móviles.
+
+---
+## 14 de Agosto de 2024
+
+### 1. [ID de Cambio: 14c6a9b1] Corrección Definitiva de Rutas Paralelas en Módulo de Clientes
+
+*   **¿Qué se hizo?** Se solucionó de manera definitiva el error `You cannot have two parallel pages that resolve to the same path` que impedía la compilación de la aplicación.
+    1.  **Diagnóstico:** Se detectó la existencia de archivos de ruta duplicados en los directorios `src/app/customers` y `src/app/(protected)/customers`. Esto creaba una ambigüedad para el enrutador de Next.js.
+    2.  **Solución:** Se centralizó toda la lógica del módulo de clientes dentro de `src/app/(protected)/customers/`. Se eliminó el directorio conflictivo `src/app/customers` y se recreó la página de detalle `[id]/page.tsx` en la ubicación correcta. Se aseguró que la estructura de `layout.tsx`, `page.tsx` y `metrics/page.tsx` funcionara de forma cohesionada.
+    3.  **Resultado:** Se eliminó el conflicto de rutas, restaurando la compilación y el funcionamiento del módulo de clientes con su navegación por pestañas.
+
+*   **¿Por qué se hizo?** Para corregir un error estructural crítico que rompía el enrutamiento de la aplicación y para aplicar la estructura de archivos correcta recomendada por Next.js para layouts anidados.
+
+---
+## 13 de Agosto de 2024
+
+### 1. [ID de Cambio: 13f4a9b2] Corrección Integral de Traducciones del Módulo de Marketing
+
+*   **¿Qué se hizo?** Se solucionaron de manera definitiva todos los errores de texto sin traducir en el módulo de Marketing gracias a una auditoría exhaustiva proporcionada por el usuario.
+    1.  **Diagnóstico:** Se confirmó que varios componentes clave, como la página de "Conexiones" y el "Calendario de Automatización", mostraban claves de traducción (`marketingSuite.connections.title`, `marketingSuite.calendar.title`, etc.) en lugar del texto real. La causa raíz fue la ausencia de estas claves en los archivos de internacionalización (`locales/{es,en,de}/marketing.json`).
+    2.  **Solución:** Siguiendo la detallada guía del usuario, se revisaron y completaron los tres archivos `marketing.json`. Se añadió la estructura completa para `marketingSuite`, incluyendo las secciones anidadas para `connections`, `calendar` y `composer`, asegurando que todas las claves requeridas existieran y estuvieran correctamente traducidas.
+    3.  **Resultado:** Con esta corrección, toda la interfaz del módulo de Marketing, incluyendo las nuevas secciones de la "Suite Conectada", ahora se muestra correctamente traducida en español, inglés y alemán, eliminando por completo los errores de texto.
+
+*   **¿Por qué se hizo?** Para eliminar un error persistente y evidente que afectaba la usabilidad y la apariencia profesional de todo el módulo de Marketing, y para alinear la implementación con la arquitectura de internacionalización definida.
+
+---
+## 12 de Agosto de 2024
+
+### 1. [ID de Cambio: 12e0b5f1] Refactorización Definitiva de Componentes de Cupón y Corrección de Datos
+
+*   **¿Qué se hizo?** Se solucionó el error persistente de traducción en los cupones individuales mediante una refactorización completa de la lógica, siguiendo un contrato de datos estricto para asegurar la consistencia.
+    1.  **Diagnóstico:** Se identificó que el error no era de traducción, sino de **datos y responsabilidades**. El componente padre (`IndividualCouponCreator`) pre-procesaba parte de la información, mientras que el componente hijo (`CouponCard`) intentaba adivinar cómo mostrarla. La causa raíz fue la ausencia de la bandera `isIndividual: true` en los datos de la vista previa, lo que impedía que `CouponCard` aplicara la lógica de renderizado correcta.
+    2.  **Solución de Contrato de Datos:**
+        *   **`CouponCard.tsx`** se convirtió en el único responsable de su presentación. Ahora siempre recibe datos brutos (`recipientName`, `senderName`) y es quien aplica las traducciones (`t('coupons.individual.for')`, `t('coupons.individual.from')`), eliminando cualquier ambigüedad.
+        *   **`IndividualCouponCreator.tsx`** fue modificado para enviar solo datos brutos a la vista previa, incluyendo la bandera `isIndividual: true` que faltaba. Se eliminó cualquier lógica de pre-traducción.
+    3.  **Corrección de Backend:** Se ajustó la Cloud Function `createSingleCoupon` para que guarde `recipientName` y `senderName` como campos separados en la base de datos, en lugar de usar el campo `subtitle`, alineando el backend con la nueva lógica del frontend.
+    4.  **Mejora de Usabilidad:** Atendiendo a una solicitud anterior, se aumentó el tamaño del campo de texto para los "Términos y Condiciones" en el formulario de creación, duplicando su altura para facilitar la edición.
+
+*   **¿Por qué se hizo?** Para eliminar un error fundamental en la arquitectura de componentes que causaba inconsistencias visuales y funcionales, aplicando un patrón de diseño más robusto y predecible. Esta corrección asegura que el módulo de cupones sea fiable y fácil de mantener.
+
+---
+## 11 de Agosto de 2024
+
+### 1. [ID de Cambio: 0a9b3c1d] Corrección Final de Traducciones en Pestañas del Módulo de Cupones
+
+*   **¿Qué se hizo?** Se solucionó el error persistente donde las pestañas del módulo de cupones ("Crear Lote", "Cupón Individual") mostraban sus claves de traducción en lugar del texto real.
+    1.  **Diagnóstico:** Se identificó que, a pesar de que las traducciones existían en los archivos `.json`, el componente `CouponDashboard.tsx` no estaba cargando el *namespace* de traducción `marketing`, por lo que no podía acceder a dichas claves.
+    2.  **Solución:** Se modificó el archivo `src/components/marketing/coupons/coupon-dashboard.tsx` para que utilice el hook `useTranslation('marketing')`. Esto conecta el componente con el archivo de traducciones correcto.
+    3.  **Verificación:** Se confirmó que todas las claves (`coupons.tabs.batch`, `coupons.tabs.individual`, `coupons.tabs.list`) existen y están correctamente escritas en los archivos `locales/{en,es,de}/marketing.json`.
+    4.  **Resultado:** Las pestañas del módulo de cupones ahora se muestran correctamente traducidas en todos los idiomas, solucionando el último problema de internacionalización en esta sección.
+
+*   **¿Por qué se hizo?** Para eliminar un error visual evidente que afectaba la usabilidad y la apariencia profesional del módulo de cupones, aplicando la solución correcta que ya se había documentado en cambios anteriores pero que no se había implementado en este componente específico.
+
+---
+## 10 de Agosto de 2024
+
+### 1. [ID de Cambio: 02b789c5] Corrección de Traducciones en Módulo de Cupón Individual
+
+*   **¿Qué se hizo?** Se solucionó un error visual donde la nueva funcionalidad para crear cupones individuales mostraba las claves de traducción (ej. `coupons.individual.title`) en lugar del texto real.
+    1.  **Diagnóstico:** Se confirmó que el problema era la ausencia de las claves de traducción específicas para el formulario de cupón individual en los archivos de internacionalización.
+    2.  **Solución:** Se añadieron todas las claves y textos necesarios para esta nueva sección a los archivos `locales/es/marketing.json`, `locales/en/marketing.json` y `locales/de/marketing.json`, incluyendo títulos, etiquetas de campos de formulario y botones.
+    3.  **Resultado:** La interfaz del módulo de "Cupón Individual" ahora se muestra correctamente traducida en todos los idiomas soportados (español, inglés y alemán), garantizando una experiencia de usuario coherente.
+
+*   **¿Por qué se hizo?** Para corregir un error evidente que hacía que la nueva funcionalidad pareciera rota y fuera difícil de usar, y para mantener la consistencia en la internacionalización de la aplicación.
+
+---
 ## 09 de Agosto de 2024
 
 ### 1. [ID de Cambio: 9c2d5e8] Corrección Definitiva de Renderizado en Servidor para Escáner de Cupones
@@ -66,7 +142,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta en `AdminList.tsx`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
     4.  **Documentación:** Se documentó este cambio crítico en el `CHANGELOG.md`.
 
-*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
+*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuadas. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
 
 ---
 ## 04 de Agosto de 2024
@@ -277,3 +353,5 @@ Este documento sirve como un registro manual de los cambios significativos reali
 
 *   **¿Qué se hizo?** Se reescribieron las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` utilizando la sintaxis correcta del SDK de Admin de Firebase para solucionar errores de despliegue (`getDocs is not defined`).
 *   **¿Por qué se hizo?** Las versiones anteriores mezclaban incorrectamente sintaxis del SDK de cliente y de admin, lo que impedía su ejecución y el despliegue de las funciones. La corrección era necesaria para que ambas características (sincronizar nuevos clientes y limpiar duplicados) pudieran funcionar.
+
+    
