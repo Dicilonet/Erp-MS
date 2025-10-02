@@ -1,3 +1,4 @@
+
 /**
  * @file Firebase Cloud Functions para el ERP DICILO
  * Versión final, limpia y con todos los módulos.
@@ -10,7 +11,7 @@ const {
   onRequest,
   HttpsError,
 } = require('firebase-functions/v2/https');
-const { getFirestore, FieldValue } = require('firebase-admin/firestore');
+const { getFirestore, FieldValue, addDoc } = require('firebase-admin/firestore');
 const { initializeApp } = require('firebase-admin/app');
 const { setGlobalOptions } = require('firebase-functions/v2');
 const { getAuth } = require('firebase-admin/auth');
@@ -1058,24 +1059,9 @@ exports.setSuperAdminRole = onCall(
   }
 );
 
-/**
- * ======================================================================================
- * PASO 1 - FUNCIÓN TEMPORAL PARA ACTUALIZAR USUARIOS A MODELO MULTI-EMPRESA
- * Objetivo: Añadir un 'companyId' por defecto a todos los usuarios que no lo tengan.
- * ¡IMPORTANTE! Esta función se debe ejecutar una sola vez.
- * ======================================================================================
- */
 exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, res) => {
-    // ----------------------------------------------------------------------------------
-    //  ACCIÓN REQUERIDA: CONFIGURA EL ID DE LA EMPRESA POR DEFECTO
-    //  Este será el ID que se asigne a todos tus usuarios existentes.
-    //  Puedes inventar uno o usar el ID de un cliente principal si aplica.
-    // ----------------------------------------------------------------------------------
     const DEFAULT_COMPANY_ID = 'mhc-int';
 
-    // Medida de seguridad simple para evitar ejecuciones accidentales.
-    // Para ejecutar, deberás pasar este token en la URL, por ejemplo:
-    // https://.../addCompanyIdToUsers?token=ejecutar-ahora
     const EXECUTION_TOKEN = 'ejecutar-ahora';
     if (req.query.token !== EXECUTION_TOKEN) {
       console.warn('Intento de ejecución sin token de seguridad.');
@@ -1092,7 +1078,6 @@ exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, 
 
       usersSnapshot.forEach((doc) => {
         const userData = doc.data();
-        // Solo actualizamos el documento si el campo 'companyId' NO existe.
         if (userData.companyId === undefined) {
           batch.update(doc.ref, { companyId: DEFAULT_COMPANY_ID });
           updatedCount++;
@@ -1124,24 +1109,6 @@ exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, 
   });
 
 // --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP ---
-
-// Función para obtener los clientes que ya están en el ERP
-exports.getErpCustomers = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (!request.auth) {
-      throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-    }
-    const snapshot = await db.collection('customers').get();
-    const customersList = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return { success: true, customers: customersList };
-  }
-);
-
-// Función para SINCRONIZAR: trae solo los nuevos desde 'businesses'
 exports.syncNewCustomersFromWebsite = onCall(
   { region: 'europe-west1' },
   async (request) => {
@@ -1245,52 +1212,118 @@ exports.syncNewCustomersFromWebsite = onCall(
   }
 );
 
-// Función para ASIGNAR un cliente a un colaborador
-exports.assignCustomerToCollaborator = onCall(
+
+exports.cleanupDuplicateCustomers = onCall(
   { region: 'europe-west1' },
   async (request) => {
     if (request.auth?.token?.role !== 'superadmin') {
       throw new HttpsError(
         'permission-denied',
-        'Solo un superadmin puede asignar clientes.'
+        'Solo un superadmin puede ejecutar esta acción.'
       );
     }
 
-    const { customerId, collaboratorId } = request.data;
-    if (!customerId || !collaboratorId) {
+    try {
+      console.log('Iniciando limpieza de clientes duplicados...');
+      const customersSnapshot = await db.collection('customers').get();
+      const customers = customersSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      const uniqueCustomers = new Map();
+      const duplicatesToDelete = [];
+
+      for (const customer of customers) {
+        // Clave única basada en nombre y email (ignorando mayúsculas/minúsculas y espacios)
+        const nameKey = (customer.name || '').toLowerCase().trim();
+        const emailKey = (customer.contactEmail || '').toLowerCase().trim();
+        const key = `${nameKey}_${emailKey}`;
+
+        if (uniqueCustomers.has(key)) {
+          // Si ya existe, este es un duplicado. Marcarlo para eliminación.
+          duplicatesToDelete.push(customer.id);
+        } else {
+          // Si no existe, este es el primer registro (el que se conservará).
+          uniqueCustomers.set(key, customer.id);
+        }
+      }
+
+      console.log(
+        `Se encontraron ${duplicatesToDelete.length} clientes duplicados para eliminar.`
+      );
+
+      if (duplicatesToDelete.length > 0) {
+        const batch = db.batch();
+        duplicatesToDelete.forEach((docId) => {
+          batch.delete(db.collection('customers').doc(docId));
+        });
+        await batch.commit();
+        console.log(
+          `Se eliminaron ${duplicatesToDelete.length} documentos duplicados.`
+        );
+      }
+
+      return {
+        success: true,
+        deletedCount: duplicatesToDelete.length,
+        message: `Limpieza completada. Se eliminaron ${duplicatesToDelete.length} clientes duplicados.`,
+      };
+    } catch (error) {
+      console.error('Error durante la limpieza de duplicados:', error);
       throw new HttpsError(
-        'invalid-argument',
-        'Faltan datos para la asignación.'
+        'internal',
+        `Ocurrió un error inesperado durante la limpieza: ${error.message}`
       );
     }
-
-    await db.collection('customers').doc(customerId).update({
-      assignedTo: collaboratorId,
-    });
-
-    return { success: true };
   }
 );
 
-// Función para que los COLABORADORES vean SUS clientes
-exports.getAssignedCustomers = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (!request.auth) {
-      throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
+exports.deleteCustomer = onCall({ region: 'europe-west1' }, async (request) => {
+  if (request.auth?.token?.role !== 'superadmin') {
+    throw new HttpsError(
+      'permission-denied',
+      'Solo un superadmin puede eliminar clientes.'
+    );
+  }
+
+  const { customerId } = request.data;
+  if (!customerId) {
+    throw new HttpsError('invalid-argument', 'Se requiere el ID del cliente.');
+  }
+
+  try {
+    const customerRef = db.collection('customers').doc(customerId);
+    console.log(`Iniciando eliminación del cliente ${customerId}...`);
+
+    const subcollections = ['interactions', 'offers', 'customerServices', 'metrics'];
+    for (const sub of subcollections) {
+      const snapshot = await customerRef.collection(sub).get();
+      if (!snapshot.empty) {
+        console.log(
+          `Eliminando ${snapshot.size} documentos de la subcolección ${sub}...`
+        );
+        const batch = db.batch();
+        snapshot.docs.forEach((doc) => {
+          batch.delete(doc.ref);
+        });
+        await batch.commit();
+      }
     }
-    const uid = request.auth.uid;
-    const snapshot = await db
-      .collection('customers')
-      .where('assignedTo', '==', uid)
-      .get();
-    const customersList = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return { success: true, customers: customersList };
+
+    await customerRef.delete();
+    console.log(`Cliente ${customerId} eliminado con éxito.`);
+
+    return {
+      success: true,
+      message: 'Cliente y todos sus datos asociados eliminados.',
+    };
+  } catch (error) {
+    console.error(`Error al eliminar cliente ${customerId}:`, error);
+    throw new HttpsError('internal', 'No se pudo eliminar el cliente.');
   }
-);
+});
+
 
 // --- Lógica para el Módulo de Marketing ---
 exports.createMarketingEvent = onCall(
@@ -1379,10 +1412,6 @@ exports.createMarketingEvent = onCall(
 );
 
 // --- Lógica de Gestión de Proyectos ---
-
-/**
- * Crea un nuevo proyecto en la base de datos.
- */
 exports.createProject = onCall({ region: 'europe-west1' }, async (request) => {
   if (!request.auth) {
     throw new HttpsError(
@@ -1450,9 +1479,7 @@ exports.createProject = onCall({ region: 'europe-west1' }, async (request) => {
   }
 });
 
-/**
- * Actualiza un proyecto existente en la base de datos.
- */
+
 exports.updateProject = onCall({ region: 'europe-west1' }, async (request) => {
   if (!request.auth) {
     throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
@@ -1513,9 +1540,6 @@ exports.updateProject = onCall({ region: 'europe-west1' }, async (request) => {
   }
 });
 
-/**
- * Elimina un proyecto y todas sus tareas asociadas.
- */
 exports.deleteProject = onCall({ region: 'europe-west1' }, async (request) => {
   if (request.auth?.token?.role !== 'superadmin') {
     throw new HttpsError(
@@ -1554,9 +1578,6 @@ exports.deleteProject = onCall({ region: 'europe-west1' }, async (request) => {
   }
 });
 
-/**
- * Crea una nueva tarea dentro de un proyecto.
- */
 exports.createTask = onCall({ region: 'europe-west1' }, async (request) => {
   if (!request.auth)
     throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
@@ -1600,9 +1621,6 @@ exports.createTask = onCall({ region: 'europe-west1' }, async (request) => {
   }
 });
 
-/**
- * Actualiza los detalles de una tarea existente (nombre, descripción, etc.).
- */
 exports.updateTask = onCall({ region: 'europe-west1' }, async (request) => {
   if (!request.auth) {
     throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
@@ -1647,9 +1665,6 @@ exports.updateTask = onCall({ region: 'europe-west1' }, async (request) => {
   }
 });
 
-/**
- * Actualiza el estado de una tarea (al arrastrarla en el Kanban).
- */
 exports.updateTaskStatus = onCall(
   { region: 'europe-west1' },
   async (request) => {
@@ -1679,654 +1694,6 @@ exports.updateTaskStatus = onCall(
   }
 );
 
-/**
- * Endpoint HTTP para recibir y crear un nuevo cliente desde DiciloSearch.
- * Protegido por una clave de API secreta.
- */
-exports.receiveNewCustomer = onRequest(
-  { region: 'europe-west1', cors: true },
-  async (req, res) => {
-    // 1. Verificación de seguridad con la clave secreta
-    const expectedApiKey = config.dicilosearch.api_token;
-    const providedApiKey = req.get('x-api-key');
-
-    if (!expectedApiKey || providedApiKey !== expectedApiKey) {
-      console.error('Clave de API para DiciloSearch inválida o faltante.');
-      res.status(403).send({ error: 'Acceso denegado' });
-      return;
-    }
-
-    // 2. Solo aceptamos peticiones de tipo POST
-    if (req.method !== 'POST') {
-      res.status(405).send({ error: 'Método no permitido' });
-      return;
-    }
-
-    // 3. Validación de los datos del cliente que llegan en el cuerpo
-    const customerDataFromSearch = req.body;
-    if (
-      !customerDataFromSearch ||
-      !customerDataFromSearch.name ||
-      !customerDataFromSearch.contactEmail
-    ) {
-      res
-        .status(400)
-        .send({
-          error: 'Petición incorrecta: Faltan datos esenciales del cliente.',
-        });
-      return;
-    }
-
-    // 4. Creación del cliente en la colección 'customers' de Firestore
-    try {
-      const newCustomerData = {
-        name: customerDataFromSearch.name,
-        contactEmail: customerDataFromSearch.contactEmail,
-        category: customerDataFromSearch.category || 'Sin categoría',
-        description:
-          customerDataFromSearch.description ||
-          'Cliente registrado desde DiciloSearch.',
-        planId: customerDataFromSearch.planId || 'plan_privatkunde',
-        paymentCycle: 'anual',
-        country: 'DE',
-        location: customerDataFromSearch.location || '',
-        fullAddress: customerDataFromSearch.address || '',
-        coordinates: {
-          latitude: customerDataFromSearch.coords?.latitude || 0,
-          longitude: customerDataFromSearch.coords?.longitude || 0,
-        },
-        phone: customerDataFromSearch.phone || '',
-        website: customerDataFromSearch.website || '',
-        logoUrl: customerDataFromSearch.imageUrl || '',
-        rating: customerDataFromSearch.rating || 0,
-        status: 'activo',
-        registrationDate: new Date().toISOString(),
-        originalId: customerDataFromSearch.id,
-        source: 'dicilosearch',
-        erpStatus: 'nuevo',
-        assignedTo: null,
-        createdAtErp: new Date().toISOString(),
-      };
-
-      const docRef = await db.collection('customers').add(newCustomerData);
-      console.log(
-        `Cliente recibido desde DiciloSearch y creado con ID: ${docRef.id}`
-      );
-
-      res.status(201).send({ success: true, customerId: docRef.id });
-    } catch (error) {
-      console.error(
-        'Error al guardar el cliente recibido de DiciloSearch:',
-        error
-      );
-      res.status(500).send({ error: 'Error interno del servidor' });
-    }
-  }
-);
-
-// --- Lógica para el Módulo de Artículos (Productos y Servicios) ---
-
-/**
- * Crea un nuevo artículo (producto o servicio) en la base de datos.
- */
-exports.createArticle = onCall({ region: 'europe-west1' }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-  }
-
-  const { articleNumber, name, description, type, unit, priceNet, taxRate } =
-    request.data;
-  if (
-    !articleNumber ||
-    !name ||
-    !type ||
-    !unit ||
-    priceNet == null ||
-    taxRate == null
-  ) {
-    throw new HttpsError(
-      'invalid-argument',
-      'Faltan datos esenciales para crear el artículo.'
-    );
-  }
-
-  try {
-    const articleData = {
-      ...request.data,
-      priceGross: priceNet * (1 + taxRate / 100),
-      createdAt: new Date().toISOString(),
-      createdBy: request.auth?.uid || 'system',
-    };
-
-    const docRef = await db.collection('articles').add(articleData);
-
-    console.log(`Artículo '${name}' creado con ID: ${docRef.id}`);
-    return {
-      success: true,
-      articleId: docRef.id,
-      article: { ...articleData, articleId: docRef.id },
-    };
-  } catch (error) {
-    console.error('Error al crear el artículo:', error);
-    throw new HttpsError(
-      'internal',
-      'No se pudo guardar el artículo en la base de datos.'
-    );
-  }
-});
-
-/**
- * Actualiza un artículo existente.
- */
-exports.updateArticle = onCall({ region: 'europe-west1' }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-  }
-  const { articleId, data } = request.data;
-  if (!articleId || !data) {
-    throw new HttpsError(
-      'invalid-argument',
-      'Falta el ID del artículo y los datos a actualizar.'
-    );
-  }
-
-  try {
-    const articleRef = db.collection('articles').doc(articleId);
-
-    // Comprobar si el artículo existe
-    const doc = await articleRef.get();
-    if (!doc.exists) {
-      throw new HttpsError('not-found', 'El artículo no fue encontrado.');
-    }
-
-    const updateData = {
-      ...data,
-      priceGross: data.priceNet * (1 + data.taxRate / 100),
-      updatedAt: new Date().toISOString(),
-      updatedBy: request.auth.uid,
-    };
-
-    await articleRef.update(updateData);
-    console.log(`Artículo ${articleId} actualizado.`);
-    return { success: true, article: { ...updateData, articleId: articleId } };
-  } catch (error) {
-    console.error('Error al actualizar el artículo:', error);
-    if (error instanceof HttpsError) {
-      throw error;
-    }
-    throw new HttpsError('internal', 'No se pudo actualizar el artículo.');
-  }
-});
-
-/**
- * Obtiene todos los artículos de la base de datos.
- */
-exports.getArticles = onCall({ region: 'europe-west1' }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-  }
-
-  try {
-    const snapshot = await db
-      .collection('articles')
-      .orderBy('createdAt', 'desc')
-      .get();
-    const articlesList = snapshot.docs.map((doc) => ({
-      ...doc.data(),
-      articleId: doc.id,
-    }));
-    return { success: true, articles: articlesList };
-  } catch (error) {
-    console.error('Error al obtener los artículos:', error);
-    throw new HttpsError('internal', 'No se pudieron cargar los artículos.');
-  }
-});
-
-// --- Lógica del Chat Interno ---
-
-exports.getOrCreateConversation = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (!request.auth) {
-      throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-    }
-
-    const { otherUserUid } = request.data;
-    if (!otherUserUid) {
-      throw new HttpsError(
-        'invalid-argument',
-        'Se necesita el UID del otro usuario.'
-      );
-    }
-    const currentUserUid = request.auth.uid;
-
-    // Crear un ID de conversación consistente para evitar duplicados
-    const conversationId = [currentUserUid, otherUserUid].sort().join('_');
-    const conversationRef = db.collection('conversations').doc(conversationId);
-    const conversationSnap = await conversationRef.get();
-
-    if (conversationSnap.exists) {
-      return { conversationId };
-    } else {
-      const currentUserDoc = await db
-        .collection('users')
-        .doc(currentUserUid)
-        .get();
-      const otherUserDoc = await db.collection('users').doc(otherUserUid).get();
-
-      if (!currentUserDoc.exists || !otherUserDoc.exists) {
-        throw new HttpsError(
-          'not-found',
-          'No se encontró uno de los usuarios.'
-        );
-      }
-
-      const participants = [
-        { uid: currentUserUid, name: currentUserDoc.data().profile.fullName },
-        { uid: otherUserUid, name: otherUserDoc.data().profile.fullName },
-      ];
-
-      await conversationRef.set({
-        participants,
-        participantUids: [currentUserUid, otherUserUid], // Para queries
-        status: 'abierta', // Estado inicial por defecto
-        createdAt: FieldValue.serverTimestamp(),
-        updatedAt: FieldValue.serverTimestamp(),
-      });
-      return { conversationId };
-    }
-  }
-);
-
-exports.sendMessage = onCall({ region: 'europe-west1' }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-  }
-  const { conversationId, text } = request.data;
-  if (!conversationId || !text) {
-    throw new HttpsError(
-      'invalid-argument',
-      'Faltan datos para enviar el mensaje.'
-    );
-  }
-
-  const senderId = request.auth.uid;
-  const senderDoc = await db.collection('users').doc(senderId).get();
-  if (!senderDoc.exists) {
-    throw new HttpsError('not-found', 'No se encontró el remitente.');
-  }
-
-  const senderName = senderDoc.data().profile.fullName;
-
-  const message = {
-    text,
-    senderId,
-    senderName,
-    timestamp: FieldValue.serverTimestamp(),
-  };
-
-  const conversationRef = db.collection('conversations').doc(conversationId);
-  await conversationRef.collection('messages').add(message);
-  await conversationRef.update({
-    lastMessage: { text, timestamp: FieldValue.serverTimestamp() },
-    updatedAt: FieldValue.serverTimestamp(),
-  });
-
-  return { success: true };
-});
-
-exports.updateConversationStatus = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (!request.auth) {
-      throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-    }
-
-    const { conversationId, status } = request.data;
-    if (!conversationId || !status) {
-      throw new HttpsError(
-        'invalid-argument',
-        'Faltan datos para actualizar el estado.'
-      );
-    }
-
-    const validStatuses = ['abierta', 'en proceso', 'cerrada'];
-    if (!validStatuses.includes(status)) {
-      throw new HttpsError(
-        'invalid-argument',
-        'El estado proporcionado no es válido.'
-      );
-    }
-
-    try {
-      const conversationRef = db
-        .collection('conversations')
-        .doc(conversationId);
-      await conversationRef.update({
-        status: status,
-        updatedAt: FieldValue.serverTimestamp(),
-      });
-      return {
-        success: true,
-        message: 'Estado de la conversación actualizado.',
-      };
-    } catch (error) {
-      console.error('Error actualizando estado de la conversación:', error);
-      throw new HttpsError(
-        'internal',
-        'No se pudo actualizar el estado de la conversación.'
-      );
-    }
-  }
-);
-
-
-exports.publishSocialPost = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (!request.auth)
-      throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-    const { imageBase64, caption, networks } = request.data;
-
-    if (!imageBase64 || !caption || !networks) {
-      throw new HttpsError(
-        'invalid-argument',
-        'Faltan datos para la publicación.'
-      );
-    }
-
-    // Aquí iría la lógica para llamar al webhook de n8n
-    // const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
-    // ...
-    console.log('Simulando publicación en:', networks.join(', '));
-    console.log('Caption:', caption);
-
-    return {
-      success: true,
-      message: 'Publicación enviada al gestor de redes.',
-    };
-  }
-);
-
-exports.seedServiceCatalog = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    // Solo los superadmins pueden ejecutar esta función.
-    if (request.auth?.token?.role !== 'superadmin') {
-      throw new HttpsError(
-        'permission-denied',
-        'Solo un superadmin puede ejecutar esta acción.'
-      );
-    }
-
-    try {
-      console.log('Iniciando la siembra del catálogo de servicios...');
-      const programsRef = db.collection('programs');
-      const snapshot = await programsRef.get();
-
-      const batch = db.batch();
-
-      // 1. Borrar todos los documentos existentes para evitar duplicados.
-      if (!snapshot.empty) {
-        console.log(
-          `Eliminando ${snapshot.size} documentos existentes del catálogo...`
-        );
-        snapshot.docs.forEach((doc) => {
-          batch.delete(doc.ref);
-        });
-      }
-
-      // 2. Añadir todos los programas desde el archivo de datos.
-      console.log(
-        `Añadiendo ${serviceCatalogData.length} nuevos programas al catálogo...`
-      );
-      serviceCatalogData.forEach((program) => {
-        const docRef = programsRef.doc(); // Crea una referencia con un ID automático.
-        const faviconUrl = `https://www.google.com/s2/favicons?domain=${
-          new URL(program.url).hostname
-        }&sz=32`;
-        batch.set(docRef, { ...program, logo: faviconUrl });
-      });
-
-      // 3. Ejecutar el batch.
-      await batch.commit();
-
-      const successMessage = `Catálogo restaurado con éxito. Se eliminaron ${snapshot.size} documentos y se añadieron ${serviceCatalogData.length}.`;
-      console.log(successMessage);
-
-      return { success: true, message: successMessage };
-    } catch (error) {
-      console.error('Error fatal durante la siembra del catálogo:', error);
-      throw new HttpsError(
-        'internal',
-        `Ocurrió un error inesperado durante la siembra: ${error.message}`
-      );
-    }
-  }
-);
-
-// --- Funciones de Geomarketing (NUEVA VERSIÓN MEJORADA) ---
-
-exports.getBusinessesInArea = onCall(
-  { region: 'europe-west1', timeoutSeconds: 60 },
-  async (request) => {
-    const axios = require('axios');
-    const { zoneName } = request.data;
-    if (!zoneName) {
-      throw new HttpsError(
-        'invalid-argument',
-        'Se requiere un nombre de zona.'
-      );
-    }
-
-    try {
-      // 1. Obtener datos geoespaciales y el areaId de Nominatim
-      const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-        zoneName
-      )}&format=json&polygon_geojson=1&limit=1`;
-      const nominatimResponse = await axios.get(nominatimUrl, {
-        headers: { 'User-Agent': 'DiciloERP/1.0' },
-      });
-
-      if (!nominatimResponse.data || nominatimResponse.data.length === 0) {
-        return {
-          success: false,
-          message: 'No se encontraron datos para la zona.',
-        };
-      }
-
-      const zoneData = nominatimResponse.data[0];
-      const areaId = parseInt(zoneData.osm_id) + 3600000000;
-
-      // 2. Usar el areaId para una búsqueda precisa en Overpass
-      const overpassQuery = `
-            [out:json][timeout:50];
-            area(${areaId})->.searchArea;
-            (
-                node["shop"](area.searchArea);
-                way["shop"](area.searchArea);
-                relation["shop"](area.searchArea);
-                node["amenity"](area.searchArea);
-                way["amenity"](area.searchArea);
-                relation["amenity"](area.searchArea);
-            );
-            out body;
-            >;
-            out skel qt;
-        `;
-
-      const overpassUrl = 'https://overpass-api.de/api/interpreter';
-      const overpassResponse = await axios.post(overpassUrl, overpassQuery, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      });
-
-      const elements = overpassResponse.data.elements;
-
-      // 3. Procesar y enriquecer los datos de Overpass
-      const nodes = new Map(
-        elements.filter((e) => e.type === 'node').map((node) => [node.id, node])
-      );
-      let businesses = elements
-        .map((el) => {
-          if (el.type === 'way' && el.nodes?.length > 0) {
-            const firstNode = nodes.get(el.nodes[0]);
-            if (firstNode)
-              return { ...el, lat: firstNode.lat, lon: firstNode.lon };
-          }
-          return el;
-        })
-        .filter((el) => el.lat && el.lon && el.tags?.name)
-        .map((el) => {
-          const tags = el.tags || {};
-          return {
-            id: el.id,
-            name: tags.name,
-            lat: el.lat,
-            lon: el.lon,
-            crmStatus: 'neutro', // Estatus por defecto
-            tags: {
-              fullAddress: [
-                tags['addr:street'],
-                tags['addr:housenumber'],
-                ',',
-                tags['addr:postcode'],
-                tags['addr:city'],
-              ]
-                .filter(Boolean)
-                .join(' ')
-                .replace(' ,', ','),
-              website: tags.website || tags['contact:website'] || null,
-              phone: tags.phone || tags['contact:phone'] || null,
-              email: tags.email || tags['contact:email'] || null,
-            },
-          };
-        });
-
-      // 4. Enriquecer con datos del CRM (Firestore)
-      const allCustomersSnapshot = await db.collection('customers').get();
-      const customersByWebsite = new Map();
-      const customersByName = new Map();
-
-      allCustomersSnapshot.forEach((doc) => {
-        const data = doc.data();
-        if (data.website) {
-          // Normaliza la URL para mejorar la coincidencia
-          try {
-            const normalizedUrl = new URL(data.website).hostname.replace(
-              /^www\./,
-              ''
-            );
-            customersByWebsite.set(normalizedUrl, data.status || 'prospecto');
-          } catch (e) {
-            // Ignora URLs inválidas en la base de datos
-          }
-        }
-        if (data.name) {
-          customersByName.set(
-            data.name.toLowerCase().trim(),
-            data.status || 'prospecto'
-          );
-        }
-      });
-
-      businesses = businesses.map((biz) => {
-        let status = 'neutro';
-        if (biz.tags.website) {
-          try {
-            const normalizedUrl = new URL(biz.tags.website).hostname.replace(
-              /^www\./,
-              ''
-            );
-            if (customersByWebsite.has(normalizedUrl)) {
-              status = customersByWebsite.get(normalizedUrl);
-            }
-          } catch (e) {
-            // Ignora si la URL del negocio es inválida
-          }
-        }
-        if (status === 'neutro' && biz.name) {
-          const nameKey = biz.name.toLowerCase().trim();
-          if (customersByName.has(nameKey)) {
-            status = customersByName.get(nameKey);
-          }
-        }
-        return { ...biz, crmStatus: status };
-      });
-
-      return {
-        success: true,
-        geojson: zoneData.geojson,
-        center: [parseFloat(zoneData.lat), parseFloat(zoneData.lon)],
-        businesses,
-      };
-    } catch (error) {
-      console.error('Error en getBusinessesInArea:', error);
-      throw new HttpsError(
-        'internal',
-        'No se pudo obtener la información de negocios para la zona.'
-      );
-    }
-  }
-);
-
-exports.saveProspectAsCustomer = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (!request.auth) {
-      throw new HttpsError(
-        'unauthenticated',
-        'El usuario debe estar autenticado.'
-      );
-    }
-    const { businessData } = request.data;
-    if (!businessData || !businessData.name) {
-      throw new HttpsError(
-        'invalid-argument',
-        'Datos del negocio incompletos.'
-      );
-    }
-
-    try {
-      const newCustomerData = {
-        name: businessData.name,
-        contactEmail:
-          businessData.tags.email || `no-email-${businessData.id}@example.com`,
-        category: 'Prospecto Geomarketing',
-        description: `Prospecto importado desde el módulo de Geomarketing. ID de OpenStreetMap: ${businessData.id}`,
-        planId: 'plan_privatkunde',
-        paymentCycle: 'anual',
-        country: 'DE', // Asumimos DE por defecto, se puede mejorar
-        location: businessData.tags.fullAddress || 'Ubicación no disponible',
-        fullAddress: businessData.tags.fullAddress || 'Dirección no disponible',
-        coordinates: {
-          latitude: businessData.lat,
-          longitude: businessData.lon,
-        },
-        phone: businessData.tags.phone || 'N/A',
-        website: businessData.tags.website || '',
-        logoUrl: '',
-        rating: 0,
-        status: 'prospecto', // Se guarda como prospecto
-        registrationDate: new Date().toISOString(),
-        originalId: `osm-${businessData.id}`,
-        source: 'geomarketing',
-        erpStatus: 'prospecto',
-        assignedTo: null,
-        createdAtErp: new Date().toISOString(),
-      };
-
-      const docRef = await db.collection('customers').add(newCustomerData);
-
-      return { success: true, customerId: docRef.id };
-    } catch (error) {
-      console.error('Error al guardar el prospecto:', error);
-      throw new HttpsError(
-        'internal',
-        'No se pudo guardar el prospecto como cliente.'
-      );
-    }
-  }
-);
 
 // --- Lógica para el Módulo de Cupones ---
 exports.createCouponBatch = onCall(
@@ -2612,54 +1979,7 @@ exports.adminRedeemCoupon = onCall(
   }
 );
 
-exports.deleteAllCoupons = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (request.auth?.token?.role !== 'superadmin') {
-      throw new HttpsError(
-        'permission-denied',
-        'Solo un superadmin puede ejecutar esta acción.'
-      );
-    }
 
-    try {
-      const couponsRef = db.collection('coupons');
-      const snapshot = await couponsRef.get();
-
-      if (snapshot.empty) {
-        return {
-          success: true,
-          deletedCount: 0,
-          message: 'No hay cupones para borrar.',
-        };
-      }
-
-      const batch = db.batch();
-      snapshot.docs.forEach((doc) => {
-        batch.delete(doc.ref);
-      });
-
-      // Opcional pero recomendado: Resetear el contador del mes actual.
-      const monthKey = new Date().toISOString().slice(0, 7).replace('-', '');
-      const counterRef = db.collection('counters').doc(`coupons_${monthKey}`);
-      batch.delete(counterRef); // O podrías usar .set({ count: 0 })
-
-      await batch.commit();
-
-      return {
-        success: true,
-        deletedCount: snapshot.size,
-        message: `Se eliminaron ${snapshot.size} cupones y se reseteó el contador.`,
-      };
-    } catch (error) {
-      console.error('Error al borrar todos los cupones:', error);
-      throw new HttpsError(
-        'internal',
-        'Ocurrió un error al borrar los cupones.'
-      );
-    }
-  }
-);
 exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request) => {
     if (!request.auth) {
         throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
@@ -2671,7 +1991,7 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
     }
 
     try {
-        const metricsRef = db.collection(`customers/${customerId}/metrics`);
+        const metricsRef = collection(db, `customers/${customerId}/metrics`);
         
         const newMetricRecord = {
             createdAt: FieldValue.serverTimestamp(),
@@ -2688,3 +2008,5 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
         throw new HttpsError('internal', 'No se pudieron guardar las métricas.');
     }
 });
+
+    
