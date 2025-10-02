@@ -2020,121 +2020,34 @@ exports.updateConversationStatus = onCall(
   }
 );
 
-exports.cleanupDuplicateCustomers = onCall(
+
+exports.publishSocialPost = onCall(
   { region: 'europe-west1' },
   async (request) => {
-    if (request.auth?.token?.role !== 'superadmin') {
+    if (!request.auth)
+      throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
+    const { imageBase64, caption, networks } = request.data;
+
+    if (!imageBase64 || !caption || !networks) {
       throw new HttpsError(
-        'permission-denied',
-        'Solo un superadmin puede ejecutar esta acción.'
+        'invalid-argument',
+        'Faltan datos para la publicación.'
       );
     }
 
-    try {
-      console.log('Iniciando limpieza de clientes duplicados...');
-      const customersSnapshot = await db.collection('customers').get();
-      const customers = customersSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      const uniqueCustomers = new Map();
-      const duplicatesToDelete = [];
-
-      for (const customer of customers) {
-        // Clave única basada en nombre y email (ignorando mayúsculas/minúsculas y espacios)
-        const nameKey = (customer.name || '').toLowerCase().trim();
-        const emailKey = (customer.contactEmail || '').toLowerCase().trim();
-        const key = `${nameKey}_${emailKey}`;
-
-        if (uniqueCustomers.has(key)) {
-          // Si ya existe, este es un duplicado. Marcarlo para eliminación.
-          duplicatesToDelete.push(customer.id);
-        } else {
-          // Si no existe, este es el primer registro (el que se conservará).
-          uniqueCustomers.set(key, customer.id);
-        }
-      }
-
-      console.log(
-        `Se encontraron ${duplicatesToDelete.length} clientes duplicados para eliminar.`
-      );
-
-      if (duplicatesToDelete.length > 0) {
-        const batch = db.batch();
-        duplicatesToDelete.forEach((docId) => {
-          batch.delete(db.collection('customers').doc(docId));
-        });
-        await batch.commit();
-        console.log(
-          `Se eliminaron ${duplicatesToDelete.length} documentos duplicados.`
-        );
-      }
-
-      return {
-        success: true,
-        deletedCount: duplicatesToDelete.length,
-        message: `Limpieza completada. Se eliminaron ${duplicatesToDelete.length} clientes duplicados.`,
-      };
-    } catch (error) {
-      console.error('Error durante la limpieza de duplicados:', error);
-      throw new HttpsError(
-        'internal',
-        `Ocurrió un error inesperado durante la limpieza: ${error.message}`
-      );
-    }
-  }
-);
-
-exports.deleteCustomer = onCall({ region: 'europe-west1' }, async (request) => {
-  if (request.auth?.token?.role !== 'superadmin') {
-    throw new HttpsError(
-      'permission-denied',
-      'Solo un superadmin puede eliminar clientes.'
-    );
-  }
-
-  const { customerId } = request.data;
-  if (!customerId) {
-    throw new HttpsError('invalid-argument', 'Se requiere el ID del cliente.');
-  }
-
-  try {
-    const customerRef = db.collection('customers').doc(customerId);
-    console.log(`Iniciando eliminación del cliente ${customerId}...`);
-
-    const subcollections = ['interactions', 'offers', 'customerServices'];
-    for (const sub of subcollections) {
-      const snapshot = await customerRef.collection(sub).get();
-      if (!snapshot.empty) {
-        console.log(
-          `Eliminando ${snapshot.size} documentos de la subcolección ${sub}...`
-        );
-        const batch = db.batch();
-        snapshot.docs.forEach((doc) => {
-          batch.delete(doc.ref);
-        });
-        await batch.commit();
-      }
-    }
-
-    await customerRef.delete();
-    console.log(`Cliente ${customerId} eliminado con éxito.`);
+    // Aquí iría la lógica para llamar al webhook de n8n
+    // const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
+    // ...
+    console.log('Simulando publicación en:', networks.join(', '));
+    console.log('Caption:', caption);
 
     return {
       success: true,
-      message: 'Cliente y todos sus datos asociados eliminados.',
+      message: 'Publicación enviada al gestor de redes.',
     };
-  } catch (error) {
-    console.error(`Error al eliminar cliente ${customerId}:`, error);
-    throw new HttpsError('internal', 'No se pudo eliminar el cliente.');
   }
-});
+);
 
-/**
- * Función Invocable para sembrar/restaurar el catálogo de servicios.
- * Limpia la colección 'programs' y la vuelve a llenar con los datos de `service-catalog-data.js`.
- */
 exports.seedServiceCatalog = onCall(
   { region: 'europe-west1' },
   async (request) => {
@@ -2464,12 +2377,7 @@ exports.createCouponBatch = onCall(
             code: newCode,
             month_key: month_key,
             title: title,
-<<<<<<< HEAD
-            recipientName: recipientName,
-            senderName: senderName,
-=======
             subtitle: subtitle,
->>>>>>> def033fe0fb7a0d4e335172d70a1c77441bd2e22
             value_text: value_text,
             bg_image_url: bg_image_url || null,
             terms: terms || null,
@@ -2477,15 +2385,8 @@ exports.createCouponBatch = onCall(
             status: 'active',
             created_by: request.auth.uid,
             created_at: FieldValue.serverTimestamp(),
-<<<<<<< HEAD
-            isIndividual: true,
-        };
-        
-        const couponRef = await db.collection('coupons').add(newCouponData);
-=======
           });
         }
->>>>>>> def033fe0fb7a0d4e335172d70a1c77441bd2e22
 
         transaction.set(
           counterRef,
@@ -2541,7 +2442,6 @@ exports.createSingleCoupon = onCall(
           .toString()
           .padStart(2, '0')}`,
         title: title,
-        subtitle: `Para: ${recipientName}`, // Subtítulo construido en el backend
         value_text: value_text,
         bg_image_url: bg_image_url || null,
         terms: terms || null,
@@ -2760,28 +2660,6 @@ exports.deleteAllCoupons = onCall(
     }
   }
 );
-
-exports.publishSocialPost = onCall(
-  { region: 'europe-west1' },
-  async (request) => {
-    if (!request.auth)
-      throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
-    const { imageBase64, caption, networks } = request.data;
-
-    if (!imageBase64 || !caption || !networks) {
-      throw new HttpsError(
-        'invalid-argument',
-        'Faltan datos para la publicación.'
-      );
-    }
-
-    // Aquí iría la lógica para llamar al webhook de n8n
-    // const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
-    // ...
-    console.log('Simulando publicación en:', networks.join(', '));
-    console.log('Caption:', caption);
-
-<<<<<<< HEAD
 exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request) => {
     if (!request.auth) {
         throw new HttpsError('unauthenticated', 'Debes estar autenticado.');
@@ -2794,17 +2672,14 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
 
     try {
         const metricsRef = db.collection(`customers/${customerId}/metrics`);
-        const batch = db.batch();
-
+        
         const newMetricRecord = {
             createdAt: FieldValue.serverTimestamp(),
             createdBy: request.auth.uid,
             responses: metrics,
         };
 
-        batch.set(metricsRef.doc(), newMetricRecord);
-        
-        await batch.commit();
+        await addDoc(metricsRef, newMetricRecord);
         
         return { success: true };
 
@@ -2813,11 +2688,3 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
         throw new HttpsError('internal', 'No se pudieron guardar las métricas.');
     }
 });
-=======
-    return {
-      success: true,
-      message: 'Publicación enviada al gestor de redes.',
-    };
-  }
-);
->>>>>>> def033fe0fb7a0d4e335172d70a1c77441bd2e22
