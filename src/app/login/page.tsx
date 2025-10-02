@@ -82,7 +82,7 @@ export default function LoginPage() {
         <CardHeader className="text-center">
             <div className="flex justify-center items-center gap-2 mb-4">
                  <LayoutGrid className="h-8 w-8 text-primary" />
-                 <h1 className="text-3xl font-bold">ERP M&SOLUTIONS</h1>
+                 <h1 className="text-3xl font-bold">M&amp;SOLUTIONS</h1>
             </div>
           <CardTitle>Iniciar Sesión</CardTitle>
           <CardDescription>Accede a tu panel de control del ERP</CardDescription>

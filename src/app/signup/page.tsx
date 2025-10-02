@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -86,7 +85,7 @@ export default function SignupPage() {
         <CardHeader className="text-center">
             <div className="flex justify-center items-center gap-2 mb-4">
                  <LayoutGrid className="h-8 w-8 text-primary" />
-                 <h1 className="text-3xl font-bold">ERP M&SOLUTIONS</h1>
+                 <h1 className="text-3xl font-bold">M&amp;SOLUTIONS</h1>
             </div>
           <CardTitle>Crear una Cuenta</CardTitle>
           <CardDescription>Regístrate para obtener acceso al ERP</CardDescription>
