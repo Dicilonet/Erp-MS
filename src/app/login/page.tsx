@@ -85,7 +85,7 @@ export default function LoginPage() {
                  <h1 className="text-3xl font-bold">M&amp;SOLUTIONS</h1>
             </div>
           <CardTitle>Iniciar Sesión</CardTitle>
-          <CardDescription>Accede a tu panel de control del ERP</CardDescription>
+          <CardDescription>Accede a tu panel de control del M&S</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
