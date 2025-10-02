@@ -26,7 +26,8 @@
         "todoList": "To-Do List",
         "marketing": "Marketing",
         "support": "Support",
-        "chat": "Chat"
+        "chat": "Chat",
+        "automation": "Automation"
     },
     "articles": {
         "title": "Articles",

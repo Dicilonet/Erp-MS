@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -62,12 +61,21 @@ export function ConversationList({ currentUserUid, onSelectConversation, selecte
     return () => unsubscribe();
   }, [currentUserUid]);
 
+  // --- BLOQUE CORREGIDO ---
+  // Este useEffect ahora filtra los usuarios por el companyId
   useEffect(() => {
-    if (isModalOpen && user) {
-        const usersQuery = query(collection(db, 'users'), where('__name__', '!=', user.uid));
+    // Solo buscamos usuarios si el modal está abierto y tenemos un usuario con companyId
+    if (isModalOpen && user?.companyId) {
+        const usersQuery = query(
+            collection(db, 'users'),
+            where('companyId', '==', user.companyId), // <-- FILTRO CLAVE: Solo usuarios de la misma compañía
+            where('__name__', '!=', user.uid) // Y excluimos al usuario actual
+        );
+        
         const unsubscribe = onSnapshot(usersQuery, (snapshot) => {
             setUsers(snapshot.docs.map(doc => ({ ...doc.data(), uid: doc.id }) as InternalUser));
         });
+        
         return () => unsubscribe();
     }
   }, [isModalOpen, user]);

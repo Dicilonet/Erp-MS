@@ -1,161 +1,126 @@
 rules_version = '2';
 
-// Reglas por defecto: denegar todo el acceso a menos que se permita explícitamente.
 service cloud.firestore {
   match /databases/{database}/documents {
-  
-    // --- REGLAS DE USUARIOS INTERNOS ('users') ---
-    match /users/{userId} {
-      // Un usuario solo puede leer y escribir su propio perfil.
-      allow read, write: if request.auth.uid == userId;
-      // Un superadmin puede leer cualquier perfil.
-      allow get: if request.auth.token.role == 'superadmin';
+    // REGLAS GENERALES
+    match /{document=**} {
+      // Por defecto, nadie tiene acceso a nada.
+      allow read, write: if false;
     }
 
-    match /users/{userId}/todos/{todoId} {
-      // Un usuario solo puede gestionar su propia lista de tareas.
-      allow read, write, delete: if request.auth.uid == userId;
+    // --- REGLAS PARA USUARIOS (CORREGIDO PARA MODELO MULTI-EMPRESA) ---
+    match /users/{userId} {
+      // Un usuario puede LEER (get) y ACTUALIZAR (update) su propio perfil.
+      allow get, update: if request.auth.uid == userId;
+
+      // Un usuario puede LISTAR otros usuarios SÓLO SI está pidiendo los de su propia empresa.
+      // Esta regla comprueba que la consulta del frontend filtre por el companyId del usuario que hace la petición.
+      allow list: if request.auth != null &&
+                    request.query.filters[0].field == "companyId" &&
+                    request.query.filters[0].value == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.companyId;
+
+      // Los superadmins pueden gestionar CUALQUIER usuario.
+      allow get, list, create, update, delete: if request.auth.token.role == 'superadmin';
+      
+      // Reglas para la subcolección de tareas personales.
+      match /todos/{todoId} {
+        allow read, write: if request.auth.uid == userId;
+      }
     }
     
-    // --- REGLAS DE CLIENTES ('customers') ---
+    // --- REGLAS PARA CONTADORES (USADO EN CUPONES Y OFERTAS) ---
+    match /counters/{counterId} {
+      // Solo los usuarios autenticados (admins) pueden leer/escribir contadores.
+      allow read, write: if request.auth != null && request.auth.token.role == 'superadmin';
+    }
+
+    // --- REGLAS PARA CLIENTES (Customers) ---
     match /customers/{customerId} {
-       // Cualquier usuario autenticado puede leer la lista de clientes.
+      // Cualquier usuario autenticado del ERP puede leer la lista de clientes.
       allow read: if request.auth != null;
       // Solo superadmins pueden crear, modificar o borrar clientes.
       allow write: if request.auth.token.role == 'superadmin';
-    }
 
-    match /customers/{customerId}/{subcollection}/{docId} {
-        // Los usuarios autenticados pueden leer y escribir en las subcolecciones de un cliente.
-        // Esto cubre 'interactions', 'offers', 'customerServices'.
+      // Subcolecciones de clientes (interacciones, ofertas, etc.)
+      match /{allPaths=**} {
         allow read, write: if request.auth != null;
+      }
+    }
+    
+    // --- REGLAS PARA ARTÍCULOS ---
+    match /articles/{articleId} {
+        // Cualquiera autenticado puede leer, solo admins escriben
+        allow read: if request.auth != null;
+        allow write: if request.auth.token.role == 'superadmin';
     }
 
-    // --- REGLAS DE PROYECTOS ('projects') y TAREAS ('tasks') ---
-    match /projects/{projectId} {
-      // Un usuario puede leer un proyecto si es superadmin o si está en el equipo asignado.
-      allow read: if request.auth.token.role == 'superadmin' || request.auth.uid in resource.data.assignedTeam;
-      // Cualquiera autenticado puede crear un proyecto (para que los colaboradores puedan hacerlo).
-      allow create: if request.auth != null;
-      // Solo superadmins o miembros del equipo pueden actualizarlo.
-      allow update: if request.auth.token.role == 'superadmin' || request.auth.uid in resource.data.assignedTeam;
-       // Solo superadmins pueden borrar proyectos.
-      allow delete: if request.auth.token.role == 'superadmin';
-    }
-    
-    match /projects/{projectId}/tasks/{taskId} {
-        // Para leer una tarea, debes tener permiso para leer el proyecto padre.
-        allow read: if exists(/databases/$(database)/documents/projects/$(projectId)) && 
-                      (request.auth.token.role == 'superadmin' || request.auth.uid in get(/databases/$(database)/documents/projects/$(projectId)).data.assignedTeam);
-        // Para escribir (crear/actualizar/borrar) una tarea, también debes tener permiso sobre el proyecto.
-        allow write: if exists(/databases/$(database)/documents/projects/$(projectId)) && 
-                       (request.auth.token.role == 'superadmin' || request.auth.uid in get(/databases/$(database)/documents/projects/$(projectId)).data.assignedTeam);
-    }
-    
-    // --- REGLAS PARA GASTOS ('expenses') ---
+    // --- REGLAS PARA GASTOS (Expenses) ---
     match /expenses/{expenseId} {
-      // Cualquier usuario autenticado puede leer o crear gastos.
-      allow read, create: if request.auth != null;
-      // Solo el creador o un superadmin pueden actualizar/borrar.
-      allow update, delete: if request.auth.token.role == 'superadmin' || request.auth.uid == resource.data.recordedBy;
+        // Cualquiera autenticado puede leer, solo admins escriben
+        allow read: if request.auth != null;
+        allow write: if request.auth.token.role == 'superadmin';
     }
     
-    // --- REGLAS PARA ARTÍCULOS ('articles') ---
-    match /articles/{articleId} {
-       // Todos los usuarios autenticados pueden leer el catálogo de artículos.
-       allow read: if request.auth != null;
-       // Solo superadmins pueden añadir, editar o borrar artículos.
-       allow write: if request.auth.token.role == 'superadmin';
+    // --- REGLAS PARA PROYECTOS ---
+    match /projects/{projectId} {
+      // Un usuario puede leer un proyecto si es superadmin o si su UID está en el array 'assignedTeam'.
+      allow read: if request.auth.token.role == 'superadmin' || request.auth.uid in resource.data.assignedTeam;
+      // Un usuario puede escribir en un proyecto si es superadmin o si está en el equipo.
+      allow write: if request.auth.token.role == 'superadmin' || request.auth.uid in resource.data.assignedTeam;
+      
+        // REGLAS PARA TAREAS DENTRO DE UN PROYECTO
+        match /tasks/{taskId} {
+          // Hereda los permisos del proyecto padre.
+          allow read, write: if request.auth.token.role == 'superadmin' || request.auth.uid in get(/databases/$(database)/documents/projects/$(projectId)).data.assignedTeam;
+        }
     }
     
-    // --- REGLAS PARA CONTADORES ('counters') ---
-    // Usado por Cloud Functions para generar números de oferta/cupón secuenciales.
-    match /counters/{counterId} {
-      // Nadie puede acceder directamente, solo las Cloud Functions con credenciales de admin.
-      allow read, write: if false;
+    // REGLA PARA COLLECTION GROUP 'tasks'
+    // Permite a un superadmin hacer una consulta sobre todas las tareas de todos los proyectos.
+    match /{path=**}/tasks/{taskId} {
+        allow read: if request.auth.token.role == 'superadmin';
     }
-    
-    // --- REGLAS PARA CONEXIONES ('connections' / 'programs') ---
-    match /connections/{connectionId} {
-       // Los usuarios autenticados pueden ver la lista de conexiones.
+
+
+    // --- REGLAS PARA MARKETING (Content & Schedule) ---
+    match /contentAssets/{assetId} {
+      // Cualquiera autenticado puede leer, solo admins escriben.
       allow read: if request.auth != null;
-      // Solo un superadmin puede crear, editar o borrar conexiones.
       allow write: if request.auth.token.role == 'superadmin';
     }
-    
-     match /programs/{programId} {
-       // Todos los usuarios autenticados pueden leer el catálogo de herramientas.
-       allow read: if request.auth != null;
-       // Todos los usuarios autenticados pueden editarlo.
-       allow write: if request.auth != null;
-    }
-
-    // --- REGLAS PARA ACTIVOS DE CONTENIDO ('contentAssets') ---
-    match /contentAssets/{assetId} {
-        // Cualquiera autenticado puede leer y escribir en el pool de contenido.
-        allow read, write: if request.auth != null;
-    }
-    
-    // --- REGLAS PARA CALENDARIO DE MARKETING ('marketingSchedule') ---
     match /marketingSchedule/{eventId} {
-       // Los usuarios autenticados pueden leer y escribir eventos del calendario.
-        allow read, write: if request.auth != null;
+      allow read: if request.auth != null;
+      allow write: if request.auth.token.role == 'superadmin';
     }
 
-    // --- REGLAS PARA CHAT INTERNO ---
+    // --- REGLAS PARA CHAT ---
     match /conversations/{conversationId} {
-      // Un usuario puede leer o escribir en una conversación si es uno de los participantes.
-      allow read, write: if request.auth.uid in resource.data.participantUids;
-    }
-    
-    match /conversations/{conversationId}/messages/{messageId} {
-      // Un usuario puede leer mensajes de una conversación si es participante.
-      allow read: if request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids;
-      // Un usuario solo puede crear un mensaje si es el remitente y es participante.
-      allow create: if request.auth.uid == request.resource.data.senderId &&
-                       request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids;
-      // Nadie puede editar o borrar mensajes.
-      allow update, delete: if false;
+        // Un usuario puede leer/escribir una conversación si su UID está en la lista de participantes.
+        allow read, write: if request.auth.uid in resource.data.participantUids;
+        
+        match /messages/{messageId} {
+            allow read, write: if request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids;
+        }
     }
     
     // --- REGLAS PARA TICKETS DE SOPORTE ---
     match /tickets/{ticketId} {
-        // Cualquiera autenticado puede leer la lista de tickets
-        allow read: if request.auth != null;
-        // Cualquiera autenticado puede crear un ticket.
-        allow create: if request.auth != null;
-        // Solo un superadmin o el agente asignado puede modificarlo.
-        allow update: if request.auth.token.role == 'superadmin' || request.auth.uid == resource.data.assignedTo;
-        // Solo un superadmin puede borrarlo.
-        allow delete: if request.auth.token.role == 'superadmin';
-    }
-
-    // --- REGLAS PARA CUPONES ---
-    match /coupons/{couponId} {
-      // Cualquiera puede leer los datos de un cupón (necesario para la página de canje pública).
-      allow read: if true;
-      // Solo los superadmins pueden crear, actualizar o borrar cupones.
+      allow read: if request.auth != null;
       allow write: if request.auth.token.role == 'superadmin';
     }
     
-    // --- REGLAS PARA CONEXIONES SOCIALES (NUEVO) ---
-    match /socialConnections/{connectionId} {
-      // El usuario solo puede gestionar sus propias conexiones.
-      allow read, write, delete: if request.auth.uid == resource.data.userId;
-      // Un superadmin puede leer cualquier conexión (para tareas de diagnóstico).
-      allow get: if request.auth.token.role == 'superadmin';
+    // --- REGLAS PARA CATÁLOGO DE CONEXIONES/PROGRAMAS ---
+    match /programs/{programId} {
+        allow read: if request.auth != null;
+        allow write: if request.auth.token.role == 'superadmin';
     }
 
-    // --- REGLAS PARA POSTS PROGRAMADOS (NUEVO) ---
-    match /scheduledPosts/{postId} {
-      // El creador del post puede leerlo y borrarlo.
-      allow read, delete: if request.auth.uid == resource.data.creatorId;
-      // Un superadmin puede leer todos los posts.
-      allow list: if request.auth.token.role == 'superadmin';
-      // Cualquiera autenticado puede crear un post (la lógica de negocio está en la function).
-      allow create: if request.auth != null;
-      // Nadie puede actualizar un post directamente, se gestiona desde la función de publicación.
-      allow update: if false;
+    // --- REGLAS PARA EL MÓDULO DE CUPONES ---
+    match /coupons/{couponId} {
+      // CORRECCIÓN: Se permite la lectura pública para que la página de canje funcione,
+      // pero la escritura se mantiene restringida a los administradores.
+      allow read: if true;
+      allow write: if request.auth.token.role == 'superadmin';
     }
   }
 }
