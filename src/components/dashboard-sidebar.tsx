@@ -35,7 +35,7 @@ export function DashboardSidebar({ navItems, isSheet = false }: DashboardSidebar
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                 <Link href="/" className="flex items-center gap-2 font-semibold">
                     <LayoutGrid className="h-6 w-6" />
-                    <span className="text-lg">ERP M&SOLUTIONS</span>
+                    <span className="text-lg">M&SOLUTIONS</span>
                 </Link>
             </div>
             <nav className="flex-1 space-y-2 p-2">
@@ -43,7 +43,7 @@ export function DashboardSidebar({ navItems, isSheet = false }: DashboardSidebar
                     <NavLink key={item.href} isSheet={isSheet}>
                         <Link href={item.href}>
                             <Button
-                                variant={pathname === item.href ? 'secondary' : 'ghost'}
+                                variant={pathname.startsWith(item.href) && item.href !== '/' || pathname === '/' && item.href === '/' ? 'secondary' : 'ghost'}
                                 className="w-full justify-start text-base"
                             >
                                 {item.icon}
@@ -69,3 +69,5 @@ export function DashboardSidebar({ navItems, isSheet = false }: DashboardSidebar
         </div>
     );
 }
+
+    

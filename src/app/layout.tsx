@@ -6,7 +6,7 @@ import I18nProvider from '@/components/i18n-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'ERP M&SOLUTIONS',
+  title: 'M&SOLUTIONS',
   description: 'Unified ERP for modern teams',
 };
 
