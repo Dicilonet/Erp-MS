@@ -25,21 +25,105 @@ const landingPageCategories = [
     ]
   },
   {
-    id: 'b2b-services',
-    titleKey: 'landingPages.categories.b2b',
-    descriptionKey: 'landingPages.categories.b2bDescription',
+    id: 'beratung',
+    titleKey: 'landingPages.categories.consulting',
+    descriptionKey: 'landingPages.categories.consultingDescription',
     pages: []
   },
   {
-    id: 'event-promotion',
-    titleKey: 'landingPages.categories.events',
-    descriptionKey: 'landingPages.categories.eventsDescription',
+    id: 'bildung',
+    titleKey: 'landingPages.categories.education',
+    descriptionKey: 'landingPages.categories.educationDescription',
     pages: []
   },
   {
-    id: 'product-launch',
-    titleKey: 'landingPages.categories.productLaunch',
-    descriptionKey: 'landingPages.categories.productLaunchDescription',
+    id: 'finanzdienste',
+    titleKey: 'landingPages.categories.financial',
+    descriptionKey: 'landingPages.categories.financialDescription',
+    pages: []
+  },
+  {
+    id: 'gesundheit',
+    titleKey: 'landingPages.categories.health',
+    descriptionKey: 'landingPages.categories.healthDescription',
+    pages: []
+  },
+  {
+    id: 'hotellerie',
+    titleKey: 'landingPages.categories.hospitality',
+    descriptionKey: 'landingPages.categories.hospitalityDescription',
+    pages: []
+  },
+  {
+    id: 'immobilien',
+    titleKey: 'landingPages.categories.realEstate',
+    descriptionKey: 'landingPages.categories.realEstateDescription',
+    pages: []
+  },
+  {
+    id: 'kleidung',
+    titleKey: 'landingPages.categories.fashion',
+    descriptionKey: 'landingPages.categories.fashionDescription',
+    pages: []
+  },
+  {
+    id: 'lebensmittel',
+    titleKey: 'landingPages.categories.food',
+    descriptionKey: 'landingPages.categories.foodDescription',
+    pages: []
+  },
+  {
+    id: 'musik',
+    titleKey: 'landingPages.categories.music',
+    descriptionKey: 'landingPages.categories.musicDescription',
+    pages: []
+  },
+  {
+    id: 'soziales',
+    titleKey: 'landingPages.categories.social',
+    descriptionKey: 'landingPages.categories.socialDescription',
+    pages: []
+  },
+  {
+    id: 'sport',
+    titleKey: 'landingPages.categories.sports',
+    descriptionKey: 'landingPages.categories.sportsDescription',
+    pages: []
+  },
+  {
+    id: 'travel',
+    titleKey: 'landingPages.categories.travel',
+    descriptionKey: 'landingPages.categories.travelDescription',
+    pages: []
+  },
+  {
+    id: 'technologie',
+    titleKey: 'landingPages.categories.technology',
+    descriptionKey: 'landingPages.categories.technologyDescription',
+    pages: []
+  },
+  {
+    id: 'tier',
+    titleKey: 'landingPages.categories.pets',
+    descriptionKey: 'landingPages.categories.petsDescription',
+    pages: []
+  },
+  {
+    id: 'transport',
+    titleKey: 'landingPages.categories.transport',
+    descriptionKey: 'landingPages.categories.transportDescription',
+    pages: []
+  },
+  {
+    id: 'umwelt',
+    titleKey: 'landingPages.categories.environment',
+    descriptionKey: 'landingPages.categories.environmentDescription',
+    pages: []
+  },
+  {
+    id: 'unterhaltung',
+    titleKey: 'landingPages.categories.entertainment',
+    descriptionKey: 'landingPages.categories.entertainmentDescription',
     pages: []
   }
 ];
