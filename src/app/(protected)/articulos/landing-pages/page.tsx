@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,6 +41,14 @@ const landingPageCategories = [
     ]
   },
   {
+    id: 'hotellerie',
+    titleKey: 'landingPages.categories.hospitality',
+    descriptionKey: 'landingPages.categories.hospitalityDescription',
+    pages: [
+        { id: 'hotellerie-1', name: 'Landing para Hoteles', href: '/articulos/landing-pages/hotellerie-1' },
+    ]
+  },
+  {
     id: 'beratung',
     titleKey: 'landingPages.categories.consulting',
     descriptionKey: 'landingPages.categories.consultingDescription',
@@ -61,12 +70,6 @@ const landingPageCategories = [
     id: 'gesundheit',
     titleKey: 'landingPages.categories.health',
     descriptionKey: 'landingPages.categories.healthDescription',
-    pages: []
-  },
-  {
-    id: 'hotellerie',
-    titleKey: 'landingPages.categories.hospitality',
-    descriptionKey: 'landingPages.categories.hospitalityDescription',
     pages: []
   },
   {

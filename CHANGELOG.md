@@ -1,6 +1,25 @@
+
 # Bitácora de Cambios del ERP Dicilo
 
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
+
+---
+## 19 de Agosto de 2024
+
+### 1. [ID de Cambio: 19d0a4b4] Creación de Plantilla Avanzada para Hotelería (Hotellerie)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad y modular para la categoría "Hotellerie" (Hotelería), utilizando un enfoque de componentes reutilizables para mejorar la mantenibilidad del código.
+    1.  **Nueva Página y Componentes:** Se desarrolló la ruta `/articulos/landing-pages/hotellerie-1` y se creó una estructura de componentes dedicados en `src/components/landing/hotellerie-1/` para cada sección de la página (Hero, Escaparate de Habitaciones, Servicios, Pestañas de Reserva, Testimonios, Mapa y Pie de página).
+    2.  **Diseño Sofisticado y Funcional:** La plantilla incluye:
+        *   **Hero Section:** Una imagen de bienvenida con un titular elegante y un llamado a la acción principal.
+        *   **Escaparate de Habitaciones:** Un carrusel dinámico para mostrar los diferentes tipos de habitaciones disponibles.
+        *   **Servicios del Hotel:** Una cuadrícula visual que muestra los servicios (Wi-Fi, Piscina, Spa, etc.) y está diseñada para que se puedan activar o desactivar fácilmente desde el código.
+        *   **Pestañas de Reserva:** Un sistema de pestañas que separa una "Solicitud de Pre-Reserva" (con selector de fechas y número de huéspedes) de un "Formulario de Contacto General".
+        *   **Testimonios y Ubicación:** Secciones para prueba social y un mapa interactivo.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Hotelería".
+    4.  **Instalación de Dependencia:** Se añadió `react-day-picker` para el selector de fechas avanzado en el formulario de reserva.
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca de plantillas con una solución profesional y específica para el sector hotelero, y para introducir un patrón de desarrollo más modular y escalable mediante componentes de React, facilitando futuras adaptaciones y mejoras.
 
 ---
 ## 18 de Agosto de 2024
@@ -414,3 +433,4 @@ Este documento sirve como un registro manual de los cambios significativos reali
 *   **¿Por qué se hizo?** Las versiones anteriores mezclaban incorrectamente sintaxis del SDK de cliente y de admin, lo que impedía su ejecución y el despliegue de las funciones. La corrección era necesaria para que ambas características (sincronizar nuevos clientes y limpiar duplicados) pudieran funcionar.
 
     
+
