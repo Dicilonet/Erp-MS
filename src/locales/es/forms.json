@@ -1,3 +1,4 @@
+
 {
     "name": "Nombre",
     "email": "Email",
@@ -69,3 +70,4 @@
     "invalid_email": "Por favor, introduce una dirección de email válida.",
     "email_or_whatsapp_required": "Se requiere email o WhatsApp."
 }
+

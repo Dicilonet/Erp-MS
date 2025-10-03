@@ -235,7 +235,7 @@ const FormsDashboardContent = () => {
     if (!user) return null; // Or a message, handled by AuthProvider mostly
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col">
             <main className="flex-grow container mx-auto px-4 py-8">
                  <div className="flex justify-between items-center mb-6">
                     <div><h1 className="text-3xl font-bold">{t('formsDashboard.title', {ns: 'admin'})}</h1></div>
@@ -253,7 +253,7 @@ const FormsDashboardContent = () => {
 
 // --- Page Export ---
 export default function FormsDashboardPage() {
-    const { t } = useTranslation(); // use just the hook
-    if (!t) return <FormsDashboardSkeleton />;
+    const { i18n } = useTranslation();
+    if (!i18n.isInitialized) return <FormsDashboardSkeleton />;
     return <FormsDashboardContent />;
 }
