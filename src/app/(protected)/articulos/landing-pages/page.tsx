@@ -66,6 +66,14 @@ const landingPageCategories = [
       { id: 'beratung-1', name: 'Landing para Coaches y Consultores', href: '/articulos/landing-pages/beratung-1' },
     ]
   },
+   {
+    id: 'lebensmittel',
+    titleKey: 'landingPages.categories.food',
+    descriptionKey: 'landingPages.categories.foodDescription',
+    pages: [
+      { id: 'lebensmittel-1', name: 'Landing para Tiendas de Alimentación', href: '/articulos/landing-pages/lebensmittel-1' },
+    ]
+  },
   {
     id: 'bildung',
     titleKey: 'landingPages.categories.education',
@@ -82,12 +90,6 @@ const landingPageCategories = [
     id: 'kleidung',
     titleKey: 'landingPages.categories.fashion',
     descriptionKey: 'landingPages.categories.fashionDescription',
-    pages: []
-  },
-  {
-    id: 'lebensmittel',
-    titleKey: 'landingPages.categories.food',
-    descriptionKey: 'landingPages.categories.foodDescription',
     pages: []
   },
   {

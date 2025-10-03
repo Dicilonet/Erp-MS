@@ -3,6 +3,25 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 27 de Agosto de 2024
+
+### 1. [ID de Cambio: 27d1e8b4] Creación de Plantilla Avanzada para Tiendas de Alimentación (Lebensmittel)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada específicamente para el sector de "Alimentación" (tiendas de productos locales, fruterías, quioscos, pequeños supermercados), dentro de la categoría de "Lebensmittel".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/lebensmittel-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/lebensmittel-1/` para cada sección (Hero, Filosofía, Productos, Galería, Ofertas, Testimonios, Ubicación y Footer). Este enfoque modular mejora la mantenibilidad y reutilización del código.
+    2.  **Diseño Fresco y Funcional:** La plantilla está diseñada para transmitir calidad, frescura y confianza. Incluye:
+        *   **Hero Section:** Una imagen atractiva de productos frescos con un titular claro ("Del Campo a tu Mesa") y llamados a la acción.
+        *   **Sección de Filosofía:** Un espacio para contar la historia del negocio y su compromiso con los productos locales.
+        *   **Productos Destacados:** Una cuadrícula visual para resaltar los tipos de productos ofrecidos (Verduras, Frutas, Pan, etc.).
+        *   **Galería Deslizable:** Un carrusel de imágenes para mostrar la tienda, el ambiente y la variedad de productos.
+        *   **Ofertas Semanales:** Una sección para anunciar promociones y atraer clientes.
+        *   **Testimonios de Clientes:** Prueba social para reforzar la credibilidad y la conexión con la comunidad.
+        *   **Ubicación y Contacto:** Un mapa interactivo para localizar la tienda, junto con un formulario de contacto para pedidos o consultas.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Alimentación".
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca con una solución específica y profesional para el sector de la alimentación local, proporcionando una herramienta robusta que facilita la captación de clientes y la presentación de productos frescos de manera efectiva.
+
+---
 ## 26 de Agosto de 2024
 
 ### 1. [ID de Cambio: 26c9d4a3] Creación de Plantilla Avanzada para Consultoría (Beratung)
