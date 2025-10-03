@@ -74,6 +74,14 @@ const landingPageCategories = [
       { id: 'lebensmittel-1', name: 'Landing para Tiendas de Alimentación', href: '/articulos/landing-pages/lebensmittel-1' },
     ]
   },
+   {
+    id: 'haustiere',
+    titleKey: 'landingPages.categories.pets',
+    descriptionKey: 'landingPages.categories.petsDescription',
+    pages: [
+      { id: 'haustiere-1', name: 'Landing para Servicios de Mascotas', href: '/articulos/landing-pages/haustiere-1' },
+    ]
+  },
   {
     id: 'bildung',
     titleKey: 'landingPages.categories.education',
@@ -114,12 +122,6 @@ const landingPageCategories = [
     id: 'technologie',
     titleKey: 'landingPages.categories.technology',
     descriptionKey: 'landingPages.categories.technologyDescription',
-    pages: []
-  },
-  {
-    id: 'tier',
-    titleKey: 'landingPages.categories.pets',
-    descriptionKey: 'landingPages.categories.petsDescription',
     pages: []
   },
   {

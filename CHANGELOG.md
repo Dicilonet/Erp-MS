@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 28 de Agosto de 2024
+
+### 1. [ID de Cambio: 28e2f9c5] Creación de Plantilla Avanzada para Servicios de Mascotas (Haustiere)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada específicamente para el sector de "Mascotas" (peluquerías caninas, guarderías, adiestradores), dentro de la categoría de "Haustiere".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/haustiere-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/haustiere-1/` para cada sección (Hero, Servicios, Sobre Nosotros, Galería, Testimonios, Contacto, Ubicación y Footer). Este enfoque modular mejora la mantenibilidad y reutilización del código.
+    2.  **Diseño Amigable y Profesional:** La plantilla está diseñada para inspirar confianza y amor por los animales. Incluye:
+        *   **Hero Section:** Una imagen emotiva con un titular claro ("El Mejor Cuidado para tu Mejor Amigo") y llamados a la acción.
+        *   **Sección de Servicios:** Una cuadrícula visual para destacar los principales servicios (Peluquería, Guardería, Adiestramiento).
+        *   **Sobre Nosotros:** Un espacio para contar la historia del negocio y su pasión por los animales.
+        *   **Galería de Clientes Felices:** Un carrusel de imágenes para mostrar a las mascotas disfrutando de las instalaciones y servicios.
+        *   **Testimonios de Dueños:** Prueba social para reforzar la credibilidad y la calidad del cuidado.
+        *   **Ubicación y Contacto:** Un mapa interactivo para localizar el centro, junto con un formulario de contacto para citas o consultas.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Mascotas".
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca con una solución profesional y específica para el creciente sector de servicios para mascotas, proporcionando una herramienta de marketing digital que facilita la captación de clientes y la presentación de sus servicios de manera efectiva y emotiva.
+
+---
 ## 27 de Agosto de 2024
 
 ### 1. [ID de Cambio: 27d1e8b4] Creación de Plantilla Avanzada para Tiendas de Alimentación (Lebensmittel)
