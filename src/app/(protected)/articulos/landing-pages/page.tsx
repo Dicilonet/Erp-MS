@@ -48,6 +48,14 @@ const landingPageCategories = [
         { id: 'hotellerie-1', name: 'Landing para Hoteles', href: '/articulos/landing-pages/hotellerie-1' },
     ]
   },
+   {
+    id: 'gesundheit',
+    titleKey: 'landingPages.categories.health',
+    descriptionKey: 'landingPages.categories.healthDescription',
+    pages: [
+        { id: 'gesundheit-1', name: 'Landing para Praxis / Clínicas', href: '/articulos/landing-pages/gesundheit-1' },
+    ]
+  },
   {
     id: 'beratung',
     titleKey: 'landingPages.categories.consulting',
@@ -64,12 +72,6 @@ const landingPageCategories = [
     id: 'finanzdienste',
     titleKey: 'landingPages.categories.financial',
     descriptionKey: 'landingPages.categories.financialDescription',
-    pages: []
-  },
-  {
-    id: 'gesundheit',
-    titleKey: 'landingPages.categories.health',
-    descriptionKey: 'landingPages.categories.healthDescription',
     pages: []
   },
   {

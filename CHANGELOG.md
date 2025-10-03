@@ -4,6 +4,25 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 20 de Agosto de 2024
+
+### 1. [ID de Cambio: 20a1b2c3] Creación de Plantilla Avanzada para Sector Salud (Gesundheit)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada específicamente para el sector de la salud (clínicas, consultorios médicos, dentistas, etc.), bajo la categoría "Gesundheit".
+    1.  **Nueva Página y Estructura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/gesundheit-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/gesundheit-1/` para cada sección (Hero, Servicios, Equipo, Productos, Testimonios, Formulario de Contacto, Mapa y Footer). Este enfoque modular mejora la mantenibilidad y reutilización del código.
+    2.  **Diseño Profesional y Funcional:** La plantilla está diseñada para transmitir confianza y profesionalismo. Incluye:
+        *   **Hero Section:** Una imagen de bienvenida con un titular claro y botones de llamado a la acción ("Pedir Cita").
+        *   **Cuadrícula de Servicios:** Una sección visual para destacar los principales tratamientos o servicios ofrecidos.
+        *   **Presentación del Equipo:** Un espacio para introducir al equipo médico, generando confianza.
+        *   **Escaparate de Productos:** Una sección para mostrar productos específicos como gafas, audífonos, etc.
+        *   **Testimonios de Pacientes:** Prueba social para reforzar la credibilidad.
+        *   **Formulario de Contacto:** Optimizado para que los pacientes soliciten citas o información.
+        *   **Mapa de Ubicación:** Un mapa interactivo para facilitar la localización de la clínica.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Salud".
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca de plantillas con una solución profesional y específica para el sector salud, proporcionando a los clientes una herramienta de marketing digital robusta y lista para ser desplegada, capaz de captar pacientes y presentar sus servicios de manera efectiva.
+
+---
 ## 19 de Agosto de 2024
 
 ### 1. [ID de Cambio: 19d0a4b4] Creación de Plantilla Avanzada para Hotelería (Hotellerie)
@@ -433,4 +452,3 @@ Este documento sirve como un registro manual de los cambios significativos reali
 *   **¿Por qué se hizo?** Las versiones anteriores mezclaban incorrectamente sintaxis del SDK de cliente y de admin, lo que impedía su ejecución y el despliegue de las funciones. La corrección era necesaria para que ambas características (sincronizar nuevos clientes y limpiar duplicados) pudieran funcionar.
 
     
-
