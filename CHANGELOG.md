@@ -3,6 +3,21 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 29 de Agosto de 2024
+
+### 1. [ID de Cambio: 29f2d3a6] Creación del Módulo de Campañas de Marketing
+
+*   **¿Qué se hizo?** Se implementó un nuevo módulo de "Campañas" dentro de la sección de Marketing, sentando las bases para un sistema de seguimiento y gestión de las landing pages de los clientes.
+    1.  **Nueva Página y Componentes:** Se desarrolló la ruta `/marketing/campaigns` y se crearon los componentes `CampaignDashboard` y `CampaignDetailView` para construir la interfaz.
+    2.  **Dashboard Interactivo:** La página principal del módulo permite seleccionar un cliente de una lista con buscador. Una vez seleccionado, se muestra un panel con los detalles de su "campaña" (actualmente simulado).
+    3.  **Vista de Detalle de Campaña:** Este panel centraliza la información relevante para el cliente, incluyendo:
+        *   Listas de tareas (Hecho, Por Hacer, Próximos Pasos) para organizar el trabajo.
+        *   Una sección de "Herramientas de Marketing" con accesos directos a otros módulos como Cupones, Diseñador, etc., para facilitar la ejecución de acciones específicas para ese cliente.
+    4.  **Navegación y Traducciones:** Se añadió una nueva pestaña "Campañas" a la barra de navegación del módulo de Marketing y se incluyeron todas las claves de texto necesarias en los archivos de internacionalización (`es`, `en`, `de`).
+
+*   **¿Por qué se hizo?** Para crear un centro de control que permita a los administradores del ERP gestionar las landing pages de sus clientes como campañas de marketing activas. Esto no solo organiza el flujo de trabajo, sino que también establece la infraestructura necesaria para futuras integraciones de analíticas de rendimiento (visitas, clics, conversiones del formulario de recomendación).
+
+---
 ## 28 de Agosto de 2024
 
 ### 1. [ID de Cambio: 28e2f9c5] Creación de Plantilla Avanzada para Servicios de Mascotas (Haustiere)
@@ -167,7 +182,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
         *   **Pestañas de Reserva:** Un sistema de pestañas que separa una "Solicitud de Pre-Reserva" (con selector de fechas y número de huéspedes) de un "Formulario de Contacto General".
         *   **Testimonios y Ubicación:** Secciones para prueba social y un mapa interactivo.
     3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Hotelería".
-    4.  **Instalación de Dependencia:** Se añadió `react-day-picker` para el selector de fechas avanzado en el formulario de reserva.
+    4.  **Instalación de Dependencia:** Se añadió `react-day-picker` al `package.json` para el selector de fechas avanzado en el formulario de reserva.
 
 *   **¿Por qué se hizo?** Para enriquecer la biblioteca de plantillas con una solución profesional y específica para el sector hotelero, y para introducir un patrón de desarrollo más modular y escalable mediante componentes de React, facilitando futuras adaptaciones y mejoras.
 
