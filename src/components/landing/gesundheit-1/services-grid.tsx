@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Stethoscope, HeartPulse, Microscope, Users } from 'lucide-react';
 
 const services = [
