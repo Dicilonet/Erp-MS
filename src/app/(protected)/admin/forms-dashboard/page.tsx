@@ -242,7 +242,7 @@ const FormsDashboardContent = () => {
                     <Button variant="outline" asChild><Link href="/"><LayoutDashboard className="mr-2 h-4 w-4" />{t('businesses.backToDashboard', { ns: 'admin' })}</Link></Button>
                 </div>
                 <Card className="mb-8">
-                    <CardHeader><CardTitle>{t('formsDashboard.managementTitle', {ns: 'admin'})}</CardTitle><CardDescription>{t('formsDashboard.managementDescription', {ns: 'admin'})}</CardDescription></CardHeader>
+                    <CardHeader><CardTitle>{t('formsDashboard.managementTitle', {ns: 'admin'})}</CardHeader><CardDescription>{t('formsDashboard.managementDescription', {ns: 'admin'})}</CardDescription></CardHeader>
                     <CardContent><div className="flex flex-wrap gap-2">{TABS.map(tab => (<Button key={tab.id} variant={activeTab === tab.id ? 'default' : 'outline'} onClick={() => setActiveTab(tab.id)}><tab.icon className="mr-2 h-4 w-4" />{tab.label}</Button>))}</div></CardContent>
                 </Card>
                 {renderContent()}
