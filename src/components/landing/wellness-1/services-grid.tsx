@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Spa, Flower, Sun, Wind } from 'lucide-react';
+import { HandHeart, Flower, Sun, Wind } from 'lucide-react';
 
 const services = [
-  { icon: <Spa />, name: 'Masaje Relajante' },
+  { icon: <HandHeart />, name: 'Masaje Relajante' },
   { icon: <Flower />, name: 'Masaje con Aromaterapia' },
   { icon: <Sun />, name: 'Masaje con Piedras Calientes' },
   { icon: <Wind />, name: 'Masaje Descontracturante' },
