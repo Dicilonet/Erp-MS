@@ -62,7 +62,9 @@ const landingPageCategories = [
     id: 'beratung',
     titleKey: 'landingPages.categories.consulting',
     descriptionKey: 'landingPages.categories.consultingDescription',
-    pages: []
+    pages: [
+      { id: 'beratung-1', name: 'Landing para Coaches y Consultores', href: '/articulos/landing-pages/beratung-1' },
+    ]
   },
   {
     id: 'bildung',

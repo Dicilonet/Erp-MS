@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 26 de Agosto de 2024
+
+### 1. [ID de Cambio: 26c9d4a3] Creación de Plantilla Avanzada para Consultoría (Beratung)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada específicamente para el sector de "Consultoría" (coaches, asesores, terapeutas), dentro de la categoría de "Beratung".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/beratung-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/beratung-1/` para cada sección (Hero, Servicios, Sobre mí, Galería, Testimonios, Formulario de Reserva y Footer). Este enfoque modular mejora la mantenibilidad y reutilización del código.
+    2.  **Diseño Profesional y Funcional:** La plantilla está diseñada para inspirar confianza y profesionalismo. Incluye:
+        *   **Hero Section:** Una imagen potente con un titular claro ("Alcanza tu Máximo Potencial") y botones de llamado a la acción.
+        *   **Áreas de Especialización:** Una sección visual para destacar los principales servicios ofrecidos (Coaching Personal, Asesoría Profesional, Terapia Familiar, etc.).
+        *   **Galería Deslizable:** Un carrusel de imágenes para mostrar la consulta, retratos o momentos de sesiones.
+        *   **Testimonios de Clientes:** Prueba social para reforzar la credibilidad.
+        *   **Formulario de Reserva con Selector:** Un formulario optimizado para que los clientes soliciten una sesión, permitiéndoles seleccionar el área de interés (Terapia, Legal, Finanzas, etc.) desde un menú desplegable.
+        *   **Mapa de Ubicación:** Un mapa interactivo para mostrar la ubicación de la consulta.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Consultoría".
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca con una solución específica y profesional para el sector de la consultoría y el coaching, proporcionando una herramienta robusta que facilita la captación de clientes y la presentación de servicios especializados de manera efectiva.
+
+---
 ## 25 de Agosto de 2024
 
 ### 1. [ID de Cambio: 25b8d3a2] Creación de Plantilla Avanzada para Tours Urbanos (Reisen)
