@@ -1,7 +1,25 @@
-
 # Bitácora de Cambios del ERP Dicilo
 
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
+
+---
+## 21 de Agosto de 2024
+
+### 1. [ID de Cambio: 21a4e5f6] Creación de Plantilla Avanzada para Wellness y Masajes
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada específicamente para el sector de "Wellness" (Bienestar y Masajes), dentro de la categoría de "Gesundheit".
+    1.  **Nueva Página y Estructura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/wellness-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/wellness-1/` para cada sección (Hero, Tratamientos, Filosofía, Productos, Testimonios, Formulario de Contacto, Mapa y Footer). Este enfoque modular mejora la mantenibilidad y reutilización del código.
+    2.  **Diseño Relajante y Profesional:** La plantilla está diseñada para transmitir calma, confianza y profesionalismo. Incluye:
+        *   **Hero Section:** Una imagen evocadora con un titular claro y un llamado a la acción ("Reservar Masaje").
+        *   **Cuadrícula de Tratamientos:** Una sección visual para destacar los principales tipos de masajes ofrecidos.
+        *   **Filosofía del Centro:** Un espacio para contar la historia y el enfoque del centro de bienestar.
+        *   **Escaparate de Productos:** Una sección para mostrar productos relacionados como aceites esenciales o tarjetas de regalo.
+        *   **Testimonios de Clientes:** Prueba social para reforzar la credibilidad.
+        *   **Formulario de Contacto:** Optimizado para que los clientes soliciten información o citas.
+        *   **Mapa de Ubicación:** Un mapa interactivo para facilitar la localización del centro.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Salud y Bienestar".
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca de plantillas con una solución profesional y específica para el creciente sector del bienestar, proporcionando a los clientes una herramienta de marketing digital robusta y lista para ser desplegada, capaz de atraer clientes y presentar sus servicios de manera efectiva y relajante.
 
 ---
 ## 20 de Agosto de 2024

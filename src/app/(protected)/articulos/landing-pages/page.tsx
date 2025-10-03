@@ -54,6 +54,7 @@ const landingPageCategories = [
     descriptionKey: 'landingPages.categories.healthDescription',
     pages: [
         { id: 'gesundheit-1', name: 'Landing para Praxis / Clínicas', href: '/articulos/landing-pages/gesundheit-1' },
+        { id: 'wellness-1', name: 'Landing para Wellness y Masajes', href: '/articulos/landing-pages/wellness-1' },
     ]
   },
   {
