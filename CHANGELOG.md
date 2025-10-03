@@ -3,6 +3,26 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 30 de Agosto de 2024
+
+### 1. [ID de Cambio: 30g3e4b7] Implementación del Dashboard y Formulario de Recomendaciones
+
+*   **¿Qué se hizo?** Se implementó un nuevo módulo completo de "Formularios de Recomendación", diseñado para ser el núcleo de las campañas de marketing de las landing pages de los clientes, permitiendo la viralización y seguimiento de referidos.
+    1.  **Nuevo Dashboard de Formularios:** Se creó la ruta `/admin/forms-dashboard` para centralizar la gestión y visualización de todos los formularios de recomendación, con pestañas para "Resumen", "Recomendadores", "Recomendados", "Reportes" y "Ajustes".
+    2.  **Formulario de Recomendación Avanzado:** Se desarrolló un componente de formulario reutilizable que incluye:
+        *   Campos para los datos del recomendador (nombre, email).
+        *   Opción para recomendar a múltiples amigos, con validación de email o WhatsApp.
+        *   Selección de productos/servicios a recomendar.
+        *   Campos de consentimiento de privacidad y términos legales.
+        *   Lógica de validación con `zod` y gestión de estado con `react-hook-form`.
+    3.  **Integración en la Ficha del Cliente:** Se preparó la estructura para que este formulario sea visible y gestionable desde una nueva pestaña en la página de edición de cada cliente (próximo paso).
+    4.  **Formulario Incrustable:** Se creó la ruta `src/app/forms/embed/[clientId]/page.tsx` que servirá como la versión pública del formulario para ser insertada mediante un `<iframe>` en las landing pages.
+    5.  **Backend para Envíos:** Se creó la Cloud Function `submitRecommendation` para recibir y procesar los datos de los formularios de forma segura.
+    6.  **Traducciones Completas:** Se añadieron los archivos `forms.json` y `legal.json` con todas las claves de texto necesarias en español, inglés y alemán.
+
+*   **¿Por qué se hizo?** Para transformar las landing pages de simples páginas informativas a potentes herramientas de marketing viral. Este sistema no solo captura nuevos leads a través de recomendaciones, sino que también establece la infraestructura necesaria para un futuro sistema de comisiones y análisis de rendimiento de campañas, aportando un valor incalculable a los clientes del ERP.
+
+---
 ## 29 de Agosto de 2024
 
 ### 1. [ID de Cambio: 29f2d3a6] Creación del Módulo de Campañas de Marketing
@@ -385,7 +405,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta en `AdminList.tsx`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
     4.  **Documentación:** Se documentó este cambio crítico en el `CHANGELOG.md`.
 
-*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
+*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando visibilidad para la información legal; y para proporcionar una solución de impresión funcional y profesional que era una carencia crítica del módulo.
 
 ---
 ## 04 de Agosto de 2024
