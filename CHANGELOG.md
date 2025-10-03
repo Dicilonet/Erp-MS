@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 23 de Agosto de 2024
+
+### 1. [ID de Cambio: 23d6f8a9] Creación de Plantilla Avanzada para Cafeterías
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, diseñada específicamente para el sector de "Cafeterías, Panaderías y Pastelerías", dentro de la categoría de "Gastronomía".
+    1.  **Nueva Página y Estructura Modular:** Se desarrolló la ruta `/articulos/landing-pages/gastronomia-2` y se creó un componente de página completo que incluye secciones clave para este tipo de negocio.
+    2.  **Diseño Acogedor y Funcional:** La plantilla está diseñada para transmitir calidez y apetito. Incluye:
+        *   **Hero Section:** Una imagen evocadora con un titular claro ("El Arte de un Buen Café") y llamados a la acción.
+        *   **Nuestra Pasión:** Una sección para contar la historia y la filosofía del café.
+        *   **Galería de Productos Estrella:** Una cuadrícula visual para destacar los productos más populares como croissants, lattes, tartas y pan artesanal.
+        *   **Testimonios de Clientes:** Prueba social para reforzar la conexión con la comunidad.
+        *   **Formulario de Contacto:** Un formulario sencillo para consultas generales o pedidos.
+        *   **Mapa de Ubicación:** Un mapa interactivo para facilitar la localización del establecimiento.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla, mostrando dos opciones dentro de la categoría "Gastronomía".
+
+*   **¿Por qué se hizo?** Para diversificar la oferta de plantillas dentro de la categoría "Gastronomía", proporcionando una solución específica y profesional para cafeterías y negocios similares, que tienen necesidades de presentación distintas a las de un restaurante tradicional.
+
+---
 ## 22 de Agosto de 2024
 
 ### 1. [ID de Cambio: 22c5e6f7] Mejora de Plantilla Wellness: Galería de Imágenes

@@ -22,6 +22,7 @@ const landingPageCategories = [
     descriptionKey: 'landingPages.categories.gastronomyDescription',
     pages: [
       { id: 'gastronomia-1', name: 'Landing para Restaurantes', href: '/articulos/landing-pages/gastronomia-1' },
+      { id: 'gastronomia-2', name: 'Landing para Cafeterías', href: '/articulos/landing-pages/gastronomia-2' },
     ]
   },
   {
