@@ -65,6 +65,8 @@
         "categories": {
             "commerce": "Handel",
             "commerceDescription": "Vorlagen, die für den Online-Verkauf von Produkten und Dienstleistungen optimiert sind.",
+            "gastronomy": "Gastronomie",
+            "gastronomyDescription": "Elegante Designs für Restaurants, Bars und Cafés.",
             "b2b": "B2B-Dienstleistungen",
             "b2bDescription": "Vorlagen zur Gewinnung von Geschäftskunden.",
             "events": "Event-Promotion",

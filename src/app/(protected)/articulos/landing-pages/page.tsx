@@ -17,6 +17,14 @@ const landingPageCategories = [
     ]
   },
   {
+    id: 'gastronomy',
+    titleKey: 'landingPages.categories.gastronomy',
+    descriptionKey: 'landingPages.categories.gastronomyDescription',
+    pages: [
+      { id: 'gastronomia-1', name: 'Landing para Restaurantes', href: '/articulos/landing-pages/gastronomia-1' },
+    ]
+  },
+  {
     id: 'b2b-services',
     titleKey: 'landingPages.categories.b2b',
     descriptionKey: 'landingPages.categories.b2bDescription',

@@ -65,6 +65,8 @@
         "categories": {
             "commerce": "Commerce",
             "commerceDescription": "Templates optimized for selling products and services online.",
+            "gastronomy": "Gastronomy",
+            "gastronomyDescription": "Elegant designs for restaurants, bars, and cafes.",
             "b2b": "B2B Services",
             "b2bDescription": "Templates designed for acquiring business clients.",
             "events": "Event Promotion",

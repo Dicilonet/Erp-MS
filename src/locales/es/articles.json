@@ -65,6 +65,8 @@
         "categories": {
             "commerce": "Comercio",
             "commerceDescription": "Plantillas optimizadas para la venta de productos y servicios online.",
+            "gastronomy": "Gastronomía",
+            "gastronomyDescription": "Diseños elegantes para restaurantes, bares y cafés.",
             "b2b": "Servicios B2B",
             "b2bDescription": "Plantillas diseñadas para la captación de clientes empresariales.",
             "events": "Promoción de Eventos",

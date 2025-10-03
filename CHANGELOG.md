@@ -3,6 +3,25 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 16 de Agosto de 2024
+
+### 1. [ID de Cambio: 16a7c5b1] Creación del Módulo de Plantillas de Landing Pages (Gastronomía)
+
+*   **¿Qué se hizo?** Se implementó una nueva sección de "Landing Pages" dentro del módulo de "Artículos", sentando las bases para un catálogo de plantillas web reutilizables.
+    1.  **Estructura de Módulo:** Se creó la ruta `/articulos/landing-pages` y se añadió una pestaña en el layout de "Artículos" para navegar fácilmente entre los productos/servicios y las nuevas plantillas de landing pages.
+    2.  **Primera Categoría y Plantilla:** Se añadió la categoría "Gastronomía" y se implementó la primera plantilla (`gastronomia-1`), un diseño elegante y completo para restaurantes.
+    3.  **Componente de Landing Page:** Se desarrolló un componente de página completo (`LandingGastronomia`) que incluye:
+        *   Header con logo y navegación.
+        *   Sección Hero con imagen de fondo y llamados a la acción ("Ver Platos", "Descargar Menú").
+        *   Sección "Nuestra Historia" para el storytelling del restaurante.
+        *   Galería de "Platos Estrella".
+        *   Formulario de contacto para reservas o sugerencias.
+        *   Sección de ubicación con mapa interactivo (Leaflet) y datos de contacto.
+    4.  **Internacionalización:** Se actualizaron los archivos de traducción (`es`, `en`, `de`) para incluir los textos de la nueva sección y categoría.
+
+*   **¿Por qué se hizo?** Para dotar al ERP de una potente herramienta de marketing que permita a los usuarios generar rápidamente páginas de destino de alta calidad y específicas para diferentes sectores, comenzando con la industria gastronómica. Esto permite ofrecer un nuevo tipo de producto (plantillas web) directamente desde el catálogo del ERP.
+
+---
 ## 15 de Agosto de 2024
 
 ### 1. [ID de Cambio: 15e8f1d3] Corrección de Responsividad en Gestión de Clientes
@@ -142,7 +161,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta en `AdminList.tsx`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
     4.  **Documentación:** Se documentó este cambio crítico en el `CHANGELOG.md`.
 
-*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuadas. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
+*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
 
 ---
 ## 04 de Agosto de 2024
