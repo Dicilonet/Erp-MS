@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Wifi, Droplets, HeartPulse, Dumbbell, Car, Utensils, BellConcierge, Shirt } from 'lucide-react';
+import { Wifi, Droplets, HeartPulse, Dumbbell, Car, Utensils, Bell, Shirt } from 'lucide-react';
 
 interface Service {
   name: string;
@@ -19,7 +19,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
   gym: <Dumbbell />,
   parking: <Car />,
   restaurant: <Utensils />,
-  roomService: <BellConcierge />,
+  roomService: <Bell />,
   laundry: <Shirt />,
 };
 
