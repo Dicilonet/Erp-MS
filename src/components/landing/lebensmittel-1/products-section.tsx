@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { Carrot, Apple, Wheat, Cheese } from 'lucide-react';
+import { Carrot, Apple, Wheat, Milk } from 'lucide-react';
 
 const products = [
   {
@@ -22,7 +22,7 @@ const products = [
     description: "Elaborado con masa madre y horneado a diario para ti.",
   },
   {
-    icon: <Cheese className="h-10 w-10 text-emerald-600" />,
+    icon: <Milk className="h-10 w-10 text-emerald-600" />,
     title: "Productos Locales",
     description: "Quesos, embutidos y conservas de productores de confianza.",
   },
