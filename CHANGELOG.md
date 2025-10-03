@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 25 de Agosto de 2024
+
+### 1. [ID de Cambio: 25b8d3a2] Creación de Plantilla Avanzada para Tours Urbanos (Reisen)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada específicamente para el sector de "Tours Urbanos" (autobuses turísticos, paseos en barco, etc.), dentro de la categoría de "Reisen".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/reisen-2` y se creó una arquitectura de componentes dedicados en `src/components/landing/reisen-2/` para cada sección (Hero, Tipos de Tours, Galería, Testimonios, Formulario de Reserva, Mapa y Footer). Este enfoque modular mejora la mantenibilidad y reutilización del código.
+    2.  **Diseño Dinámico y Funcional:** La plantilla está diseñada para inspirar aventura y confianza. Incluye:
+        *   **Hero Section:** Una imagen evocadora de un tour con un titular claro y botones de llamado a la acción.
+        *   **Cuadrícula de Tipos de Tours:** Una sección visual para destacar los principales tipos de tours ofrecidos (Bus, Barco, A Pie, Nocturno).
+        *   **Galería Deslizable:** Un carrusel de imágenes para mostrar la experiencia de los tours.
+        *   **Testimonios de Viajeros:** Prueba social para reforzar la credibilidad.
+        *   **Formulario de Reserva:** Optimizado para que los clientes soliciten información sobre un tour específico.
+        *   **Mapa de Ubicación:** Un mapa interactivo para mostrar el punto de encuentro de los tours.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Viajes", ofreciendo ahora dos opciones distintas.
+
+*   **¿Por qué se hizo?** Para diversificar la oferta de plantillas dentro de la categoría "Viajes", proporcionando una solución específica y profesional para operadores de tours urbanos, que tienen necesidades de presentación distintas a las de una agencia de viajes general.
+
+---
 ## 24 de Agosto de 2024
 
 ### 1. [ID de Cambio: 24a7b8c9] Mejora de Plantilla de Cafetería: Galería de Imágenes
@@ -508,5 +526,3 @@ Este documento sirve como un registro manual de los cambios significativos reali
 
 *   **¿Qué se hizo?** Se reescribieron las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` utilizando la sintaxis correcta del SDK de Admin de Firebase para solucionar errores de despliegue (`getDocs is not defined`).
 *   **¿Por qué se hizo?** Las versiones anteriores mezclaban incorrectamente sintaxis del SDK de cliente y de admin, lo que impedía su ejecución y el despliegue de las funciones. La corrección era necesaria para que ambas características (sincronizar nuevos clientes y limpiar duplicados) pudieran funcionar.
-
-    

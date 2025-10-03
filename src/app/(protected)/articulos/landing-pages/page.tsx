@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,6 +30,7 @@ const landingPageCategories = [
     descriptionKey: 'landingPages.categories.travelDescription',
     pages: [
       { id: 'reisen-1', name: 'Landing para Agencias de Viajes', href: '/articulos/landing-pages/reisen-1' },
+      { id: 'reisen-2', name: 'Landing para Tours Urbanos', href: '/articulos/landing-pages/reisen-2' },
     ]
   },
   {
