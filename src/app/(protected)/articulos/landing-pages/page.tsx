@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,6 +32,14 @@ const landingPageCategories = [
     ]
   },
   {
+    id: 'immobilien',
+    titleKey: 'landingPages.categories.realEstate',
+    descriptionKey: 'landingPages.categories.realEstateDescription',
+    pages: [
+      { id: 'immobilien-1', name: 'Landing para Inmobiliarias', href: '/articulos/landing-pages/immobilien-1' },
+    ]
+  },
+  {
     id: 'beratung',
     titleKey: 'landingPages.categories.consulting',
     descriptionKey: 'landingPages.categories.consultingDescription',
@@ -60,12 +67,6 @@ const landingPageCategories = [
     id: 'hotellerie',
     titleKey: 'landingPages.categories.hospitality',
     descriptionKey: 'landingPages.categories.hospitalityDescription',
-    pages: []
-  },
-  {
-    id: 'immobilien',
-    titleKey: 'landingPages.categories.realEstate',
-    descriptionKey: 'landingPages.categories.realEstateDescription',
     pages: []
   },
   {

@@ -3,6 +3,27 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 18 de Agosto de 2024
+
+### 1. [ID de Cambio: 18c9e4a3] Creación de Plantilla Avanzada para Inmobiliarias (Immobilien)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page altamente funcional y específica para el sector inmobiliario, añadiéndola a la categoría "Immobilien" de la biblioteca.
+    1.  **Nueva Página y Ruta:** Se desarrolló el componente en `/articulos/landing-pages/immobilien-1` con un diseño sofisticado y profesional.
+    2.  **Estructura de Pestañas (Tabs):** El núcleo de la página es un sistema de pestañas que divide la experiencia del usuario en dos flujos principales:
+        *   **"Estoy Buscando":** Un formulario de búsqueda avanzada para que los interesados encuentren propiedades, con filtros por tipo, presupuesto, ciudad y radio en kilómetros.
+        *   **"Quiero Ofrecer":** Un formulario para que los propietarios registren sus inmuebles, con un selector de categorías detallado (casa, apartamento, local, etc.).
+    3.  **Componentes Visuales y de Confianza:**
+        *   **Hero Section:** Una imagen de portada potente con el título principal.
+        *   **Galería de Inmuebles Top:** Una cuadrícula visual para mostrar las propiedades más destacadas.
+        *   **Sección de Testimonios:** Un apartado para "Lo que dicen nuestros clientes" para generar prueba social.
+        *   **Mapa de Ubicación:** Un mapa interactivo de Leaflet mostrando la ubicación de la oficina.
+        *   **Formulario de Contacto General:** El formulario estándar para consultas directas.
+    4.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva y potente plantilla.
+    5.  **Internacionalización:** Se añadieron las traducciones necesarias para la nueva categoría "Inmobiliaria".
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca de plantillas con una solución de nivel profesional para el sector inmobiliario, ofreciendo una herramienta de marketing y captación de leads de doble propósito (propietarios e inquilinos) que agrega un valor inmenso al catálogo del ERP.
+
+---
 ## 17 de Agosto de 2024
 
 ### 1. [ID de Cambio: 17b8d3a2] Creación de Plantilla de Landing Page para Viajes (Reisen)
