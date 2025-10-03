@@ -61,6 +61,16 @@
     "landingPages": {
         "title": "Biblioteca de Landing Pages",
         "description": "Explora, previsualiza y selecciona plantillas de landing pages para tus campañas.",
-        "emptyCategory": "Próximamente habrá nuevas plantillas en esta categoría."
+        "emptyCategory": "Próximamente habrá nuevas plantillas en esta categoría.",
+        "categories": {
+            "commerce": "Comercio",
+            "commerceDescription": "Plantillas optimizadas para la venta de productos y servicios online.",
+            "b2b": "Servicios B2B",
+            "b2bDescription": "Plantillas diseñadas para la captación de clientes empresariales.",
+            "events": "Promoción de Eventos",
+            "eventsDescription": "Páginas para promocionar webinars, conferencias o eventos locales.",
+            "productLaunch": "Lanzamiento de Productos",
+            "productLaunchDescription": "Diseños de alto impacto para presentar un nuevo producto al mercado."
+        }
     }
 }

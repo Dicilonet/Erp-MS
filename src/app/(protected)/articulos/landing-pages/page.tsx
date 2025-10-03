@@ -4,27 +4,34 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTranslation } from 'react-i18next';
 import { LayoutTemplate, Construction } from 'lucide-react';
+import Link from 'next/link';
 
 // Datos de ejemplo que usaremos para mostrar la estructura
 const landingPageCategories = [
   {
-    id: 'b2b-services',
-    title: 'Servicios B2B',
-    description: 'Plantillas diseñadas para la captación de clientes empresariales.',
+    id: 'commerce',
+    titleKey: 'landingPages.categories.commerce',
+    descriptionKey: 'landingPages.categories.commerceDescription',
     pages: [
-      { id: 'b2b-1', name: 'Landing Page Corporativa Clásica' },
+      { id: 'comercio-1', name: 'Landing E-commerce Moderna', href: '/articulos/landing-pages/comercio-1' },
     ]
   },
   {
+    id: 'b2b-services',
+    titleKey: 'landingPages.categories.b2b',
+    descriptionKey: 'landingPages.categories.b2bDescription',
+    pages: []
+  },
+  {
     id: 'event-promotion',
-    title: 'Promoción de Eventos',
-    description: 'Páginas para promocionar webinars, conferencias o eventos locales.',
+    titleKey: 'landingPages.categories.events',
+    descriptionKey: 'landingPages.categories.eventsDescription',
     pages: []
   },
   {
     id: 'product-launch',
-    title: 'Lanzamiento de Productos',
-    description: 'Diseños de alto impacto para presentar un nuevo producto al mercado.',
+    titleKey: 'landingPages.categories.productLaunch',
+    descriptionKey: 'landingPages.categories.productLaunchDescription',
     pages: []
   }
 ];
@@ -47,16 +54,18 @@ export default function LandingPagesPage() {
             {landingPageCategories.map(category => (
                 <Card key={category.id}>
                     <CardHeader>
-                        <CardTitle>{category.title}</CardTitle>
-                        <CardDescription>{category.description}</CardDescription>
+                        <CardTitle>{t(category.titleKey)}</CardTitle>
+                        <CardDescription>{t(category.descriptionKey)}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {category.pages.length > 0 ? (
                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {category.pages.map(page => (
-                                    <div key={page.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-                                        <p className="font-semibold">{page.name}</p>
-                                    </div>
+                                    <Link key={page.id} href={page.href} passHref>
+                                        <div className="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer h-full">
+                                            <p className="font-semibold">{page.name}</p>
+                                        </div>
+                                    </Link>
                                 ))}
                             </div>
                         ) : (

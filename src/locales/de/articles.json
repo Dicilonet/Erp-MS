@@ -61,6 +61,16 @@
     "landingPages": {
         "title": "Landingpage-Bibliothek",
         "description": "Entdecken, Vorschauen und wählen Sie Landingpage-Vorlagen für Ihre Kampagnen.",
-        "emptyCategory": "Neue Vorlagen in dieser Kategorie folgen in Kürze."
+        "emptyCategory": "Neue Vorlagen in dieser Kategorie folgen in Kürze.",
+        "categories": {
+            "commerce": "Handel",
+            "commerceDescription": "Vorlagen, die für den Online-Verkauf von Produkten und Dienstleistungen optimiert sind.",
+            "b2b": "B2B-Dienstleistungen",
+            "b2bDescription": "Vorlagen zur Gewinnung von Geschäftskunden.",
+            "events": "Event-Promotion",
+            "eventsDescription": "Seiten zur Bewerbung von Webinaren, Konferenzen oder lokalen Veranstaltungen.",
+            "productLaunch": "Produkteinführung",
+            "productLaunchDescription": "Wirkungsstarke Designs zur Vorstellung eines neuen Produkts auf dem Markt."
+        }
     }
 }

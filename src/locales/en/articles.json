@@ -61,6 +61,16 @@
     "landingPages": {
         "title": "Landing Page Library",
         "description": "Explore, preview, and select landing page templates for your campaigns.",
-        "emptyCategory": "New templates in this category coming soon."
+        "emptyCategory": "New templates in this category coming soon.",
+        "categories": {
+            "commerce": "Commerce",
+            "commerceDescription": "Templates optimized for selling products and services online.",
+            "b2b": "B2B Services",
+            "b2bDescription": "Templates designed for acquiring business clients.",
+            "events": "Event Promotion",
+            "eventsDescription": "Pages to promote webinars, conferences, or local events.",
+            "productLaunch": "Product Launch",
+            "productLaunchDescription": "High-impact designs for introducing a new product to the market."
+        }
     }
 }
