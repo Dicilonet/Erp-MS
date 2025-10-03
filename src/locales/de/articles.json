@@ -1,0 +1,66 @@
+
+{
+    "title": "Artikelkatalog",
+    "description": "Verwalten Sie die Produkte und Dienstleistungen, die Sie Ihren Kunden anbieten.",
+    "new": "Neuer Artikel",
+    "searchPlaceholder": "Artikel suchen...",
+    "tabs": {
+        "title": "Produkte & Dienstleistungen",
+        "all": "ALLE",
+        "products": "PRODUKTE",
+        "services": "SERVICES"
+    },
+    "table": {
+        "number": "Artikel-Nr.",
+        "name": "Name",
+        "unit": "Einheit",
+        "priceNet": "Verkaufspreis (Netto)",
+        "tax": "Steuer",
+        "actions": "Aktionen"
+    },
+    "form": {
+        "createTitle": "Neuen Artikel erstellen",
+        "createDescription": "Füllen Sie die Details aus, um ein neues Produkt oder eine neue Dienstleistung zu Ihrem Katalog hinzuzufügen.",
+        "editTitle": "Artikel bearbeiten",
+        "editDescription": "Ändern Sie die Details dieses Produkts oder dieser Dienstleistung.",
+        "type": "Typ",
+        "product": "Produkt",
+        "service": "Dienstleistung",
+        "articleNumber": "Artikelnummer",
+        "articleNumberPlaceholder": "Z.B.: SW-001",
+        "name": "Artikelname",
+        "namePlaceholder": "Z.B.: Jährliche Softwarelizenz",
+        "unit": "Einheit",
+        "unitPlaceholder": "Z.B.: Stk, h, km, Pauschale",
+        "description": "Beschreibung",
+        "descriptionPlaceholder": "Fügen Sie Details über das Produkt oder die Dienstleistung hinzu...",
+        "tax": "Steuer",
+        "priceNet": "Verkaufspreis (Netto)",
+        "priceGross": "Endpreis (Brutto)",
+        "save": "Artikel speichern",
+        "saving": "Speichern...",
+        "saveChanges": "Änderungen speichern",
+        "creating": "Erstellen...",
+        "cancel": "Abbrechen"
+    },
+    "toast": {
+        "created": {
+            "title": "Artikel erstellt",
+            "description": "Der Artikel \"{{name}}\" wurde zu Ihrem Katalog hinzugefügt."
+        },
+        "updated": {
+            "title": "Artikel aktualisiert",
+            "description": "Der Artikel \"{{name}}\" wurde gespeichert."
+        },
+        "error": {
+            "title": "Fehler beim Speichern",
+            "description": "Der Artikel konnte nicht gespeichert werden."
+        }
+    },
+    "noArticles": "Keine Artikel. Erstellen Sie den ersten, um zu beginnen.",
+    "landingPages": {
+        "title": "Landingpage-Bibliothek",
+        "description": "Entdecken, Vorschauen und wählen Sie Landingpage-Vorlagen für Ihre Kampagnen.",
+        "emptyCategory": "Neue Vorlagen in dieser Kategorie folgen in Kürze."
+    }
+}

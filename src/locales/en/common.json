@@ -20,6 +20,7 @@
         "communications": "Communications",
         "email": "Email",
         "articles": "Articles",
+        "landingPages": "Landing Pages",
         "offers": "Offers",
         "expenses": "Expenses",
         "teams": "Team Management",
@@ -28,65 +29,6 @@
         "support": "Support",
         "chat": "Chat",
         "automation": "Automation"
-    },
-    "articles": {
-        "title": "Articles",
-        "description": "Products and services you offer to your customers.",
-        "new": "New Article",
-        "searchPlaceholder": "Search articles...",
-        "tabs": {
-            "all": "ALL",
-            "products": "PRODUCTS",
-            "services": "SERVICES"
-        },
-        "table": {
-            "number": "Article No.",
-            "name": "Name",
-            "unit": "Unit",
-            "priceNet": "Sale Price (Net)",
-            "tax": "Tax",
-            "actions": "Actions"
-        },
-        "form": {
-            "createTitle": "Create New Article",
-            "createDescription": "Fill in the details to add a new product or service to your catalog.",
-            "editTitle": "Edit Article",
-            "editDescription": "Modify the details of this product or service.",
-            "type": "Type",
-            "product": "Product",
-            "service": "Service",
-            "articleNumber": "Article Number",
-            "articleNumberPlaceholder": "E.g.: SW-001",
-            "name": "Article Name",
-            "namePlaceholder": "E.g.: Annual Software License",
-            "unit": "Unit",
-            "unitPlaceholder": "E.g.: pcs, h, km, flat rate",
-            "description": "Description",
-            "descriptionPlaceholder": "Add details about the product or service...",
-            "tax": "Tax",
-            "priceNet": "Sale Price (Net)",
-            "priceGross": "Final Price (Gross)",
-            "save": "Save Article",
-            "saving": "Saving...",
-            "saveChanges": "Save Changes",
-            "creating": "Creating...",
-            "cancel": "Cancel"
-        },
-        "toast": {
-            "created": {
-                "title": "Article Created",
-                "description": "The article \"{{name}}\" has been added to your catalog."
-            },
-            "updated": {
-                "title": "Article Updated",
-                "description": "The article \"{{name}}\" has been saved."
-            },
-            "error": {
-                "title": "Error Saving",
-                "description": "There was a problem saving the article."
-            }
-        },
-        "noArticles": "No articles. Create the first one to get started."
     },
     "calendar": {
         "allDay": "All Day",
@@ -147,5 +89,6 @@
             "editButton": "Edit",
             "deleteButton": "Delete"
         }
-    }
+    },
+    "edit": "Edit"
 }

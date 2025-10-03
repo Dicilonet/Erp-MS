@@ -20,6 +20,7 @@
         "communications": "Comunicaciones",
         "email": "Correo",
         "articles": "Artículos",
+        "landingPages": "Landing Pages",
         "offers": "Ofertas",
         "expenses": "Gastos",
         "teams": "Gestión de Equipos",
@@ -28,65 +29,6 @@
         "support": "Soporte",
         "chat": "Chat",
         "automation": "Automatización"
-    },
-    "articles": {
-        "title": "Artículos",
-        "description": "Productos y servicios que ofreces a tus clientes.",
-        "new": "Nuevo Artículo",
-        "searchPlaceholder": "Buscar artículos...",
-        "tabs": {
-            "all": "TODOS",
-            "products": "PRODUCTOS",
-            "services": "SERVICIOS"
-        },
-        "table": {
-            "number": "Nº Artículo",
-            "name": "Nombre",
-            "unit": "Unidad",
-            "priceNet": "Precio Venta (Neto)",
-            "tax": "Impuesto",
-            "actions": "Acciones"
-        },
-        "form": {
-            "createTitle": "Crear Nuevo Artículo",
-            "createDescription": "Rellena los detalles para añadir un nuevo producto o servicio a tu catálogo.",
-            "editTitle": "Editar Artículo",
-            "editDescription": "Modifica los detalles de este producto o servicio.",
-            "type": "Tipo",
-            "product": "Producto",
-            "service": "Servicio",
-            "articleNumber": "Número de Artículo",
-            "articleNumberPlaceholder": "Ej: SW-001",
-            "name": "Nombre del Artículo",
-            "namePlaceholder": "Ej: Licencia de Software Anual",
-            "unit": "Unidad",
-            "unitPlaceholder": "Ej: pza, h, km, tarifa plana",
-            "description": "Descripción",
-            "descriptionPlaceholder": "Añade detalles sobre el producto o servicio...",
-            "tax": "Impuesto",
-            "priceNet": "Precio Venta (Neto)",
-            "priceGross": "Precio Final (Bruto)",
-            "save": "Guardar Artículo",
-            "saving": "Guardando...",
-            "saveChanges": "Guardar Cambios",
-            "creating": "Creando...",
-            "cancel": "Cancelar"
-        },
-        "toast": {
-            "created": {
-                "title": "Artículo Creado",
-                "description": "El artículo \"{{name}}\" ha sido añadido a tu catálogo."
-            },
-            "updated": {
-                "title": "Artículo Actualizado",
-                "description": "El artículo \"{{name}}\" ha sido guardado."
-            },
-            "error": {
-                "title": "Error al Guardar",
-                "description": "Hubo un problema al guardar el artículo."
-            }
-        },
-        "noArticles": "No hay artículos. Crea el primero para empezar."
     },
     "calendar": {
         "allDay": "Todo el día",
@@ -147,5 +89,6 @@
             "editButton": "Editar",
             "deleteButton": "Eliminar"
         }
-    }
+    },
+    "edit": "Editar"
 }

@@ -21,7 +21,7 @@ export default function ArticlesPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const { toast } = useToast();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['articles', 'common']);
 
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function ArticlesPage() {
           throw new Error(result.data.message || 'Failed to fetch articles');
         }
       } catch (error: any) {
-        toast({ variant: 'destructive', title: t('articles.toast.error.title'), description: error.message });
+        toast({ variant: 'destructive', title: t('toast.error.title'), description: error.message });
       } finally {
         setLoading(false);
       }
@@ -80,7 +80,7 @@ export default function ArticlesPage() {
       return (
         <TableRow>
           <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-            {t('articles.noArticles')}
+            {t('noArticles')}
           </TableCell>
         </TableRow>
       );
@@ -100,7 +100,7 @@ export default function ArticlesPage() {
             >
               <Button variant="ghost" size="sm">
                 <Pencil className="h-4 w-4 mr-2" />
-                Editar
+                {t('common:edit')}
               </Button>
             </ArticleForm>
         </TableCell>
@@ -111,53 +111,44 @@ export default function ArticlesPage() {
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4 sm:mt-0 mb-6">
-        <div className="flex items-center gap-4 self-start">
-          <Package className="h-8 w-8" />
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold">{t('articles.title')}</h1>
-            <p className="text-muted-foreground">{t('articles.description')}</p>
-          </div>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="relative flex-1 w-full">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input 
+                placeholder={t('searchPlaceholder')}
+                className="pl-8" 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
         </div>
         <div className="w-full sm:w-auto">
             <ArticleForm onArticleCreated={handleArticleCreated} onArticleUpdated={handleArticleUpdated}>
               <Button className="w-full sm:w-auto">
                   <PlusCircle className="mr-2 h-4 w-4" />
-                  {t('articles.new')}
+                  {t('new')}
               </Button>
             </ArticleForm>
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-           <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  placeholder={t('articles.searchPlaceholder')}
-                  className="pl-8" 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-        </CardHeader>
-        <CardContent>
+      <Card className="mt-6">
+        <CardContent className="pt-6">
             <Tabs defaultValue="all">
                 <TabsList>
-                    <TabsTrigger value="all">{t('articles.tabs.all')}</TabsTrigger>
-                    <TabsTrigger value="products">{t('articles.tabs.products')}</TabsTrigger>
-                    <TabsTrigger value="services">{t('articles.tabs.services')}</TabsTrigger>
+                    <TabsTrigger value="all">{t('tabs.all')}</TabsTrigger>
+                    <TabsTrigger value="products">{t('tabs.products')}</TabsTrigger>
+                    <TabsTrigger value="services">{t('tabs.services')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="all" className="mt-4">
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>{t('articles.table.number')}</TableHead>
-                                <TableHead>{t('articles.table.name')}</TableHead>
-                                <TableHead>{t('articles.table.unit')}</TableHead>
-                                <TableHead>{t('articles.table.priceNet')}</TableHead>
-                                <TableHead>{t('articles.table.tax')}</TableHead>
-                                <TableHead className="text-right">{t('articles.table.actions')}</TableHead>
+                                <TableHead>{t('table.number')}</TableHead>
+                                <TableHead>{t('table.name')}</TableHead>
+                                <TableHead>{t('table.unit')}</TableHead>
+                                <TableHead>{t('table.priceNet')}</TableHead>
+                                <TableHead>{t('table.tax')}</TableHead>
+                                <TableHead className="text-right">{t('table.actions')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -165,16 +156,16 @@ export default function ArticlesPage() {
                         </TableBody>
                     </Table>
                 </TabsContent>
-                <TabsContent value="products">
+                <TabsContent value="products" className="mt-4">
                      <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>{t('articles.table.number')}</TableHead>
-                                <TableHead>{t('articles.table.name')}</TableHead>
-                                <TableHead>{t('articles.table.unit')}</TableHead>
-                                <TableHead>{t('articles.table.priceNet')}</TableHead>
-                                <TableHead>{t('articles.table.tax')}</TableHead>
-                                <TableHead className="text-right">{t('articles.table.actions')}</TableHead>
+                                <TableHead>{t('table.number')}</TableHead>
+                                <TableHead>{t('table.name')}</TableHead>
+                                <TableHead>{t('table.unit')}</TableHead>
+                                <TableHead>{t('table.priceNet')}</TableHead>
+                                <TableHead>{t('table.tax')}</TableHead>
+                                <TableHead className="text-right">{t('table.actions')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -182,16 +173,16 @@ export default function ArticlesPage() {
                         </TableBody>
                     </Table>
                 </TabsContent>
-                <TabsContent value="services">
+                <TabsContent value="services" className="mt-4">
                      <Table>
                         <TableHeader>
                             <TableRow>
-                               <TableHead>{t('articles.table.number')}</TableHead>
-                               <TableHead>{t('articles.table.name')}</TableHead>
-                               <TableHead>{t('articles.table.unit')}</TableHead>
-                               <TableHead>{t('articles.table.priceNet')}</TableHead>
-                               <TableHead>{t('articles.table.tax')}</TableHead>
-                               <TableHead className="text-right">{t('articles.table.actions')}</TableHead>
+                               <TableHead>{t('table.number')}</TableHead>
+                               <TableHead>{t('table.name')}</TableHead>
+                               <TableHead>{t('table.unit')}</TableHead>
+                               <TableHead>{t('table.priceNet')}</TableHead>
+                               <TableHead>{t('table.tax')}</TableHead>
+                               <TableHead className="text-right">{t('table.actions')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
