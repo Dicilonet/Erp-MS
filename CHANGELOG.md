@@ -3,6 +3,17 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 24 de Agosto de 2024
+
+### 1. [ID de Cambio: 24a7b8c9] Mejora de Plantilla de Cafetería: Galería de Imágenes
+
+*   **¿Qué se hizo?** Se añadió una nueva sección de "Galería" a la plantilla de landing page de "Cafeterías" para mejorar su atractivo visual y mostrar el ambiente del local.
+    1.  **Nuevo Componente de Galería:** Se desarrolló un componente `GallerySection` que implementa un carrusel de imágenes deslizable y responsivo.
+    2.  **Integración en la Página:** Se actualizó la página principal de la plantilla (`gastronomia-2/page.tsx`) para incluir esta nueva sección, ubicándola estratégicamente para enriquecer la experiencia del usuario.
+
+*   **¿Por qué se hizo?** Para corregir la omisión de la galería en la versión inicial y para enriquecer la plantilla, proporcionando un espacio visual clave para que los negocios de cafetería muestren su ambiente, un factor decisivo para los clientes.
+
+---
 ## 23 de Agosto de 2024
 
 ### 1. [ID de Cambio: 23d6f8a9] Creación de Plantilla Avanzada para Cafeterías

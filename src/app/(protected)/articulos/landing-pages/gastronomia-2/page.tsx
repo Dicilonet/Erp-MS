@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import dynamic from 'next/dynamic';
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { GallerySection } from '@/components/landing/gastronomia-2/gallery-section';
 
 const MapWithNoSSR = dynamic(() => import('@/components/marketing/geomarketing-map'), {
   ssr: false,
@@ -134,6 +135,8 @@ export default function LandingGastronomiaCafe() {
             </div>
         </div>
       </section>
+      
+      <GallerySection />
       
        <section id="testimonios" className="py-16 lg:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
