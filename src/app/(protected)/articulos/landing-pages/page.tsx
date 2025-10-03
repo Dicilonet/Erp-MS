@@ -25,6 +25,14 @@ const landingPageCategories = [
     ]
   },
   {
+    id: 'reisen',
+    titleKey: 'landingPages.categories.travel',
+    descriptionKey: 'landingPages.categories.travelDescription',
+    pages: [
+      { id: 'reisen-1', name: 'Landing para Agencias de Viajes', href: '/articulos/landing-pages/reisen-1' },
+    ]
+  },
+  {
     id: 'beratung',
     titleKey: 'landingPages.categories.consulting',
     descriptionKey: 'landingPages.categories.consultingDescription',
@@ -88,12 +96,6 @@ const landingPageCategories = [
     id: 'sport',
     titleKey: 'landingPages.categories.sports',
     descriptionKey: 'landingPages.categories.sportsDescription',
-    pages: []
-  },
-  {
-    id: 'travel',
-    titleKey: 'landingPages.categories.travel',
-    descriptionKey: 'landingPages.categories.travelDescription',
     pages: []
   },
   {

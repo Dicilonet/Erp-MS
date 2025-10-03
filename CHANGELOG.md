@@ -3,6 +3,25 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 17 de Agosto de 2024
+
+### 1. [ID de Cambio: 17b8d3a2] Creación de Plantilla de Landing Page para Viajes (Reisen)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad para la categoría "Viajes" (Reisen), siguiendo la misma estructura modular que las plantillas anteriores.
+    1.  **Nuevo Componente de Página:** Se desarrolló la ruta `/articulos/landing-pages/reisen-1` y su componente `LandingReisen`, enfocado en agencias de viajes y turismo.
+    2.  **Diseño Moderno y Funcional:** La plantilla incluye:
+        *   **Hero Section con Buscador:** Una imagen principal inspiradora con un buscador de ofertas integrado.
+        *   **Carrusel de Ofertas:** Se implementó un carrusel dinámico y deslizable (usando `embla-carousel-react`) para mostrar paquetes de viaje destacados de forma atractiva.
+        *   **Sección de Testimonios:** Un apartado para "Lo que dicen nuestros viajeros" para añadir prueba social.
+        *   **Mapa Mundial y Oficinas:** Un mapa visual para mostrar el alcance global y la ubicación de las oficinas.
+        *   **Galería de Destinos:** Una selección visual de países que se pueden visitar.
+        *   **Formulario de Contacto:** El formulario estándar para la captura de leads.
+    3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla en la categoría "Viajes".
+    4.  **Instalación de Dependencia:** Se añadió `embla-carousel-react` al `package.json` para soportar la funcionalidad del carrusel.
+
+*   **¿Por qué se hizo?** Para expandir la biblioteca de plantillas del ERP con una solución profesional y específica para el sector turístico, proporcionando a los clientes una herramienta de marketing potente y lista para usar.
+
+---
 ## 16 de Agosto de 2024
 
 ### 1. [ID de Cambio: 16a7c5b1] Creación del Módulo de Plantillas de Landing Pages (Gastronomía)
