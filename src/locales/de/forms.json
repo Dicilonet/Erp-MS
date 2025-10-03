@@ -1,0 +1,71 @@
+{
+    "name": "Name",
+    "email": "E-Mail",
+    "promoCode": "Promo-Code (optional)",
+    "newsletter": {
+        "label": "Newsletter abonnieren?",
+        "yes": "Ja",
+        "no": "Nein"
+    },
+    "recommendation": {
+        "label": "Ihre Empfehlungsnachricht (optional)",
+        "labelPlaceholder": "Schreiben Sie eine persönliche Nachricht an Ihre Freunde..."
+    },
+    "infoText": "Wir empfehlen Ihnen, sich mit dem Empfehlungsempfänger in Verbindung zu setzen, um eine effektivere Interaktion zu gewährleisten.",
+    "source": {
+        "label": "Woher haben Sie von uns gehört?",
+        "customer": "Kunde",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "telegram": "Telegram",
+        "youtube": "YouTube",
+        "twitter": "X (Twitter)",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "recommendation": "Empfehlung",
+        "googleads": "Google Ads",
+        "dicilo": "Dicilo",
+        "mhc": "MHC",
+        "other": "Andere"
+    },
+    "refer": {
+        "label": "Möchten Sie einen Freund empfehlen?",
+        "yes": "Ja, ich möchte empfehlen",
+        "no": "Nein, danke"
+    },
+    "inviteInfoTitle": "Laden Sie Ihre Freunde ein und verdienen Sie!",
+    "communityText": "Werden Sie Teil unserer Gemeinschaft und verdienen Sie eine Provision für jede akzeptierte Empfehlung. Nachfolgend können Sie bis zu 5 Freunde einladen.",
+    "recipient": {
+        "name": "Name des Freundes",
+        "email": "E-Mail des Freundes",
+        "whatsapp": "WhatsApp des Freundes",
+        "add": "Weitere Empfehlung hinzufügen"
+    },
+    "productRecommendation": {
+        "label": "Produktempfehlung",
+        "placeholder": "Produkt auswählen..."
+    },
+    "membership": {
+        "label": "Möchten Sie Mitglied werden?",
+        "yes": "Ja",
+        "no": "Nein"
+    },
+    "privacyTitle": "Zustimmung und Datenschutz",
+    "captcha": {
+        "placeholder": "reCAPTCHA wird hier geladen..."
+    },
+    "submit": "Empfehlung senden",
+    "overview": "Übersicht",
+    "recommenders": "Empfehlende",
+    "recommended": "Empfohlene",
+    "reports": "Berichte",
+    "settings": "Einstellungen",
+    "listRecommenders": "Liste der Empfehlenden",
+    "listRecommended": "Liste der Empfohlenen",
+    "reportsTitle": "Berichte",
+    "reportsConfig": "Konfigurieren Sie hier die Einstellungen für den E-Mail-Versand.",
+    "settingsTitle": "Einstellungen",
+    "required": "Dieses Feld ist erforderlich",
+    "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "email_or_whatsapp_required": "E-Mail oder WhatsApp ist erforderlich."
+}

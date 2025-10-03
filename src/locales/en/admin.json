@@ -1,0 +1,10 @@
+{
+    "businesses": {
+        "backToDashboard": "Back to Dashboard"
+    },
+    "formsDashboard": {
+        "title": "Forms Dashboard",
+        "managementTitle": "Forms Management",
+        "managementDescription": "Monitor and manage all your recommendation forms here."
+    }
+}

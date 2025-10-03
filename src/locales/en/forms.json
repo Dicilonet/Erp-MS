@@ -1,0 +1,71 @@
+{
+    "name": "Name",
+    "email": "Email",
+    "promoCode": "Promo Code (optional)",
+    "newsletter": {
+        "label": "Subscribe to Newsletter?",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "recommendation": {
+        "label": "Your Recommendation Message (optional)",
+        "labelPlaceholder": "Write a personal message to your friends..."
+    },
+    "infoText": "We suggest you connect with the recommendation recipient for more effective interaction.",
+    "source": {
+        "label": "Where did you hear about us?",
+        "customer": "Customer",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "telegram": "Telegram",
+        "youtube": "YouTube",
+        "twitter": "X (Twitter)",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "recommendation": "Recommendation",
+        "googleads": "Google Ads",
+        "dicilo": "Dicilo",
+        "mhc": "MHC",
+        "other": "Other"
+    },
+    "refer": {
+        "label": "Do you want to recommend a friend?",
+        "yes": "Yes, I want to recommend",
+        "no": "No, thanks"
+    },
+    "inviteInfoTitle": "Invite Your Friends & Earn!",
+    "communityText": "Join our community and earn a commission for every accepted recommendation. You can invite up to 5 friends below.",
+    "recipient": {
+        "name": "Friend's Name",
+        "email": "Friend's Email",
+        "whatsapp": "Friend's WhatsApp",
+        "add": "Add another recommendation"
+    },
+    "productRecommendation": {
+        "label": "Product Recommendation",
+        "placeholder": "Select product..."
+    },
+    "membership": {
+        "label": "Do you want to become a member?",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "privacyTitle": "Consent and Privacy",
+    "captcha": {
+        "placeholder": "reCAPTCHA will load here..."
+    },
+    "submit": "Send Recommendation",
+    "overview": "Overview",
+    "recommenders": "Recommenders",
+    "recommended": "Recommended",
+    "reports": "Reports",
+    "settings": "Settings",
+    "listRecommenders": "List of Recommenders",
+    "listRecommended": "List of Recommended",
+    "reportsTitle": "Reports",
+    "reportsConfig": "Configure email sending settings here.",
+    "settingsTitle": "Settings",
+    "required": "This field is required",
+    "invalid_email": "Please enter a valid email address.",
+    "email_or_whatsapp_required": "Email or WhatsApp is required."
+}

@@ -1,0 +1,71 @@
+{
+    "name": "Nombre",
+    "email": "Email",
+    "promoCode": "Código Promocional (opcional)",
+    "newsletter": {
+        "label": "¿Suscribirse al boletín?",
+        "yes": "Sí",
+        "no": "No"
+    },
+    "recommendation": {
+        "label": "Tu Mensaje de Recomendación (opcional)",
+        "labelPlaceholder": "Escribe un mensaje personal a tus amigos..."
+    },
+    "infoText": "Le sugerimos que se ponga en contacto con el destinatario de la recomendación para una interacción más efectiva.",
+    "source": {
+        "label": "¿Dónde nos conoció?",
+        "customer": "Cliente",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "telegram": "Telegram",
+        "youtube": "YouTube",
+        "twitter": "X (Twitter)",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "recommendation": "Recomendación",
+        "googleads": "Google Ads",
+        "dicilo": "Dicilo",
+        "mhc": "MHC",
+        "other": "Otro"
+    },
+    "refer": {
+        "label": "¿Quieres recomendar a un amigo?",
+        "yes": "Sí, quiero recomendar",
+        "no": "No, gracias"
+    },
+    "inviteInfoTitle": "¡Invita a tus Amigos y Gana!",
+    "communityText": "Únete a nuestra comunidad y gana una comisión por cada recomendación aceptada. Puedes invitar hasta 5 amigos a continuación.",
+    "recipient": {
+        "name": "Nombre del amigo",
+        "email": "Email del amigo",
+        "whatsapp": "WhatsApp del amigo",
+        "add": "Añadir otra recomendación"
+    },
+    "productRecommendation": {
+        "label": "Recomendación de Producto",
+        "placeholder": "Seleccionar producto..."
+    },
+    "membership": {
+        "label": "¿Quieres hacerte miembro?",
+        "yes": "Sí",
+        "no": "No"
+    },
+    "privacyTitle": "Consentimiento y Privacidad",
+    "captcha": {
+        "placeholder": "reCAPTCHA se cargará aquí..."
+    },
+    "submit": "Enviar Recomendación",
+    "overview": "Resumen",
+    "recommenders": "Recomendadores",
+    "recommended": "Recomendados",
+    "reports": "Reportes",
+    "settings": "Ajustes",
+    "listRecommenders": "Lista de Recomendadores",
+    "listRecommended": "Lista de Recomendados",
+    "reportsTitle": "Reportes",
+    "reportsConfig": "Configure aquí los ajustes de envío de correos electrónicos.",
+    "settingsTitle": "Ajustes",
+    "required": "Este campo es obligatorio",
+    "invalid_email": "Por favor, introduce una dirección de email válida.",
+    "email_or_whatsapp_required": "Se requiere email o WhatsApp."
+}

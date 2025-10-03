@@ -1,0 +1,132 @@
+# ANÁLISIS TÉCNICO: SISTEMA DE RECOMENDACIONES Y DASHBOARD
+
+**Fecha:** 24 de Septiembre de 2025
+**Propósito:** Este documento ofrece una descripción técnica exhaustiva del sistema de recomendaciones, incluyendo el formulario de envío, la lógica de backend en Firebase y el "Formulare Dashboard" (Dashboard de Formularios). El objetivo es documentar cada componente para permitir su comprensión y replicación precisa.
+
+---
+
+## 1. Visión General del Sistema
+
+El sistema permite que un usuario (el "recomendador") envíe una recomendación sobre un cliente de Dicilo (un negocio B2B) a uno o más amigos (los "destinatarios"). El sistema procesa estas recomendaciones, gestiona el consentimiento de los destinatarios y agrega estadísticas que se visualizan en un dashboard específico en el panel de administración.
+
+**Actores:**
+1.  **Recomendador:** Un usuario final que rellena el formulario.
+2.  **Destinatario:** La persona que recibe la recomendación.
+3.  **Cliente B2B:** El negocio de Dicilo que es recomendado.
+4.  **Administrador:** El usuario del panel de admin que visualiza el dashboard.
+
+**Flujo Funcional:**
+1.  El recomendador rellena el formulario de recomendaciones en la landing page de un cliente o en una página general.
+2.  Al enviar, se invoca una Firebase Function que crea un registro maestro de la recomendación y tareas individuales para cada destinatario.
+3.  Otra función automática se dispara por cada tarea, enviando un email o mensaje al destinatario con un enlace para aceptar o rechazar el consentimiento para recibir información.
+4.  La respuesta del destinatario actualiza el estado de su tarea.
+5.  El dashboard de administración consulta y agrega los datos de estas colecciones para mostrar estadísticas en tiempo real.
+
+---
+
+## 2. Arquitectura de Backend (Firebase)
+
+Esta es la lógica central que reside en `functions/src/index.ts`.
+
+### 2.1. Colecciones en Firestore
+
+Se utilizan dos colecciones principales:
+
+**a) `recommendations`**
+Almacena el registro maestro de cada envío de formulario.
+- **ID del Documento:** ID autogenerado.
+- **Campos:**
+    - `recommenderName` (string): Nombre del recomendador.
+    - `recommenderEmail` (string): Email del recomendador.
+    - `clientId` (string): ID del cliente B2B que fue recomendado.
+    - `lang` (string): Idioma en el que se envió ('de', 'en', 'es').
+    - `createdAt` (Timestamp): Fecha de creación.
+    - `status` (string): Estado general ('pending', 'completed').
+    - `recipientsCount` (number): Número total de destinatarios.
+    - `acceptedCount` (number): Contador de destinatarios que han aceptado. Se actualiza con un `FieldValue.increment(1)`.
+
+**b) `recommendation_tasks`**
+Almacena una tarea individual por cada destinatario en una recomendación.
+- **ID del Documento:** ID autogenerado.
+- **Campos:**
+    - `recommendationId` (string): ID del documento padre en la colección `recommendations`.
+    - `recipientName` (string): Nombre del destinatario.
+    - `recipientContact` (string): Email o WhatsApp del destinatario.
+    - `contactType` (string): 'email' o 'whatsapp'.
+    - `status` (string): Estado de la tarea: `'pending'` -> `'sent'` -> `'accepted'` | `'declined'`.
+    - `createdAt` (Timestamp): Fecha de creación.
+    - `sentAt` (Timestamp): Fecha de envío del consentimiento.
+    - `handledAt` (Timestamp): Fecha en que el destinatario respondió.
+    - `clientId` (string): ID del cliente B2B (denormalizado para consultas).
+    - `recommenderName` (string): Nombre del recomendador (denormalizado).
+
+### 2.2. Firebase Functions
+
+**a) `submitRecommendation` (Callable Function)**
+- **Invocación:** Se llama desde el frontend (el formulario de recomendación) con los datos del formulario.
+- **Input:** `{ recommenderName, recommenderEmail, recipients: [{name, email, whatsapp}], clientId, lang }`
+- **Lógica:**
+    1.  Valida que todos los campos requeridos estén presentes.
+    2.  Crea un **batch** de escritura en Firestore.
+    3.  Crea el documento principal en la colección `recommendations` con los datos del recomendador.
+    4.  Itera sobre la lista de `recipients` y, para cada uno, crea un nuevo documento en la colección `recommendation_tasks`.
+    5.  Ejecuta el batch (`batch.commit()`) para guardar todos los documentos de forma atómica.
+    6.  Devuelve un `{ success: true }` al frontend.
+
+**b) `taskWorker` (Firestore Trigger - `onDocumentCreated`)**
+- **Disparador:** Se ejecuta automáticamente cada vez que se crea un nuevo documento en `recommendation_tasks/{taskId}`.
+- **Lógica:**
+    1.  Lee los datos de la tarea recién creada (nombre del destinatario, contacto, idioma, etc.).
+    2.  Genera dos URLs de consentimiento únicas, incluyendo el `taskId`: `consentAccept` y `consentDecline`.
+    3.  Si `contactType` es 'email', construye un correo electrónico HTML usando plantillas de i18n.
+    4.  Usa el servicio de `sendMail` (definido en `email.ts`) para enviar el correo al destinatario.
+    5.  Actualiza el estado de la tarea en `recommendation_tasks` a `'sent'`.
+
+**c) `consentAccept` y `consentDecline` (HTTPS Functions)**
+- **Invocación:** Son URLs públicas que el destinatario visita al hacer clic en los enlaces del correo.
+- **Lógica (`handleConsent`):**
+    1.  Recibe el `taskId` como parámetro en la URL.
+    2.  Busca el documento de la tarea en `recommendation_tasks`.
+    3.  Actualiza el `status` de la tarea a `'accepted'` o `'declined'`.
+    4.  Si el estado es `'accepted'`, actualiza el documento maestro en `recommendations` incrementando el `acceptedCount`.
+    5.  Muestra una página simple de agradecimiento al usuario.
+
+---
+
+## 3. Frontend: Dashboard de Formularios (`/admin/forms-dashboard`)
+
+Esta página, vista en la imagen, se construye para visualizar los datos generados por el sistema de recomendaciones.
+
+### 3.1. Pestañas de Navegación
+
+-   **Übersicht (Resumen):** La vista principal.
+-   **Empfehler (Recomendadores):** Lista de usuarios que han enviado recomendaciones.
+-   **Empfohlene (Recomendados):** Lista de destinatarios que han recibido recomendaciones.
+-   **Berichte (Informes):** Sección para configurar y descargar informes.
+-   **Einstellungen (Ajustes):** Ajustes específicos del formulario.
+
+### 3.2. Módulo "Übersicht" (Resumen)
+
+Esta es la vista que se muestra en la imagen y contiene dos componentes principales:
+
+**a) Tarjeta de KPIs (Indicadores Clave de Rendimiento)**
+-   **Gesendet gesamt (Total enviado):** Se obtiene contando el número total de documentos en la colección `recommendation_tasks`.
+-   **Akzeptiert (Aceptado):** Se obtiene contando los documentos en `recommendation_tasks` donde `status == 'accepted'`.
+-   **Ausstehend (Pendiente):** Se obtiene contando los documentos en `recommendation_tasks` donde `status == 'pending'` o `status == 'sent'`.
+-   **Abgelehnt (Rechazado):** Se obtiene contando los documentos en `recommendation_tasks` donde `status == 'declined'`.
+- **Implementación:** Estos datos se pueden obtener con consultas `getCountFromServer` de Firestore para un rendimiento óptimo o mediante una suscripción en tiempo real a la colección y agregando los datos en el cliente.
+
+**b) Formulario de Envío de Recomendaciones (Empfehlungsformular)**
+- **Propósito:** Aunque está en el dashboard de admin, este es el mismo componente de formulario que se usaría en las páginas públicas (como la landing page de un cliente).
+- **Componentes:**
+    - Inputs para `recommenderName` y `recommenderEmail`.
+    - Lógica para añadir dinámicamente campos para `recipients` (el botón "Weiteren Empfohlenen hinzufügen").
+    - Selects, checkboxes y textareas para el resto de los campos del formulario.
+- **Lógica de Envío:** Al hacer clic en "Empfehlung senden", se invoca la función `submitRecommendation` con los datos del formulario.
+
+### 3.3. Otros Módulos (No visibles en detalle en la imagen)
+
+-   **Pestaña "Empfehler":** Realizaría una consulta a la colección `recommendations`, agrupando por `recommenderEmail` para mostrar una lista de quién recomienda más.
+-   **Pestaña "Empfohlene":** Realizaría una consulta a la colección `recommendation_tasks` para mostrar una tabla con todos los destinatarios, su estado y quién los recomendó.
+
+Este análisis exhaustivo cubre todos los aspectos del sistema de recomendaciones, proporcionando una base sólida para su replicación o mantenimiento.

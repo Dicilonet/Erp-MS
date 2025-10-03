@@ -1,4 +1,3 @@
-
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
@@ -15,7 +14,7 @@ if (typeof window !== 'undefined') {
     .init({
       fallbackLng: 'es', // Idioma de respaldo
       debug: process.env.NODE_ENV === 'development',
-      ns: ['common', 'dashboard', 'marketing', 'offer', 'todo', 'projects', 'expenses', 'support', 'communications', 'connections', 'settings', 'chat', 'customers', 'articles'], // Namespaces a cargar
+      ns: ['common', 'dashboard', 'marketing', 'offer', 'todo', 'projects', 'expenses', 'support', 'communications', 'connections', 'settings', 'chat', 'customers', 'articles', 'forms', 'legal'], // Namespaces a cargar
       defaultNS: 'common',
       interpolation: {
         escapeValue: false, // React ya protege contra XSS

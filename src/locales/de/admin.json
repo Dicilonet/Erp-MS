@@ -1,0 +1,10 @@
+{
+    "businesses": {
+        "backToDashboard": "Zurück zum Dashboard"
+    },
+    "formsDashboard": {
+        "title": "Formular-Dashboard",
+        "managementTitle": "Formularverwaltung",
+        "managementDescription": "Überwachen und verwalten Sie hier alle Ihre Empfehlungsformulare."
+    }
+}
