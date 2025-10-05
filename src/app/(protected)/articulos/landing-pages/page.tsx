@@ -110,7 +110,9 @@ const landingPageCategories = [
     id: 'musik',
     titleKey: 'landingPages.categories.music',
     descriptionKey: 'landingPages.categories.musicDescription',
-    pages: []
+    pages: [
+      { id: 'musik-1', name: 'Landing para Artistas y Eventos', href: '/articulos/landing-pages/musik-1' },
+    ]
   },
   {
     id: 'soziales',
