@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { PlayCircle, Image as ImageIcon } from 'lucide-react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const mediaItems = [
@@ -64,6 +64,9 @@ export function MediaGallerySection() {
         </div>
          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogContent className="max-w-4xl p-0 bg-black border-gray-700">
+                <DialogHeader>
+                    <DialogTitle className="sr-only">Reproductor de Video</DialogTitle>
+                </DialogHeader>
                 <AspectRatio ratio={16 / 9}>
                 {currentVideoId && (
                     <iframe
