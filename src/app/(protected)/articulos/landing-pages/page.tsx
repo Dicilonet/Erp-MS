@@ -102,7 +102,9 @@ const landingPageCategories = [
     id: 'finanzdienste',
     titleKey: 'landingPages.categories.financial',
     descriptionKey: 'landingPages.categories.financialDescription',
-    pages: []
+    pages: [
+      { id: 'finanz-1', name: 'Landing para Asesores Financieros', href: '/articulos/landing-pages/finanz-1' },
+    ]
   },
   {
     id: 'musik',

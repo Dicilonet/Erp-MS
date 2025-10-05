@@ -3,6 +3,23 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 02 de Septiembre de 2024
+
+### 1. [ID de Cambio: 02s5e8f7] Creación de Plantilla Avanzada para Servicios Financieros (Finanzdienstleistungen)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada para ser altamente adaptable al sector de "Servicios Financieros" (asesores, coaches, fintechs), dentro de la categoría "Finanzdienstleistungen".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/finanz-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/finanz-1/` para cada sección (Hero, Servicios, Sobre Mí, Filosofía, Testimonios, Formulario de Contacto y Formulario de Recomendación).
+    2.  **Diseño Profesional y Confiable:** La plantilla está diseñada para inspirar confianza, seriedad y profesionalismo, elementos clave en el sector financiero. Incluye:
+        *   **Hero Section:** Una imagen potente con un titular claro ("Construye tu Futuro Financiero") y llamados a la acción.
+        *   **Cuadrícula de Servicios:** Una sección visual para destacar las áreas de especialización (Planificación de Jubilación, Asesoría de Inversiones, Gestión de Patrimonio, etc.).
+        *   **Perfil del Asesor (Sobre Mí):** Un espacio dedicado para que el profesional conecte con el cliente, mostrando su experiencia y enfoque.
+        *   **Formulario de Recomendación Integrado:** La plantilla incluye el formulario de recomendación, convirtiéndola en una herramienta de marketing y crecimiento orgánico.
+        *   **Doble Formulario:** Se integra tanto un formulario de contacto para solicitar consultas como el de recomendación.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla y se añadieron las claves de traducción para la nueva categoría "Servicios Financieros" en español, inglés y alemán.
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca con una solución profesional y muy demandada para el sector financiero, proporcionando una herramienta de marketing que no solo genera confianza, sino que también integra activamente la captación de leads y la viralización a través de un sistema de referidos.
+
+---
 ## 01 de Septiembre de 2024
 
 ### 1. [ID de Cambio: 01s9e8f7] Creación de Plantilla Avanzada para Educación (Bildung)
