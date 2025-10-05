@@ -83,6 +83,14 @@ const landingPageCategories = [
     ]
   },
   {
+    id: 'kleidung',
+    titleKey: 'landingPages.categories.fashion',
+    descriptionKey: 'landingPages.categories.fashionDescription',
+    pages: [
+      { id: 'kleidung-1', name: 'Landing para Moda y Ropa', href: '/articulos/landing-pages/kleidung-1' },
+    ]
+  },
+  {
     id: 'bildung',
     titleKey: 'landingPages.categories.education',
     descriptionKey: 'landingPages.categories.educationDescription',
@@ -92,12 +100,6 @@ const landingPageCategories = [
     id: 'finanzdienste',
     titleKey: 'landingPages.categories.financial',
     descriptionKey: 'landingPages.categories.financialDescription',
-    pages: []
-  },
-  {
-    id: 'kleidung',
-    titleKey: 'landingPages.categories.fashion',
-    descriptionKey: 'landingPages.categories.fashionDescription',
     pages: []
   },
   {

@@ -3,6 +3,23 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 31 de Agosto de 2024
+
+### 1. [ID de Cambio: 31a2b3c4] Creación de Plantilla Avanzada para Moda y Ropa (Kleidung)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada específicamente para el sector de "Moda y Ropa", dentro de la categoría de "Kleidung".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/kleidung-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/kleidung-1/` para cada sección (Hero, Colección, Sobre Nosotros, Testimonios, Formulario de Recomendación y Ubicación).
+    2.  **Diseño Visual y Moderno:** La plantilla está diseñada para ser elegante, visualmente atractiva y centrada en el producto. Incluye:
+        *   **Hero Section:** Una imagen de moda potente con un titular claro ("Viste tu Estilo, Define tu Momento") y llamados a la acción.
+        *   **Galería de Colección:** Un carrusel dinámico para destacar las últimas prendas y looks.
+        *   **Formulario de Recomendación Integrado:** Se ha añadido una sección completa que contiene el formulario de recomendación, permitiendo a los clientes invitar a sus amigos y ganar recompensas, convirtiendo la landing en una herramienta de marketing viral.
+        *   **Testimonios de Clientes:** Prueba social para reforzar la credibilidad de la marca.
+        *   **Ubicación y Contacto:** Un mapa interactivo para la tienda física y un formulario de contacto para consultas.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla y se añadieron las claves de traducción para la nueva categoría "Moda y Ropa" en español, inglés y alemán.
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca con una solución profesional y específica para el competitivo sector de la moda, proporcionando una herramienta de marketing digital que no solo exhibe productos de manera atractiva, sino que también integra activamente la captación de nuevos clientes a través de un sistema de referidos.
+
+---
 ## 30 de Agosto de 2024
 
 ### 1. [ID de Cambio: 30g3e4b7] Implementación del Dashboard y Formulario de Recomendaciones
@@ -405,7 +422,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta en `AdminList.tsx`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
     4.  **Documentación:** Se documentó este cambio crítico en el `CHANGELOG.md`.
 
-*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando visibilidad para la información legal; y para proporcionar una solución de impresión funcional y profesional que era una carencia crítica del módulo.
+*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
 
 ---
 ## 04 de Agosto de 2024
