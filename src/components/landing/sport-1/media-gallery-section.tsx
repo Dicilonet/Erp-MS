@@ -42,9 +42,8 @@ export function MediaGallerySection() {
                              <Image
                                 src={item.type === 'image' ? item.src : item.thumbnail}
                                 alt={item.alt}
-                                layout="fill"
-                                objectFit="cover"
-                                className="w-full h-full transition-transform duration-300 group-hover:scale-105"
+                                fill
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             />
                         </AspectRatio>
 
