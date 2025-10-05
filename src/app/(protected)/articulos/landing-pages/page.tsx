@@ -118,7 +118,9 @@ const landingPageCategories = [
     id: 'soziales',
     titleKey: 'landingPages.categories.social',
     descriptionKey: 'landingPages.categories.socialDescription',
-    pages: []
+    pages: [
+        { id: 'soziales-1', name: 'Landing para ONGs y Causas Sociales', href: '/articulos/landing-pages/soziales-1' },
+    ]
   },
   {
     id: 'sport',

@@ -3,6 +3,23 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 04 de Septiembre de 2024
+
+### 1. [ID de Cambio: 04s3e1f9] Creación de Plantilla Avanzada para ONGs y Causas Sociales (Soziales)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada para ser altamente adaptable al sector "Social y ONGs", dentro de la categoría "Soziales".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/soziales-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/soziales-1/` para cada sección (Hero, Misión y Prioridades, Galería de Medios Mixtos, Cómo Ayudar, Formulario de Contacto y Formulario de Recomendación).
+    2.  **Diseño Enfocado en la Misión:** La plantilla está diseñada para inspirar confianza y motivar a la acción. Incluye:
+        *   **Hero Section Inspirador:** Una imagen o video potente que comunica la misión de la organización.
+        *   **Galería de Medios Mixtos:** Al igual que en la plantilla de música, esta sección permite mostrar tanto **imágenes** como **videos de YouTube incrustados**, ideal para mostrar el impacto de los proyectos, testimonios y reportajes.
+        *   **Sección de "Cómo Ayudar":** Un apartado claro con llamados a la acción para donar, hacerse voluntario o difundir la causa.
+        *   **Formulario de Recomendación Integrado:** El formulario se presenta como una herramienta clave para que los simpatizantes inviten a otros a unirse, amplificando el alcance de la organización.
+        *   **Doble Formulario:** Se integra un formulario de contacto para consultas generales y el de recomendación para la captación de nuevos miembros.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla y se añadieron las claves de traducción para la nueva categoría "Soziales & NGOs" en español, inglés y alemán.
+
+*   **¿Por qué se hizo?** Para dotar a la biblioteca de una solución profesional y muy necesaria para el tercer sector, proporcionando una herramienta de marketing que no solo comunica eficazmente la misión de una ONG, sino que también facilita la captación de donaciones, voluntarios y el crecimiento orgánico a través de un sistema de referidos.
+
+---
 ## 03 de Septiembre de 2024
 
 ### 1. [ID de Cambio: 03s4e9f8] Creación de Plantilla Avanzada para Música y Eventos (Musik)
