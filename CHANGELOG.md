@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 01 de Septiembre de 2024
+
+### 1. [ID de Cambio: 01s9e8f7] Creación de Plantilla Avanzada para Educación (Bildung)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada para ser altamente adaptable al sector de "Educación" (academias, escuelas de arte, música, idiomas, etc.), dentro de la categoría de "Bildung".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/bildung-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/bildung-1/` para cada sección (Hero, Cursos, Metodología, Galería, Testimonios, Formulario de Información y Formulario de Recomendación).
+    2.  **Diseño Adaptable y Profesional:** La plantilla está diseñada para inspirar confianza y ser fácilmente personalizable para diferentes tipos de centros educativos. Incluye:
+        *   **Hero Section:** Una imagen inspiradora con un titular claro ("El Futuro Comienza Aquí") y llamados a la acción.
+        *   **Cuadrícula de Cursos:** Una sección visual para destacar los principales programas formativos (Arte, Música, Idiomas, Tecnología, etc.).
+        *   **Metodología y Galería:** Espacios para explicar el enfoque pedagógico y mostrar la vida en el centro a través de un carrusel de imágenes.
+        *   **Doble Formulario:** Se han integrado dos formularios clave:
+            *   Un **Formulario de Información** para que los interesados puedan solicitar detalles sobre los cursos.
+            *   El **Formulario de Recomendación**, permitiendo a la comunidad educativa invitar a nuevos alumnos y obtener recompensas.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla y se añadieron las claves de traducción para la nueva categoría "Educación" en español, inglés y alemán.
+
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca con una solución profesional y muy versátil para el amplio sector educativo, proporcionando una herramienta de marketing digital que no solo informa, sino que también integra activamente la captación de leads y la viralización a través de un sistema de referidos.
+
+---
 ## 31 de Agosto de 2024
 
 ### 1. [ID de Cambio: 31a2b3c4] Creación de Plantilla Avanzada para Moda y Ropa (Kleidung)

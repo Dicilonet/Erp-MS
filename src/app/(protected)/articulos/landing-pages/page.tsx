@@ -94,7 +94,9 @@ const landingPageCategories = [
     id: 'bildung',
     titleKey: 'landingPages.categories.education',
     descriptionKey: 'landingPages.categories.educationDescription',
-    pages: []
+    pages: [
+      { id: 'bildung-1', name: 'Landing para Centros Educativos', href: '/articulos/landing-pages/bildung-1' },
+    ]
   },
   {
     id: 'finanzdienste',
