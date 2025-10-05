@@ -9,7 +9,12 @@
       "designer": "Designer",
       "connections": "Verbindungen",
       "automation": "Kalender",
-      "campaigns": "Kampagnen"
+      "campaigns": "Kampagnen",
+      "forms": "Formulare"
+    },
+    "formsDashboard": {
+        "title": "Formular-Dashboard",
+        "managementDescription": "Überwachen und verwalten Sie hier alle Ihre Empfehlungsformulare."
     },
     "campaigns": {
       "title": "Kampagnen-Dashboard",

@@ -9,7 +9,12 @@
       "designer": "Diseñador",
       "connections": "Conexiones",
       "automation": "Calendario",
-      "campaigns": "Campañas"
+      "campaigns": "Campañas",
+      "forms": "Formularios"
+    },
+    "formsDashboard": {
+        "title": "Dashboard de Formularios",
+        "managementDescription": "Monitoriza y gestiona todos tus formularios de recomendación aquí."
     },
     "campaigns": {
       "title": "Panel de Campañas",

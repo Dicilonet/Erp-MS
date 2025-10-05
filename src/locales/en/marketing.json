@@ -9,7 +9,12 @@
       "designer": "Designer",
       "connections": "Connections",
       "automation": "Calendar",
-      "campaigns": "Campaigns"
+      "campaigns": "Campaigns",
+      "forms": "Forms"
+    },
+    "formsDashboard": {
+        "title": "Forms Dashboard",
+        "managementDescription": "Monitor and manage all your recommendation forms here."
     },
     "campaigns": {
       "title": "Campaign Dashboard",

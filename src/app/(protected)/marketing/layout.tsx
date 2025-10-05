@@ -4,11 +4,12 @@
 import { useTranslation } from 'react-i18next';
 import { usePathname } from 'next/navigation';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Library, Map, Ticket, ScanLine, Brush, Link as LinkIcon, CalendarDays, Rocket } from 'lucide-react';
+import { Library, Map, Ticket, ScanLine, Brush, Link as LinkIcon, CalendarDays, Rocket, ClipboardList } from 'lucide-react';
 import Link from 'next/link';
 
 const marketingNavItems = [
   { href: '/marketing/campaigns', labelKey: 'nav.campaigns', icon: <Rocket className="h-5 w-5" /> },
+  { href: '/marketing/forms', labelKey: 'nav.forms', icon: <ClipboardList className="h-5 w-5" /> },
   { href: '/marketing/coupons', labelKey: 'nav.coupons', icon: <Ticket className="h-5 w-5" /> },
   { href: '/marketing/coupons/scanner', labelKey: 'nav.scanner', icon: <ScanLine className="h-5 w-5" /> },
   { href: '/marketing/designer', labelKey: 'nav.designer', icon: <Brush className="h-5 w-5" /> },
@@ -39,7 +40,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           <h1 className="text-2xl sm:text-3xl font-bold">{t('page.title')}</h1>
        </div>
       <Tabs value={getCurrentTab()} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 md:grid-cols-8 h-auto">
+        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 md:grid-cols-9 h-auto">
             {marketingNavItems.map(item => (
                 <TabsTrigger key={item.href} value={item.href} asChild className="flex-col sm:flex-row h-auto py-2 sm:py-1.5">
                     <Link href={item.href} className="flex items-center gap-2">

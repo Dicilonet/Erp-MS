@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -17,7 +18,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
-import { BarChart2, Users, Send, FileText, Settings, PlusCircle, Trash2, Loader2, LayoutDashboard, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { BarChart2, Users, Send, FileText, Settings, PlusCircle, Trash2, Loader2, LayoutDashboard, CheckCircle, Clock, XCircle, ClipboardList } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -210,7 +211,7 @@ const SettingsView = () => {
 // --- Main Content Component ---
 const FormsDashboardContent = () => {
     const { user, isLoading } = useAuth();
-    const { t } = useTranslation(['admin', 'forms']);
+    const { t } = useTranslation(['marketing', 'forms']);
     const [activeTab, setActiveTab] = useState('overview');
 
     const TABS = useMemo(() => [
@@ -236,14 +237,24 @@ const FormsDashboardContent = () => {
 
     return (
         <div className="flex flex-col">
-            <main className="flex-grow container mx-auto px-4 py-8">
-                 <div className="flex justify-between items-center mb-6">
-                    <div><h1 className="text-3xl font-bold">{t('formsDashboard.title', {ns: 'admin'})}</h1></div>
-                    <Button variant="outline" asChild><Link href="/"><LayoutDashboard className="mr-2 h-4 w-4" />{t('businesses.backToDashboard', { ns: 'admin' })}</Link></Button>
+            <main className="flex-grow space-y-6">
+                 <div className="flex justify-between items-center">
+                    <div>
+                        <h1 className="text-3xl font-bold flex items-center gap-3"><ClipboardList className="h-8 w-8" />{t('formsDashboard.title', {ns: 'marketing'})}</h1>
+                        <p className="text-muted-foreground">{t('formsDashboard.managementDescription', {ns: 'marketing'})}</p>
+                    </div>
                 </div>
-                <Card className="mb-8">
-                    <CardHeader><CardTitle>{t('formsDashboard.managementTitle', {ns: 'admin'})}</CardTitle><CardDescription>{t('formsDashboard.managementDescription', {ns: 'admin'})}</CardDescription></CardHeader>
-                    <CardContent><div className="flex flex-wrap gap-2">{TABS.map(tab => (<Button key={tab.id} variant={activeTab === tab.id ? 'default' : 'outline'} onClick={() => setActiveTab(tab.id)}><tab.icon className="mr-2 h-4 w-4" />{tab.label}</Button>))}</div></CardContent>
+                <Card>
+                    <CardContent className="p-4">
+                        <div className="flex flex-wrap gap-2">
+                            {TABS.map(tab => (
+                                <Button key={tab.id} variant={activeTab === tab.id ? 'default' : 'outline'} onClick={() => setActiveTab(tab.id)}>
+                                    <tab.icon className="mr-2 h-4 w-4" />
+                                    {tab.label}
+                                </Button>
+                            ))}
+                        </div>
+                    </CardContent>
                 </Card>
                 {renderContent()}
             </main>
