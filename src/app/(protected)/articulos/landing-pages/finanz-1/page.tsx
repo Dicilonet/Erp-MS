@@ -8,6 +8,7 @@ import { TestimonialsSection } from '@/components/landing/finanz-1/testimonials-
 import { ContactSection } from '@/components/landing/finanz-1/contact-section';
 import { RecommendationSection } from '@/components/landing/finanz-1/recommendation-section';
 import { Footer } from '@/components/landing/finanz-1/footer';
+import { GallerySection } from '@/components/landing/finanz-1/gallery-section';
 
 export default function LandingFinanzPage() {
   const clientId = "demo-finanz-1"; // ID de cliente de ejemplo
@@ -24,6 +25,7 @@ export default function LandingFinanzPage() {
         <ServicesSection />
         <AboutSection />
         <PhilosophySection />
+        <GallerySection />
         <TestimonialsSection />
         <ContactSection />
         <RecommendationSection clientId={clientId} products={products} />
