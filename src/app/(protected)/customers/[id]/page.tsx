@@ -3,15 +3,15 @@
 
 import { useEffect, useState } from 'react';
 import { doc, getDoc, collection, onSnapshot } from 'firebase/firestore';
-import { notFound, useParams } from 'next/navigation';
-import { db, app } from '@/lib/firebase';
+import { useParams, notFound } from 'next/navigation';
+import { db } from '@/lib/firebase';
 import type { Customer, CustomerService, ServiceStatus } from '@/lib/types';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { User, Calendar, Shield, ClipboardList, KeyRound, FileText, AlertTriangle, Loader2 } from 'lucide-react';
+import { User, Calendar, Shield, ClipboardList, KeyRound, FileText, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { InteractionLog } from '@/components/interaction-log';
@@ -29,7 +29,6 @@ export default function CustomerDetailPage() {
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [services, setServices] = useState<CustomerService[]>([]);
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
   const params = useParams();
   const id = params.id as string;
 

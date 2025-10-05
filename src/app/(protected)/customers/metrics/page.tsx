@@ -1,4 +1,3 @@
-
 'use client';
 
 import { CustomerMetricsDashboard } from '@/components/customers/customer-metrics-dashboard';

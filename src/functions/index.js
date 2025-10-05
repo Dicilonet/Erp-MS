@@ -11,7 +11,7 @@ const {
   onRequest,
   HttpsError,
 } = require('firebase-functions/v2/https');
-const { getFirestore, FieldValue } = require('firebase-admin/firestore');
+const { getFirestore, FieldValue, addDoc } = require('firebase-admin/firestore');
 const { initializeApp } = require('firebase-admin/app');
 const { setGlobalOptions } = require('firebase-functions/v2');
 const { getAuth } = require('firebase-admin/auth');
@@ -1059,14 +1059,63 @@ exports.setSuperAdminRole = onCall(
   }
 );
 
+exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, res) => {
+    const DEFAULT_COMPANY_ID = 'mhc-int';
+
+    const EXECUTION_TOKEN = 'ejecutar-ahora';
+    if (req.query.token !== EXECUTION_TOKEN) {
+      console.warn('Intento de ejecución sin token de seguridad.');
+      return res
+        .status(403)
+        .send('Acceso denegado. Se requiere token de seguridad.');
+    }
+
+    try {
+      console.log('Iniciando script para añadir companyId a usuarios...');
+      const usersSnapshot = await db.collection('users').get();
+      const batch = db.batch();
+      let updatedCount = 0;
+
+      usersSnapshot.forEach((doc) => {
+        const userData = doc.data();
+        if (userData.companyId === undefined) {
+          batch.update(doc.ref, { companyId: DEFAULT_COMPANY_ID });
+          updatedCount++;
+        }
+      });
+
+      if (updatedCount === 0) {
+        const zeroMessage =
+          'No se encontraron usuarios que necesiten ser actualizados. Todos ya tienen un companyId.';
+        console.log(zeroMessage);
+        return res.status(200).send(zeroMessage);
+      }
+
+      await batch.commit();
+      const successMessage = `Proceso completado. ${updatedCount} usuarios han sido actualizados con el companyId: '${DEFAULT_COMPANY_ID}'.`;
+      console.log(successMessage);
+      res.status(200).send(successMessage);
+    } catch (error) {
+      console.error(
+        'Error catastrófico al actualizar usuarios con companyId:',
+        error
+      );
+      res
+        .status(500)
+        .send(
+          'Error en el servidor. Revisa los logs de Firebase para más detalles.'
+        );
+    }
+  });
+
 // --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP ---
 exports.syncNewCustomersFromWebsite = onCall(
   { region: 'europe-west1' },
   async (request) => {
-    if (!request.auth?.token?.role) {
+    if (request.auth?.token?.role !== 'superadmin') {
       throw new HttpsError(
         'permission-denied',
-        'No tienes permisos para sincronizar.'
+        'Solo los superadmins pueden sincronizar clientes.'
       );
     }
 
@@ -1074,36 +1123,17 @@ exports.syncNewCustomersFromWebsite = onCall(
       const sourceSnapshot = await db.collection('businesses').get();
       const erpSnapshot = await db.collection('customers').get();
 
-      const erpCustomers = new Map(
-        erpSnapshot.docs.map((doc) => [doc.id, doc.data()])
-      );
-      const erpOriginalIds = new Set(
-        Array.from(erpCustomers.values())
-          .map((data) => data.originalId)
-          .filter(Boolean)
-      );
-      const erpEmails = new Set(
-        Array.from(erpCustomers.values())
-          .map((data) => data.contactEmail?.toLowerCase())
-          .filter(Boolean)
-      );
-      const erpNames = new Set(
-        Array.from(erpCustomers.values())
-          .map((data) => data.name?.toLowerCase())
-          .filter(Boolean)
-      );
-
-      const newDocsToCopy = sourceSnapshot.docs.filter((doc) => {
-        const businessData = doc.data();
-        return (
-          !erpOriginalIds.has(doc.id) &&
-          !(
-            businessData.email &&
-            erpEmails.has(businessData.email.toLowerCase())
-          ) &&
-          !(businessData.name && erpNames.has(businessData.name.toLowerCase()))
-        );
+      const erpEmails = new Set(erpSnapshot.docs.map(doc => doc.data().contactEmail?.toLowerCase()).filter(Boolean));
+      const erpNames = new Set(erpSnapshot.docs.map(doc => doc.data().name?.toLowerCase()).filter(Boolean));
+      const erpOriginalIds = new Set(erpSnapshot.docs.map(doc => doc.data().originalId).filter(Boolean));
+      
+      const newDocsToCopy = sourceSnapshot.docs.filter(doc => {
+        const data = doc.data();
+        const email = data.email?.toLowerCase();
+        const name = data.name?.toLowerCase();
+        return !erpOriginalIds.has(doc.id) && (!email || !erpEmails.has(email)) && (!name || !erpNames.has(name));
       });
+
 
       if (newDocsToCopy.length === 0) {
         return {
@@ -1141,8 +1171,8 @@ exports.syncNewCustomersFromWebsite = onCall(
           registrationDate: new Date().toISOString(),
           originalId: doc.id,
           erpStatus: 'nuevo',
-          assignedTo: null,
-          createdAtErp: new Date().toISOString(),
+          accountManager: null, // Asignar explícitamente null
+          createdAtErp: FieldValue.serverTimestamp(),
           serviceUsage: {
             socialPosts_monthly: { used: 0, limit: 60 },
             kiCourses_yearly: { used: 0, limit: 4 },
@@ -1177,48 +1207,49 @@ exports.cleanupDuplicateCustomers = onCall(
     try {
       console.log('Iniciando limpieza de clientes duplicados...');
       const customersSnapshot = await db.collection('customers').get();
-      const customers = customersSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      
+      const customersByEmail = {};
+      const customersByName = {};
+      const duplicatesToDelete = new Set();
 
-      const uniqueCustomers = new Map();
-      const duplicatesToDelete = [];
+      customersSnapshot.docs.forEach(doc => {
+          const customer = { id: doc.id, ...doc.data() };
+          const email = customer.contactEmail?.toLowerCase().trim();
+          const name = customer.name?.toLowerCase().trim();
 
-      for (const customer of customers) {
-        // Clave única basada en nombre y email (ignorando mayúsculas/minúsculas y espacios)
-        const nameKey = (customer.name || '').toLowerCase().trim();
-        const emailKey = (customer.contactEmail || '').toLowerCase().trim();
-        const key = `${nameKey}_${emailKey}`;
+          if (email && email !== '') {
+              if (customersByEmail[email]) {
+                  duplicatesToDelete.add(customer.id);
+              } else {
+                  customersByEmail[email] = customer.id;
+              }
+          }
+          
+          if (name && name !== '') {
+             if (customersByName[name] && customersByName[name] !== customersByEmail[email]) {
+                 duplicatesToDelete.add(customer.id);
+             } else if (!customersByName[name]) {
+                 customersByName[name] = customer.id;
+             }
+          }
+      });
+      
+      const duplicateIds = Array.from(duplicatesToDelete);
+      console.log(`Se encontraron ${duplicateIds.length} clientes duplicados para eliminar.`);
 
-        if (uniqueCustomers.has(key)) {
-          // Si ya existe, este es un duplicado. Marcarlo para eliminación.
-          duplicatesToDelete.push(customer.id);
-        } else {
-          // Si no existe, este es el primer registro (el que se conservará).
-          uniqueCustomers.set(key, customer.id);
-        }
-      }
-
-      console.log(
-        `Se encontraron ${duplicatesToDelete.length} clientes duplicados para eliminar.`
-      );
-
-      if (duplicatesToDelete.length > 0) {
+      if (duplicateIds.length > 0) {
         const batch = db.batch();
-        duplicatesToDelete.forEach((docId) => {
+        duplicateIds.forEach((docId) => {
           batch.delete(db.collection('customers').doc(docId));
         });
         await batch.commit();
-        console.log(
-          `Se eliminaron ${duplicatesToDelete.length} documentos duplicados.`
-        );
+        console.log(`Se eliminaron ${duplicateIds.length} documentos duplicados.`);
       }
 
       return {
         success: true,
-        deletedCount: duplicatesToDelete.length,
-        message: `Limpieza completada. Se eliminaron ${duplicatesToDelete.length} clientes duplicados.`,
+        deletedCount: duplicateIds.length,
+        message: `Limpieza completada. Se eliminaron ${duplicateIds.length} clientes duplicados.`,
       };
     } catch (error) {
       console.error('Error durante la limpieza de duplicados:', error);
@@ -1772,7 +1803,7 @@ exports.createSingleCoupon = onCall(
         senderName: senderName,
       };
 
-      const couponRef = await db.collection('coupons').add(newCouponData);
+      const couponRef = await addDoc(db.collection('coupons'), newCouponData);
 
       const emailBody = `
             <h2>Nuevo Cupón Individual Generado</h2>
@@ -1942,7 +1973,7 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
     }
 
     try {
-        const metricsRef = db.collection(`customers/${customerId}/metrics`);
+        const metricsRef = collection(db, `customers/${customerId}/metrics`);
         
         const newMetricRecord = {
             createdAt: FieldValue.serverTimestamp(),
@@ -1960,4 +1991,34 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
     }
 });
 
+
+exports.submitRecommendation = onCall({ region: 'europe-west1' }, async (request) => {
+    const { lang, clientId, ...formData } = request.data;
+
+    // Validación básica
+    if (!clientId || !formData.recommenderName || !formData.recommenderEmail) {
+        throw new HttpsError('invalid-argument', 'Faltan datos esenciales.');
+    }
+
+    try {
+        const recommendationData = {
+            ...formData,
+            clientId,
+            createdAt: FieldValue.serverTimestamp(),
+            status: 'pending', // pendiente, aceptada, rechazada
+            language: lang,
+        };
+
+        await addDoc(collection(db, 'recommendations'), recommendationData);
+        
+        // Opcional: enviar un correo de notificación
+        // await sendEmailWithNodemailer(...)
+
+        return { success: true };
+
+    } catch (error) {
+        console.error("Error al guardar la recomendación:", error);
+        throw new HttpsError('internal', 'No se pudo procesar la recomendación.');
+    }
+});
     
