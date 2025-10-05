@@ -126,7 +126,9 @@ const landingPageCategories = [
     id: 'sport',
     titleKey: 'landingPages.categories.sports',
     descriptionKey: 'landingPages.categories.sportsDescription',
-    pages: []
+    pages: [
+        { id: 'sport-1', name: 'Landing para Gimnasios y Deporte', href: '/articulos/landing-pages/sport-1' },
+    ]
   },
   {
     id: 'technologie',
