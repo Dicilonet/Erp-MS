@@ -10,6 +10,9 @@ export default function CustomersLayout({ children }: { children: React.ReactNod
   const { t } = useTranslation('customers');
   const pathname = usePathname();
 
+  // Determine the active tab based on the current path
+  const activeTab = pathname.startsWith('/customers/metrics') ? '/customers/metrics' : '/customers';
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-4 sm:mt-0">
@@ -22,7 +25,7 @@ export default function CustomersLayout({ children }: { children: React.ReactNod
         </div>
       </div>
 
-      <Tabs value={pathname} className="w-full">
+      <Tabs value={activeTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="/customers" asChild>
             <Link href="/customers">{t('nav.management')}</Link>
