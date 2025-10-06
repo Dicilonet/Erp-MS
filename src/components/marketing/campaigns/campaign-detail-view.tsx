@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Customer, Campaign } from '@/lib/types';
@@ -9,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { useTranslation } from 'react-i18next';
 import { Ticket, Map, Brush, Send, ArrowLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
 
 // Datos de ejemplo para la campaña. Esto debería venir de Firestore.
 const sampleCampaign: Campaign = {
@@ -25,6 +27,7 @@ interface CampaignDetailViewProps {
   onBack?: () => void;
 }
 
+// CORRECCIÓN: Se añade "export" para que el componente sea utilizable.
 export function CampaignDetailView({ customer, onBack }: CampaignDetailViewProps) {
   const { t } = useTranslation('marketing');
 
@@ -76,21 +79,29 @@ export function CampaignDetailView({ customer, onBack }: CampaignDetailViewProps
             <CardDescription>{t('campaigns.tools.description', { customerName: customer.name })}</CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
-             <Button variant="outline" className="flex-col h-24">
-                <Ticket className="h-6 w-6 mb-2"/>
-                <span>{t('nav.coupons')}</span>
+             <Button variant="outline" className="flex-col h-24" asChild>
+                <Link href="/marketing/coupons">
+                  <Ticket className="h-6 w-6 mb-2"/>
+                  <span>{t('nav.coupons')}</span>
+                </Link>
              </Button>
-             <Button variant="outline" className="flex-col h-24">
-                <Map className="h-6 w-6 mb-2"/>
-                <span>{t('nav.geomarketing')}</span>
+             <Button variant="outline" className="flex-col h-24" asChild>
+                <Link href="/marketing/geomarketing">
+                  <Map className="h-6 w-6 mb-2"/>
+                  <span>{t('nav.geomarketing')}</span>
+                </Link>
              </Button>
-             <Button variant="outline" className="flex-col h-24">
-                <Brush className="h-6 w-6 mb-2"/>
-                <span>{t('nav.designer')}</span>
+             <Button variant="outline" className="flex-col h-24" asChild>
+                <Link href="/marketing/designer">
+                  <Brush className="h-6 w-6 mb-2"/>
+                  <span>{t('nav.designer')}</span>
+                </Link>
              </Button>
-             <Button variant="outline" className="flex-col h-24">
-                <Send className="h-6 w-6 mb-2"/>
-                <span>{t('nav.automation')}</span>
+             <Button variant="outline" className="flex-col h-24" asChild>
+                <Link href="/marketing/automation">
+                  <Send className="h-6 w-6 mb-2"/>
+                  <span>{t('nav.automation')}</span>
+                </Link>
              </Button>
         </CardContent>
       </Card>
