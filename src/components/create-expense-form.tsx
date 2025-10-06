@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -41,7 +40,7 @@ import type { Customer, Expense } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import Image from 'next/image';
-import { processReceipt } from '@/app/actions';
+import { processReceipt } from '@/lib/server-actions';
 
 
 const formSchema = z.object({
@@ -175,8 +174,8 @@ export function CreateExpenseForm({ children }: { children: React.ReactNode }) {
       const expenseData: Omit<Expense, 'expenseId'> = {
         description: values.description,
         subtotal: finalSubtotal,
-        taxRate: finalTaxRate,
         tax: finalTax,
+        taxRate: finalTaxRate,
         total: finalTotal,
         category: values.category,
         date: values.date.toISOString(),

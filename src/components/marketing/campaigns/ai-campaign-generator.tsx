@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Sparkles, Wand2 } from 'lucide-react';
-import { generateMarketingCampaign } from '@/app/actions';
+import { generateMarketingCampaign } from '@/lib/server-actions';
 import type { MarketingCampaignInput, MarketingCampaignOutput } from '@/ai/flows/schemas';
 import { MarketingCampaignInputSchema } from '@/ai/flows/schemas';
 import { Separator } from '@/components/ui/separator';
