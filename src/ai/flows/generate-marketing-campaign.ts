@@ -49,9 +49,9 @@ Your task is to generate a campaign with a catchy title, a subtitle, a strategic
 `,
 });
 
-export const generateMarketingCampaign = ai.defineFlow(
+const generateMarketingCampaignFlow = ai.defineFlow(
   {
-    name: 'generateMarketingCampaign',
+    name: 'generateMarketingCampaignFlow',
     inputSchema: MarketingCampaignInputSchema,
     outputSchema: MarketingCampaignOutputSchema,
   },
@@ -60,3 +60,8 @@ export const generateMarketingCampaign = ai.defineFlow(
     return output!;
   }
 );
+
+// CORRECCIÓN: Exportar una función async simple que envuelva la ejecución del flujo.
+export async function generateMarketingCampaign(input: MarketingCampaignInput): Promise<MarketingCampaignOutput> {
+    return generateMarketingCampaignFlow(input);
+}

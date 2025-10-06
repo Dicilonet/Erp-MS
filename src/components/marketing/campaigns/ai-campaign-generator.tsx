@@ -39,6 +39,14 @@ export function AiCampaignGenerator({ children, customerName }: AiCampaignGenera
     },
   });
 
+  // CORRECCIÓN: Actualizar los valores por defecto cuando el nombre del cliente cambie
+  form.watch((values, { name }) => {
+    if (name === undefined && customerName !== values.customerName) {
+      form.setValue('customerName', customerName);
+    }
+  });
+
+
   const onSubmit = async (values: MarketingCampaignInput) => {
     setIsGenerating(true);
     setCampaignResult(null);
