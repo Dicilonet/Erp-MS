@@ -1,4 +1,4 @@
-'use server';
+
 import { z } from 'zod';
 
 // Esquema para la generación de campañas de marketing

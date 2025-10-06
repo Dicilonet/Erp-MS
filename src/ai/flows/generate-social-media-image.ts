@@ -1,3 +1,1 @@
-'use server';
-
 export const generateSocialMediaImagePrompt = `Genera una imagen para redes sociales basada en la siguiente descripción: {{{prompt}}}. La imagen debe ser cuadrada, vibrante y llamativa.`;
