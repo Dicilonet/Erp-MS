@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 05 de Septiembre de 2024
+
+### 1. [ID de Cambio: 05s2e1g0] Creación de Plantilla Avanzada para Audiología (Gesundheit)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad y muy especializada, diseñada para el sector de la audiología (centros auditivos, audioprotesistas), dentro de la categoría "Gesundheit & Wellness".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/gesundheit-2` y se creó una arquitectura de componentes dedicados en `src/components/landing/gesundheit-2/` para cada sección clave.
+    2.  **Diseño Profesional y Centrado en el Paciente:** La plantilla está diseñada para inspirar confianza, profesionalismo y empatía. Incluye:
+        *   **Hero Section Inspirador:** Una imagen que transmite la alegría de volver a oír bien.
+        *   **Sección de Servicios:** Detalla los servicios esenciales como pruebas auditivas, adaptación de audífonos y mantenimiento.
+        *   **Galería de Videos con Consejos:** Un apartado para incrustar **videos de YouTube** que ofrecen consejos prácticos sobre el cuidado y limpieza de los audífonos.
+        *   **Galería de Productos:** Un carrusel visual para mostrar los modelos de audífonos más modernos y discretos.
+        *   **Sección de Reservas con Calendario Incrustado:** Una de las características más potentes. Se ha integrado una sección que permite **incrustar un widget de Calendly o Google Calendar**, facilitando a los pacientes la reserva de citas de forma directa y sin fricción.
+        *   **Formulario de Recomendación:** Integrado para que los pacientes satisfechos puedan referir a familiares y amigos.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla especializada y se añadieron las claves de traducción correspondientes.
+
+*   **¿Por qué se hizo?** Para dotar al catálogo de una solución de nicho muy demandada y de alto valor, proporcionando a los centros auditivos una herramienta de marketing digital completa que no solo educa y genera confianza, sino que también optimiza la captación de pacientes a través de un sistema de reservas online directo y un programa de referidos.
+
+---
 ## 04 de Septiembre de 2024
 
 ### 1. [ID de Cambio: 04s3e1f9] Creación de Plantilla Avanzada para ONGs y Causas Sociales (Soziales)
@@ -493,7 +511,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta en `AdminList.tsx`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
     4.  **Documentación:** Se documentó este cambio crítico en el `CHANGELOG.md`.
 
-*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
+*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados.
 
 ---
 ## 04 de Agosto de 2024
