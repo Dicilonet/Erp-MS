@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useTranslation } from 'react-i18next';
-import { Ticket, Map, Brush, Send } from 'lucide-react';
+import { Ticket, Map, Brush, Send, ArrowLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 // Datos de ejemplo para la campaña. Esto debería venir de Firestore.
@@ -22,9 +22,10 @@ const sampleCampaign: Campaign = {
 
 interface CampaignDetailViewProps {
   customer: Customer;
+  onBack?: () => void;
 }
 
-export function CampaignDetailView({ customer }: CampaignDetailViewProps) {
+export function CampaignDetailView({ customer, onBack }: CampaignDetailViewProps) {
   const { t } = useTranslation('marketing');
 
   const renderTaskList = (title: string, tasks: string[]) => (
@@ -47,12 +48,17 @@ export function CampaignDetailView({ customer }: CampaignDetailViewProps) {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>{t('campaigns.details.title', { customerName: customer.name })}</CardTitle>
-          <div className="flex items-center gap-2 pt-1">
-             <CardDescription>{t('campaigns.details.source')}:</CardDescription>
-             <Badge variant={sampleCampaign.source === 'Dicilo' ? 'default' : 'secondary'}>
-                {sampleCampaign.source}
-            </Badge>
+          <div className="flex items-center gap-4">
+            {onBack && <Button variant="ghost" size="icon" className="md:hidden" onClick={onBack}><ArrowLeft/></Button>}
+            <div>
+              <CardTitle>{t('campaigns.details.title', { customerName: customer.name })}</CardTitle>
+              <div className="flex items-center gap-2 pt-1">
+                <CardDescription>{t('campaigns.details.source')}:</CardDescription>
+                <Badge variant={sampleCampaign.source === 'Dicilo' ? 'default' : 'secondary'}>
+                    {sampleCampaign.source}
+                </Badge>
+              </div>
+            </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">

@@ -9,6 +9,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { CampaignDetailView } from './campaign-detail-view';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useTranslation } from 'react-i18next';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { Button } from '@/components/ui/button';
+import { Users } from 'lucide-react';
 
 export function CampaignDashboard() {
   const { t } = useTranslation('marketing');
@@ -16,6 +20,8 @@ export function CampaignDashboard() {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const q = query(collection(db, "customers"));
@@ -37,48 +43,70 @@ export function CampaignDashboard() {
     customer.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleCustomerSelect = (customer: Customer) => {
+    setSelectedCustomer(customer);
+    setIsDrawerOpen(false);
+  }
+
+  const CustomerList = () => (
+    <Card className="h-full">
+      <CardHeader>
+        <CardTitle>{t('campaigns.customerList.title')}</CardTitle>
+        <CardDescription>{t('campaigns.customerList.description')}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Command className="rounded-lg border shadow-md">
+          <CommandInput
+            placeholder={t('campaigns.customerList.searchPlaceholder')}
+            value={search}
+            onValueChange={setSearch}
+          />
+          <CommandList>
+            {loading ? (
+              <div className="p-2 space-y-2">
+                  <Skeleton className="h-8 w-full"/>
+                  <Skeleton className="h-8 w-full"/>
+                  <Skeleton className="h-8 w-full"/>
+              </div>
+            ) : (
+              <>
+                  <CommandEmpty>{t('campaigns.customerList.noResults')}</CommandEmpty>
+                  <CommandGroup>
+                      {filteredCustomers.map((customer) => (
+                      <CommandItem
+                          key={customer.customerId}
+                          onSelect={() => handleCustomerSelect(customer)}
+                          className="cursor-pointer"
+                      >
+                          {customer.name}
+                      </CommandItem>
+                      ))}
+                  </CommandGroup>
+              </>
+            )}
+          </CommandList>
+        </Command>
+      </CardContent>
+    </Card>
+  );
+
+  if (isMobile) {
+      return (
+          <div>
+              {selectedCustomer ? (
+                  <CampaignDetailView customer={selectedCustomer} onBack={() => setSelectedCustomer(null)} />
+              ) : (
+                  <CustomerList />
+              )}
+          </div>
+      );
+  }
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <Card className="lg:col-span-1">
-        <CardHeader>
-          <CardTitle>{t('campaigns.customerList.title')}</CardTitle>
-          <CardDescription>{t('campaigns.customerList.description')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Command className="rounded-lg border shadow-md">
-            <CommandInput
-              placeholder={t('campaigns.customerList.searchPlaceholder')}
-              value={search}
-              onValueChange={setSearch}
-            />
-            <CommandList>
-              {loading ? (
-                <div className="p-2 space-y-2">
-                    <Skeleton className="h-8 w-full"/>
-                    <Skeleton className="h-8 w-full"/>
-                    <Skeleton className="h-8 w-full"/>
-                </div>
-              ) : (
-                <>
-                    <CommandEmpty>{t('campaigns.customerList.noResults')}</CommandEmpty>
-                    <CommandGroup>
-                        {filteredCustomers.map((customer) => (
-                        <CommandItem
-                            key={customer.customerId}
-                            onSelect={() => setSelectedCustomer(customer)}
-                            className="cursor-pointer"
-                        >
-                            {customer.name}
-                        </CommandItem>
-                        ))}
-                    </CommandGroup>
-                </>
-              )}
-            </CommandList>
-          </Command>
-        </CardContent>
-      </Card>
-
+      <div className="lg:col-span-1">
+        <CustomerList />
+      </div>
       <div className="lg:col-span-2">
         {selectedCustomer ? (
           <CampaignDetailView customer={selectedCustomer} />

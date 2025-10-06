@@ -23,9 +23,11 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
 
   const getCurrentTab = () => {
+    // Busca la coincidencia más específica primero
     const specificMatch = marketingNavItems.find(item => pathname === item.href);
     if (specificMatch) return specificMatch.href;
     
+    // Fallback para rutas anidadas, por ejemplo /marketing/coupons/scanner debe activar la pestaña /marketing/coupons
     const bestMatch = marketingNavItems
         .filter(item => pathname.startsWith(item.href))
         .sort((a, b) => b.href.length - a.href.length)[0];
