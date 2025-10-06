@@ -9,15 +9,14 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-const GenerateImageInputSchema = z.object({
-  prompt: z.string().describe('The text prompt to generate the image from.'),
-});
 
-// The output will be a string, which is the data URI of the generated image.
-const GenerateImageOutputSchema = z.string();
-
-
+// This flow is simplified to a direct function call to avoid Next.js build issues
+// with top-level flow definitions in "use server" files.
 export async function generateSocialMediaImage(prompt: string): Promise<string> {
+    if (!prompt) {
+        throw new Error('Prompt is required for image generation.');
+    }
+    
     const { media } = await ai.generate({
         model: 'googleai/imagen-4.0-fast-generate-001',
         prompt: prompt,
@@ -29,14 +28,3 @@ export async function generateSocialMediaImage(prompt: string): Promise<string> 
 
     return media.url;
 }
-
-const generateSocialMediaImageFlow = ai.defineFlow(
-  {
-    name: 'generateSocialMediaImageFlow',
-    inputSchema: GenerateImageInputSchema,
-    outputSchema: GenerateImageOutputSchema,
-  },
-  async ({ prompt }) => {
-    return await generateSocialMediaImage(prompt);
-  }
-);
