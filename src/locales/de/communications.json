@@ -37,5 +37,29 @@
                 "description": "Die Gesamtgröße der Anhänge darf {{maxSize}} MB nicht überschreiten."
             }
         }
+    },
+     "hub": {
+        "title": "Intelligenter E-Mail-Hub",
+        "description": "Verbinden und verwalten Sie Ihre E-Mail-Konten mit KI-Unterstützung.",
+        "accounts": {
+            "title": "Verbundene Konten",
+            "connect": "Gmail verbinden",
+            "connected": "Verbunden"
+        },
+        "folders": {
+            "title": "Ordner",
+            "inbox": "Posteingang",
+            "sent": "Gesendet",
+            "drafts": "Entwürfe",
+            "trash": "Papierkorb"
+        },
+        "searchPlaceholder": "In E-Mails suchen...",
+        "noEmailSelected": "Wählen Sie eine E-Mail aus, um sie anzuzeigen.",
+        "reply": {
+            "placeholder": "Schreiben Sie hier Ihre Antwort...",
+            "send": "Senden",
+            "aiAssist": "KI-Assistent",
+            "aiTooltip": "Generieren Sie eine vorgeschlagene Antwort mit KI."
+        }
     }
 }

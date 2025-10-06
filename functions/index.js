@@ -1,4 +1,3 @@
-
 /**
  * @file Firebase Cloud Functions para el ERP DICILO
  * Versión final, limpia y con todos los módulos.
@@ -17,12 +16,20 @@ const { setGlobalOptions } = require('firebase-functions/v2');
 const { getAuth } = require('firebase-admin/auth');
 const { defineSecret } = require('firebase-functions/params');
 const { createProfessionalEmail } = require('./emailTemplate');
+const { google } = require('googleapis');
+
 
 // Define los secretos que tu código necesitará
 const smtpPassDefault = defineSecret('SMTP_PASS_DEFAULT');
 const smtpPassAccounting = defineSecret('SMTP_PASS_ACCOUNTING');
 const smtpPassMedia = defineSecret('SMTP_PASS_MEDIA');
 const smtpPassNoreply = defineSecret('SMTP_PASS_NOREPLY');
+
+// --- Nuevos Secretos para la API de Gmail ---
+const GMAIL_CLIENT_ID = defineSecret("GMAIL_CLIENT_ID");
+const GMAIL_CLIENT_SECRET = defineSecret("GMAIL_CLIENT_SECRET");
+const GMAIL_REDIRECT_URI = defineSecret("GMAIL_REDIRECT_URI");
+
 
 // Carga la configuración local y las plantillas
 const config = require('./config');
@@ -33,7 +40,126 @@ const { serviceCatalogData } = require('./service-catalog-data');
 initializeApp();
 const db = getFirestore();
 const auth = getAuth();
-setGlobalOptions({ region: 'europe-west1' });
+setGlobalOptions({ region: 'europe-west1', secrets: [GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REDIRECT_URI, smtpPassDefault, smtpPassAccounting, smtpPassMedia, smtpPassNoreply] });
+
+// --- Lógica para Gmail ---
+const createOAuth2Client = () => {
+    return new google.auth.OAuth2(
+        GMAIL_CLIENT_ID.value(),
+        GMAIL_CLIENT_SECRET.value(),
+        GMAIL_REDIRECT_URI.value()
+    );
+};
+
+exports.gmail_auth_start = onCall({ cors: true }, async (request) => {
+    if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
+    }
+    
+    const oauth2Client = createOAuth2Client();
+    
+    const authUrl = oauth2Client.generateAuthUrl({
+        access_type: 'offline',
+        prompt: 'consent', // Importante para obtener un refresh token cada vez
+        scope: [
+            'https://www.googleapis.com/auth/gmail.readonly',
+            'https://www.googleapis.com/auth/gmail.send',
+            'https://www.googleapis.com/auth.userinfo.email',
+        ],
+        state: request.auth.uid, // Pasamos el UID del usuario para identificarlo en el callback
+    });
+
+    return { authUrl };
+});
+
+
+exports.gmail_auth_callback = onRequest({ cors: true }, async (req, res) => {
+    const { code, state: uid } = req.query;
+
+    if (!code || !uid) {
+        res.status(400).send('Faltan el código de autorización o el UID del usuario.');
+        return;
+    }
+
+    try {
+        const oauth2Client = createOAuth2Client();
+        const { tokens } = await oauth2Client.getToken(code);
+        oauth2Client.setCredentials(tokens);
+
+        // Obtenemos el email de la cuenta de Google
+        const oauth2 = google.oauth2({ auth: oauth2Client, version: 'v2' });
+        const userInfo = await oauth2.userinfo.get();
+        const email = userInfo.data.email;
+        
+        if (!email) {
+            throw new Error("No se pudo obtener el email de la cuenta de Google.");
+        }
+
+        // Guardar los tokens de forma segura en una subcolección del usuario
+        const connectionData = {
+            userId: uid,
+            type: 'gmail',
+            accountEmail: email,
+            tokens: tokens, // Contiene access_token, refresh_token, etc.
+            createdAt: FieldValue.serverTimestamp()
+        };
+
+        const connectionRef = db.collection('users').doc(uid).collection('connections').doc(email);
+        await connectionRef.set(connectionData);
+
+        // Redirigir al usuario de vuelta a la aplicación
+        res.redirect('/communications/email?status=success');
+
+    } catch (error) {
+        console.error('Error en el callback de Gmail:', error);
+        res.redirect('/communications/email?status=error');
+    }
+});
+
+
+exports.gmail_api_proxy = onCall({ cors: true }, async (request) => {
+    if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
+    }
+    const { uid } = request.auth;
+    const { action, params, accountEmail } = request.data;
+    
+    // Obtener tokens para el usuario y la cuenta especificada
+    const connectionRef = db.collection('users').doc(uid).collection('connections').doc(accountEmail);
+    const connectionSnap = await connectionRef.get();
+
+    if (!connectionSnap.exists) {
+        throw new HttpsError('not-found', 'No se encontró una conexión de Gmail para este usuario y cuenta.');
+    }
+
+    const connectionData = connectionSnap.data();
+    const oauth2Client = createOAuth2Client();
+    oauth2Client.setCredentials(connectionData.tokens);
+
+    // Refrescar el token si es necesario (la librería lo hace automáticamente)
+    const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+    
+    try {
+        switch (action) {
+            case 'listMessages':
+                const listResponse = await gmail.users.messages.list({
+                    userId: 'me',
+                    maxResults: params?.maxResults || 15,
+                    labelIds: params?.labelIds || ['INBOX'],
+                });
+                return listResponse.data;
+            
+            // Aquí se añadirían más casos: 'getMessage', 'sendMessage', etc.
+
+            default:
+                throw new HttpsError('invalid-argument', 'Acción de API no válida.');
+        }
+    } catch(error) {
+        console.error("Error en el proxy de la API de Gmail:", error);
+        throw new HttpsError('internal', 'Error al comunicarse con la API de Gmail.');
+    }
+});
+
 
 /**
  * Función que se dispara cuando se crea un nuevo documento de cliente.
@@ -1112,10 +1238,10 @@ exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, 
 exports.syncNewCustomersFromWebsite = onCall(
   { region: 'europe-west1' },
   async (request) => {
-    if (!request.auth?.token?.role) {
+    if (request.auth?.token?.role !== 'superadmin') {
       throw new HttpsError(
         'permission-denied',
-        'No tienes permisos para sincronizar.'
+        'Solo los superadmins pueden sincronizar clientes.'
       );
     }
 
@@ -1123,36 +1249,17 @@ exports.syncNewCustomersFromWebsite = onCall(
       const sourceSnapshot = await db.collection('businesses').get();
       const erpSnapshot = await db.collection('customers').get();
 
-      const erpCustomers = new Map(
-        erpSnapshot.docs.map((doc) => [doc.id, doc.data()])
-      );
-      const erpOriginalIds = new Set(
-        Array.from(erpCustomers.values())
-          .map((data) => data.originalId)
-          .filter(Boolean)
-      );
-      const erpEmails = new Set(
-        Array.from(erpCustomers.values())
-          .map((data) => data.contactEmail?.toLowerCase())
-          .filter(Boolean)
-      );
-      const erpNames = new Set(
-        Array.from(erpCustomers.values())
-          .map((data) => data.name?.toLowerCase())
-          .filter(Boolean)
-      );
-
-      const newDocsToCopy = sourceSnapshot.docs.filter((doc) => {
-        const businessData = doc.data();
-        return (
-          !erpOriginalIds.has(doc.id) &&
-          !(
-            businessData.email &&
-            erpEmails.has(businessData.email.toLowerCase())
-          ) &&
-          !(businessData.name && erpNames.has(businessData.name.toLowerCase()))
-        );
+      const erpEmails = new Set(erpSnapshot.docs.map(doc => doc.data().contactEmail?.toLowerCase()).filter(Boolean));
+      const erpNames = new Set(erpSnapshot.docs.map(doc => doc.data().name?.toLowerCase()).filter(Boolean));
+      const erpOriginalIds = new Set(erpSnapshot.docs.map(doc => doc.data().originalId).filter(Boolean));
+      
+      const newDocsToCopy = sourceSnapshot.docs.filter(doc => {
+        const data = doc.data();
+        const email = data.email?.toLowerCase();
+        const name = data.name?.toLowerCase();
+        return !erpOriginalIds.has(doc.id) && (!email || !erpEmails.has(email)) && (!name || !erpNames.has(name));
       });
+
 
       if (newDocsToCopy.length === 0) {
         return {
@@ -1190,8 +1297,8 @@ exports.syncNewCustomersFromWebsite = onCall(
           registrationDate: new Date().toISOString(),
           originalId: doc.id,
           erpStatus: 'nuevo',
-          assignedTo: null,
-          createdAtErp: new Date().toISOString(),
+          accountManager: null, // Asignar explícitamente null
+          createdAtErp: FieldValue.serverTimestamp(),
           serviceUsage: {
             socialPosts_monthly: { used: 0, limit: 60 },
             kiCourses_yearly: { used: 0, limit: 4 },
@@ -1226,48 +1333,49 @@ exports.cleanupDuplicateCustomers = onCall(
     try {
       console.log('Iniciando limpieza de clientes duplicados...');
       const customersSnapshot = await db.collection('customers').get();
-      const customers = customersSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      
+      const customersByEmail = {};
+      const customersByName = {};
+      const duplicatesToDelete = new Set();
 
-      const uniqueCustomers = new Map();
-      const duplicatesToDelete = [];
+      customersSnapshot.docs.forEach(doc => {
+          const customer = { id: doc.id, ...doc.data() };
+          const email = customer.contactEmail?.toLowerCase().trim();
+          const name = customer.name?.toLowerCase().trim();
 
-      for (const customer of customers) {
-        // Clave única basada en nombre y email (ignorando mayúsculas/minúsculas y espacios)
-        const nameKey = (customer.name || '').toLowerCase().trim();
-        const emailKey = (customer.contactEmail || '').toLowerCase().trim();
-        const key = `${nameKey}_${emailKey}`;
+          if (email && email !== '') {
+              if (customersByEmail[email]) {
+                  duplicatesToDelete.add(customer.id);
+              } else {
+                  customersByEmail[email] = customer.id;
+              }
+          }
+          
+          if (name && name !== '') {
+             if (customersByName[name] && customersByName[name] !== customersByEmail[email]) {
+                 duplicatesToDelete.add(customer.id);
+             } else if (!customersByName[name]) {
+                 customersByName[name] = customer.id;
+             }
+          }
+      });
+      
+      const duplicateIds = Array.from(duplicatesToDelete);
+      console.log(`Se encontraron ${duplicateIds.length} clientes duplicados para eliminar.`);
 
-        if (uniqueCustomers.has(key)) {
-          // Si ya existe, este es un duplicado. Marcarlo para eliminación.
-          duplicatesToDelete.push(customer.id);
-        } else {
-          // Si no existe, este es el primer registro (el que se conservará).
-          uniqueCustomers.set(key, customer.id);
-        }
-      }
-
-      console.log(
-        `Se encontraron ${duplicatesToDelete.length} clientes duplicados para eliminar.`
-      );
-
-      if (duplicatesToDelete.length > 0) {
+      if (duplicateIds.length > 0) {
         const batch = db.batch();
-        duplicatesToDelete.forEach((docId) => {
+        duplicateIds.forEach((docId) => {
           batch.delete(db.collection('customers').doc(docId));
         });
         await batch.commit();
-        console.log(
-          `Se eliminaron ${duplicatesToDelete.length} documentos duplicados.`
-        );
+        console.log(`Se eliminaron ${duplicateIds.length} documentos duplicados.`);
       }
 
       return {
         success: true,
-        deletedCount: duplicatesToDelete.length,
-        message: `Limpieza completada. Se eliminaron ${duplicatesToDelete.length} clientes duplicados.`,
+        deletedCount: duplicateIds.length,
+        message: `Limpieza completada. Se eliminaron ${duplicateIds.length} clientes duplicados.`,
       };
     } catch (error) {
       console.error('Error durante la limpieza de duplicados:', error);
@@ -1821,7 +1929,7 @@ exports.createSingleCoupon = onCall(
         senderName: senderName,
       };
 
-      const couponRef = await db.collection('coupons').add(newCouponData);
+      const couponRef = await addDoc(db.collection('coupons'), newCouponData);
 
       const emailBody = `
             <h2>Nuevo Cupón Individual Generado</h2>
@@ -2009,4 +2117,34 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
     }
 });
 
+
+exports.submitRecommendation = onCall({ region: 'europe-west1' }, async (request) => {
+    const { lang, clientId, ...formData } = request.data;
+
+    // Validación básica
+    if (!clientId || !formData.recommenderName || !formData.recommenderEmail) {
+        throw new HttpsError('invalid-argument', 'Faltan datos esenciales.');
+    }
+
+    try {
+        const recommendationData = {
+            ...formData,
+            clientId,
+            createdAt: FieldValue.serverTimestamp(),
+            status: 'pending', // pendiente, aceptada, rechazada
+            language: lang,
+        };
+
+        await addDoc(collection(db, 'recommendations'), recommendationData);
+        
+        // Opcional: enviar un correo de notificación
+        // await sendEmailWithNodemailer(...)
+
+        return { success: true };
+
+    } catch (error) {
+        console.error("Error al guardar la recomendación:", error);
+        throw new HttpsError('internal', 'No se pudo procesar la recomendación.');
+    }
+});
     

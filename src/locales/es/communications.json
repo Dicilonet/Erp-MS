@@ -37,5 +37,29 @@
                 "description": "El tamaño total de los archivos adjuntos no puede superar los {{maxSize}} MB."
             }
         }
+    },
+    "hub": {
+        "title": "Email Hub Inteligente",
+        "description": "Conecta y gestiona tus cuentas de correo con la ayuda de la IA.",
+        "accounts": {
+            "title": "Cuentas Conectadas",
+            "connect": "Conectar Gmail",
+            "connected": "Conectado"
+        },
+        "folders": {
+            "title": "Carpetas",
+            "inbox": "Bandeja de Entrada",
+            "sent": "Enviados",
+            "drafts": "Borradores",
+            "trash": "Papelera"
+        },
+        "searchPlaceholder": "Buscar en correos...",
+        "noEmailSelected": "Selecciona un correo para verlo.",
+        "reply": {
+            "placeholder": "Escribe tu respuesta aquí...",
+            "send": "Enviar",
+            "aiAssist": "Asistente IA",
+            "aiTooltip": "Generar una respuesta sugerida con IA."
+        }
     }
 }

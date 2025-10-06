@@ -37,5 +37,29 @@
                 "description": "Total attachment size cannot exceed {{maxSize}} MB."
             }
         }
+    },
+    "hub": {
+        "title": "Intelligent Email Hub",
+        "description": "Connect and manage your email accounts with AI assistance.",
+        "accounts": {
+            "title": "Connected Accounts",
+            "connect": "Connect Gmail",
+            "connected": "Connected"
+        },
+        "folders": {
+            "title": "Folders",
+            "inbox": "Inbox",
+            "sent": "Sent",
+            "drafts": "Drafts",
+            "trash": "Trash"
+        },
+        "searchPlaceholder": "Search in emails...",
+        "noEmailSelected": "Select an email to view it.",
+        "reply": {
+            "placeholder": "Type your reply here...",
+            "send": "Send",
+            "aiAssist": "AI Assistant",
+            "aiTooltip": "Generate a suggested reply with AI."
+        }
     }
 }
