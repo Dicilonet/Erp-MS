@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 06 de Septiembre de 2024
+
+### 1. [ID de Cambio: 06s1e2h1] Creación de Plantilla Avanzada para Ópticas (Gesundheit)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad y muy especializada, diseñada para el sector de la óptica, dentro de la categoría "Gesundheit & Wellness".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/optik-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/optik-1/` para cada sección clave.
+    2.  **Diseño Profesional y Enfocado en el Cliente:** La plantilla está diseñada para transmitir profesionalismo, estilo y confianza. Incluye:
+        *   **Hero Section Inspirador:** Una imagen que combina moda y visión clara.
+        *   **Sección de Servicios Personalizados:** Detalla servicios como exámenes de la vista, estilismo de monturas y adaptación de lentes de contacto.
+        *   **Galería de Medios Mixtos:** Una sección que permite mostrar tanto **imágenes** de las colecciones de gafas como **videos de YouTube incrustados** (ej. "Cómo elegir las gafas según tu rostro", "Nuevas tecnologías en lentes").
+        *   **Sección de Ofertas Permanentes:** Un apartado claro para destacar promociones como "2x1" o "descuento para estudiantes".
+        *   **Formulario de Cita:** Un formulario optimizado para que los clientes puedan solicitar una cita para un examen visual o una consulta de estilo.
+        *   **Formulario de Recomendación:** Integrado para que los clientes satisfechos puedan referir a amigos y familiares.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla especializada y se añadieron las claves de traducción correspondientes.
+
+*   **¿Por qué se hizo?** Para enriquecer el catálogo con una solución de nicho de alto valor, proporcionando a las ópticas una herramienta de marketing digital completa que no solo muestra productos y servicios, sino que también facilita la captación de clientes a través de un sistema de citas y un programa de referidos.
+
+---
 ## 05 de Septiembre de 2024
 
 ### 1. [ID de Cambio: 05s2e1g0] Creación de Plantilla Avanzada para Audiología (Gesundheit)

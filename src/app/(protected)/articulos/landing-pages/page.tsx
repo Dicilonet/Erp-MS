@@ -57,6 +57,7 @@ const landingPageCategories = [
         { id: 'gesundheit-1', name: 'Landing para Praxis / Clínicas', href: '/articulos/landing-pages/gesundheit-1' },
         { id: 'wellness-1', name: 'Landing para Wellness y Masajes', href: '/articulos/landing-pages/wellness-1' },
         { id: 'gesundheit-2', name: 'Landing para Audiología (Hörgeräte)', href: '/articulos/landing-pages/gesundheit-2' },
+        { id: 'optik-1', name: 'Landing para Ópticas', href: '/articulos/landing-pages/optik-1' },
     ]
   },
   {
