@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { Customer, Campaign } from '@/lib/types';

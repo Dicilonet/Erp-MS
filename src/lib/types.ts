@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { FC, ReactNode } from 'react';
@@ -272,6 +271,7 @@ export interface UserProfile {
 
 export interface InternalUser {
   uid: string; // El ID de Firebase Authentication
+  companyId: string; // Nuevo campo para multi-tenancy
   email: string;
   role: UserRole;
   profile: UserProfile;

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Rocket } from 'lucide-react';
