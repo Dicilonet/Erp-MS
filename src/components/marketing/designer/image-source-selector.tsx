@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -9,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Upload, Sparkles, Camera, Loader2, Mic, MicOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { generateSocialMediaImage } from '@/ai/flows/generate-social-media-image';
+import { generateSocialMediaImage } from '@/app/actions';
 import type { TFunction } from 'i18next';
 import i18next from 'i18next';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';

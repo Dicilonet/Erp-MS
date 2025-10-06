@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -41,7 +40,7 @@ import type { Customer, Expense } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import Image from 'next/image';
-import { processReceipt } from '@/ai/flows/process-receipt';
+import { processReceipt } from '@/app/actions';
 
 
 const formSchema = z.object({
@@ -345,7 +344,7 @@ export function CreateExpenseForm({ children }: { children: React.ReactNode }) {
                         <div className="space-y-1 rounded-md bg-secondary p-3 text-right text-sm">
                             <p>{t('list.table.subtotal')}: <span className="font-mono">{formatCurrency(subtotal)}</span></p>
                             <p>{t('list.table.tax')} ({(taxRate || 0).toFixed(2)}%): <span className="font-mono">{formatCurrency(tax)}</span></p>
-                            <p className="font-bold">{t('form.totalLabel')}: <span className="font-mono">{formatCurrency(total)}</span></p>
+                            <p className="font-bold text-base">{t('form.totalLabel')}: <span className="font-mono">{formatCurrency(total)}</span></p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">

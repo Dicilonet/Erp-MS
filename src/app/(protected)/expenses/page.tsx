@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ExpenseList } from '@/components/expense-list';
