@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview An AI agent that processes receipt images.
@@ -10,7 +9,6 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { es } from 'date-fns/locale';
 
 const ProcessReceiptInputSchema = z.object({
   receiptImage: z
