@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config();
 
 import { configureGenkit } from 'genkit';
-import { googleAI } from '@genkit-ai/googleai';
+import { googleAI } from '@genkit-ai/google-genai';
 
 // CORRECTO: La configuración de plugins se mueve aquí, al entorno de solo servidor.
 configureGenkit({
