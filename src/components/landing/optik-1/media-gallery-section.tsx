@@ -46,7 +46,7 @@ export function MediaGallerySection() {
                         
                         <AspectRatio ratio={16 / 9} className="relative">
                              <Image
-                                src={item.src}
+                                src={item.type === 'image' ? item.src : (item.thumbnail || '')}
                                 alt={item.alt}
                                 fill
                                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
