@@ -36,7 +36,38 @@
       },
       "tools": {
         "title": "Herramientas de Marketing",
-        "description": "Accede a las herramientas para realizar acciones para {{customerName}}."
+        "description": "Accede a las herramientas para realizar acciones para {{customerName}}.",
+        "aiAssistant": "Asistente IA de Campañas"
+      },
+      "aiGenerator": {
+        "title": "Generador de Campañas con IA para {{customerName}}",
+        "description": "Rellena el formulario para generar una estrategia de marketing a medida.",
+        "form": {
+            "businessType": { "label": "Tipo de Negocio", "placeholder": "Ej: Hotel, SaaS, Restaurante" },
+            "mainGoal": { "label": "Objetivo Principal de la Campaña", "placeholder": "Ej: Incrementar reservas un 20%" },
+            "targetAudience": { "label": "Público Objetivo", "placeholder": "Describe a tu cliente ideal" },
+            "keyProducts": { "label": "Productos/Servicios Clave", "placeholder": "Ej: Habitación deluxe, oferta de fin de semana" },
+            "tone": {
+                "label": "Tono de la Comunicación",
+                "professional": "Profesional",
+                "fun": "Divertido",
+                "urgent": "Urgente",
+                "inspirational": "Inspirador",
+                "exclusive": "Exclusivo"
+            }
+        },
+        "generateButton": "Generar Campaña",
+        "generatingButton": "Generando...",
+        "generating": "La IA está generando tu campaña...",
+        "wait": "Esto puede tardar un momento.",
+        "prompt": "Rellena el formulario de la izquierda para crear tu estrategia de marketing.",
+        "keyActions": "Acciones Clave",
+        "closeButton": "Cerrar",
+        "toast": {
+            "generatingTitle": "Generando campaña",
+            "generatingDescription": "El asistente de IA está creando tu estrategia.",
+            "errorTitle": "Error de Generación"
+        }
       }
     },
     "marketingSuite": {

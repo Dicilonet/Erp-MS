@@ -36,7 +36,38 @@
       },
       "tools": {
         "title": "Marketing-Tools",
-        "description": "Greifen Sie auf Tools zu, um Aktionen für {{customerName}} durchzuführen."
+        "description": "Greifen Sie auf Tools zu, um Aktionen für {{customerName}} durchzuführen.",
+        "aiAssistant": "KI-Kampagnenassistent"
+      },
+      "aiGenerator": {
+        "title": "KI-Kampagnengenerator für {{customerName}}",
+        "description": "Füllen Sie das Formular aus, um eine maßgeschneiderte Marketingstrategie zu erhalten.",
+        "form": {
+            "businessType": { "label": "Unternehmenstyp", "placeholder": "z.B. Hotel, SaaS, Restaurant" },
+            "mainGoal": { "label": "Hauptziel der Kampagne", "placeholder": "z.B. Buchungen um 20% steigern" },
+            "targetAudience": { "label": "Zielgruppe", "placeholder": "Beschreiben Sie Ihren idealen Kunden" },
+            "keyProducts": { "label": "Schlüsselprodukte/-dienstleistungen", "placeholder": "z.B. Deluxe-Zimmer, Wochenendangebot" },
+            "tone": {
+                "label": "Ton der Kommunikation",
+                "professional": "Professionell",
+                "fun": "Unterhaltsam",
+                "urgent": "Dringend",
+                "inspirational": "Inspirierend",
+                "exclusive": "Exklusiv"
+            }
+        },
+        "generateButton": "Kampagne generieren",
+        "generatingButton": "Wird generiert...",
+        "generating": "KI generiert Ihre Kampagne...",
+        "wait": "Dies kann einen Moment dauern.",
+        "prompt": "Füllen Sie das Formular links aus, um Ihre Marketingstrategie zu erstellen.",
+        "keyActions": "Schlüsselaktionen",
+        "closeButton": "Schließen",
+        "toast": {
+            "generatingTitle": "Kampagne wird generiert",
+            "generatingDescription": "Der KI-Assistent erstellt Ihre Strategie.",
+            "errorTitle": "Fehler bei der Generierung"
+        }
       }
     },
     "marketingSuite": {

@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { Customer, Campaign } from '@/lib/types';
@@ -8,9 +7,10 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useTranslation } from 'react-i18next';
-import { Ticket, Map, Brush, Send, ArrowLeft } from 'lucide-react';
+import { Ticket, Map, Brush, Send, ArrowLeft, Sparkles } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
+import { AiCampaignGenerator } from './ai-campaign-generator';
 
 // Datos de ejemplo para la campaña. Esto debería venir de Firestore.
 const sampleCampaign: Campaign = {
@@ -27,7 +27,6 @@ interface CampaignDetailViewProps {
   onBack?: () => void;
 }
 
-// CORRECCIÓN: Se añade "export" para que el componente sea utilizable.
 export function CampaignDetailView({ customer, onBack }: CampaignDetailViewProps) {
   const { t } = useTranslation('marketing');
 
@@ -78,7 +77,13 @@ export function CampaignDetailView({ customer, onBack }: CampaignDetailViewProps
             <CardTitle>{t('campaigns.tools.title')}</CardTitle>
             <CardDescription>{t('campaigns.tools.description', { customerName: customer.name })}</CardDescription>
         </CardHeader>
-        <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+             <AiCampaignGenerator customerName={customer.name}>
+                <Button variant="outline" className="flex-col h-24">
+                  <Sparkles className="h-6 w-6 mb-2 text-primary"/>
+                  <span className="text-center">{t('campaigns.tools.aiAssistant')}</span>
+                </Button>
+             </AiCampaignGenerator>
              <Button variant="outline" className="flex-col h-24" asChild>
                 <Link href="/marketing/coupons">
                   <Ticket className="h-6 w-6 mb-2"/>

@@ -36,7 +36,38 @@
       },
       "tools": {
         "title": "Marketing Tools",
-        "description": "Access tools to perform actions for {{customerName}}."
+        "description": "Access tools to perform actions for {{customerName}}.",
+        "aiAssistant": "AI Campaign Assistant"
+      },
+      "aiGenerator": {
+        "title": "AI Campaign Generator for {{customerName}}",
+        "description": "Fill out the form to generate a custom marketing strategy.",
+        "form": {
+            "businessType": { "label": "Business Type", "placeholder": "e.g., Hotel, SaaS, Restaurant" },
+            "mainGoal": { "label": "Main Campaign Goal", "placeholder": "e.g., Increase bookings by 20%" },
+            "targetAudience": { "label": "Target Audience", "placeholder": "Describe your ideal customer" },
+            "keyProducts": { "label": "Key Products/Services", "placeholder": "e.g., Deluxe room, Weekend offer" },
+            "tone": {
+                "label": "Tone of Voice",
+                "professional": "Professional",
+                "fun": "Fun",
+                "urgent": "Urgent",
+                "inspirational": "Inspirational",
+                "exclusive": "Exclusive"
+            }
+        },
+        "generateButton": "Generate Campaign",
+        "generatingButton": "Generating...",
+        "generating": "AI is generating your campaign...",
+        "wait": "This may take a moment.",
+        "prompt": "Fill out the form on the left to create your marketing strategy.",
+        "keyActions": "Key Actions",
+        "closeButton": "Close",
+        "toast": {
+            "generatingTitle": "Generating campaign",
+            "generatingDescription": "The AI assistant is creating your strategy.",
+            "errorTitle": "Generation Error"
+        }
       }
     },
     "marketingSuite": {
