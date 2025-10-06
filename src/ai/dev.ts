@@ -1,3 +1,4 @@
+'use server';
 import { config } from 'dotenv';
 config();
 
@@ -12,11 +13,5 @@ configureGenkit({
     }),
   ],
   logLevel: 'debug',
-  enableTracingAndMetrics: true,
+  enableTracingAndMetrics: false,
 });
-
-
-import '@/ai/flows/suggest-interaction-summary.ts';
-import '@/ai/flows/process-receipt.ts';
-import '@/ai/flows/generate-social-media-image.ts';
-import '@/ai/flows/generate-marketing-campaign.ts';

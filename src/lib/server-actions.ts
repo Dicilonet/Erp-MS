@@ -1,45 +1,72 @@
 'use server';
 
-import { generateMarketingCampaign as generateMarketingCampaignFlow } from '@/ai/flows/generate-marketing-campaign';
-import { generateSocialMediaImage as generateSocialMediaImageFlow } from '@/ai/flows/generate-social-media-image';
-import { processReceipt as processReceiptFlow } from '@/ai/flows/process-receipt';
-import type { MarketingCampaignInput, MarketingCampaignOutput } from '@/ai/flows/schemas';
-import { suggestInteractionSummary as suggestInteractionSummaryFlow } from '@/ai/flows/suggest-interaction-summary';
-import type { ProcessReceiptInput, ProcessReceiptOutput, SuggestInteractionSummaryInput, SuggestInteractionSummaryOutput } from '@/ai/flows/types';
+import { generateFlow, runFlow } from 'genkit';
+import { z } from 'zod';
+import {
+  InteractionSummaryInputSchema,
+  InteractionSummaryOutputSchema,
+  ReceiptInputSchema,
+  ReceiptOutputSchema,
+  MarketingCampaignInputSchema,
+  MarketingCampaignOutputSchema,
+} from '@/ai/flows/schemas';
+import { suggestInteractionSummaryPrompt } from '@/ai/flows/suggest-interaction-summary';
+import { processReceiptPrompt } from '@/ai/flows/process-receipt';
+import { generateMarketingCampaignPrompt } from '@/ai/flows/generate-marketing-campaign';
+import { generateSocialMediaImagePrompt } from '@/ai/flows/generate-social-media-image';
 
-
-/**
- * Executes the `suggestInteractionSummary` flow.
- */
 export async function suggestInteractionSummary(
-  input: SuggestInteractionSummaryInput
-): Promise<SuggestInteractionSummaryOutput> {
-  return await suggestInteractionSummaryFlow(input);
+  input: z.infer<typeof InteractionSummaryInputSchema>
+): Promise<z.infer<typeof InteractionSummaryOutputSchema>> {
+  const flow = await generateFlow({
+    name: 'suggestInteractionSummaryServerAction',
+    prompt: suggestInteractionSummaryPrompt,
+    inputSchema: InteractionSummaryInputSchema,
+    outputSchema: InteractionSummaryOutputSchema,
+  });
+
+  return await runFlow(flow, input);
 }
 
-/**
- * Executes the `processReceipt` flow.
- */
 export async function processReceipt(
-  input: ProcessReceiptInput
-): Promise<ProcessReceiptOutput> {
-  return await processReceiptFlow(input);
+  input: z.infer<typeof ReceiptInputSchema>
+): Promise<z.infer<typeof ReceiptOutputSchema>> {
+  const flow = await generateFlow({
+    name: 'processReceiptServerAction',
+    prompt: processReceiptPrompt,
+    inputSchema: ReceiptInputSchema,
+    outputSchema: ReceiptOutputSchema,
+  });
+  
+  return await runFlow(flow, input);
 }
 
-/**
- * Executes the `generateSocialMediaImage` flow.
- */
-export async function generateSocialMediaImage(
-  prompt: string
-): Promise<string> {
-  return await generateSocialMediaImageFlow(prompt);
-}
-
-/**
- * Executes the `generateMarketingCampaign` flow.
- */
 export async function generateMarketingCampaign(
-  input: MarketingCampaignInput
-): Promise<MarketingCampaignOutput> {
-  return await generateMarketingCampaignFlow(input);
+  input: z.infer<typeof MarketingCampaignInputSchema>
+): Promise<z.infer<typeof MarketingCampaignOutputSchema>> {
+  const flow = await generateFlow({
+    name: 'generateMarketingCampaignServerAction',
+    prompt: generateMarketingCampaignPrompt,
+    inputSchema: MarketingCampaignInputSchema,
+    outputSchema: MarketingCampaignOutputSchema,
+  });
+
+  return await runFlow(flow, input);
+}
+
+export async function generateSocialMediaImage(prompt: string): Promise<string> {
+    const flow = await generateFlow({
+        name: 'generateSocialMediaImageServerAction',
+        prompt: generateSocialMediaImagePrompt,
+        inputSchema: z.string(),
+        outputSchema: z.string(),
+        config: {
+          model: 'googleai/imagen-2',
+          response: {
+            format: 'dataUri',
+          },
+        },
+    });
+    
+    return await runFlow(flow, prompt);
 }

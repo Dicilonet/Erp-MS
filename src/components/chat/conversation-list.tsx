@@ -61,15 +61,12 @@ export function ConversationList({ currentUserUid, onSelectConversation, selecte
     return () => unsubscribe();
   }, [currentUserUid]);
 
-  // --- BLOQUE CORREGIDO ---
-  // Este useEffect ahora filtra los usuarios por el companyId
+  
   useEffect(() => {
-    // Solo buscamos usuarios si el modal está abierto y tenemos un usuario con companyId
-    if (isModalOpen && user?.companyId) {
+    if (isModalOpen && user) {
         const usersQuery = query(
             collection(db, 'users'),
-            where('companyId', '==', user.companyId), // <-- FILTRO CLAVE: Solo usuarios de la misma compañía
-            where('__name__', '!=', user.uid) // Y excluimos al usuario actual
+            where('__name__', '!=', user.uid)
         );
         
         const unsubscribe = onSnapshot(usersQuery, (snapshot) => {
