@@ -152,7 +152,9 @@ const landingPageCategories = [
     id: 'umwelt',
     titleKey: 'landingPages.categories.environment',
     descriptionKey: 'landingPages.categories.environmentDescription',
-    pages: []
+    pages: [
+        { id: 'umwelt-1', name: 'Landing para Proyectos Ecológicos', href: '/articulos/landing-pages/umwelt-1' },
+    ]
   },
   {
     id: 'unterhaltung',
