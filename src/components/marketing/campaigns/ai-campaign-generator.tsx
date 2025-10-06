@@ -12,7 +12,9 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Sparkles, Wand2 } from 'lucide-react';
-import { MarketingCampaignInput, MarketingCampaignInputSchema, MarketingCampaignOutput, generateMarketingCampaign } from '@/ai/flows/generate-marketing-campaign';
+import { generateMarketingCampaign } from '@/ai/flows/generate-marketing-campaign';
+import type { MarketingCampaignInput, MarketingCampaignOutput } from '@/ai/flows/schemas';
+import { MarketingCampaignInputSchema } from '@/ai/flows/schemas';
 import { Separator } from '@/components/ui/separator';
 
 interface AiCampaignGeneratorProps {
@@ -39,7 +41,6 @@ export function AiCampaignGenerator({ children, customerName }: AiCampaignGenera
     },
   });
 
-  // CORRECCIÓN: Actualizar los valores por defecto cuando el nombre del cliente cambie
   form.watch((values, { name }) => {
     if (name === undefined && customerName !== values.customerName) {
       form.setValue('customerName', customerName);
