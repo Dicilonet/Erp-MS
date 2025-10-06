@@ -15,7 +15,7 @@
         "title": "Formular-Dashboard",
         "managementDescription": "Überwachen und verwalten Sie hier alle Ihre Empfehlungsformulare."
     },
-     "campaigns": {
+    "campaigns": {
       "title": "Kampagnen-Dashboard",
       "description": "Verwalten Sie Marketingkampagnen für Ihre Kunden.",
       "customerList": {

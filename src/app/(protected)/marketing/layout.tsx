@@ -32,7 +32,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         .filter(item => pathname.startsWith(item.href))
         .sort((a, b) => b.href.length - a.href.length)[0];
 
-    return bestMatch ? bestMatch.href : marketingNavItems[0].href;
+    return bestMatch ? bestMatch.href : '/marketing/campaigns';
   };
   
   return (
@@ -43,10 +43,10 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <Tabs value={getCurrentTab()} className="w-full">
         <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 md:grid-cols-9 h-auto p-1">
             {marketingNavItems.map(item => (
-                <TabsTrigger key={item.href} value={item.href} asChild className="flex-col sm:flex-row h-auto py-2 sm:py-1.5 gap-1.5">
-                    <Link href={item.href} className="flex items-center gap-2">
+                <TabsTrigger key={item.href} value={item.href} asChild className="flex-col h-auto py-2 gap-1.5 text-xs sm:text-sm">
+                    <Link href={item.href} className="flex flex-col items-center justify-center gap-1.5">
                         {item.icon}
-                        <span className="hidden sm:inline">{t(item.labelKey as any)}</span>
+                        <span className="text-center">{t(item.labelKey as any)}</span>
                     </Link>
                 </TabsTrigger>
             ))}

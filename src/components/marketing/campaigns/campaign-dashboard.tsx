@@ -10,9 +10,8 @@ import { CampaignDetailView } from './campaign-detail-view';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useTranslation } from 'react-i18next';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import { Users } from 'lucide-react';
+import { Users, ArrowLeft } from 'lucide-react';
 
 export function CampaignDashboard() {
   const { t } = useTranslation('marketing');
@@ -20,7 +19,6 @@ export function CampaignDashboard() {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -45,7 +43,6 @@ export function CampaignDashboard() {
 
   const handleCustomerSelect = (customer: Customer) => {
     setSelectedCustomer(customer);
-    setIsDrawerOpen(false);
   }
 
   const CustomerList = () => (
