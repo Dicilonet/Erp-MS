@@ -30,38 +30,36 @@ export const MarketingCampaignOutputSchema = z.object({
 });
 export type MarketingCampaignOutput = z.infer<typeof MarketingCampaignOutputSchema>;
 
-
-const prompt = ai.definePrompt({
-  name: 'generateMarketingCampaignPrompt',
-  input: { schema: MarketingCampaignInputSchema },
-  output: { schema: MarketingCampaignOutputSchema },
-  prompt: `Act as an expert marketing strategist. Based on the following information, generate a complete and creative marketing campaign strategy for the client. The output must be structured, professional, and ready to be presented.
-
-Client Information:
-- Client Name: {{customerName}}
-- Business Type: {{businessType}}
-- Main Goal: {{mainGoal}}
-- Target Audience: {{targetAudience}}
-- Key Products/Services: {{keyProducts}}
-- Desired Tone: {{tone}}
-
-Your task is to generate a campaign with a catchy title, a subtitle, a strategic summary, and a list of 3-5 concrete key actions with brief descriptions.
-`,
-});
-
-const generateMarketingCampaignFlow = ai.defineFlow(
-  {
-    name: 'generateMarketingCampaignFlow',
-    inputSchema: MarketingCampaignInputSchema,
-    outputSchema: MarketingCampaignOutputSchema,
-  },
-  async (input) => {
-    const { output } = await prompt(input);
-    return output!;
-  }
-);
-
-// CORRECCIÓN: Exportar una función async simple que envuelva la ejecución del flujo.
 export async function generateMarketingCampaign(input: MarketingCampaignInput): Promise<MarketingCampaignOutput> {
+    const prompt = ai.definePrompt({
+      name: 'generateMarketingCampaignPrompt',
+      input: { schema: MarketingCampaignInputSchema },
+      output: { schema: MarketingCampaignOutputSchema },
+      prompt: `Act as an expert marketing strategist. Based on the following information, generate a complete and creative marketing campaign strategy for the client. The output must be structured, professional, and ready to be presented.
+
+    Client Information:
+    - Client Name: {{customerName}}
+    - Business Type: {{businessType}}
+    - Main Goal: {{mainGoal}}
+    - Target Audience: {{targetAudience}}
+    - Key Products/Services: {{keyProducts}}
+    - Desired Tone: {{tone}}
+
+    Your task is to generate a campaign with a catchy title, a subtitle, a strategic summary, and a list of 3-5 concrete key actions with brief descriptions.
+    `,
+    });
+
+    const generateMarketingCampaignFlow = ai.defineFlow(
+        {
+            name: 'generateMarketingCampaignFlow',
+            inputSchema: MarketingCampaignInputSchema,
+            outputSchema: MarketingCampaignOutputSchema,
+        },
+        async (input) => {
+            const { output } = await prompt(input);
+            return output!;
+        }
+    );
+
     return generateMarketingCampaignFlow(input);
 }
