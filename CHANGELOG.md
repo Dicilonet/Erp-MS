@@ -3,6 +3,24 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 08 de Septiembre de 2024
+
+### 1. [ID de Cambio: 08s7e4t3] Creación de Plantilla Avanzada para Logística y Transporte (Transport)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada para el sector de la logística y el transporte, dentro de la categoría "Transport".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/transport-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/transport-1/` para cada sección clave.
+    2.  **Diseño Profesional y Enfocado en la Eficiencia:** La plantilla está diseñada para transmitir confianza, eficiencia y alcance global. Incluye:
+        *   **Hero Section Inspirador:** Una imagen de alto impacto que comunica movimiento y fiabilidad.
+        *   **Sección de Servicios:** Una cuadrícula visual para destacar los servicios clave (Transporte Terrestre, Carga Marítima/Aérea, Almacenamiento, Última Milla).
+        *   **Sección "Por Qué Elegirnos":** Un apartado para resaltar las ventajas competitivas como la tecnología de seguimiento, la red global y la seguridad.
+        *   **Galería de Flota:** Un carrusel de imágenes para mostrar la modernidad de la flota de vehículos.
+        *   **Formulario de Cotización:** Un formulario optimizado para que los clientes potenciales puedan solicitar una cotización detallada.
+        *   **Formulario de Recomendación Integrado:** Para que los clientes empresariales puedan referir a otros socios comerciales y expandir la red.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla especializada y se añadieron las claves de traducción correspondientes en español, inglés y alemán.
+
+*   **¿Por qué se hizo?** Para enriquecer el catálogo con una solución de nicho de alto valor para el sector B2B de logística y transporte, proporcionando una herramienta de marketing digital completa que genera confianza y facilita la captación de leads de alta calidad.
+
+---
 ## 07 de Septiembre de 2024
 
 ### 1. [ID de Cambio: 07s8e3t2] Creación de Plantilla Avanzada para Tecnología y SaaS (Technologie)

@@ -144,7 +144,9 @@ const landingPageCategories = [
     id: 'transport',
     titleKey: 'landingPages.categories.transport',
     descriptionKey: 'landingPages.categories.transportDescription',
-    pages: []
+    pages: [
+        { id: 'transport-1', name: 'Landing para Logística y Transporte', href: '/articulos/landing-pages/transport-1' },
+    ]
   },
   {
     id: 'umwelt',
