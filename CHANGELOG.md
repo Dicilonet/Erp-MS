@@ -3,6 +3,23 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 07 de Septiembre de 2024
+
+### 1. [ID de Cambio: 07s8e3t2] Creación de Plantilla Avanzada para Tecnología y SaaS (Technologie)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada para el sector de la tecnología (Start-ups, SaaS, empresas de software), dentro de la categoría "Technologie".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/technologie-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/technologie-1/` para cada sección clave.
+    2.  **Diseño Moderno y Funcional:** La plantilla está diseñada para transmitir innovación, confianza y profesionalismo. Incluye:
+        *   **Hero Section Futurista:** Un diseño animado con gradientes para captar la atención.
+        *   **Sección de Características Clave:** Una cuadrícula para destacar los pilares del software (Automatización, Seguridad, IA, etc.).
+        *   **Escaparate de Productos:** Una sección para detallar los diferentes productos o planes de la suite de software.
+        *   **Menú Interactivo de Herramientas IA:** Una característica destacada. Se añadió un menú desplegable (`Menubar`) que permite a los visitantes explorar una lista curada de las mejores herramientas de IA y automatización (n8n, Claude, Gemini, etc.), posicionando a la empresa como experta en el sector.
+        *   **Doble Formulario:** Se integra un formulario de contacto para solicitar demos y el formulario de recomendación para que los clientes se conviertan en partners.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla especializada y se añadieron las claves de traducción correspondientes.
+
+*   **¿Por qué se hizo?** Para enriquecer el catálogo con una solución de nicho muy potente y demandada por el sector tecnológico, proporcionando una herramienta de marketing que no solo presenta el producto de forma eficaz, sino que también educa al visitante y facilita la captación de leads y referidos.
+
+---
 ## 06 de Septiembre de 2024
 
 ### 1. [ID de Cambio: 06s1e2h1] Creación de Plantilla Avanzada para Ópticas (Gesundheit)
@@ -529,7 +546,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta en `AdminList.tsx`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
     4.  **Documentación:** Se documentó este cambio crítico en el `CHANGELOG.md`.
 
-*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados.
+*   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
 
 ---
 ## 04 de Agosto de 2024

@@ -136,7 +136,9 @@ const landingPageCategories = [
     id: 'technologie',
     titleKey: 'landingPages.categories.technology',
     descriptionKey: 'landingPages.categories.technologyDescription',
-    pages: []
+    pages: [
+        { id: 'technologie-1', name: 'Landing para Start-ups y SaaS', href: '/articulos/landing-pages/technologie-1' },
+    ]
   },
   {
     id: 'transport',
