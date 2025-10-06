@@ -3,6 +3,22 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 09 de Septiembre de 2024
+
+### 1. [ID de Cambio: 09s6e3t1] Creación de Plantilla Avanzada para Entretenimiento (Unterhaltung)
+
+*   **¿Qué se hizo?** Se implementó una nueva plantilla de landing page de alta calidad, modular y profesional, diseñada para el sector del entretenimiento (eventos, espectáculos, creadores de contenido), dentro de la categoría "Unterhaltung".
+    1.  **Nueva Página y Arquitectura de Componentes:** Se desarrolló la ruta `/articulos/landing-pages/unterhaltung-1` y se creó una arquitectura de componentes dedicados en `src/components/landing/unterhaltung-1/` para cada sección clave.
+    2.  **Diseño Vibrante y Funcional:** La plantilla está diseñada para ser visualmente impactante y muy funcional, integrando herramientas clave para la promoción de eventos. Incluye:
+        *   **Hero Section con Video de Fondo:** Para una entrada inmersiva y espectacular.
+        *   **Galería Multimedia:** Una sección que combina imágenes de alta calidad con videos de YouTube incrustados, ideal para mostrar tráileres, mejores momentos y galerías de fotos.
+        *   **Agenda de Eventos:** Un listado claro de las próximas fechas, con información del lugar, hora y estado de las entradas.
+        *   **Formularios Integrados:** Incluye un formulario de contacto para contrataciones o prensa y el formulario de recomendación para que los fans inviten a sus amigos.
+    3.  **Actualización de la Biblioteca y Traducciones:** Se actualizó la página principal de "Landing Pages" para incluir el enlace a esta nueva plantilla especializada y se añadieron las claves de traducción correspondientes en español, inglés y alemán.
+
+*   **¿Por qué se hizo?** Para enriquecer el catálogo con una solución profesional y muy demandada por el sector del entretenimiento, proporcionando una herramienta de marketing completa que facilita la venta de entradas, la promoción de eventos y el crecimiento de la comunidad a través de un sistema de referidos.
+
+---
 ## 08 de Septiembre de 2024
 
 ### 1. [ID de Cambio: 08s7e4t3] Creación de Plantilla Avanzada para Logística y Transporte (Transport)
@@ -363,7 +379,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Actualización de la Biblioteca:** Se actualizó la página principal de "Landing Pages" para incluir un enlace a esta nueva plantilla en la categoría de "Hotelería".
     4.  **Instalación de Dependencia:** Se añadió `react-day-picker` al `package.json` para el selector de fechas avanzado en el formulario de reserva.
 
-*   **¿Por qué se hizo?** Para enriquecer la biblioteca de plantillas con una solución profesional y específica para el sector hotelero, y para introducir un patrón de desarrollo más modular y escalable mediante componentes de React, facilitando futuras adaptaciones y mejoras.
+*   **¿Por qué se hizo?** Para enriquecer la biblioteca de plantillas con una solución profesional y específica para el sector hotelero, y para introducir un patrón de diseño más modular y escalable mediante componentes de React, facilitando futuras adaptaciones y mejoras.
 
 ---
 ## 18 de Agosto de 2024

@@ -160,7 +160,9 @@ const landingPageCategories = [
     id: 'unterhaltung',
     titleKey: 'landingPages.categories.entertainment',
     descriptionKey: 'landingPages.categories.entertainmentDescription',
-    pages: []
+    pages: [
+        { id: 'unterhaltung-1', name: 'Landing para Eventos y Shows', href: '/articulos/landing-pages/unterhaltung-1' },
+    ]
   }
 ];
 
