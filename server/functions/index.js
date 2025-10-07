@@ -1,3 +1,4 @@
+
 /**
  * @file Firebase Cloud Functions para el ERP DICILO
  * Versión final, limpia y con todos los módulos.
@@ -2099,7 +2100,7 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
     }
 
     try {
-        const metricsRef = db.collection(`customers/${customerId}/metrics`);
+        const metricsCollectionRef = db.collection(`customers/${customerId}/metrics`);
         
         const newMetricRecord = {
             createdAt: FieldValue.serverTimestamp(),
@@ -2107,7 +2108,7 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
             responses: metrics,
         };
 
-        await addDoc(metricsRef, newMetricRecord);
+        await addDoc(metricsCollectionRef, newMetricRecord);
         
         return { success: true };
 
@@ -2147,5 +2148,3 @@ exports.submitRecommendation = onCall({ region: 'europe-west1' }, async (request
         throw new HttpsError('internal', 'No se pudo procesar la recomendación.');
     }
 });
-    
-

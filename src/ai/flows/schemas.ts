@@ -37,7 +37,7 @@ export type InteractionSummaryOutput = z.infer<typeof InteractionSummaryOutputSc
 
 // Esquema para el procesamiento de facturas
 export const ReceiptInputSchema = z.object({
-  receiptImage: z.string().url(),
+  receiptImage: z.string(), // Se espera un Data URI
 });
 export type ReceiptInput = z.infer<typeof ReceiptInputSchema>;
 

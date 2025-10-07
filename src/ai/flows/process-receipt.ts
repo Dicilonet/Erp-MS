@@ -1,3 +1,6 @@
+
+'use server';
+
 export const processReceiptPrompt = `Analiza la siguiente imagen de una factura o ticket y extrae la información requerida en formato JSON.
 
   Imagen de la factura: {{media url=receiptImage}}
@@ -11,4 +14,5 @@ export const processReceiptPrompt = `Analiza la siguiente imagen de una factura 
   - category: Asigna una categoría de gasto de entre las siguientes opciones: "Software", "Marketing", "Hardware", "Oficina", "Consultoría", "Transporte", "Comida", "Otros".
   
   Si un campo no se puede determinar, devuelve un valor razonable por defecto (ej. 0 para números, string vacío para texto, fecha actual para la fecha).
+  Tu respuesta debe ser únicamente el objeto JSON.
   `;

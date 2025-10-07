@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -124,8 +125,9 @@ export function CreateExpenseForm({ children }: { children: React.ReactNode }) {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setReceiptImage(reader.result as string);
-        handleImageProcessing(reader.result as string);
+        const dataUrl = reader.result as string;
+        setReceiptImage(dataUrl);
+        handleImageProcessing(dataUrl);
       };
       reader.readAsDataURL(file);
     }

@@ -1,3 +1,4 @@
+
 {
   "firestore": {
     "rules": "firestore.rules",
@@ -5,8 +6,7 @@
   },
   "functions": {
     "source": "server/functions",
-    "runtime": "nodejs20",
-    "location": "europe-west1"
+    "runtime": "nodejs20"
   },
   "storage": {
     "rules": "storage.rules"

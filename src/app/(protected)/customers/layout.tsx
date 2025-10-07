@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useTranslation } from 'react-i18next';
@@ -11,7 +12,7 @@ export default function CustomersLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
 
   // Determine the active tab based on the current path
-  const activeTab = pathname.startsWith('/customers/metrics') ? '/customers/metrics' : '/customers';
+  const activeTab = pathname.startsWith('/customers/metrics') ? 'metrics' : 'management';
 
   return (
     <div className="space-y-6">
@@ -27,10 +28,10 @@ export default function CustomersLayout({ children }: { children: React.ReactNod
 
       <Tabs value={activeTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="/customers" asChild>
+          <TabsTrigger value="management" asChild>
             <Link href="/customers">{t('nav.management')}</Link>
           </TabsTrigger>
-          <TabsTrigger value="/customers/metrics" asChild>
+          <TabsTrigger value="metrics" asChild>
             <Link href="/customers/metrics">{t('nav.metrics')}</Link>
           </TabsTrigger>
         </TabsList>

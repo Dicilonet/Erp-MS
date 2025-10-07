@@ -1,7 +1,10 @@
+
 'use server';
 
-import { generateFlow, runFlow } from 'genkit';
+import { generateFlow, runFlow } from 'genkit/server';
 import { z } from 'zod';
+import { googleAI } from '@genkit-ai/google-genai';
+
 import {
   InteractionSummaryInputSchema,
   InteractionSummaryOutputSchema,
@@ -15,6 +18,7 @@ import { processReceiptPrompt } from '@/ai/flows/process-receipt';
 import { generateMarketingCampaignPrompt } from '@/ai/flows/generate-marketing-campaign';
 import { generateSocialMediaImagePrompt } from '@/ai/flows/generate-social-media-image';
 
+
 export async function suggestInteractionSummary(
   input: z.infer<typeof InteractionSummaryInputSchema>
 ): Promise<z.infer<typeof InteractionSummaryOutputSchema>> {
@@ -23,9 +27,11 @@ export async function suggestInteractionSummary(
     prompt: suggestInteractionSummaryPrompt,
     inputSchema: InteractionSummaryInputSchema,
     outputSchema: InteractionSummaryOutputSchema,
+    model: googleAI('gemini-1.5-flash-latest'),
   });
 
-  return await runFlow(flow, input);
+  const result = await runFlow(flow, input);
+  return result;
 }
 
 export async function processReceipt(
@@ -36,6 +42,7 @@ export async function processReceipt(
     prompt: processReceiptPrompt,
     inputSchema: ReceiptInputSchema,
     outputSchema: ReceiptOutputSchema,
+    model: googleAI('gemini-1.5-flash-latest'),
   });
   
   return await runFlow(flow, input);
@@ -49,6 +56,7 @@ export async function generateMarketingCampaign(
     prompt: generateMarketingCampaignPrompt,
     inputSchema: MarketingCampaignInputSchema,
     outputSchema: MarketingCampaignOutputSchema,
+     model: googleAI('gemini-1.5-flash-latest'),
   });
 
   return await runFlow(flow, input);
@@ -60,10 +68,10 @@ export async function generateSocialMediaImage(prompt: string): Promise<string> 
         prompt: generateSocialMediaImagePrompt,
         inputSchema: z.string(),
         outputSchema: z.string(),
+        model: googleAI('gemini-1.5-flash-latest'),
         config: {
-          model: 'googleai/imagen-2',
-          response: {
-            format: 'dataUri',
+          visualInspection: {
+            response: { format: 'dataUri' },
           },
         },
     });

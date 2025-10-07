@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect } from 'react';
@@ -7,7 +8,7 @@ import { FullScreenLoader } from '@/components/ui/fullscreen-loader';
 export default function MarketingRedirectPage() {
   const router = useRouter();
   useEffect(() => {
-    router.replace('/marketing/coupons');
+    router.replace('/marketing/campaigns');
   }, [router]);
 
   return <FullScreenLoader />;
