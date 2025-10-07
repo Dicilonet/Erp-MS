@@ -21,6 +21,9 @@ export function Footer() {
           <Link href="#" className="text-muted-foreground hover:text-primary">
             Política de Privacidad
           </Link>
+           <Link href="/login" className="font-semibold text-primary hover:underline">
+            Login
+          </Link>
         </div>
       </div>
     </footer>

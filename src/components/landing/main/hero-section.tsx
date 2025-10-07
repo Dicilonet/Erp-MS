@@ -120,11 +120,6 @@ export function HeroSection() {
                         <LayoutGrid className="h-8 w-8 text-primary" />
                         <span className="font-semibold text-xl">M&SOLUTIONS</span>
                     </div>
-                     <div>
-                        <Button asChild variant="outline">
-                            <Link href="/login">Login</Link>
-                        </Button>
-                    </div>
                 </div>
 
                 <main className="mt-10">
