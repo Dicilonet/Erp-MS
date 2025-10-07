@@ -121,7 +121,6 @@ export function HeroSection() {
                         <LayoutGrid className="h-8 w-8 text-primary" />
                         <span className="font-semibold text-xl">M&SOLUTIONS</span>
                     </div>
-                    <LanguageSwitcher />
                 </div>
 
                 <main className="mt-10">
@@ -147,6 +146,9 @@ export function HeroSection() {
             </div>
         </div>
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center p-8">
+             <div className="absolute top-6 right-6 z-20">
+                <LanguageSwitcher />
+            </div>
              <div className="relative h-full w-full flex items-center justify-center bg-muted/30 rounded-3xl p-8">
                 <SignUpForm />
             </div>
