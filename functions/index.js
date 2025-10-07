@@ -2136,7 +2136,7 @@ exports.submitRecommendation = onCall({ region: 'europe-west1' }, async (request
             language: lang,
         };
 
-        await addDoc(collection(db, 'recommendations'), recommendationData);
+        await addDoc(db.collection('recommendations'), recommendationData);
         
         // Opcional: enviar un correo de notificación
         // await sendEmailWithNodemailer(...)
