@@ -14,19 +14,18 @@ if (typeof window !== 'undefined') {
     .init({
       fallbackLng: 'es', // Idioma de respaldo
       debug: process.env.NODE_ENV === 'development',
-      ns: ['common', 'dashboard', 'marketing', 'offer', 'todo', 'projects', 'expenses', 'support', 'communications', 'connections', 'settings', 'chat', 'customers', 'articles', 'forms', 'legal', 'admin'], // Namespaces a cargar
+      ns: ['common', 'dashboard', 'marketing', 'offer', 'todo', 'projects', 'expenses', 'support', 'communications', 'connections', 'settings', 'chat', 'customers', 'articles', 'forms', 'legal', 'admin', 'landing'], // Namespaces a cargar
       defaultNS: 'common',
       interpolation: {
         escapeValue: false, // React ya protege contra XSS
       },
-      // SOLUCIÓN: Ignorar códigos de país como 'DE' en 'de-DE' y usar solo 'de'
       load: 'languageOnly',
       react: {
-        useSuspense: false, // Clave para Next.js App Router
+        useSuspense: false,
       },
       detection: {
         order: ['cookie', 'localStorage', 'navigator', 'htmlTag'],
-        caches: ['cookie'], // Dónde guardar el idioma seleccionado
+        caches: ['cookie'],
       },
     });
 }
