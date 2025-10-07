@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Users, FolderKanban, BarChart, FileText, Receipt, Mail, Briefcase, Zap, Leaf, BrainCircuit, ShieldCheck, FolderSync } from 'lucide-react';
 
 const modules = [
