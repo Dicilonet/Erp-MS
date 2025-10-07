@@ -1,0 +1,91 @@
+{
+    "hero": {
+        "title1": "Das Betriebssystem",
+        "title2": "für Ihr Unternehmen",
+        "subtitle": "Zentralisieren, automatisieren und erweitern Sie Ihr Unternehmen mit M&SOLUTIONS. Die All-in-One-Plattform, die CRM, Projekte, Marketing und Finanzen mit der Kraft der KI integriert.",
+        "ctaButton": "Jetzt starten",
+        "backgroundImageAlt": "Modernes Büro",
+        "form": {
+            "title": "Starten Sie Ihre Transformation",
+            "description": "Registrieren Sie sich für eine kostenlose Demo.",
+            "companyName": "Firmenname",
+            "companyNamePlaceholder": "Ihre Firma",
+            "email": "Arbeits-E-Mail",
+            "emailPlaceholder": "ihre@firma.com",
+            "submitButton": "Demo anfordern",
+            "toast": {
+                "title": "Danke für Ihr Interesse!",
+                "description": "Wir haben Ihre Anfrage erhalten und werden uns bald mit Ihnen in Verbindung setzen.",
+                "errorTitle": "Fehler beim Senden",
+                "errorDescription": "Ihre Anfrage konnte nicht verarbeitet werden."
+            }
+        }
+    },
+    "features": {
+        "title": "Alles, was Ihr Unternehmen braucht, und mehr",
+        "subtitle": "Von der Kundenverwaltung bis zur Marketingautomatisierung zentralisiert M&SOLUTIONS Ihre wesentlichen Werkzeuge.",
+        "automation": {
+            "title": "Intelligente Automatisierung",
+            "description": "Sparen Sie Zeit und Ressourcen, indem Sie wiederholende Aufgaben mit KI-basierten Workflows automatisieren."
+        },
+        "crm": {
+            "title": "Einheitliches CRM",
+            "description": "Verwalten Sie Ihre Kundenbeziehungen, von der Akquise bis zum After-Sales-Support, alles an einem Ort."
+        },
+        "intelligence": {
+            "title": "Integrierte Intelligenz",
+            "description": "Unsere KI-Modelle analysieren Ihre Daten, um Ihnen Einblicke und Vorhersagen zu liefern, die Ihr Geschäft voranbringen."
+        },
+        "security": {
+            "title": "Sicherheit auf Unternehmensniveau",
+            "description": "Wir schützen Ihre Daten mit Ende-zu-Ende-Verschlüsselung und den höchsten Sicherheitsstandards."
+        }
+    },
+    "modules": {
+        "title": "Ein Modul für jeden Bedarf",
+        "subtitle": "M&SOLUTIONS passt sich Ihnen an. Entdecken Sie einige unserer wichtigsten Funktionalitäten.",
+        "crm": {
+            "title": "Kundenmanagement (CRM)",
+            "description": "Ihr Kundenintelligenzzentrum, von der Akquise bis zur Kundenbindung."
+        },
+        "projects": {
+            "title": "Projektmanagement",
+            "description": "Planen, ausführen und überwachen Sie alle Ihre Projekte mit visuellen Kanban-Boards."
+        },
+        "marketing": {
+            "title": "Intelligentes Marketing",
+            "description": "Erstellen Sie Kampagnen, verwalten Sie Inhalte und finden Sie neue Kunden mit Geomarketing."
+        },
+        "offers": {
+            "title": "Angebote & Artikel",
+            "description": "Verwalten Sie Ihren Produkt-/Dienstleistungskatalog und erstellen Sie professionelle Angebote."
+        },
+        "expenses": {
+            "title": "Ausgabenmanagement mit KI",
+            "description": "Digitalisieren Sie Ihre Rechnungen mit einem Klick dank KI-gestützter Datenextraktion."
+        },
+        "communications": {
+            "title": "Einheitliche Kommunikation",
+            "description": "Senden Sie E-Mails und kommunizieren Sie mit Ihrem Team, ohne die Plattform zu verlassen."
+        },
+        "automation": {
+            "title": "Automatisierung & Verbindungen",
+            "description": "Integrieren Sie Ihre Lieblingstools und automatisieren Sie komplexe Arbeitsabläufe."
+        },
+        "teams": {
+            "title": "Team- & Berechtigungsverwaltung",
+            "description": "Steuern Sie mit einem flexiblen und sicheren Rollensystem, wer auf welches Modul zugreift."
+        }
+    },
+    "cta": {
+        "title": "Bereit, Ihr Unternehmen zu transformieren?",
+        "subtitle": "Hören Sie auf, mit mehreren Werkzeugen zu jonglieren. Zentralisieren, automatisieren und skalieren Sie mit M&SOLUTIONS.",
+        "button": "Jetzt starten"
+    },
+    "footer": {
+        "copyright": "© 2024 M&SOLUTIONS. Alle Rechte vorbehalten.",
+        "legal": "Impressum",
+        "privacy": "Datenschutz",
+        "login": "Anmelden"
+    }
+}

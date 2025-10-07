@@ -1,0 +1,91 @@
+{
+    "hero": {
+        "title1": "El Sistema Operativo",
+        "title2": "para tu Negocio",
+        "subtitle": "Centraliza, automatiza y expande tu empresa con M&SOLUTIONS. La plataforma todo-en-uno que integra CRM, proyectos, marketing y finanzas con el poder de la IA.",
+        "ctaButton": "Comenzar Ahora",
+        "backgroundImageAlt": "Oficina moderna",
+        "form": {
+            "title": "Comienza tu Transformación",
+            "description": "Regístrate para una demo gratuita.",
+            "companyName": "Nombre de la Empresa",
+            "companyNamePlaceholder": "Tu empresa",
+            "email": "Email de Trabajo",
+            "emailPlaceholder": "tu@empresa.com",
+            "submitButton": "Solicitar Demo",
+            "toast": {
+                "title": "¡Gracias por tu interés!",
+                "description": "Hemos recibido tu solicitud y te contactaremos pronto.",
+                "errorTitle": "Error al Enviar",
+                "errorDescription": "No se pudo procesar tu solicitud."
+            }
+        }
+    },
+    "features": {
+        "title": "Todo lo que tu Negocio Necesita, y Más",
+        "subtitle": "Desde la gestión de clientes hasta la automatización de marketing, M&SOLUTIONS centraliza tus herramientas esenciales.",
+        "automation": {
+            "title": "Automatización Inteligente",
+            "description": "Ahorra tiempo y recursos automatizando tareas repetitivas con flujos de trabajo basados en IA."
+        },
+        "crm": {
+            "title": "CRM Unificado",
+            "description": "Gestiona la relación con tus clientes, desde la prospección hasta el soporte postventa, todo en un solo lugar."
+        },
+        "intelligence": {
+            "title": "Inteligencia Integrada",
+            "description": "Nuestros modelos de IA analizan tus datos para ofrecerte insights y predicciones que impulsan tu negocio."
+        },
+        "security": {
+            "title": "Seguridad de Nivel Empresarial",
+            "description": "Protegemos tus datos con encriptación de extremo a extremo y los más altos estándares de seguridad."
+        }
+    },
+    "modules": {
+        "title": "Un Módulo para Cada Necesidad",
+        "subtitle": "M&SOLUTIONS se adapta a ti. Explora algunas de nuestras funcionalidades clave.",
+        "crm": {
+            "title": "Gestión de Clientes (CRM)",
+            "description": "Tu centro de inteligencia de clientes, desde la prospección hasta la fidelización."
+        },
+        "projects": {
+            "title": "Gestión de Proyectos",
+            "description": "Planifica, ejecuta y supervisa todos tus proyectos con tableros Kanban visuales."
+        },
+        "marketing": {
+            "title": "Marketing Inteligente",
+            "description": "Crea campañas, gestiona contenido y encuentra nuevos clientes con Geomarketing."
+        },
+        "offers": {
+            "title": "Ofertas y Artículos",
+            "description": "Administra tu catálogo de productos/servicios y genera presupuestos profesionales."
+        },
+        "expenses": {
+            "title": "Gestión de Gastos con IA",
+            "description": "Digitaliza tus facturas con un solo clic gracias a la extracción de datos por IA."
+        },
+        "communications": {
+            "title": "Comunicaciones Unificadas",
+            "description": "Envía correos electrónicos y comunícate con tu equipo sin salir de la plataforma."
+        },
+        "automation": {
+            "title": "Automatización y Conexiones",
+            "description": "Integra tus herramientas favoritas y automatiza flujos de trabajo complejos."
+        },
+        "teams": {
+            "title": "Gestión de Equipo y Permisos",
+            "description": "Controla quién accede a qué módulo con un sistema de roles flexible y seguro."
+        }
+    },
+    "cta": {
+        "title": "¿Listo para transformar tu negocio?",
+        "subtitle": "Deja de hacer malabares con múltiples herramientas. Centraliza, automatiza y escala con M&SOLUTIONS.",
+        "button": "Comienza Ahora"
+    },
+    "footer": {
+        "copyright": "© 2024 M&SOLUTIONS. Todos los derechos reservados.",
+        "legal": "Aviso Legal",
+        "privacy": "Política de Privacidad",
+        "login": "Login"
+    }
+}
