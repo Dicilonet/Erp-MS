@@ -1,4 +1,3 @@
-
 "use client"
 
 import Link from "next/link"
@@ -75,7 +74,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
               buttonVariants({ variant: "ghost" }),
               pathname === item.href
                 ? "bg-muted hover:bg-muted"
-                : "hover:bg-transparent hover:underline",
+                : "hover:bg-accent hover:text-accent-foreground",
               "justify-start gap-2"
             )}
           >
