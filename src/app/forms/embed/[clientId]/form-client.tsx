@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -17,14 +18,13 @@ import { Loader2, PlusCircle, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
-
 const recipientSchema = z.object({
   name: z.string().min(1, 'required'),
   email: z.string().email('invalid_email').optional().or(z.literal('')),
   whatsapp: z.string().optional(),
 }).refine(data => !!data.email || !!data.whatsapp, {
   message: 'email_or_whatsapp_required',
-  path: ['email'], // Asigna el error a un campo para mostrarlo.
+  path: ['email'],
 });
 
 const recommendationFormSchema = z.object({
@@ -44,8 +44,12 @@ const recommendationFormSchema = z.object({
 
 type RecommendationFormData = z.infer<typeof recommendationFormSchema>;
 
+interface RecommendationFormForClientProps {
+  clientId: string;
+  products: { name: string; id?: string }[];
+}
 
-const RecommendationFormForClient = ({ products }: { products: { name: string, id?: string }[] }) => {
+const RecommendationFormForClient = ({ clientId, products }: RecommendationFormForClientProps) => {
     const { t } = useTranslation(['forms', 'legal']);
     const { toast } = useToast();
 
@@ -67,9 +71,8 @@ const RecommendationFormForClient = ({ products }: { products: { name: string, i
 
     const wantsToRecommend = watch('wantsToRecommend');
     
-    // Aquí puedes añadir la lógica de envío del formulario (onSubmit)
     const onSubmit = (data: RecommendationFormData) => {
-        console.log(data);
+        console.log({ clientId, ...data });
         toast({
             title: t('submit'),
             description: "Formulario enviado (simulación). Revisa la consola para ver los datos."
