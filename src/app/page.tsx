@@ -33,12 +33,12 @@ export default function DashboardPage() {
   const { t } = useTranslation(['dashboard', 'common']);
   const { isSuperadmin, isLoading: isAuthLoading, user } = useAuth();
   
-  const [teamData, setTeamData = useState<{ collaborators: InternalUser[], teamOffice: InternalUser[] }>({ collaborators: [], teamOffice: [] });
-  const [isTeamDataLoading, setIsTeamDataLoading = useState(true);
+  const [teamData, setTeamData] = useState<{ collaborators: InternalUser[], teamOffice: InternalUser[] }>({ collaborators: [], teamOffice: [] });
+  const [isTeamDataLoading, setIsTeamDataLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
-  const [isEditMode, setIsEditMode = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
-  const [columns, setColumns = useState<{ left: string[], right: string[] }>({
+  const [columns, setColumns] = useState<{ left: string[], right: string[] }>({
     left: [],
     right: []
   });

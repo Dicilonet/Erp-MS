@@ -14,5 +14,5 @@ configureGenkit({
     }),
   ],
   logLevel: 'debug',
-  enableTracingAndMetrics: false,
+  enableTracingAndMetrics: false, // CLAVE: Se desactiva la telemetría para evitar la dependencia de 'async_hooks' en el cliente.
 });
