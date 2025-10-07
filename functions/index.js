@@ -1,3 +1,4 @@
+
 /**
  * @file Firebase Cloud Functions para el ERP DICILO
  * Versión final, limpia y con todos los módulos.
@@ -2147,4 +2148,6 @@ exports.submitRecommendation = onCall({ region: 'europe-west1' }, async (request
         throw new HttpsError('internal', 'No se pudo procesar la recomendación.');
     }
 });
+    
+
     
