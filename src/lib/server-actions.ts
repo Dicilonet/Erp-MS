@@ -2,7 +2,7 @@
 'use server';
 
 import { z } from 'zod';
-import { ai } from '@/ai/genkit';
+import { genkit } from 'genkit';
 import { googleAI } from '@genkit-ai/google-genai';
 
 import {
@@ -18,9 +18,8 @@ import { processReceiptPrompt } from '@/ai/flows/process-receipt';
 import { generateMarketingCampaignPrompt } from '@/ai/flows/generate-marketing-campaign';
 import { generateSocialMediaImagePrompt } from '@/ai/flows/generate-social-media-image';
 
-// --- Configuración de Genkit en el servidor ---
-// Esto asegura que la configuración con la API Key solo se ejecute en el servidor.
-const configuredAi = ai.configure({
+// Función auxiliar para obtener una instancia configurada de Genkit
+const getAI = () => genkit({
   plugins: [
     googleAI({
       apiKey: process.env.GEMINI_API_KEY,
@@ -32,51 +31,54 @@ const configuredAi = ai.configure({
 
 
 // --- Flow para Resumen de Interacción ---
-const summaryFlow = configuredAi.definePrompt({
-  name: 'suggestInteractionSummaryAction',
-  input: { schema: InteractionSummaryInputSchema },
-  output: { schema: InteractionSummaryOutputSchema },
-  prompt: suggestInteractionSummaryPrompt,
-});
-
 export async function suggestInteractionSummary(
   input: z.infer<typeof InteractionSummaryInputSchema>
 ): Promise<z.infer<typeof InteractionSummaryOutputSchema>> {
-  const { output } = await summaryFlow(input);
+  const ai = getAI();
+  const summaryFlow = ai.definePrompt({
+    name: 'suggestInteractionSummaryAction',
+    input: { schema: InteractionSummaryInputSchema },
+    output: { schema: InteractionSummaryOutputSchema },
+    prompt: suggestInteractionSummaryPrompt,
+  });
+
+  const { output } = await summaryFlow.run(input);
   if (!output) throw new Error('Failed to generate summary.');
   return output;
 }
 
 
 // --- Flow para Procesar Facturas ---
-const receiptFlow = configuredAi.definePrompt({
-  name: 'processReceiptAction',
-  input: { schema: ReceiptInputSchema },
-  output: { schema: ReceiptOutputSchema },
-  prompt: processReceiptPrompt,
-});
-
 export async function processReceipt(
   input: z.infer<typeof ReceiptInputSchema>
 ): Promise<z.infer<typeof ReceiptOutputSchema>> {
-  const { output } = await receiptFlow(input);
+  const ai = getAI();
+  const receiptFlow = ai.definePrompt({
+    name: 'processReceiptAction',
+    input: { schema: ReceiptInputSchema },
+    output: { schema: ReceiptOutputSchema },
+    prompt: processReceiptPrompt,
+  });
+
+  const { output } = await receiptFlow.run(input);
   if (!output) throw new Error('Failed to process receipt.');
   return output;
 }
 
 
 // --- Flow para Campaña de Marketing ---
-const campaignFlow = configuredAi.definePrompt({
-  name: 'generateMarketingCampaignAction',
-  input: { schema: MarketingCampaignInputSchema },
-  output: { schema: MarketingCampaignOutputSchema },
-  prompt: generateMarketingCampaignPrompt,
-});
-
 export async function generateMarketingCampaign(
   input: z.infer<typeof MarketingCampaignInputSchema>
 ): Promise<z.infer<typeof MarketingCampaignOutputSchema>> {
-  const { output } = await campaignFlow(input);
+  const ai = getAI();
+  const campaignFlow = ai.definePrompt({
+    name: 'generateMarketingCampaignAction',
+    input: { schema: MarketingCampaignInputSchema },
+    output: { schema: MarketingCampaignOutputSchema },
+    prompt: generateMarketingCampaignPrompt,
+  });
+
+  const { output } = await campaignFlow.run(input);
   if (!output) throw new Error('Failed to generate campaign.');
   return output;
 }
@@ -84,13 +86,14 @@ export async function generateMarketingCampaign(
 
 // --- Flow para Generación de Imágenes ---
 export async function generateSocialMediaImage(prompt: string): Promise<string> {
-    const genkitAi = configuredAi;
-    const { media } = await genkitAi.generate({
-        model: googleAI.model('imagen-2.0-latest'),
-        prompt,
+    const ai = getAI();
+    const { media } = await ai.generate({
+        model: 'imagen-2',
+        prompt: generateSocialMediaImagePrompt.replace('{{{prompt}}}', prompt),
     });
-    if (!media.url) {
+    const url = media.url;
+    if (!url) {
         throw new Error('Image generation failed to return a URL.');
     }
-    return media.url;
+    return url;
 }

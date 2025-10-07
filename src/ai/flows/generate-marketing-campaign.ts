@@ -1,5 +1,3 @@
-
-'use server';
 // Este archivo ahora solo exporta el texto del prompt, no una definición de Genkit.
 export const generateMarketingCampaignPrompt = `Eres un estratega de marketing experto. Basado en la siguiente información sobre el negocio de un cliente, genera una estrategia de campaña concisa.
 
