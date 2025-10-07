@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -5,11 +6,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { Loader2, ArrowRight, LayoutGrid } from 'lucide-react';
+import { Loader2, ArrowRight, LayoutGrid, LogIn } from 'lucide-react';
 import { useState } from 'react';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '@/lib/firebase';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -63,7 +65,7 @@ function SignUpForm() {
     }
 
     return (
-        <Card className="w-full shadow-2xl">
+        <Card className="w-full shadow-2xl bg-card/80 backdrop-blur-lg">
             <CardHeader>
                 <CardTitle>Comienza tu Transformación</CardTitle>
                 <CardDescription>Regístrate para una demo gratuita.</CardDescription>
@@ -112,10 +114,21 @@ function SignUpForm() {
 export function HeroSection() {
   return (
     <section className="relative bg-background overflow-hidden">
+        <div className="absolute inset-0 z-0">
+             <Image 
+                src="https://images.unsplash.com/photo-1556761175-b413da4b248b?q=80&w=2070&auto=format&fit=crop"
+                alt="Oficina moderna"
+                layout="fill"
+                objectFit="cover"
+                className="opacity-20"
+                data-ai-hint="office workspace"
+             />
+             <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
+        </div>
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="relative z-10 pt-6 pb-8 sm:pb-16 md:pb-20 lg:w-full lg:max-w-2xl lg:pb-28 xl:pb-32">
                 
-                 {/* --- HEADER --- */}
                 <div className="flex justify-between items-center mb-10">
                      <div className="flex items-center gap-2">
                         <LayoutGrid className="h-8 w-8 text-primary" />
@@ -149,7 +162,7 @@ export function HeroSection() {
              <div className="absolute top-6 right-6 z-20">
                 <LanguageSwitcher />
             </div>
-             <div className="relative h-full w-full flex items-center justify-center bg-muted/30 rounded-3xl p-8">
+             <div className="relative h-full w-full flex items-center justify-center p-8">
                 <SignUpForm />
             </div>
         </div>
