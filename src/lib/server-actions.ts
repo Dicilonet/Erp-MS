@@ -1,8 +1,7 @@
-
 'use server';
 
+import { genkit, type GenkitConfig } from 'genkit';
 import { z } from 'zod';
-import { ai } from '@/ai/genkit';
 import { googleAI } from '@genkit-ai/google-genai';
 
 import {
@@ -18,15 +17,18 @@ import { processReceiptPrompt } from '@/ai/flows/process-receipt';
 import { generateMarketingCampaignPrompt } from '@/ai/flows/generate-marketing-campaign';
 import { generateSocialMediaImagePrompt } from '@/ai/flows/generate-social-media-image';
 
-// --- Configuración de Genkit en el servidor ---
-// Esto asegura que la configuración con la API Key solo se ejecute en el servidor.
-const configuredAi = ai.configure({
+
+// --- Inicialización de Genkit y configuración exclusiva del servidor ---
+const serverConfig: GenkitConfig = {
   plugins: [
     googleAI({
       apiKey: process.env.GEMINI_API_KEY,
     }),
   ],
-});
+  enableTracingAndMetrics: false,
+};
+
+const configuredAi = genkit(serverConfig);
 
 
 // --- Flow para Resumen de Interacción ---
@@ -45,7 +47,6 @@ export async function suggestInteractionSummary(
   return output;
 }
 
-
 // --- Flow para Procesar Facturas ---
 const receiptFlow = configuredAi.definePrompt({
   name: 'processReceiptAction',
@@ -61,7 +62,6 @@ export async function processReceipt(
   if (!output) throw new Error('Failed to process receipt.');
   return output;
 }
-
 
 // --- Flow para Campaña de Marketing ---
 const campaignFlow = configuredAi.definePrompt({
@@ -79,15 +79,14 @@ export async function generateMarketingCampaign(
   return output;
 }
 
-
 // --- Flow para Generación de Imágenes ---
 export async function generateSocialMediaImage(prompt: string): Promise<string> {
     const { media } = await configuredAi.generate({
         model: 'googleai/imagen-2.0-latest',
         prompt: generateSocialMediaImagePrompt,
-        input: prompt,
+        input: { prompt },
     });
-    if (!media.url) {
+    if (!media?.url) {
         throw new Error('Image generation failed to return a URL.');
     }
     return media.url;

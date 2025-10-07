@@ -1,6 +1,4 @@
 
-'use server';
-
 export const processReceiptPrompt = `Analiza la siguiente imagen de una factura o ticket y extrae la información requerida en formato JSON.
 
   Imagen de la factura: {{media url=receiptImage}}
