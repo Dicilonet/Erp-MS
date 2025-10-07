@@ -1,3 +1,4 @@
+
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
@@ -20,6 +21,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Definimos las rutas públicas. Cualquier otra ruta requerirá autenticación.
+// La ruta '/' es la landing page pública.
 const publicRoutes = ['/login', '/signup', '/redeem', '/'];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -34,7 +37,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
         if (firebaseUser) {
             try {
-                // Obtenemos el token y sus claims para verificar el rol
                 const idTokenResult = await firebaseUser.getIdTokenResult();
                 setUser(firebaseUser);
                 setIsSuperadmin(idTokenResult.claims.role === 'superadmin');
@@ -57,21 +59,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (isLoading) {
         return;
     }
+    
+    // Verificamos si la ruta actual es una de las públicas definidas.
+    const isPublicRoute = publicRoutes.some(route => {
+        if (route === '/') return pathname === '/';
+        return pathname.startsWith(route);
+    });
 
-    const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
-
-
+    // Si el usuario no está logueado y la ruta no es pública, lo mandamos a login.
     if (!user && !isPublicRoute) {
         router.push('/login');
     }
 
+    // Si el usuario está logueado e intenta acceder a login/signup, lo mandamos al dashboard principal.
     if (user && (pathname === '/login' || pathname === '/signup')) {
         router.push('/dashboard');
     }
   }, [isLoading, user, pathname, router]);
 
-
-  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
+  const isPublicRoute = publicRoutes.some(route => {
+        if (route === '/') return pathname === '/';
+        return pathname.startsWith(route);
+    });
+  
+  // Muestra el loader mientras se verifica la autenticación o si se está redirigiendo a una página protegida.
   if (isLoading || (!user && !isPublicRoute)) {
     return <FullScreenLoader />;
   }
@@ -82,7 +93,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     { href: "/chat", label: t('nav.chat'), icon: <MessageSquare /> },
     { href: "/customers", label: t('nav.customers'), icon: <Users /> },
     { href: "/admin/projects", label: t('nav.projects'), icon: <FolderKanban /> },
-    { href: "/marketing/coupons", label: t('nav.marketing', {ns: 'common'}), icon: <Briefcase /> },
+    { href: "/marketing", label: t('nav.marketing', {ns: 'common'}), icon: <Briefcase /> },
     { href: "/articulos", label: t('nav.articles'), icon: <Package /> },
     { href: "/offers", label: t('nav.offers'), icon: <FileText /> },
     { href: "/expenses", label: t('nav.expenses'), icon: <Receipt /> },
@@ -96,12 +107,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const value = { user, isSuperadmin, isLoading };
+  
+  const showDashboardLayout = user && !isPublicRoute;
 
   return (
     <AuthContext.Provider value={value}>
-      {isPublicRoute ? (
-        children
-      ) : (
+      {showDashboardLayout ? (
         <div className="md:grid md:grid-cols-[250px_1fr] w-full">
             <div className="hidden md:block border-r bg-background h-screen">
                 <DashboardSidebar navItems={navItems} />
@@ -113,6 +124,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               </main>
             </div>
         </div>
+      ) : (
+        children
       )}
     </AuthContext.Provider>
   );

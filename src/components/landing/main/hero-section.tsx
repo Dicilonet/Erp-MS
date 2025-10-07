@@ -159,8 +159,13 @@ export function HeroSection() {
             </div>
         </div>
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center p-8">
-             <div className="absolute top-6 right-6 z-20">
+             <div className="absolute top-6 right-6 z-20 flex gap-4 items-center">
                 <LanguageSwitcher />
+                 <Button asChild variant="outline">
+                    <Link href="/login">
+                        <LogIn className="mr-2 h-4 w-4" /> Login
+                    </Link>
+                </Button>
             </div>
              <div className="relative h-full w-full flex items-center justify-center p-8">
                 <SignUpForm />
