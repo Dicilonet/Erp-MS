@@ -26,6 +26,8 @@ const configuredAi = ai.configure({
       apiKey: process.env.GEMINI_API_KEY,
     }),
   ],
+  logLevel: 'debug',
+  enableTracingAndMetrics: false,
 });
 
 
@@ -82,10 +84,10 @@ export async function generateMarketingCampaign(
 
 // --- Flow para Generación de Imágenes ---
 export async function generateSocialMediaImage(prompt: string): Promise<string> {
-    const { media } = await configuredAi.generate({
-        model: 'googleai/imagen-2.0-latest',
-        prompt: generateSocialMediaImagePrompt,
-        input: prompt,
+    const genkitAi = configuredAi;
+    const { media } = await genkitAi.generate({
+        model: googleAI.model('imagen-2.0-latest'),
+        prompt,
     });
     if (!media.url) {
         throw new Error('Image generation failed to return a URL.');
