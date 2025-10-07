@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { LanguageSwitcher } from '@/components/language-switcher';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
@@ -120,6 +121,7 @@ export function HeroSection() {
                         <LayoutGrid className="h-8 w-8 text-primary" />
                         <span className="font-semibold text-xl">M&SOLUTIONS</span>
                     </div>
+                    <LanguageSwitcher />
                 </div>
 
                 <main className="mt-10">
