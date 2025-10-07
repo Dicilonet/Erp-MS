@@ -12,6 +12,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '@/lib/firebase';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -32,6 +33,7 @@ const formSchema = z.object({
 });
 
 function SignUpForm() {
+    const { t } = useTranslation('landing');
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
 
@@ -48,16 +50,16 @@ function SignUpForm() {
             await submitContactForm(values);
 
             toast({
-                title: '¡Gracias por tu interés!',
-                description: 'Hemos recibido tu solicitud y te contactaremos pronto.',
+                title: t('hero.form.toast.title'),
+                description: t('hero.form.toast.description'),
             });
             form.reset();
 
         } catch (error: any) {
             toast({
                 variant: 'destructive',
-                title: 'Error al enviar',
-                description: error.message || 'No se pudo procesar tu solicitud.',
+                title: t('hero.form.toast.errorTitle'),
+                description: error.message || t('hero.form.toast.errorDescription'),
             });
         } finally {
             setIsLoading(false);
@@ -67,8 +69,8 @@ function SignUpForm() {
     return (
         <Card className="w-full shadow-2xl bg-card/80 backdrop-blur-lg">
             <CardHeader>
-                <CardTitle>Comienza tu Transformación</CardTitle>
-                <CardDescription>Regístrate para una demo gratuita.</CardDescription>
+                <CardTitle>{t('hero.form.title')}</CardTitle>
+                <CardDescription>{t('hero.form.description')}</CardDescription>
             </CardHeader>
             <CardContent>
                 <Form {...form}>
@@ -78,9 +80,9 @@ function SignUpForm() {
                             name="companyName"
                             render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Nombre de la Empresa</FormLabel>
+                                <FormLabel>{t('hero.form.companyName')}</FormLabel>
                                 <FormControl>
-                                <Input placeholder="Tu empresa" {...field} disabled={isLoading} />
+                                <Input placeholder={t('hero.form.companyNamePlaceholder')} {...field} disabled={isLoading} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -91,9 +93,9 @@ function SignUpForm() {
                             name="email"
                             render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email de Trabajo</FormLabel>
+                                <FormLabel>{t('hero.form.email')}</FormLabel>
                                 <FormControl>
-                                <Input placeholder="tu@empresa.com" {...field} disabled={isLoading} />
+                                <Input placeholder={t('hero.form.emailPlaceholder')} {...field} disabled={isLoading} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -101,7 +103,7 @@ function SignUpForm() {
                         />
                         <Button type="submit" className="w-full" disabled={isLoading}>
                             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Solicitar Demo
+                            {t('hero.form.submitButton')}
                         </Button>
                     </form>
                 </Form>
@@ -112,12 +114,13 @@ function SignUpForm() {
 
 
 export function HeroSection() {
+  const { t } = useTranslation('landing');
   return (
     <section className="relative bg-background overflow-hidden">
         <div className="absolute inset-0 z-0">
              <Image 
                 src="https://images.unsplash.com/photo-1556761175-b413da4b248b?q=80&w=2070&auto=format&fit=crop"
-                alt="Oficina moderna"
+                alt={t('hero.backgroundImageAlt')}
                 layout="fill"
                 objectFit="cover"
                 className="opacity-20"
@@ -139,17 +142,17 @@ export function HeroSection() {
                 <main className="mt-10">
                     <div className="sm:text-center lg:text-left">
                         <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-                            <span className="block">El Sistema Operativo</span>{' '}
-                            <span className="block text-primary">para tu Negocio</span>
+                            <span className="block">{t('hero.title1')}</span>{' '}
+                            <span className="block text-primary">{t('hero.title2')}</span>
                         </h1>
                         <p className="mt-3 text-base text-muted-foreground sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-                            Centraliza, automatiza y expande tu empresa con M&SOLUTIONS. La plataforma todo-en-uno que integra CRM, proyectos, marketing y finanzas con el poder de la IA.
+                            {t('hero.subtitle')}
                         </p>
                         <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                             <div className="rounded-md shadow">
                                 <Button size="lg" className="w-full" asChild>
                                     <a href="#features">
-                                        Comenzar Ahora <ArrowRight className="ml-2" />
+                                        {t('hero.ctaButton')} <ArrowRight className="ml-2" />
                                     </a>
                                 </Button>
                             </div>
@@ -161,11 +164,6 @@ export function HeroSection() {
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center p-8">
              <div className="absolute top-6 right-6 z-20 flex gap-4 items-center">
                 <LanguageSwitcher />
-                 <Button asChild variant="outline">
-                    <Link href="/login">
-                        <LogIn className="mr-2 h-4 w-4" /> Login
-                    </Link>
-                </Button>
             </div>
              <div className="relative h-full w-full flex items-center justify-center p-8">
                 <SignUpForm />
