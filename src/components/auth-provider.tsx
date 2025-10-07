@@ -1,14 +1,13 @@
-
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import type { User } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter, usePathname } from 'next/navigation';
 import { DashboardSidebar } from './dashboard-sidebar';
 import { useTranslation } from 'react-i18next';
-import { BarChart, Users, FolderKanban, FileText, Receipt, LifeBuoy, Mail, FolderSync, ShieldCheck, Library, CheckSquare, Package, MessageSquare } from 'lucide-react';
+import { BarChart, Users, FolderKanban, FileText, Receipt, LifeBuoy, Mail, FolderSync, ShieldCheck, Library, Calendar, CheckSquare, Package, MessageSquare, Briefcase } from 'lucide-react';
 import type { NavItem } from '@/lib/types';
 import { DashboardHeader } from './dashboard-header';
 import { FullScreenLoader } from './ui/fullscreen-loader';
@@ -21,7 +20,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const publicRoutes = ['/login', '/signup', '/redeem'];
+const publicRoutes = ['/login', '/signup', '/redeem', '/'];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation(['common', 'marketing']);
@@ -66,34 +65,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         router.push('/login');
     }
 
-    if (user && isPublicRoute && pathname !== '/redeem') {
-        router.push('/');
+    if (user && (pathname === '/login' || pathname === '/signup')) {
+        router.push('/dashboard');
     }
   }, [isLoading, user, pathname, router]);
 
 
   const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
-  if (isLoading || (!user && !isPublicRoute) || (user && isPublicRoute && pathname !== '/redeem')) {
+  if (isLoading || (!user && !isPublicRoute)) {
     return <FullScreenLoader />;
   }
 
  const navItems: NavItem[] = [
-    { href: "/", label: t('nav.dashboard', {ns: 'common'}), icon: <BarChart /> },
-    { href: "/admin/todo-list", label: t('nav.todoList', {ns: 'common'}), icon: <CheckSquare /> },
-    { href: "/chat", label: t('nav.chat', {ns: 'common'}), icon: <MessageSquare /> },
-    { href: "/customers", label: t('nav.customers', {ns: 'common'}), icon: <Users /> },
-    { href: "/admin/projects", label: t('nav.projects', {ns: 'common'}), icon: <FolderKanban /> },
-    { href: "/marketing/coupons", label: t('nav.marketing', {ns: 'common'}), icon: <Library /> },
-    { href: "/articulos", label: t('nav.articles', {ns: 'common'}), icon: <Package /> },
-    { href: "/offers", label: t('nav.offers', {ns: 'common'}), icon: <FileText /> },
-    { href: "/expenses", label: t('nav.expenses', {ns: 'common'}), icon: <Receipt /> },
-    { href: "/support", label: t('nav.support', {ns: 'common'}), icon: <LifeBuoy /> },
-    { href: "/communications/email", label: t('nav.email', {ns: 'common'}), icon: <Mail /> },
+    { href: "/dashboard", label: t('nav.dashboard'), icon: <BarChart /> },
+    { href: "/admin/todo-list", label: t('nav.todoList'), icon: <CheckSquare /> },
+    { href: "/chat", label: t('nav.chat'), icon: <MessageSquare /> },
+    { href: "/customers", label: t('nav.customers'), icon: <Users /> },
+    { href: "/admin/projects", label: t('nav.projects'), icon: <FolderKanban /> },
+    { href: "/marketing/coupons", label: t('nav.marketing', {ns: 'common'}), icon: <Briefcase /> },
+    { href: "/articulos", label: t('nav.articles'), icon: <Package /> },
+    { href: "/offers", label: t('nav.offers'), icon: <FileText /> },
+    { href: "/expenses", label: t('nav.expenses'), icon: <Receipt /> },
+    { href: "/support", label: t('nav.support'), icon: <LifeBuoy /> },
+    { href: "/communications/email", label: t('nav.email'), icon: <Mail /> },
   ];
 
   if (isSuperadmin) {
-    navItems.push({ href: "/connections", label: t('nav.connections', {ns: 'common'}), icon: <FolderSync /> });
-    navItems.push({ href: "/teams", label: t('nav.teams', {ns: 'common'}), icon: <ShieldCheck /> });
+    navItems.push({ href: "/connections", label: t('nav.connections'), icon: <FolderSync /> });
+    navItems.push({ href: "/teams", label: t('nav.teams'), icon: <ShieldCheck /> });
   }
 
   const value = { user, isSuperadmin, isLoading };
