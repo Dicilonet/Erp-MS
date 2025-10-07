@@ -19,7 +19,7 @@ export function CouponDashboard() {
 
   return (
      <Tabs defaultValue="batch" className="w-full">
-      <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 gap-1">
+      <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3">
         <TabsTrigger value="batch">{t('coupons.tabs.batch')}</TabsTrigger>
         <TabsTrigger value="individual">{t('coupons.tabs.individual')}</TabsTrigger>
         <TabsTrigger value="list">{t('coupons.tabs.list')}</TabsTrigger>
