@@ -5,7 +5,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button } from '../ui/button';
 import { Search, Loader2 } from 'lucide-react';
 import type { LatLngExpression } from 'leaflet';
 import type { CustomerStatus } from '@/lib/types';
@@ -78,7 +78,7 @@ export function MapSearchBox({ onSearchStart, onSearchSuccess, onSearchError }: 
     return (
         <form onSubmit={handleSearch} className="flex w-full items-center space-x-2 mt-4">
             <Input
-                placeholder="Buscar por ciudad, zona o código postal..."
+                placeholder="Zona o códigos postales (separados por comas)..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 disabled={isSearching}

@@ -1,4 +1,5 @@
 
+
 /**
  * @file Firebase Cloud Functions para el ERP DICILO
  * Versión final, limpia y con todos los módulos.
@@ -2100,7 +2101,7 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
     }
 
     try {
-        const metricsCollectionRef = db.collection(`customers/${customerId}/metrics`);
+        const metricsRef = db.collection(`customers/${customerId}/metrics`);
         
         const newMetricRecord = {
             createdAt: FieldValue.serverTimestamp(),
@@ -2108,7 +2109,7 @@ exports.saveCustomerMetrics = onCall({ region: 'europe-west1' }, async (request)
             responses: metrics,
         };
 
-        await addDoc(metricsCollectionRef, newMetricRecord);
+        await addDoc(metricsRef, newMetricRecord);
         
         return { success: true };
 
@@ -2148,3 +2149,128 @@ exports.submitRecommendation = onCall({ region: 'europe-west1' }, async (request
         throw new HttpsError('internal', 'No se pudo procesar la recomendación.');
     }
 });
+
+// --- Funciones de Geomarketing (NUEVA VERSIÓN MEJORADA) ---
+
+exports.getBusinessesInArea = onCall({region: 'europe-west1', timeoutSeconds: 60}, async (request) => {
+    const axios = require('axios');
+    const { zoneName } = request.data;
+    if (!zoneName) {
+        throw new HttpsError('invalid-argument', 'Se requiere un nombre de zona o códigos postales.');
+    }
+
+    // Separa la búsqueda por comas para manejar múltiples zonas/códigos postales
+    const zones = zoneName.split(',').map(z => z.trim()).filter(Boolean);
+    if (zones.length === 0) {
+        throw new HttpsError('invalid-argument', 'La consulta de búsqueda está vacía.');
+    }
+
+    try {
+        const allBusinesses = new Map();
+        let combinedGeoJson = { type: 'FeatureCollection', features: [] };
+        let firstCenter = null;
+
+        // Búsqueda de todos los clientes en el CRM
+        const allCustomersSnapshot = await db.collection('customers').get();
+        const customersByWebsite = new Map();
+        const customersByName = new Map();
+        allCustomersSnapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.website) {
+                try {
+                    const normalizedUrl = new URL(data.website).hostname.replace(/^www\./, '');
+                    customersByWebsite.set(normalizedUrl, data.status || 'prospecto');
+                } catch (e) {}
+            }
+            if (data.name) {
+                customersByName.set(data.name.toLowerCase().trim(), data.status || 'prospecto');
+            }
+        });
+
+
+        for (const zone of zones) {
+            const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(zone)}&format=json&polygon_geojson=1&limit=1`;
+            const nominatimResponse = await axios.get(nominatimUrl, { headers: { 'User-Agent': 'DiciloERP/1.0' } });
+
+            if (!nominatimResponse.data || nominatimResponse.data.length === 0) {
+                console.warn(`No se encontraron datos para la zona: ${zone}`);
+                continue; // Salta a la siguiente zona si no se encuentra
+            }
+
+            const zoneData = nominatimResponse.data[0];
+            if (!firstCenter) {
+                firstCenter = [parseFloat(zoneData.lat), parseFloat(zoneData.lon)];
+            }
+            if (zoneData.geojson) {
+                combinedGeoJson.features.push({
+                    type: "Feature",
+                    properties: { name: zone },
+                    geometry: zoneData.geojson
+                });
+            }
+            
+            const areaId = parseInt(zoneData.osm_id) + 3600000000;
+            const overpassQuery = `[out:json][timeout:50]; area(${areaId})->.searchArea; (node["shop"](area.searchArea); way["shop"](area.searchArea); relation["shop"](area.searchArea); node["amenity"](area.searchArea); way["amenity"](area.searchArea); relation["amenity"](area.searchArea);); out body; >; out skel qt;`;
+            const overpassUrl = 'https://overpass-api.de/api/interpreter';
+            const overpassResponse = await axios.post(overpassUrl, overpassQuery, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            
+            const elements = overpassResponse.data.elements;
+            const nodes = new Map(elements.filter(e => e.type === 'node').map(node => [node.id, node]));
+
+            elements.map(el => {
+                if (el.type === 'way' && el.nodes?.length > 0) {
+                    const firstNode = nodes.get(el.nodes[0]);
+                    if (firstNode) return { ...el, lat: firstNode.lat, lon: firstNode.lon };
+                }
+                return el;
+            }).filter(el => el.lat && el.lon && el.tags?.name).forEach(el => {
+                if (!allBusinesses.has(el.id)) {
+                    const tags = el.tags || {};
+                    let status = 'neutro';
+                    if (tags.website) {
+                         try {
+                            const normalizedUrl = new URL(tags.website).hostname.replace(/^www\./, '');
+                            if (customersByWebsite.has(normalizedUrl)) status = customersByWebsite.get(normalizedUrl);
+                         } catch (e) {}
+                    }
+                    if (status === 'neutro' && tags.name) {
+                        const nameKey = tags.name.toLowerCase().trim();
+                        if (customersByName.has(nameKey)) status = customersByName.get(nameKey);
+                    }
+
+                    allBusinesses.set(el.id, {
+                        id: el.id,
+                        name: tags.name,
+                        lat: el.lat,
+                        lon: el.lon,
+                        crmStatus: status,
+                        tags: {
+                            fullAddress: [tags['addr:street'], tags['addr:housenumber'], ',', tags['addr:postcode'], tags['addr:city']].filter(Boolean).join(' ').replace(' ,', ','),
+                            website: tags.website || tags['contact:website'] || null,
+                            phone: tags.phone || tags['contact:phone'] || null,
+                            email: tags.email || tags['contact:email'] || null,
+                        }
+                    });
+                }
+            });
+        }
+
+        if (allBusinesses.size === 0) {
+            return { success: false, message: 'No se encontraron negocios para las zonas especificadas.' };
+        }
+
+        return { 
+            success: true, 
+            geojson: combinedGeoJson, 
+            center: firstCenter,
+            businesses: Array.from(allBusinesses.values())
+        };
+
+    } catch (error) {
+        console.error('Error en getBusinessesInArea:', error);
+        throw new HttpsError('internal', 'No se pudo obtener la información de negocios para la zona.');
+    }
+});
+    
+
+    
