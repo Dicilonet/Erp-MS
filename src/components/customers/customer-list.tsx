@@ -341,3 +341,4 @@ export function CustomerList() {
         </Card>
     );
 }
+
