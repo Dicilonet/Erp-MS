@@ -9,6 +9,7 @@ import { Footer } from '@/components/landing/main/footer';
 
 export default function LandingPage() {
   // Carga las traducciones para este componente y sus hijos
+  // Al usar el hook aquí, el componente se re-renderizará cuando cambie el idioma.
   useTranslation('landing');
   
   return (
