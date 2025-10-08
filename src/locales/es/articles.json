@@ -1,3 +1,4 @@
+
 {
     "title": "Catálogo de Artículos",
     "description": "Gestiona los productos y servicios que ofreces a tus clientes.",
@@ -97,7 +98,9 @@
             "environment": "Medio Ambiente",
             "environmentDescription": "Diseños para proyectos ecológicos y organizaciones sostenibles.",
             "entertainment": "Entretenimiento",
-            "entertainmentDescription": "Páginas para eventos, espectáculos y creadores de contenido."
+            "entertainmentDescription": "Páginas para eventos, espectáculos y creadores de contenido.",
+            "pets": "Mascotas",
+            "petsDescription": "Plantillas para servicios de mascotas, tiendas y cuidadores."
         }
     }
 }

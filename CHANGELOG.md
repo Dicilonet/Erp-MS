@@ -3,6 +3,18 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 16 de Agosto de 2024
+
+### 1. [ID de Cambio: 16a4f2b1] Mejora y Corrección del Formulario de Clientes
+
+*   **¿Qué se hizo?** Se refactorizó el formulario de creación de clientes y se corrigieron errores de traducción para mejorar la usabilidad y la coherencia del sistema.
+    1.  **Categorías por Menú Desplegable:** Se reemplazó el campo de texto libre para "Categoría" por un menú desplegable con una lista predefinida de sectores (Beratung, Gastronomie, Hotellerie, etc.). Esto estandariza la entrada de datos y previene errores.
+    2.  **Asignación Inteligente de Landing Pages:** Se implementó una lógica condicional en el formulario. Ahora, el menú para "Asignar Plantilla de Landing Page" se filtra automáticamente basándose en la categoría de negocio seleccionada. Si se elige "Hotellerie", solo se muestran las plantillas para hoteles, haciendo el proceso más rápido e intuitivo.
+    3.  **Corrección de Traducciones:** Se solucionó un error visual en la biblioteca de landing pages donde la categoría "Mascotas" no se traducía correctamente (`landingPages.categories.pets`). Se añadieron las claves que faltaban en los archivos de internacionalización (`locales/{es,en,de}/articles.json`).
+
+*   **¿Por qué se hizo?** Para mejorar drásticamente la experiencia de usuario al crear un cliente, asegurando que los datos sean consistentes y facilitando la asignación de recursos de marketing relevantes, sentando una base sólida para la futura automatización de la creación de landing pages.
+
+---
 ## 15 de Agosto de 2024
 
 ### 1. [ID de Cambio: 15e8f1d3] Preparación para Sincronización de Clientes con Airtable

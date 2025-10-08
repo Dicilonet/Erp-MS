@@ -7,7 +7,7 @@ import { LayoutTemplate, Construction } from 'lucide-react';
 import Link from 'next/link';
 
 // Datos de ejemplo que usaremos para mostrar la estructura
-const landingPageCategories = [
+export const landingPageCategories = [
   {
     id: 'commerce',
     titleKey: 'landingPages.categories.commerce',
@@ -17,7 +17,7 @@ const landingPageCategories = [
     ]
   },
   {
-    id: 'gastronomy',
+    id: 'gastronomie',
     titleKey: 'landingPages.categories.gastronomy',
     descriptionKey: 'landingPages.categories.gastronomyDescription',
     pages: [
@@ -26,7 +26,7 @@ const landingPageCategories = [
     ]
   },
   {
-    id: 'reisen',
+    id: 'reise',
     titleKey: 'landingPages.categories.travel',
     descriptionKey: 'landingPages.categories.travelDescription',
     pages: [
@@ -78,7 +78,7 @@ const landingPageCategories = [
     ]
   },
    {
-    id: 'haustiere',
+    id: 'tier',
     titleKey: 'landingPages.categories.pets',
     descriptionKey: 'landingPages.categories.petsDescription',
     pages: [
@@ -86,7 +86,7 @@ const landingPageCategories = [
     ]
   },
   {
-    id: 'kleidung',
+    id: 'textil',
     titleKey: 'landingPages.categories.fashion',
     descriptionKey: 'landingPages.categories.fashionDescription',
     pages: [
@@ -102,7 +102,7 @@ const landingPageCategories = [
     ]
   },
   {
-    id: 'finanzdienste',
+    id: 'finanzdienstleistung',
     titleKey: 'landingPages.categories.financial',
     descriptionKey: 'landingPages.categories.financialDescription',
     pages: [

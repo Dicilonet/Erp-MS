@@ -1,3 +1,4 @@
+
 {
     "title": "Artikelkatalog",
     "description": "Verwalten Sie die Produkte und Dienstleistungen, die Sie Ihren Kunden anbieten.",
@@ -97,7 +98,9 @@
             "environment": "Umwelt",
             "environmentDescription": "Designs für ökologische Projekte und nachhaltige Organisationen.",
             "entertainment": "Unterhaltung",
-            "entertainmentDescription": "Seiten für Events, Shows und Content-Ersteller."
+            "entertainmentDescription": "Seiten für Events, Shows und Content-Ersteller.",
+            "pets": "Haustiere",
+            "petsDescription": "Vorlagen für Tierdienstleistungen, Geschäfte und Tierpfleger."
         }
     }
 }

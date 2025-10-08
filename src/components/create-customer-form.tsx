@@ -3,7 +3,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addDoc, collection } from 'firebase/firestore';
-import { Loader2 } from 'lucide-react';
+import { Loader2, PlusCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -34,16 +34,13 @@ import { useToast } from '@/hooks/use-toast';
 import { db } from '@/lib/firebase';
 import type { Customer, CustomerPlanId, PaymentCycle, CountryCode } from '@/lib/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { landingPageCategories } from '@/app/(protected)/articulos/landing-pages/page';
 
-// Datos de ejemplo para las landing pages. Esto debería venir de una fuente de datos en el futuro.
-const landingPageTemplates = [
-  { id: 'comercio-1', name: 'Landing E-commerce Moderna' },
-  { id: 'gastronomia-1', name: 'Landing para Restaurantes' },
-  { id: 'gastronomia-2', name: 'Landing para Cafeterías' },
-  { id: 'reisen-1', name: 'Landing para Agencias de Viajes' },
-  { id: 'reisen-2', name: 'Landing para Tours Urbanos' },
+const businessCategories = [
+    "Beratung", "Bildung", "Finanzdienstleistung", "Gastronomie", "Gesundheit", 
+    "Hotellerie", "Immobilien", "Lebensmittel", "Textil", "Musik", "Soziales", 
+    "Sport", "Reise", "Technologie", "Tier", "Transport", "Umwelt", "Unterhaltung"
 ];
-
 
 const formSchema = z.object({
   // --- Info Principal ---
@@ -79,7 +76,7 @@ const formSchema = z.object({
   rating: z.coerce.number().min(0).max(5).default(0),
 
   // --- Nuevos campos ---
-  category: z.string().min(3, { message: 'La categoría es requerida.' }),
+  category: z.string().min(1, { message: 'La categoría es requerida.' }),
   assignedLandingPage: z.string().optional(),
   landingPageSubdomain: z.string().optional(),
 });
@@ -116,6 +113,12 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
       landingPageSubdomain: '',
     },
   });
+
+  const selectedCategory = form.watch('category');
+
+  const filteredLandingPages = landingPageCategories
+    .find(cat => cat.titleKey.toLowerCase().includes(selectedCategory.toLowerCase()))?.pages || [];
+
 
   async function onSubmit(values: FormData) {
     setIsLoading(true);
@@ -318,7 +321,18 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         render={({ field }) => (
                             <FormItem>
                             <FormLabel>Categoría</FormLabel>
-                            <FormControl><Input placeholder="Ej: Restaurante, Consultoría" {...field} /></FormControl>
+                             <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Selecciona una categoría..." />
+                                </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    {businessCategories.map(cat => (
+                                        <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                             <FormMessage />
                             </FormItem>
                         )}
@@ -326,10 +340,10 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     <FormField name="assignedLandingPage" control={form.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Plantilla de Landing Page</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl><SelectTrigger><SelectValue placeholder="Asignar una plantilla..." /></SelectTrigger></FormControl>
+                            <Select onValueChange={field.onChange} value={field.value} disabled={!selectedCategory || filteredLandingPages.length === 0}>
+                                <FormControl><SelectTrigger><SelectValue placeholder={filteredLandingPages.length > 0 ? "Asignar una plantilla..." : "Sin plantillas para esta categoría"} /></SelectTrigger></FormControl>
                                 <SelectContent>
-                                    {landingPageTemplates.map(template => (
+                                    {filteredLandingPages.map(template => (
                                         <SelectItem key={template.id} value={template.id}>{template.name}</SelectItem>
                                     ))}
                                 </SelectContent>
@@ -378,5 +392,3 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
     </Dialog>
   );
 }
-
-    

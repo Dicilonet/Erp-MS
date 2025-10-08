@@ -1,3 +1,4 @@
+
 {
     "title": "Article Catalog",
     "description": "Manage the products and services you offer to your customers.",
@@ -97,7 +98,9 @@
             "environment": "Environment",
             "environmentDescription": "Designs for ecological projects and sustainable organizations.",
             "entertainment": "Entertainment",
-            "entertainmentDescription": "Pages for events, shows, and content creators."
+            "entertainmentDescription": "Pages for events, shows, and content creators.",
+            "pets": "Pets",
+            "petsDescription": "Templates for pet services, shops, and groomers."
         }
     }
 }
