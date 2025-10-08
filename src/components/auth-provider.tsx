@@ -25,14 +25,35 @@ const publicRoutes = ['/login', '/signup', '/redeem', '/forms/embed'];
 const landingPagesPrefix = '/articulos/landing-pages';
 const mainLanding = '/';
 
+function AuthRedirect({ children }: { children: React.ReactNode }) {
+    const { user, isLoading } = useAuth();
+    const pathname = usePathname();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (isLoading) return;
+
+        const isPublic = publicRoutes.some(route => pathname.startsWith(route)) || pathname === mainLanding || pathname.startsWith(landingPagesPrefix);
+
+        if (!user && !isPublic) {
+            router.push('/login');
+        }
+
+        if (user && (pathname === '/login' || pathname === '/signup' || pathname === mainLanding)) {
+            router.push('/dashboard');
+        }
+    }, [isLoading, user, pathname, router]);
+
+    return <>{children}</>;
+}
+
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation(['common', 'marketing']);
   const [user, setUser] = useState<User | null>(null);
   const [isSuperadmin, setIsSuperadmin] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); 
   const pathname = usePathname();
-  const router = useRouter();
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -50,22 +71,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser(null);
             setIsSuperadmin(false);
         }
-        setIsLoading(false); 
+        setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, []); 
 
-  useEffect(() => {
-    if (isLoading) return;
-
-    const isPublic = publicRoutes.some(route => pathname.startsWith(route)) || pathname === mainLanding || pathname.startsWith(landingPagesPrefix);
-
-    if (!user && !isPublic) {
-      router.push('/login');
-    }
-    
-  }, [isLoading, user, pathname, router]);
 
  const navItems: NavItem[] = [
     { href: "/dashboard", label: t('nav.dashboard'), icon: <BarChart /> },
@@ -94,30 +105,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return <FullScreenLoader />;
   }
   
-  if (user && (pathname === '/login' || pathname === '/signup')) {
-      // This will be caught by the redirect in dashboard page, but as a fallback
-      return <FullScreenLoader />;
-  }
-
   const showDashboardLayout = user && !isPublicRoute;
 
   return (
     <AuthContext.Provider value={value}>
-      {showDashboardLayout ? (
-        <div className="md:grid md:grid-cols-[250px_1fr] w-full">
-            <div className="hidden md:block border-r bg-background h-screen">
-                <DashboardSidebar navItems={navItems} />
-            </div>
-            <div className="flex flex-col h-screen">
-              <DashboardHeader navItems={navItems} />
-              <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6">
-                {children}
-              </main>
-            </div>
-        </div>
-      ) : (
-        children
-      )}
+        <AuthRedirect>
+            {showDashboardLayout ? (
+                <div className="md:grid md:grid-cols-[250px_1fr] w-full">
+                    <div className="hidden md:block border-r bg-background h-screen">
+                        <DashboardSidebar navItems={navItems} />
+                    </div>
+                    <div className="flex flex-col h-screen">
+                    <DashboardHeader navItems={navItems} />
+                    <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6">
+                        {children}
+                    </main>
+                    </div>
+                </div>
+            ) : (
+                children
+            )}
+        </AuthRedirect>
     </AuthContext.Provider>
   );
 }
