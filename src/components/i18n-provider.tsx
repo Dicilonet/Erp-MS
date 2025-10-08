@@ -21,6 +21,17 @@ const WaitForTranslation = ({ children }: { children: React.ReactNode }) => {
     }
   }, [isReady, i18nInstance]);
 
+  // Forzar un re-render cuando el idioma cambie
+  const [, setTick] = useState(0);
+  useEffect(() => {
+      const languageChanged = () => setTick(t => t + 1);
+      i18nInstance.on('languageChanged', languageChanged);
+      return () => {
+          i18nInstance.off('languageChanged', languageChanged);
+      }
+  }, [i18nInstance]);
+
+
   if (!isReady) {
     return <FullScreenLoader />;
   }
