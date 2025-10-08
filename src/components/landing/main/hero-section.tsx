@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { Loader2, ArrowRight, LayoutGrid, LogIn } from 'lucide-react';
+import { Loader2, ArrowRight, LayoutGrid } from 'lucide-react';
 import { useState } from 'react';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '@/lib/firebase';
@@ -121,10 +121,10 @@ export function HeroSection() {
              <Image 
                 src="https://images.unsplash.com/photo-1556761175-b413da4b248b?q=80&w=2070&auto=format&fit=crop"
                 alt={t('hero.backgroundImageAlt')}
-                layout="fill"
-                objectFit="cover"
+                fill
                 className="opacity-20"
                 data-ai-hint="office workspace"
+                priority
              />
              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
         </div>
@@ -172,3 +172,4 @@ export function HeroSection() {
     </section>
   );
 }
+
