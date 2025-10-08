@@ -42,7 +42,7 @@ export async function suggestInteractionSummary(
     prompt: suggestInteractionSummaryPrompt,
   });
 
-  const { output } = await summaryFlow.run(input);
+  const { output } = await summaryFlow(input);
   if (!output) throw new Error('Failed to generate summary.');
   return output;
 }
@@ -60,7 +60,7 @@ export async function processReceipt(
     prompt: processReceiptPrompt,
   });
 
-  const { output } = await receiptFlow.run(input);
+  const { output } = await receiptFlow(input);
   if (!output) throw new Error('Failed to process receipt.');
   return output;
 }
@@ -78,7 +78,7 @@ export async function generateMarketingCampaign(
     prompt: generateMarketingCampaignPrompt,
   });
 
-  const { output } = await campaignFlow.run(input);
+  const { output } = await campaignFlow(input);
   if (!output) throw new Error('Failed to generate campaign.');
   return output;
 }
