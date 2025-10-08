@@ -21,9 +21,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Definimos las rutas públicas. Cualquier otra ruta requerirá autenticación.
-// La ruta '/' es la landing page pública.
-const publicRoutes = ['/login', '/signup', '/redeem', '/'];
+// Lista de rutas públicas exactas o prefijos de ruta
+const publicRoutes = ['/login', '/signup', '/redeem', '/', '/articulos/landing-pages', '/forms/embed'];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation(['common', 'marketing']);
@@ -59,14 +58,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (isLoading) {
         return;
     }
-    
-    // Verificamos si la ruta actual es una de las públicas definidas.
-    const isPublicRoute = publicRoutes.some(route => {
-        if (route === '/') return pathname === '/';
-        // Para rutas como /forms/embed/[clientId], necesitamos una comprobación más flexible.
-        if (pathname.startsWith('/forms/embed')) return true;
-        return pathname.startsWith(route);
-    });
+
+    const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
 
     // Si el usuario no está logueado y la ruta no es pública, lo mandamos a login.
     if (!user && !isPublicRoute) {
@@ -80,13 +73,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isLoading, user, pathname, router]);
 
-  const isPublicRoute = publicRoutes.some(route => {
-        if (route === '/') return pathname === '/';
-        if (pathname.startsWith('/forms/embed')) return true;
-        return pathname.startsWith(route);
-    });
+  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
   
-  // Muestra el loader mientras se verifica la autenticación o si se está redirigiendo a una página protegida.
   if (isLoading || (!user && !isPublicRoute)) {
     return <FullScreenLoader />;
   }
