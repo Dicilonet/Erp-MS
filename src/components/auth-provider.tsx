@@ -8,7 +8,7 @@ import { auth } from '@/lib/firebase';
 import { usePathname, useRouter } from 'next/navigation';
 import { DashboardSidebar } from './dashboard-sidebar';
 import { useTranslation } from 'react-i18next';
-import { BarChart, Users, FolderKanban, FileText, Receipt, LifeBuoy, Mail, FolderSync, ShieldCheck, Package, MessageSquare, Briefcase } from 'lucide-react';
+import { BarChart, Users, FolderKanban, FileText, Receipt, LifeBuoy, Mail, FolderSync, ShieldCheck, Package, MessageSquare, Briefcase, CheckSquare } from 'lucide-react';
 import type { NavItem } from '@/lib/types';
 import { DashboardHeader } from './dashboard-header';
 import { FullScreenLoader } from './ui/fullscreen-loader';
