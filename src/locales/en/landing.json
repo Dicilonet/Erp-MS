@@ -1,0 +1,91 @@
+{
+    "hero": {
+        "title1": "The Operating System",
+        "title2": "for Your Business",
+        "subtitle": "Centralize, automate, and expand your company with M&SOLUTIONS. The all-in-one platform that integrates CRM, projects, marketing, and finance with the power of AI.",
+        "ctaButton": "Get Started Now",
+        "backgroundImageAlt": "Modern office",
+        "form": {
+            "title": "Start Your Transformation",
+            "description": "Sign up for a free demo.",
+            "companyName": "Company Name",
+            "companyNamePlaceholder": "Your Company",
+            "email": "Work Email",
+            "emailPlaceholder": "you@company.com",
+            "submitButton": "Request Demo",
+            "toast": {
+                "title": "Thank you for your interest!",
+                "description": "We have received your request and will contact you soon.",
+                "errorTitle": "Submission Error",
+                "errorDescription": "Your request could not be processed."
+            }
+        }
+    },
+    "features": {
+        "title": "Everything Your Business Needs, and More",
+        "subtitle": "From customer management to marketing automation, M&SOLUTIONS centralizes your essential tools.",
+        "automation": {
+            "title": "Intelligent Automation",
+            "description": "Save time and resources by automating repetitive tasks with AI-based workflows."
+        },
+        "crm": {
+            "title": "Unified CRM",
+            "description": "Manage your customer relationships, from prospecting to after-sales support, all in one place."
+        },
+        "intelligence": {
+            "title": "Integrated Intelligence",
+            "description": "Our AI models analyze your data to provide insights and predictions that drive your business forward."
+        },
+        "security": {
+            "title": "Enterprise-Level Security",
+            "description": "We protect your data with end-to-end encryption and the highest security standards."
+        }
+    },
+    "modules": {
+        "title": "A Module for Every Need",
+        "subtitle": "M&SOLUTIONS adapts to you. Explore some of our key functionalities.",
+        "crm": {
+            "title": "Customer Management (CRM)",
+            "description": "Your customer intelligence center, from prospecting to loyalty."
+        },
+        "projects": {
+            "title": "Project Management",
+            "description": "Plan, execute, and monitor all your projects with visual Kanban boards."
+        },
+        "marketing": {
+            "title": "Intelligent Marketing",
+            "description": "Create campaigns, manage content, and find new customers with Geomarketing."
+        },
+        "offers": {
+            "title": "Offers & Articles",
+            "description": "Manage your product/service catalog and generate professional quotes."
+        },
+        "expenses": {
+            "title": "Expense Management with AI",
+            "description": "Digitize your invoices with a single click thanks to AI-powered data extraction."
+        },
+        "communications": {
+            "title": "Unified Communications",
+            "description": "Send emails and communicate with your team without leaving the platform."
+        },
+        "automation": {
+            "title": "Automation & Connections",
+            "description": "Integrate your favorite tools and automate complex workflows."
+        },
+        "teams": {
+            "title": "Team & Permissions Management",
+            "description": "Control who accesses which module with a flexible and secure role system."
+        }
+    },
+    "cta": {
+        "title": "Ready to transform your business?",
+        "subtitle": "Stop juggling multiple tools. Centralize, automate, and scale with M&SOLUTIONS.",
+        "button": "Get Started Now"
+    },
+    "footer": {
+        "copyright": "© 2024 M&SOLUTIONS. All rights reserved.",
+        "legal": "Legal Notice",
+        "privacy": "Privacy Policy",
+        "login": "Login"
+    }
+}

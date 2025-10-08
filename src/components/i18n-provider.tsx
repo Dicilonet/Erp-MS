@@ -15,7 +15,14 @@ export default function I18nProvider({
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // Solo se ejecuta en el lado del cliente
+    if (typeof window !== 'undefined' && !i18n.isInitialized) {
+      i18n.init().then(() => {
+        setIsClient(true);
+      });
+    } else if (i18n.isInitialized) {
+      setIsClient(true);
+    }
   }, []);
 
   if (!isClient) {
