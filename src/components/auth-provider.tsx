@@ -63,6 +63,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Verificamos si la ruta actual es una de las públicas definidas.
     const isPublicRoute = publicRoutes.some(route => {
         if (route === '/') return pathname === '/';
+        // Para rutas como /forms/embed/[clientId], necesitamos una comprobación más flexible.
+        if (pathname.startsWith('/forms/embed')) return true;
         return pathname.startsWith(route);
     });
 
@@ -71,14 +73,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         router.push('/login');
     }
 
-    // Si el usuario está logueado e intenta acceder a login/signup, lo mandamos al dashboard principal.
-    if (user && (pathname === '/login' || pathname === '/signup')) {
+    // Si el usuario está logueado e intenta acceder a login/signup, lo mandamos al dashboard.
+    // O si está en la landing ('/'), también lo mandamos al dashboard.
+    if (user && (pathname === '/login' || pathname === '/signup' || pathname === '/')) {
         router.push('/dashboard');
     }
   }, [isLoading, user, pathname, router]);
 
   const isPublicRoute = publicRoutes.some(route => {
         if (route === '/') return pathname === '/';
+        if (pathname.startsWith('/forms/embed')) return true;
         return pathname.startsWith(route);
     });
   
