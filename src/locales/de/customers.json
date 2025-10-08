@@ -13,7 +13,7 @@
         "description": "Dies ist die Liste der Kunden, die sich derzeit in Ihrem System befinden.",
         "buttons": {
             "cleanup": "Duplikate bereinigen",
-            "sync": "Neue synchronisieren",
+            "sync": "Aus Airtable synchronisieren",
             "add": "Kunde hinzufügen"
         },
         "table": {

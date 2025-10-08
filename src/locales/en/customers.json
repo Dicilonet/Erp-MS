@@ -13,7 +13,7 @@
         "description": "This is the list of customers currently in your system.",
         "buttons": {
             "cleanup": "Cleanup Duplicates",
-            "sync": "Sync New",
+            "sync": "Sync from Airtable",
             "add": "Add Customer"
         },
         "table": {

@@ -13,7 +13,7 @@
         "description": "Esta es la lista de clientes actualmente en tu sistema.",
         "buttons": {
             "cleanup": "Limpiar Duplicados",
-            "sync": "Sincronizar Nuevos",
+            "sync": "Sincronizar desde Airtable",
             "add": "Añadir Cliente"
         },
         "table": {
