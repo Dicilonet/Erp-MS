@@ -4,7 +4,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addDoc, collection } from 'firebase/firestore';
 import { Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -35,12 +35,20 @@ import { db } from '@/lib/firebase';
 import type { Customer, CustomerPlanId, PaymentCycle, CountryCode } from '@/lib/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
+// Datos de ejemplo para las landing pages. Esto debería venir de una fuente de datos en el futuro.
+const landingPageTemplates = [
+  { id: 'comercio-1', name: 'Landing E-commerce Moderna' },
+  { id: 'gastronomia-1', name: 'Landing para Restaurantes' },
+  { id: 'gastronomia-2', name: 'Landing para Cafeterías' },
+  { id: 'reisen-1', name: 'Landing para Agencias de Viajes' },
+  { id: 'reisen-2', name: 'Landing para Tours Urbanos' },
+];
+
 
 const formSchema = z.object({
   // --- Info Principal ---
   name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres.' }),
   contactEmail: z.string().email({ message: 'Debe ser un email válido.' }),
-  category: z.string().min(3, { message: 'La categoría debe tener al menos 3 caracteres.' }),
   description: z.string().min(10, { message: 'La descripción debe tener al menos 10 caracteres.' }),
 
   // --- Plan y Facturación ---
@@ -69,6 +77,11 @@ const formSchema = z.object({
   diciloSearchId: z.string().optional(),
   imageHint: z.string().optional(),
   rating: z.coerce.number().min(0).max(5).default(0),
+
+  // --- Nuevos campos ---
+  category: z.string().min(3, { message: 'La categoría es requerida.' }),
+  assignedLandingPage: z.string().optional(),
+  landingPageSubdomain: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -83,7 +96,6 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
     defaultValues: {
       name: '',
       contactEmail: '',
-      category: '',
       description: '',
       planId: undefined,
       paymentCycle: 'anual',
@@ -99,15 +111,16 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
       diciloSearchId: '',
       imageHint: '',
       rating: 0,
+      category: '',
+      assignedLandingPage: '',
+      landingPageSubdomain: '',
     },
   });
 
   async function onSubmit(values: FormData) {
     setIsLoading(true);
     try {
-      // Create a new object that matches the Customer type
       const newCustomerData: Omit<Customer, 'customerId'> = {
-        // Map all fields from the form
         name: values.name,
         contactEmail: values.contactEmail,
         category: values.category,
@@ -126,14 +139,15 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
         diciloSearchId: values.diciloSearchId,
         imageHint: values.imageHint || '',
         rating: values.rating,
-        // Add default/system-generated fields
         status: 'activo',
         registrationDate: new Date().toISOString(),
         accountManager: {
-          userId: 'adminUserId123', // Placeholder
+          userId: 'adminUserId123',
           userName: 'Juan Pérez',
           userEmail: 'juan.perez@dicilo.com',
         },
+        assignedLandingPage: values.assignedLandingPage,
+        landingPageSubdomain: values.landingPageSubdomain,
       };
 
       await addDoc(collection(db, 'customers'), newCustomerData);
@@ -179,7 +193,6 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                 <TabsTrigger value="planWeb">Plan y Web</TabsTrigger>
               </TabsList>
               
-              {/* Pestaña de Información Principal */}
               <TabsContent value="mainInfo" className="space-y-4 py-4">
                  <FormField
                     control={form.control}
@@ -192,7 +205,7 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         </FormItem>
                     )}
                     />
-                 <div className="grid grid-cols-2 gap-4">
+                 <div className="grid grid-cols-1 gap-4">
                     <FormField
                         control={form.control}
                         name="contactEmail"
@@ -200,17 +213,6 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                             <FormItem>
                             <FormLabel>Email de Contacto</FormLabel>
                             <FormControl><Input placeholder="contacto@ejemplo.com" {...field} /></FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                        />
-                    <FormField
-                        control={form.control}
-                        name="category"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Categoría</FormLabel>
-                            <FormControl><Input placeholder="Ej: Restaurante, Consultoría" {...field} /></FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
@@ -229,7 +231,6 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     />
               </TabsContent>
               
-              {/* Pestaña de Ubicación y Contacto */}
               <TabsContent value="locationContact" className="space-y-4 py-4">
                  <div className="grid grid-cols-2 gap-4">
                     <FormField
@@ -292,7 +293,6 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                  </div>
               </TabsContent>
 
-              {/* Pestaña de Plan y Web */}
               <TabsContent value="planWeb" className="space-y-4 py-4">
                  <div className="grid grid-cols-3 gap-4">
                     <FormField name="planId" control={form.control} render={({ field }) => (
@@ -312,8 +312,44 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     )} />
                  </div>
                  <div className="grid grid-cols-2 gap-4">
+                     <FormField
+                        control={form.control}
+                        name="category"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Categoría</FormLabel>
+                            <FormControl><Input placeholder="Ej: Restaurante, Consultoría" {...field} /></FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                     />
+                    <FormField name="assignedLandingPage" control={form.control} render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Plantilla de Landing Page</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl><SelectTrigger><SelectValue placeholder="Asignar una plantilla..." /></SelectTrigger></FormControl>
+                                <SelectContent>
+                                    {landingPageTemplates.map(template => (
+                                        <SelectItem key={template.id} value={template.id}>{template.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    )} />
+                </div>
+                 <FormField control={form.control} name="landingPageSubdomain" render={({ field }) => (
+                    <FormItem><FormLabel>Subdominio</FormLabel>
+                    <div className='flex items-center gap-2'>
+                        <FormControl><Input placeholder="nombre-cliente" {...field} /></FormControl>
+                        <span className='text-sm text-muted-foreground'>.erp-dicilo.com</span>
+                    </div>
+                    <FormMessage /></FormItem>
+                )} />
+
+                 <div className="grid grid-cols-2 gap-4">
                     <FormField control={form.control} name="website" render={({ field }) => (
-                        <FormItem><FormLabel>Sitio Web</FormLabel><FormControl><Input type="url" placeholder="https://www.ejemplo.com" {...field} /></FormControl><FormMessage /></FormItem>
+                        <FormItem><FormLabel>Sitio Web (si existe)</FormLabel><FormControl><Input type="url" placeholder="https://www.ejemplo.com" {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
                     <FormField control={form.control} name="currentOfferUrl" render={({ field }) => (
                         <FormItem><FormLabel>URL Oferta Actual</FormLabel><FormControl><Input type="url" placeholder="https://www.ejemplo.com/oferta" {...field} /></FormControl><FormMessage /></FormItem>
@@ -342,3 +378,5 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
     </Dialog>
   );
 }
+
+    
