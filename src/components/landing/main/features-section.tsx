@@ -1,41 +1,42 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import { Zap, ShieldCheck, BrainCircuit, Users } from 'lucide-react';
 
-const features = [
-  {
-    icon: <Zap className="h-10 w-10 text-primary" />,
-    title: 'Automatización Inteligente',
-    description: 'Ahorra tiempo y recursos automatizando tareas repetitivas con flujos de trabajo basados en IA.',
-  },
-  {
-    icon: <Users className="h-10 w-10 text-primary" />,
-    title: 'CRM Unificado',
-    description: 'Gestiona la relación con tus clientes, desde la prospección hasta el soporte postventa, todo en un solo lugar.',
-  },
-  {
-    icon: <BrainCircuit className="h-10 w-10 text-primary" />,
-    title: 'Inteligencia Integrada',
-    description: 'Nuestros modelos de IA analizan tus datos para ofrecerte insights y predicciones que impulsan tu negocio.',
-  },
-  {
-    icon: <ShieldCheck className="h-10 w-10 text-primary" />,
-    title: 'Seguridad de Nivel Empresarial',
-    description: 'Protegemos tus datos con encriptación de extremo a extremo y los más altos estándares de seguridad.',
-  },
-];
-
 export function FeaturesSection() {
+  const { t } = useTranslation('landing');
+  const features = [
+    {
+      icon: <Zap className="h-10 w-10 text-primary" />,
+      title: t('features.automation.title'),
+      description: t('features.automation.description'),
+    },
+    {
+      icon: <Users className="h-10 w-10 text-primary" />,
+      title: t('features.crm.title'),
+      description: t('features.crm.description'),
+    },
+    {
+      icon: <BrainCircuit className="h-10 w-10 text-primary" />,
+      title: t('features.intelligence.title'),
+      description: t('features.intelligence.description'),
+    },
+    {
+      icon: <ShieldCheck className="h-10 w-10 text-primary" />,
+      title: t('features.security.title'),
+      description: t('features.security.description'),
+    },
+  ];
+
   return (
     <section id="features" className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Todo lo que tu Negocio Necesita, y Más
+            {t('features.title')}
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Desde la gestión de clientes hasta la automatización de marketing, M&SOLUTIONS centraliza tus herramientas esenciales.
+            {t('features.subtitle')}
           </p>
         </div>
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -172,4 +171,3 @@ export function HeroSection() {
     </section>
   );
 }
-
