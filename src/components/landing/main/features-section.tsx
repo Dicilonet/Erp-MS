@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next';
 import { Zap, ShieldCheck, BrainCircuit, Users } from 'lucide-react';
+import Image from 'next/image';
 
 export function FeaturesSection() {
   const { t } = useTranslation('landing');
@@ -29,7 +30,18 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="py-16 lg:py-24">
+    <section id="features" className="py-16 lg:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+            <Image 
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2073&auto=format&fit=crop"
+                alt="Fondo de características"
+                layout="fill"
+                objectFit="cover"
+                className="opacity-5 dark:opacity-10"
+                data-ai-hint="team meeting"
+            />
+             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background"></div>
+        </div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
@@ -41,7 +53,7 @@ export function FeaturesSection() {
         </div>
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((feature) => (
-            <div key={feature.title} className="text-center">
+            <div key={feature.title} className="text-center p-6 rounded-lg hover:bg-card/50">
               <div className="flex justify-center items-center h-20">
                 {feature.icon}
               </div>
