@@ -3,6 +3,18 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 31 de Julio de 2024
+
+### 1. [ID de Cambio: 4b1a8c3] Corrección Crítica de Backend: Sintaxis en Cloud Functions de Gestión de Clientes
+
+*   **¿Qué se hizo?** Se refactorizaron las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` para solucionar un error de ejecución que impedía su funcionamiento.
+    1.  **Análisis:** Se diagnosticó que las funciones mezclaban sintaxis del SDK de cliente de Firebase v9 (como `getDocs(collection(...))`) con el SDK de Admin, que utiliza una sintaxis diferente (`db.collection(...).get()`). Esta incompatibilidad provocaba un fallo interno en el servidor cada vez que se intentaba ejecutar la sincronización o limpieza de clientes, lo que resultaba en un "Internal Server Error" en la aplicación.
+    2.  **Corrección:** Se reescribieron ambas funciones utilizando exclusivamente la sintaxis del SDK de Admin de Firebase. Esto incluye cambiar la forma en que se obtienen y se iteran los documentos para que sean compatibles con el entorno de backend de las Cloud Functions.
+    3.  **Resultado:** Las funciones ahora se ejecutan correctamente, permitiendo la sincronización de nuevos clientes desde la colección `businesses` y la limpieza de duplicados sin errores.
+
+*   **¿Por qué se hizo?** Para eliminar un error crítico de backend que impedía el funcionamiento de características clave del módulo de clientes. Esta corrección estabiliza la lógica de negocio del servidor y restaura la capacidad de gestionar la base de datos de clientes de forma automatizada.
+
+---
 ## 16 de Agosto de 2024
 
 ### 1. [ID de Cambio: 16a4f2b1] Mejora y Corrección del Formulario de Clientes
@@ -213,19 +225,6 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Resultado:** Con la definición de índice correcta, la consulta ahora se puede ejecutar sin errores de permisos, permitiendo que la lista de cupones se cargue y se muestre correctamente en el panel de administración.
 
 *   **¿Por qué se hizo?** Para eliminar un error crítico de base de datos que bloqueaba una funcionalidad clave del módulo de cupones. Esta corrección asegura la infraestructura de datos necesaria para que el panel de administración de cupones sea funcional.
-
-
----
-## 31 de Julio de 2024
-
-### 1. [ID de Cambio: 4b1a8c3] Corrección Crítica de Backend: Sintaxis en Cloud Functions de Gestión de Clientes
-
-*   **¿Qué se hizo?** Se refactorizaron las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` para solucionar un error de ejecución que impedía su funcionamiento.
-    1.  **Análisis:** Se diagnosticó que las funciones mezclaban sintaxis del SDK de cliente de Firebase v9 (como `getDocs(collection(...))`) con el SDK de Admin, que utiliza una sintaxis diferente (`db.collection(...).get()`). Esta incompatibilidad provocaba un fallo interno en el servidor cada vez que se intentaba ejecutar la sincronización o limpieza de clientes, lo que resultaba en un "Internal Server Error" en la aplicación.
-    2.  **Corrección:** Se reescribieron ambas funciones utilizando exclusivamente la sintaxis del SDK de Admin de Firebase. Esto incluye cambiar la forma en que se obtienen y se iteran los documentos para que sean compatibles con el entorno de backend de las Cloud Functions.
-    3.  **Resultado:** Las funciones ahora se ejecutan correctamente, permitiendo la sincronización de nuevos clientes desde la colección `businesses` y la limpieza de duplicados sin errores.
-
-*   **¿Por qué se hizo?** Para eliminar un error crítico de backend que impedía el funcionamiento de características clave del módulo de clientes. Esta corrección estabiliza la lógica de negocio del servidor y restaura la capacidad de gestionar la base de datos de clientes de forma automatizada.
 
 
 ---

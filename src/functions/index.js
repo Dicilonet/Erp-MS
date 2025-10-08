@@ -1248,6 +1248,7 @@ exports.syncNewCustomersFromWebsite = onCall(
     }
 
     try {
+      // Usa la sintaxis del SDK de Admin
       const sourceSnapshot = await db.collection('businesses').get();
       const erpSnapshot = await db.collection('customers').get();
 
@@ -2274,3 +2275,4 @@ exports.getBusinessesInArea = onCall({region: 'europe-west1', timeoutSeconds: 60
     
 
     
+

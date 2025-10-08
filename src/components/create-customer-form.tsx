@@ -119,9 +119,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
 
   const selectedCategory = form.watch('category');
 
-  // CORRECCIÓN: La lógica de filtrado ahora usa el `id` de la categoría en minúsculas, que coincide con el valor del Select.
   const filteredLandingPages = landingPageCategories
-    .find(cat => cat.id.toLowerCase() === selectedCategory.toLowerCase())?.pages || [];
+    .find(cat => cat.titleKey.split('.').pop() === selectedCategory.toLowerCase())?.pages || [];
 
 
   async function onSubmit(values: FormData) {
@@ -360,7 +359,7 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     <FormItem><FormLabel>{t('form.plan.subdomain.label')}</FormLabel>
                     <div className='flex items-center gap-2'>
                         <FormControl><Input placeholder={t('form.plan.subdomain.placeholder')} {...field} /></FormControl>
-                        <span className='text-sm text-muted-foreground'>.erp-dicilo.com</span>
+                        <span className='text-sm text-muted-foreground'>.dicilo.app</span>
                     </div>
                     <FormMessage /></FormItem>
                 )} />
