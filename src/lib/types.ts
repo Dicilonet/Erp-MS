@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { FC, ReactNode } from 'react';
@@ -86,6 +87,11 @@ export interface Customer {
     userName: string;
     userEmail: string;
   };
+
+  // --- Nuevos campos para Landing Pages ---
+  assignedLandingPage?: string; // ID de la plantilla de landing page
+  landingPageSubdomain?: string; // Subdominio asignado
+
   // --- Consumo de Servicios (Marketing) ---
   serviceUsage?: {
     [key: string]: { used: number; limit: number };
