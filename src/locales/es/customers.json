@@ -8,6 +8,110 @@
         "management": "Gestión",
         "metrics": "Métricas"
     },
+    "form": {
+        "createTitle": "Añadir Nuevo Cliente (Formulario Unificado)",
+        "createDescription": "Completa todos los detalles del negocio para crear un registro de cliente homogéneo.",
+        "tabs": {
+            "mainInfo": "Info Principal",
+            "locationContact": "Ubicación y Contacto",
+            "planWeb": "Plan y Web"
+        },
+        "main": {
+            "name": {
+                "label": "Nombre del Negocio",
+                "placeholder": "Ej: Café Central"
+            },
+            "email": {
+                "label": "Email de Contacto",
+                "placeholder": "contacto@ejemplo.com"
+            },
+            "description": {
+                "label": "Descripción del Negocio",
+                "placeholder": "Describe brevemente el negocio, sus servicios principales, etc."
+            }
+        },
+        "location": {
+            "cityCountry": {
+                "label": "Ubicación (Ciudad, País)",
+                "placeholder": "Düsseldorf, Alemania"
+            },
+            "phone": {
+                "label": "Teléfono",
+                "placeholder": "+49 123 456789"
+            },
+            "address": {
+                "label": "Dirección Completa",
+                "placeholder": "Königsallee 1, 40212 Düsseldorf"
+            },
+            "latitude": {
+                "label": "Latitud",
+                "placeholder": "51.2249"
+            },
+            "longitude": {
+                "label": "Longitud",
+                "placeholder": "6.7761"
+            }
+        },
+        "plan": {
+            "servicePlan": {
+                "label": "Plan de Servicios",
+                "placeholder": "Selecciona un plan"
+            },
+            "paymentCycle": {
+                "label": "Ciclo de Pago",
+                "placeholder": "Selecciona ciclo",
+                "annual": "Anual",
+                "biannual": "Semestral",
+                "monthly": "Mensual"
+            },
+            "country": {
+                "label": "País",
+                "placeholder": "Selecciona país",
+                "de": "Alemania",
+                "es": "España",
+                "gb": "Reino Unido",
+                "us": "Estados Unidos",
+                "other": "Otro"
+            },
+            "category": {
+                "label": "Categoría",
+                "placeholder": "Selecciona una categoría..."
+            },
+            "landingPage": {
+                "label": "Plantilla de Landing Page",
+                "placeholder": "Asignar una plantilla...",
+                "noTemplates": "Sin plantillas para esta categoría"
+            },
+            "subdomain": {
+                "label": "Subdominio",
+                "placeholder": "nombre-cliente"
+            },
+            "website": {
+                "label": "Sitio Web (si existe)",
+                "placeholder": "https://www.ejemplo.com"
+            },
+            "offerUrl": {
+                "label": "URL Oferta Actual",
+                "placeholder": "https://www.ejemplo.com/oferta"
+            },
+            "logoUrl": {
+                "label": "URL del Logo",
+                "placeholder": "https://www.ejemplo.com/logo.png"
+            },
+            "promoPrice": "Precio Promocional"
+        },
+        "actions": {
+            "cancel": "Cancelar",
+            "saving": "Guardando...",
+            "create": "Crear Cliente"
+        },
+        "toast": {
+            "successTitle": "¡Cliente Creado!",
+            "successDescription": "El cliente \"{{customerName}}\" se ha registrado con el nuevo formato unificado.",
+            "errorTitle": "Error al Crear Cliente",
+            "errorDescription": "Hubo un problema al guardar el cliente. Por favor, intenta de nuevo."
+        }
+    },
     "list": {
         "title": "Clientes en el ERP",
         "description": "Esta es la lista de clientes actualmente en tu sistema.",

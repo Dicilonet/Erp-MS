@@ -8,6 +8,110 @@
         "management": "Verwaltung",
         "metrics": "Metriken"
     },
+    "form": {
+        "createTitle": "Neuen Kunden hinzufügen (Einheitliches Formular)",
+        "createDescription": "Füllen Sie alle Geschäftsdetails aus, um einen einheitlichen Kundendatensatz zu erstellen.",
+        "tabs": {
+            "mainInfo": "Hauptinfo",
+            "locationContact": "Standort & Kontakt",
+            "planWeb": "Plan & Web"
+        },
+        "main": {
+            "name": {
+                "label": "Name des Unternehmens",
+                "placeholder": "z.B. Café Central"
+            },
+            "email": {
+                "label": "Kontakt-E-Mail",
+                "placeholder": "kontakt@beispiel.com"
+            },
+            "description": {
+                "label": "Beschreibung des Unternehmens",
+                "placeholder": "Beschreiben Sie kurz das Unternehmen, seine Hauptdienstleistungen usw."
+            }
+        },
+        "location": {
+            "cityCountry": {
+                "label": "Standort (Stadt, Land)",
+                "placeholder": "Düsseldorf, Deutschland"
+            },
+            "phone": {
+                "label": "Telefon",
+                "placeholder": "+49 123 456789"
+            },
+            "address": {
+                "label": "Vollständige Adresse",
+                "placeholder": "Königsallee 1, 40212 Düsseldorf"
+            },
+            "latitude": {
+                "label": "Breitengrad",
+                "placeholder": "51.2249"
+            },
+            "longitude": {
+                "label": "Längengrad",
+                "placeholder": "6.7761"
+            }
+        },
+        "plan": {
+            "servicePlan": {
+                "label": "Serviceplan",
+                "placeholder": "Wählen Sie einen Plan"
+            },
+            "paymentCycle": {
+                "label": "Zahlungszyklus",
+                "placeholder": "Zyklus auswählen",
+                "annual": "Jährlich",
+                "biannual": "Halbjährlich",
+                "monthly": "Monatlich"
+            },
+            "country": {
+                "label": "Land",
+                "placeholder": "Land auswählen",
+                "de": "Deutschland",
+                "es": "Spanien",
+                "gb": "Vereinigtes Königreich",
+                "us": "Vereinigte Staaten",
+                "other": "Andere"
+            },
+            "category": {
+                "label": "Kategorie",
+                "placeholder": "Wählen Sie eine Kategorie..."
+            },
+            "landingPage": {
+                "label": "Landingpage-Vorlage",
+                "placeholder": "Vorlage zuweisen...",
+                "noTemplates": "Keine Vorlagen für diese Kategorie"
+            },
+            "subdomain": {
+                "label": "Subdomain",
+                "placeholder": "kundenname"
+            },
+            "website": {
+                "label": "Webseite (falls vorhanden)",
+                "placeholder": "https://www.beispiel.com"
+            },
+            "offerUrl": {
+                "label": "URL aktuelles Angebot",
+                "placeholder": "https://www.beispiel.com/angebot"
+            },
+            "logoUrl": {
+                "label": "Logo-URL",
+                "placeholder": "https://www.beispiel.com/logo.png"
+            },
+            "promoPrice": "Aktionspreis"
+        },
+        "actions": {
+            "cancel": "Abbrechen",
+            "saving": "Speichern...",
+            "create": "Kunde erstellen"
+        },
+        "toast": {
+            "successTitle": "Kunde erstellt!",
+            "successDescription": "Der Kunde \"{{customerName}}\" wurde mit dem neuen einheitlichen Format registriert.",
+            "errorTitle": "Fehler beim Erstellen des Kunden",
+            "errorDescription": "Beim Speichern des Kunden ist ein Problem aufgetreten. Bitte versuchen Sie es erneut."
+        }
+    },
     "list": {
         "title": "Kunden im ERP",
         "description": "Dies ist die Liste der Kunden, die sich derzeit in Ihrem System befinden.",

@@ -3,7 +3,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addDoc, collection } from 'firebase/firestore';
-import { Loader2, PlusCircle } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -35,6 +35,8 @@ import { db } from '@/lib/firebase';
 import type { Customer, CustomerPlanId, PaymentCycle, CountryCode } from '@/lib/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { landingPageCategories } from '@/app/(protected)/articulos/landing-pages/page';
+import { useTranslation } from 'react-i18next';
+
 
 const businessCategories = [
     "Beratung", "Bildung", "Finanzdienstleistung", "Gastronomie", "Gesundheit", 
@@ -84,6 +86,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export function CreateCustomerForm({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation('customers');
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -116,8 +119,9 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
 
   const selectedCategory = form.watch('category');
 
+  // CORRECCIÓN: La lógica de filtrado ahora usa el `id` de la categoría en minúsculas, que coincide con el valor del Select.
   const filteredLandingPages = landingPageCategories
-    .find(cat => cat.titleKey.toLowerCase().includes(selectedCategory.toLowerCase()))?.pages || [];
+    .find(cat => cat.id.toLowerCase() === selectedCategory.toLowerCase())?.pages || [];
 
 
   async function onSubmit(values: FormData) {
@@ -156,8 +160,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
       await addDoc(collection(db, 'customers'), newCustomerData);
 
       toast({
-        title: '¡Cliente Creado!',
-        description: `El cliente "${values.name}" se ha registrado con el nuevo formato unificado.`,
+        title: t('form.toast.successTitle'),
+        description: t('form.toast.successDescription', { customerName: values.name }),
       });
       
       setOpen(false);
@@ -167,8 +171,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
       console.error('Error creating customer:', error);
       toast({
         variant: 'destructive',
-        title: 'Error al Crear Cliente',
-        description: 'Hubo un problema al guardar el cliente. Por favor, intenta de nuevo.',
+        title: t('form.toast.errorTitle'),
+        description: t('form.toast.errorDescription'),
       });
     } finally {
       setIsLoading(false);
@@ -182,18 +186,18 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
       </DialogTrigger>
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle>Añadir Nuevo Cliente (Formulario Unificado)</DialogTitle>
+          <DialogTitle>{t('form.createTitle')}</DialogTitle>
           <DialogDescription>
-            Completa todos los detalles del negocio para crear un registro de cliente homogéneo.
+            {t('form.createDescription')}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <Tabs defaultValue="mainInfo">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="mainInfo">Info Principal</TabsTrigger>
-                <TabsTrigger value="locationContact">Ubicación y Contacto</TabsTrigger>
-                <TabsTrigger value="planWeb">Plan y Web</TabsTrigger>
+                <TabsTrigger value="mainInfo">{t('form.tabs.mainInfo')}</TabsTrigger>
+                <TabsTrigger value="locationContact">{t('form.tabs.locationContact')}</TabsTrigger>
+                <TabsTrigger value="planWeb">{t('form.tabs.planWeb')}</TabsTrigger>
               </TabsList>
               
               <TabsContent value="mainInfo" className="space-y-4 py-4">
@@ -202,8 +206,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Nombre del Negocio</FormLabel>
-                        <FormControl><Input placeholder="Ej: Café Central" {...field} /></FormControl>
+                        <FormLabel>{t('form.main.name.label')}</FormLabel>
+                        <FormControl><Input placeholder={t('form.main.name.placeholder')} {...field} /></FormControl>
                         <FormMessage />
                         </FormItem>
                     )}
@@ -214,8 +218,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         name="contactEmail"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Email de Contacto</FormLabel>
-                            <FormControl><Input placeholder="contacto@ejemplo.com" {...field} /></FormControl>
+                            <FormLabel>{t('form.main.email.label')}</FormLabel>
+                            <FormControl><Input placeholder={t('form.main.email.placeholder')} {...field} /></FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
@@ -226,8 +230,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     name="description"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Descripción del Negocio</FormLabel>
-                        <FormControl><Textarea placeholder="Describe brevemente el negocio, sus servicios principales, etc." {...field} /></FormControl>
+                        <FormLabel>{t('form.main.description.label')}</FormLabel>
+                        <FormControl><Textarea placeholder={t('form.main.description.placeholder')} {...field} /></FormControl>
                         <FormMessage />
                         </FormItem>
                     )}
@@ -241,8 +245,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         name="location"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Ubicación (Ciudad, País)</FormLabel>
-                            <FormControl><Input placeholder="Düsseldorf, Alemania" {...field} /></FormControl>
+                            <FormLabel>{t('form.location.cityCountry.label')}</FormLabel>
+                            <FormControl><Input placeholder={t('form.location.cityCountry.placeholder')} {...field} /></FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
@@ -252,8 +256,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         name="phone"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Teléfono</FormLabel>
-                            <FormControl><Input placeholder="+49 123 456789" {...field} /></FormControl>
+                            <FormLabel>{t('form.location.phone.label')}</FormLabel>
+                            <FormControl><Input placeholder={t('form.location.phone.placeholder')} {...field} /></FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
@@ -264,8 +268,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     name="fullAddress"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Dirección Completa</FormLabel>
-                        <FormControl><Input placeholder="Königsallee 1, 40212 Düsseldorf" {...field} /></FormControl>
+                        <FormLabel>{t('form.location.address.label')}</FormLabel>
+                        <FormControl><Input placeholder={t('form.location.address.placeholder')} {...field} /></FormControl>
                         <FormMessage />
                         </FormItem>
                     )}
@@ -276,8 +280,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         name="coordinates.latitude"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Latitud</FormLabel>
-                            <FormControl><Input type="number" step="any" placeholder="51.2249" {...field} /></FormControl>
+                            <FormLabel>{t('form.location.latitude.label')}</FormLabel>
+                            <FormControl><Input type="number" step="any" placeholder={t('form.location.latitude.placeholder')} {...field} /></FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
@@ -287,8 +291,8 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         name="coordinates.longitude"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Longitud</FormLabel>
-                            <FormControl><Input type="number" step="any" placeholder="6.7761" {...field} /></FormControl>
+                            <FormLabel>{t('form.location.longitude.label')}</FormLabel>
+                            <FormControl><Input type="number" step="any" placeholder={t('form.location.longitude.placeholder')} {...field} /></FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
@@ -299,19 +303,19 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
               <TabsContent value="planWeb" className="space-y-4 py-4">
                  <div className="grid grid-cols-3 gap-4">
                     <FormField name="planId" control={form.control} render={({ field }) => (
-                        <FormItem><FormLabel>Plan de Servicios</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Selecciona un plan" /></SelectTrigger></FormControl>
+                        <FormItem><FormLabel>{t('form.plan.servicePlan.label')}</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder={t('form.plan.servicePlan.placeholder')} /></SelectTrigger></FormControl>
                         <SelectContent><SelectItem value="plan_privatkunde">Privatkunde (€0/Jahr)</SelectItem><SelectItem value="plan_spender">Spender (€60/Jahr)</SelectItem><SelectItem value="plan_einzelhandler">Einzelhändler (€2.340/Jahr)</SelectItem><SelectItem value="plan_premium">Premium (€3.900/Jahr)</SelectItem></SelectContent></Select><FormMessage /></FormItem>
                     )} />
                     <FormField name="paymentCycle" control={form.control} render={({ field }) => (
-                        <FormItem><FormLabel>Ciclo de Pago</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Selecciona ciclo" /></SelectTrigger></FormControl>
-                        <SelectContent><SelectItem value="anual">Anual</SelectItem><SelectItem value="semestral">Semestral</SelectItem><SelectItem value="mensual">Mensual</SelectItem></SelectContent></Select><FormMessage /></FormItem>
+                        <FormItem><FormLabel>{t('form.plan.paymentCycle.label')}</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder={t('form.plan.paymentCycle.placeholder')} /></SelectTrigger></FormControl>
+                        <SelectContent><SelectItem value="anual">{t('form.plan.paymentCycle.annual')}</SelectItem><SelectItem value="semestral">{t('form.plan.paymentCycle.biannual')}</SelectItem><SelectItem value="mensual">{t('form.plan.paymentCycle.monthly')}</SelectItem></SelectContent></Select><FormMessage /></FormItem>
                     )} />
                      <FormField name="country" control={form.control} render={({ field }) => (
-                        <FormItem><FormLabel>País</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Selecciona país" /></SelectTrigger></FormControl>
-                        <SelectContent><SelectItem value="DE">Alemania</SelectItem><SelectItem value="ES">España</SelectItem><SelectItem value="GB">Reino Unido</SelectItem><SelectItem value="US">Estados Unidos</SelectItem><SelectItem value="OTHER">Otro</SelectItem></SelectContent></Select><FormMessage /></FormItem>
+                        <FormItem><FormLabel>{t('form.plan.country.label')}</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder={t('form.plan.country.placeholder')} /></SelectTrigger></FormControl>
+                        <SelectContent><SelectItem value="DE">{t('form.plan.country.de')}</SelectItem><SelectItem value="ES">{t('form.plan.country.es')}</SelectItem><SelectItem value="GB">{t('form.plan.country.gb')}</SelectItem><SelectItem value="US">{t('form.plan.country.us')}</SelectItem><SelectItem value="OTHER">{t('form.plan.country.other')}</SelectItem></SelectContent></Select><FormMessage /></FormItem>
                     )} />
                  </div>
                  <div className="grid grid-cols-2 gap-4">
@@ -320,11 +324,11 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                         name="category"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Categoría</FormLabel>
+                            <FormLabel>{t('form.plan.category.label')}</FormLabel>
                              <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Selecciona una categoría..." />
+                                    <SelectValue placeholder={t('form.plan.category.placeholder')} />
                                 </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
@@ -339,9 +343,9 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                      />
                     <FormField name="assignedLandingPage" control={form.control} render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Plantilla de Landing Page</FormLabel>
+                            <FormLabel>{t('form.plan.landingPage.label')}</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value} disabled={!selectedCategory || filteredLandingPages.length === 0}>
-                                <FormControl><SelectTrigger><SelectValue placeholder={filteredLandingPages.length > 0 ? "Asignar una plantilla..." : "Sin plantillas para esta categoría"} /></SelectTrigger></FormControl>
+                                <FormControl><SelectTrigger><SelectValue placeholder={filteredLandingPages.length > 0 ? t('form.plan.landingPage.placeholder') : t('form.plan.landingPage.noTemplates')} /></SelectTrigger></FormControl>
                                 <SelectContent>
                                     {filteredLandingPages.map(template => (
                                         <SelectItem key={template.id} value={template.id}>{template.name}</SelectItem>
@@ -353,9 +357,9 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                     )} />
                 </div>
                  <FormField control={form.control} name="landingPageSubdomain" render={({ field }) => (
-                    <FormItem><FormLabel>Subdominio</FormLabel>
+                    <FormItem><FormLabel>{t('form.plan.subdomain.label')}</FormLabel>
                     <div className='flex items-center gap-2'>
-                        <FormControl><Input placeholder="nombre-cliente" {...field} /></FormControl>
+                        <FormControl><Input placeholder={t('form.plan.subdomain.placeholder')} {...field} /></FormControl>
                         <span className='text-sm text-muted-foreground'>.erp-dicilo.com</span>
                     </div>
                     <FormMessage /></FormItem>
@@ -363,27 +367,27 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
 
                  <div className="grid grid-cols-2 gap-4">
                     <FormField control={form.control} name="website" render={({ field }) => (
-                        <FormItem><FormLabel>Sitio Web (si existe)</FormLabel><FormControl><Input type="url" placeholder="https://www.ejemplo.com" {...field} /></FormControl><FormMessage /></FormItem>
+                        <FormItem><FormLabel>{t('form.plan.website.label')}</FormLabel><FormControl><Input type="url" placeholder={t('form.plan.website.placeholder')} {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
                     <FormField control={form.control} name="currentOfferUrl" render={({ field }) => (
-                        <FormItem><FormLabel>URL Oferta Actual</FormLabel><FormControl><Input type="url" placeholder="https://www.ejemplo.com/oferta" {...field} /></FormControl><FormMessage /></FormItem>
+                        <FormItem><FormLabel>{t('form.plan.offerUrl.label')}</FormLabel><FormControl><Input type="url" placeholder={t('form.plan.offerUrl.placeholder')} {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
                  </div>
                  <FormField control={form.control} name="logoUrl" render={({ field }) => (
-                    <FormItem><FormLabel>URL del Logo</FormLabel><FormControl><Input type="url" placeholder="https://www.ejemplo.com/logo.png" {...field} /></FormControl><FormMessage /></FormItem>
+                    <FormItem><FormLabel>{t('form.plan.logoUrl.label')}</FormLabel><FormControl><Input type="url" placeholder={t('form.plan.logoUrl.placeholder')} {...field} /></FormControl><FormMessage /></FormItem>
                  )} />
                  <FormField control={form.control} name="hasPromoPrice" render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm"><div className="space-y-0.5"><FormLabel>Precio Promocional</FormLabel></div><FormControl><Switch checked={field.value} onCheckedChange={field.onChange} /></FormControl></FormItem>
+                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm"><div className="space-y-0.5"><FormLabel>{t('form.plan.promoPrice')}</FormLabel></div><FormControl><Switch checked={field.value} onCheckedChange={field.onChange} /></FormControl></FormItem>
                  )} />
               </TabsContent>
             </Tabs>
             <DialogFooter>
               <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
-                Cancelar
+                {t('form.actions.cancel')}
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isLoading ? 'Guardando...' : 'Crear Cliente'}
+                {isLoading ? t('form.actions.saving') : t('form.actions.create')}
               </Button>
             </DialogFooter>
           </form>

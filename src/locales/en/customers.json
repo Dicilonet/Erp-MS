@@ -8,6 +8,110 @@
         "management": "Management",
         "metrics": "Metrics"
     },
+     "form": {
+        "createTitle": "Add New Customer (Unified Form)",
+        "createDescription": "Fill in all business details to create a consistent customer record.",
+        "tabs": {
+            "mainInfo": "Main Info",
+            "locationContact": "Location & Contact",
+            "planWeb": "Plan & Web"
+        },
+        "main": {
+            "name": {
+                "label": "Business Name",
+                "placeholder": "e.g., Central Cafe"
+            },
+            "email": {
+                "label": "Contact Email",
+                "placeholder": "contact@example.com"
+            },
+            "description": {
+                "label": "Business Description",
+                "placeholder": "Briefly describe the business, its main services, etc."
+            }
+        },
+        "location": {
+            "cityCountry": {
+                "label": "Location (City, Country)",
+                "placeholder": "Düsseldorf, Germany"
+            },
+            "phone": {
+                "label": "Phone",
+                "placeholder": "+49 123 456789"
+            },
+            "address": {
+                "label": "Full Address",
+                "placeholder": "Königsallee 1, 40212 Düsseldorf"
+            },
+            "latitude": {
+                "label": "Latitude",
+                "placeholder": "51.2249"
+            },
+            "longitude": {
+                "label": "Longitude",
+                "placeholder": "6.7761"
+            }
+        },
+        "plan": {
+            "servicePlan": {
+                "label": "Service Plan",
+                "placeholder": "Select a plan"
+            },
+            "paymentCycle": {
+                "label": "Payment Cycle",
+                "placeholder": "Select cycle",
+                "annual": "Annual",
+                "biannual": "Biannual",
+                "monthly": "Monthly"
+            },
+            "country": {
+                "label": "Country",
+                "placeholder": "Select country",
+                "de": "Germany",
+                "es": "Spain",
+                "gb": "United Kingdom",
+                "us": "United States",
+                "other": "Other"
+            },
+            "category": {
+                "label": "Category",
+                "placeholder": "Select a category..."
+            },
+            "landingPage": {
+                "label": "Landing Page Template",
+                "placeholder": "Assign a template...",
+                "noTemplates": "No templates for this category"
+            },
+            "subdomain": {
+                "label": "Subdomain",
+                "placeholder": "customer-name"
+            },
+            "website": {
+                "label": "Website (if exists)",
+                "placeholder": "https://www.example.com"
+            },
+            "offerUrl": {
+                "label": "Current Offer URL",
+                "placeholder": "https://www.example.com/offer"
+            },
+            "logoUrl": {
+                "label": "Logo URL",
+                "placeholder": "https://www.example.com/logo.png"
+            },
+            "promoPrice": "Promotional Price"
+        },
+        "actions": {
+            "cancel": "Cancel",
+            "saving": "Saving...",
+            "create": "Create Customer"
+        },
+        "toast": {
+            "successTitle": "Customer Created!",
+            "successDescription": "Customer \"{{customerName}}\" has been registered with the new unified format.",
+            "errorTitle": "Error Creating Customer",
+            "errorDescription": "There was a problem saving the customer. Please try again."
+        }
+    },
     "list": {
         "title": "Customers in ERP",
         "description": "This is the list of customers currently in your system.",
