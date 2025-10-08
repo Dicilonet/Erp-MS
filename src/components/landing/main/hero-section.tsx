@@ -123,7 +123,6 @@ export function HeroSection() {
                 fill
                 className="opacity-20"
                 data-ai-hint="office workspace"
-                priority
              />
              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
         </div>

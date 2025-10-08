@@ -161,11 +161,14 @@ export function CustomerList() {
     if (isLoading) {
        return (
             <Card>
-                <CardHeader className="flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <Skeleton className="h-10 w-64" />
-                    <div className="flex gap-2">
-                        <Skeleton className="h-10 w-36" />
-                        <Skeleton className="h-10 w-36" />
+                <CardHeader>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <Skeleton className="h-10 w-64" />
+                        <div className="flex flex-col sm:flex-row gap-2">
+                            <Skeleton className="h-10 w-full sm:w-36" />
+                            <Skeleton className="h-10 w-full sm:w-36" />
+                            <Skeleton className="h-10 w-full sm:w-36" />
+                        </div>
                     </div>
                 </CardHeader>
                 <CardContent>
@@ -195,28 +198,30 @@ export function CustomerList() {
 
     return (
         <Card>
-            <CardHeader className="flex-col sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                    <CardTitle>{t('list.title')}</CardTitle>
-                    <CardDescription>{t('list.description')}</CardDescription>
-                </div>
-                <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
-                    {isSuperadmin && (
-                        <Button onClick={handleCleanup} variant="outline" disabled={isCleaning} className="w-full sm:w-auto">
-                            {isCleaning ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}
-                            {t('list.buttons.cleanup')}
+            <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div className="self-start">
+                        <CardTitle>{t('list.title')}</CardTitle>
+                        <CardDescription>{t('list.description')}</CardDescription>
+                    </div>
+                    <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+                        {isSuperadmin && (
+                            <Button onClick={handleCleanup} variant="outline" disabled={isCleaning} className="w-full sm:w-auto">
+                                {isCleaning ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}
+                                {t('list.buttons.cleanup')}
+                            </Button>
+                        )}
+                        <Button onClick={handleSync} variant="outline" disabled={isSyncing} className="w-full sm:w-auto">
+                            {isSyncing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
+                            {t('list.buttons.sync')}
                         </Button>
-                    )}
-                    <Button onClick={handleSync} variant="outline" disabled={isSyncing} className="w-full sm:w-auto">
-                        {isSyncing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
-                        {t('list.buttons.sync')}
-                    </Button>
-                    <CreateCustomerForm>
-                        <div className="flex items-center justify-center w-full">
-                            <PlusCircle className="mr-2 h-4 w-4" />
-                            {t('list.buttons.add')}
-                        </div>
-                    </CreateCustomerForm>
+                        <CreateCustomerForm>
+                            <Button className="w-full sm:w-auto">
+                                <PlusCircle className="mr-2 h-4 w-4" />
+                                {t('list.buttons.add')}
+                            </Button>
+                        </CreateCustomerForm>
+                    </div>
                 </div>
             </CardHeader>
             <CardContent>
