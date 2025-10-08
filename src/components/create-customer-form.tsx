@@ -161,7 +161,7 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>{children}</Button>
+        {children}
       </DialogTrigger>
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
@@ -342,4 +342,3 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
     </Dialog>
   );
 }
-
