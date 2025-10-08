@@ -16,6 +16,12 @@
             "sync": "Aus Airtable synchronisieren",
             "add": "Kunde hinzufügen"
         },
+        "filter": {
+            "name": "Nach Name filtern...",
+            "category": "Nach Kategorie filtern...",
+            "location": "Nach Standort filtern...",
+            "assignedTo": "Nach Zuständigkeit filtern..."
+        },
         "table": {
             "name": "Geschäftsname",
             "category": "Kategorie",

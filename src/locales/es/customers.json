@@ -16,6 +16,12 @@
             "sync": "Sincronizar desde Airtable",
             "add": "Añadir Cliente"
         },
+        "filter": {
+            "name": "Filtrar por nombre...",
+            "category": "Filtrar por categoría...",
+            "location": "Filtrar por ubicación...",
+            "assignedTo": "Filtrar por responsable..."
+        },
         "table": {
             "name": "Nombre del Negocio",
             "category": "Categoría",

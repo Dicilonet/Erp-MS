@@ -16,6 +16,12 @@
             "sync": "Sync from Airtable",
             "add": "Add Customer"
         },
+        "filter": {
+            "name": "Filter by name...",
+            "category": "Filter by category...",
+            "location": "Filter by location...",
+            "assignedTo": "Filter by assigned to..."
+        },
         "table": {
             "name": "Business Name",
             "category": "Category",
