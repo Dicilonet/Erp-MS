@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,14 +21,13 @@ import { useRouter } from 'next/navigation';
 import { Loader2, LayoutGrid, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { useState, useEffect } from 'react'; // Importa useEffect
+import { useState, useEffect } from 'react';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
   password: z.string().min(1, { message: 'La contraseña no puede estar vacía.' }),
 });
 
-// (Opcional pero recomendado) Mapeo de errores de Firebase para mensajes amigables
 const FIREBASE_ERRORS: { [key: string]: string } = {
   'auth/invalid-credential': 'Las credenciales son incorrectas. Por favor, verifica tu email y contraseña.',
   'auth/user-not-found': 'No se encontró un usuario con este email.',
@@ -46,20 +46,15 @@ export default function LoginPage() {
     defaultValues: { email: '', password: '' },
   });
 
-  // 1. Lógica de Efectos (el cambio principal)
   useEffect(() => {
-    // Este efecto se ejecuta cuando el estado 'user' cambia
     if (user) {
       toast({
         title: '¡Bienvenido de nuevo!',
         description: 'Has iniciado sesión correctamente.',
       });
-      router.push('/'); // Redirección fiable
+      // El AuthProvider se encargará de redirigir
+      router.push('/dashboard');
     }
-  }, [user, router, toast]);
-
-  useEffect(() => {
-    // Este efecto se ejecuta cuando el estado 'error' cambia
     if (error) {
       const errorMessage = FIREBASE_ERRORS[error.code as keyof typeof FIREBASE_ERRORS] || 'Ocurrió un error inesperado. Por favor, intenta de nuevo.';
       toast({
@@ -68,10 +63,8 @@ export default function LoginPage() {
         description: errorMessage,
       });
     }
-  }, [error, toast]);
+  }, [user, error, toast, router]);
 
-  // 2. Simplificación de la función onSubmit
-  // Ahora solo se encarga de llamar a la función de login.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await signInWithEmailAndPassword(values.email, values.password);
   }

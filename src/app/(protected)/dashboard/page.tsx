@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
@@ -24,6 +25,8 @@ import { ServiceCatalogWidget } from '@/components/dashboard/service-catalog-wid
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { useRouter } from 'next/navigation';
+
 
 const defaultLeftColumn = ['unifiedSearch', 'aiSummary'];
 const defaultRightColumn = ['todoList', 'calculator', 'calendar'];
@@ -31,6 +34,7 @@ const defaultRightColumn = ['todoList', 'calculator', 'calendar'];
 export default function DashboardPage() {
   const { t } = useTranslation(['dashboard', 'common']);
   const { isSuperadmin, isLoading: isAuthLoading, user } = useAuth();
+  const router = useRouter();
   
   const [teamData, setTeamData] = useState<{ collaborators: InternalUser[], teamOffice: InternalUser[] }>({ collaborators: [], teamOffice: [] });
   const [isTeamDataLoading, setIsTeamDataLoading] = useState(true);
@@ -41,6 +45,15 @@ export default function DashboardPage() {
     left: [],
     right: []
   });
+  
+  useEffect(() => {
+    // Si el usuario está logueado y va a la landing, lo redirigimos al dashboard.
+    // Esto lo hacemos aquí en lugar del AuthProvider para evitar conflictos.
+    if (user && window.location.pathname === '/') {
+        router.replace('/dashboard');
+    }
+  }, [user, router]);
+
 
   const componentMap = useMemo(() => {
     const baseMap: { [key: string]: React.ReactNode } = {

@@ -5,10 +5,10 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import type { User } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { DashboardSidebar } from './dashboard-sidebar';
 import { useTranslation } from 'react-i18next';
-import { BarChart, Users, FolderKanban, FileText, Receipt, LifeBuoy, Mail, FolderSync, ShieldCheck, Library, Calendar, CheckSquare, Package, MessageSquare, Briefcase } from 'lucide-react';
+import { BarChart, Users, FolderKanban, FileText, Receipt, LifeBuoy, Mail, FolderSync, ShieldCheck, Package, MessageSquare, Briefcase } from 'lucide-react';
 import type { NavItem } from '@/lib/types';
 import { DashboardHeader } from './dashboard-header';
 import { FullScreenLoader } from './ui/fullscreen-loader';
@@ -21,16 +21,18 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Lista de rutas públicas exactas o prefijos de ruta
-const publicRoutes = ['/login', '/signup', '/redeem', '/', '/articulos/landing-pages', '/forms/embed'];
+const publicRoutes = ['/login', '/signup', '/redeem', '/forms/embed'];
+const landingPagesPrefix = '/articulos/landing-pages';
+const mainLanding = '/';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation(['common', 'marketing']);
   const [user, setUser] = useState<User | null>(null);
   const [isSuperadmin, setIsSuperadmin] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(true); 
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -55,29 +57,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []); 
 
   useEffect(() => {
-    if (isLoading) {
-        return;
-    }
+    if (isLoading) return;
 
-    const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
+    const isPublic = publicRoutes.some(route => pathname.startsWith(route)) || pathname === mainLanding || pathname.startsWith(landingPagesPrefix);
 
-    // Si el usuario no está logueado y la ruta no es pública, lo mandamos a login.
-    if (!user && !isPublicRoute) {
-        router.push('/login');
+    if (!user && !isPublic) {
+      router.push('/login');
     }
-
-    // Si el usuario está logueado e intenta acceder a login/signup, lo mandamos al dashboard.
-    // O si está en la landing ('/'), también lo mandamos al dashboard.
-    if (user && (pathname === '/login' || pathname === '/signup' || pathname === '/')) {
-        router.push('/dashboard');
-    }
+    
   }, [isLoading, user, pathname, router]);
-
-  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
-  
-  if (isLoading || (!user && !isPublicRoute)) {
-    return <FullScreenLoader />;
-  }
 
  const navItems: NavItem[] = [
     { href: "/dashboard", label: t('nav.dashboard'), icon: <BarChart /> },
@@ -100,6 +88,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const value = { user, isSuperadmin, isLoading };
   
+  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route)) || pathname === mainLanding || pathname.startsWith(landingPagesPrefix);
+
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
+  
+  if (user && (pathname === '/login' || pathname === '/signup')) {
+      // This will be caught by the redirect in dashboard page, but as a fallback
+      return <FullScreenLoader />;
+  }
+
   const showDashboardLayout = user && !isPublicRoute;
 
   return (
