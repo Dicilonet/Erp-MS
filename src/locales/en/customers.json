@@ -1,4 +1,3 @@
-
 {
     "page": {
         "title": "Customer Management",
@@ -9,8 +8,10 @@
         "metrics": "Metrics"
     },
      "form": {
-        "createTitle": "Add New Customer (Unified Form)",
+        "createTitle": "Add New Customer",
+        "editTitle": "Edit Customer",
         "createDescription": "Fill in all business details to create a consistent customer record.",
+        "editDescription": "Modify the details for this customer.",
         "tabs": {
             "mainInfo": "Main Info",
             "locationContact": "Location & Contact",
@@ -67,10 +68,6 @@
             "country": {
                 "label": "Country",
                 "placeholder": "Select country",
-                "de": "Germany",
-                "es": "Spain",
-                "gb": "United Kingdom",
-                "us": "United States",
                 "other": "Other"
             },
             "category": {
@@ -103,13 +100,17 @@
         "actions": {
             "cancel": "Cancel",
             "saving": "Saving...",
-            "create": "Create Customer"
+            "create": "Create Customer",
+            "saveChanges": "Save Changes"
         },
         "toast": {
             "successTitle": "Customer Created!",
             "successDescription": "Customer \"{{customerName}}\" has been registered with the new unified format.",
             "errorTitle": "Error Creating Customer",
-            "errorDescription": "There was a problem saving the customer. Please try again."
+            "errorDescription": "There was a problem saving the customer. Please try again.",
+            "updateSuccessTitle": "Customer Updated!",
+            "updateSuccessDescription": "Data for \"{{customerName}}\" has been successfully saved.",
+            "updateErrorTitle": "Error Updating"
         }
     },
     "list": {
@@ -119,12 +120,6 @@
             "cleanup": "Cleanup Duplicates",
             "sync": "Sync from Airtable",
             "add": "Add Customer"
-        },
-        "filter": {
-            "name": "Filter by name...",
-            "category": "Filter by category...",
-            "location": "Filter by location...",
-            "assignedTo": "Filter by assigned to..."
         },
         "table": {
             "name": "Business Name",

@@ -3,6 +3,20 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 19 de Agosto de 2024
+
+### 1. [ID de Cambio: 19a6b4d3] Implementación de Edición de Clientes
+
+*   **¿Qué se hizo?** Se implementó la funcionalidad completa para editar un cliente existente, solucionando una carencia crítica en el módulo de CRM.
+    1.  **Botón de Edición:** Se añadió un botón con un icono de lápiz en la lista de clientes (`customer-list.tsx`), tanto en la vista de tabla como en la de tarjetas móviles.
+    2.  **Reutilización del Formulario:** Al hacer clic en "Editar", se abre el mismo formulario de creación de clientes (`create-customer-form.tsx`), pero ahora en "modo edición". El formulario se carga automáticamente con todos los datos existentes del cliente seleccionado.
+    3.  **Lógica de Actualización:** Se modificó la función `onSubmit` del formulario para que detecte si se está editando un cliente. En ese caso, llama a una nueva Cloud Function (`updateCustomer`) que actualiza el documento correspondiente en Firestore, en lugar de crear uno nuevo.
+    4.  **Backend:** Se creó la función `updateCustomer` en `functions/index.js` para manejar de forma segura las actualizaciones de los datos del cliente.
+    5.  **Traducciones:** Se actualizaron los archivos de idioma (`locales/.../customers.json`) para incluir los nuevos textos del modo edición, como "Editar Cliente" y los mensajes de confirmación de guardado.
+
+*   **¿Por qué se hizo?** Para permitir la corrección de errores y la actualización de la información del cliente, una función esencial para cualquier sistema de gestión. Esto completa el ciclo CRUD (Crear, Leer, Actualizar, Eliminar) para los clientes, haciendo el módulo mucho más robusto y funcional.
+
+---
 ## 18 de Agosto de 2024
 
 ### 1. [ID de Cambio: 18d9e4a3] Corrección de Lógica en Formulario de Creación de Cliente

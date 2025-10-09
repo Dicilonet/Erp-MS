@@ -1,4 +1,3 @@
-
 {
     "page": {
         "title": "Gestión de Clientes",
@@ -9,8 +8,10 @@
         "metrics": "Métricas"
     },
     "form": {
-        "createTitle": "Añadir Nuevo Cliente (Formulario Unificado)",
+        "createTitle": "Añadir Nuevo Cliente",
+        "editTitle": "Editar Cliente",
         "createDescription": "Completa todos los detalles del negocio para crear un registro de cliente homogéneo.",
+        "editDescription": "Modifica los detalles de este cliente.",
         "tabs": {
             "mainInfo": "Info Principal",
             "locationContact": "Ubicación y Contacto",
@@ -67,10 +68,6 @@
             "country": {
                 "label": "País",
                 "placeholder": "Selecciona país",
-                "de": "Alemania",
-                "es": "España",
-                "gb": "Reino Unido",
-                "us": "Estados Unidos",
                 "other": "Otro"
             },
             "category": {
@@ -103,13 +100,17 @@
         "actions": {
             "cancel": "Cancelar",
             "saving": "Guardando...",
-            "create": "Crear Cliente"
+            "create": "Crear Cliente",
+            "saveChanges": "Guardar Cambios"
         },
         "toast": {
             "successTitle": "¡Cliente Creado!",
             "successDescription": "El cliente \"{{customerName}}\" se ha registrado con el nuevo formato unificado.",
             "errorTitle": "Error al Crear Cliente",
-            "errorDescription": "Hubo un problema al guardar el cliente. Por favor, intenta de nuevo."
+            "errorDescription": "Hubo un problema al guardar el cliente. Por favor, intenta de nuevo.",
+            "updateSuccessTitle": "¡Cliente Actualizado!",
+            "updateSuccessDescription": "Los datos de \"{{customerName}}\" se han guardado correctamente.",
+            "updateErrorTitle": "Error al Actualizar"
         }
     },
     "list": {
@@ -119,12 +120,6 @@
             "cleanup": "Limpiar Duplicados",
             "sync": "Sincronizar desde Airtable",
             "add": "Añadir Cliente"
-        },
-        "filter": {
-            "name": "Filtrar por nombre...",
-            "category": "Filtrar por categoría...",
-            "location": "Filtrar por ubicación...",
-            "assignedTo": "Filtrar por responsable..."
         },
         "table": {
             "name": "Nombre del Negocio",

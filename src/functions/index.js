@@ -1188,6 +1188,25 @@ exports.setSuperAdminRole = onCall(
 );
 
 // --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP ---
+exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
+    if (!request.auth?.token?.role) {
+        throw new HttpsError('permission-denied', 'No tienes permiso para realizar esta acción.');
+    }
+    const { customerId, data } = request.data;
+    if (!customerId || !data) {
+        throw new HttpsError('invalid-argument', 'Faltan datos para actualizar el cliente.');
+    }
+    try {
+        const customerRef = db.collection('customers').doc(customerId);
+        await customerRef.update(data);
+        return { success: true, message: 'Cliente actualizado correctamente.' };
+    } catch (error) {
+        console.error('Error al actualizar cliente:', error);
+        throw new HttpsError('internal', 'No se pudo actualizar el cliente.');
+    }
+});
+
+
 exports.syncNewCustomersFromWebsite = onCall(
   { region: 'europe-west1' },
   async (request) => {
@@ -1199,7 +1218,6 @@ exports.syncNewCustomersFromWebsite = onCall(
     }
 
     try {
-      // Usa la sintaxis del SDK de Admin
       const sourceSnapshot = await db.collection('businesses').get();
       const erpSnapshot = await db.collection('customers').get();
 
@@ -2247,5 +2265,19 @@ exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (req
     }
 });
     
+exports.submitPublicContactForm = onCall({ cors: true }, async (request) => {
+    const { email, companyName } = request.data;
 
-```
+    if (!email || !companyName) {
+        throw new HttpsError('invalid-argument', 'Email y nombre de empresa son requeridos.');
+    }
+    
+    // Aquí podrías añadir el lead a una colección 'leads' en Firestore
+    // o enviarlo a un webhook de un CRM externo.
+    console.log(`Nuevo lead recibido de la landing page: ${companyName} (${email})`);
+
+    // Podríamos también enviar un email de notificación
+    // await sendEmailWithNodemailer(...)
+
+    return { success: true, message: 'Lead recibido correctamente.' };
+});

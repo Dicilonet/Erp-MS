@@ -1,4 +1,3 @@
-
 {
     "page": {
         "title": "Kundenverwaltung",
@@ -9,8 +8,10 @@
         "metrics": "Metriken"
     },
     "form": {
-        "createTitle": "Neuen Kunden hinzufügen (Einheitliches Formular)",
+        "createTitle": "Neuen Kunden hinzufügen",
+        "editTitle": "Kunden bearbeiten",
         "createDescription": "Füllen Sie alle Geschäftsdetails aus, um einen einheitlichen Kundendatensatz zu erstellen.",
+        "editDescription": "Ändern Sie die Details dieses Kunden.",
         "tabs": {
             "mainInfo": "Hauptinfo",
             "locationContact": "Standort & Kontakt",
@@ -67,10 +68,6 @@
             "country": {
                 "label": "Land",
                 "placeholder": "Land auswählen",
-                "de": "Deutschland",
-                "es": "Spanien",
-                "gb": "Vereinigtes Königreich",
-                "us": "Vereinigte Staaten",
                 "other": "Andere"
             },
             "category": {
@@ -103,13 +100,17 @@
         "actions": {
             "cancel": "Abbrechen",
             "saving": "Speichern...",
-            "create": "Kunde erstellen"
+            "create": "Kunde erstellen",
+            "saveChanges": "Änderungen speichern"
         },
         "toast": {
             "successTitle": "Kunde erstellt!",
             "successDescription": "Der Kunde \"{{customerName}}\" wurde mit dem neuen einheitlichen Format registriert.",
             "errorTitle": "Fehler beim Erstellen des Kunden",
-            "errorDescription": "Beim Speichern des Kunden ist ein Problem aufgetreten. Bitte versuchen Sie es erneut."
+            "errorDescription": "Beim Speichern des Kunden ist ein Problem aufgetreten. Bitte versuchen Sie es erneut.",
+            "updateSuccessTitle": "Kunde aktualisiert!",
+            "updateSuccessDescription": "Die Daten für \"{{customerName}}\" wurden erfolgreich gespeichert.",
+            "updateErrorTitle": "Fehler beim Aktualisieren"
         }
     },
     "list": {
@@ -119,12 +120,6 @@
             "cleanup": "Duplikate bereinigen",
             "sync": "Aus Airtable synchronisieren",
             "add": "Kunde hinzufügen"
-        },
-        "filter": {
-            "name": "Nach Name filtern...",
-            "category": "Nach Kategorie filtern...",
-            "location": "Nach Standort filtern...",
-            "assignedTo": "Nach Zuständigkeit filtern..."
         },
         "table": {
             "name": "Geschäftsname",

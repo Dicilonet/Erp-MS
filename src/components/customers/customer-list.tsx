@@ -1,7 +1,6 @@
-
 'use client';
 
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app, db } from '@/lib/firebase';
 import { useAuth } from '@/components/auth-provider';
@@ -9,7 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, RefreshCw, PlusCircle, Trash2, ArrowDown, ArrowUp, Search } from 'lucide-react';
+import { Loader2, RefreshCw, PlusCircle, Trash2, Pencil } from 'lucide-react';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import type { Customer } from '@/lib/types';
 import Link from 'next/link';
@@ -18,9 +17,6 @@ import { CreateCustomerForm } from '@/components/create-customer-form';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { useTranslation } from 'react-i18next';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
 
 
 // Usamos el tipo Customer de types.ts para consistencia
@@ -32,20 +28,11 @@ export function CustomerList() {
     const { t } = useTranslation('customers');
     const { user, isSuperadmin } = useAuth();
     const [customers, setCustomers] = useState<ErpCustomer[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [loading, setIsLoading] = useState(true);
     const [isSyncing, setIsSyncing] = useState(false);
     const [isCleaning, setIsCleaning] = useState(false);
     const [isDeleting, setIsDeleting] = useState<string | null>(null);
     const { toast } = useToast();
-
-    // Estados para filtros y ordenación
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filterCategory, setFilterCategory] = useState('');
-    const [filterLocation, setFilterLocation] = useState('');
-    const [filterAssignedTo, setFilterAssignedTo] = useState('');
-    const [sortBy, setSortBy] = useState('name');
-    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
-
 
     // Función para cargar los clientes que YA ESTÁN en el ERP
     const fetchErpCustomers = useCallback(() => {
@@ -58,7 +45,7 @@ export function CustomerList() {
                 id: doc.id,
                 customerId: doc.id,
             })) as ErpCustomer[];
-            setCustomers(customersData);
+            setCustomers(customersData.sort((a, b) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()));
             setIsLoading(false);
         }, (error) => {
             console.error("Error fetching ERP customers: ", error);
@@ -74,48 +61,6 @@ export function CustomerList() {
         const unsubscribe = fetchErpCustomers();
         return () => unsubscribe?.();
     }, [fetchErpCustomers]);
-
-    // Lógica de filtrado y ordenación
-    const filteredAndSortedCustomers = useMemo(() => {
-        let filtered = customers.filter(c => 
-            c.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            c.category.toLowerCase().includes(filterCategory.toLowerCase()) &&
-            c.location.toLowerCase().includes(filterLocation.toLowerCase()) &&
-            (c.accountManager?.userName || t('list.table.unassigned')).toLowerCase().includes(filterAssignedTo.toLowerCase())
-        );
-
-        filtered.sort((a, b) => {
-            let valA, valB;
-            switch(sortBy) {
-                case 'name':
-                    valA = a.name;
-                    valB = b.name;
-                    break;
-                case 'category':
-                    valA = a.category;
-                    valB = b.category;
-                    break;
-                case 'location':
-                    valA = a.location;
-                    valB = b.location;
-                    break;
-                case 'assignedTo':
-                    valA = a.accountManager?.userName || '';
-                    valB = b.accountManager?.userName || '';
-                    break;
-                default:
-                    valA = a.name;
-                    valB = b.name;
-            }
-
-            if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
-            if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
-            return 0;
-        });
-
-        return filtered;
-    }, [customers, searchTerm, filterCategory, filterLocation, filterAssignedTo, sortBy, sortDirection, t]);
-
 
     // Función para el botón de SINCRONIZAR
     const handleSync = async () => {
@@ -269,7 +214,7 @@ export function CustomerList() {
                             {isSyncing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
                             {t('list.buttons.sync')}
                         </Button>
-                         <CreateCustomerForm>
+                        <CreateCustomerForm>
                             <Button className="w-full sm:w-auto">
                                 <PlusCircle className="mr-2 h-4 w-4" />
                                 {t('list.buttons.add')}
@@ -279,37 +224,11 @@ export function CustomerList() {
                 </div>
             </CardHeader>
             <CardContent>
-                 <div className="p-4 border-b">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <Input placeholder={t('list.filter.name')} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                        <Input placeholder={t('list.filter.category')} value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)} />
-                        <Input placeholder={t('list.filter.location')} value={filterLocation} onChange={(e) => setFilterLocation(e.target.value)} />
-                        <Input placeholder={t('list.filter.assignedTo')} value={filterAssignedTo} onChange={(e) => setFilterAssignedTo(e.target.value)} />
-                    </div>
-                     <div className="flex items-center gap-4 mt-4">
-                        <Label htmlFor="sort-by" className="text-sm">Ordenar por:</Label>
-                        <Select value={sortBy} onValueChange={setSortBy}>
-                            <SelectTrigger id="sort-by" className="w-[180px]">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="name">{t('list.table.name')}</SelectItem>
-                                <SelectItem value="category">{t('list.table.category')}</SelectItem>
-                                <SelectItem value="location">{t('list.table.location')}</SelectItem>
-                                <SelectItem value="assignedTo">{t('list.table.assignedTo')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                        <Button variant="outline" size="icon" onClick={() => setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')}>
-                            {sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
-                        </Button>
-                    </div>
-                </div>
-
                 {/* Mobile Card View */}
-                <div className="md:hidden space-y-4 pt-4">
-                    {filteredAndSortedCustomers.length === 0 ? (
+                <div className="md:hidden space-y-4">
+                    {customers.length === 0 ? (
                             <p className="text-center text-muted-foreground py-10">{t('list.noCustomers')}</p>
-                    ) : filteredAndSortedCustomers.map(customer => (
+                    ) : customers.map(customer => (
                         <Card key={customer.id} className="p-4">
                             <div className="flex items-center gap-4 mb-4">
                                 <Avatar>
@@ -330,6 +249,9 @@ export function CustomerList() {
                                         {t('list.table.viewButton')}
                                     </Button>
                                 </Link>
+                                <CreateCustomerForm customerToEdit={customer}>
+                                    <Button variant="secondary" size="icon"><Pencil className="h-4 w-4" /></Button>
+                                </CreateCustomerForm>
                                 {isSuperadmin && (
                                     <AlertDialog>
                                         <AlertDialogTrigger asChild>
@@ -355,7 +277,7 @@ export function CustomerList() {
                 </div>
 
                 {/* Desktop Table View */}
-                <div className="hidden md:block pt-4">
+                <div className="hidden md:block">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -367,13 +289,13 @@ export function CustomerList() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                        {filteredAndSortedCustomers.length === 0 ? (
+                        {customers.length === 0 ? (
                                 <TableRow>
                                     <TableCell colSpan={5} className="h-24 text-center">
                                         {t('list.noCustomers')}
                                     </TableCell>
                                 </TableRow>
-                            ) : filteredAndSortedCustomers.map((customer) => (
+                            ) : customers.map((customer) => (
                                 <TableRow key={customer.id}>
                                     <TableCell className="font-medium">
                                         <div className="flex items-center gap-3">
@@ -386,7 +308,10 @@ export function CustomerList() {
                                     <TableCell>{customer.category}</TableCell>
                                     <TableCell>{customer.location}</TableCell>
                                     <TableCell>{customer.accountManager?.userName || t('list.table.unassigned')}</TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell className="text-right space-x-2">
+                                        <CreateCustomerForm customerToEdit={customer}>
+                                            <Button variant="ghost" size="icon"><Pencil className="h-4 w-4" /></Button>
+                                        </CreateCustomerForm>
                                         <Link href={`/customers/${customer.customerId}`} passHref>
                                             <Button variant="outline" size="sm">
                                                 {t('list.table.viewButton')}
@@ -395,7 +320,7 @@ export function CustomerList() {
                                         {isSuperadmin && (
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant="ghost" size="icon" disabled={isDeleting === customer.customerId} className="ml-2 text-destructive hover:text-destructive">
+                                                    <Button variant="ghost" size="icon" disabled={isDeleting === customer.customerId} className="text-destructive hover:text-destructive">
                                                             {isDeleting === customer.customerId ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                                                     </Button>
                                                 </AlertDialogTrigger>
