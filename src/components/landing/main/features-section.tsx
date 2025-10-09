@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useTranslation } from 'react-i18next';
@@ -36,7 +37,7 @@ export function FeaturesSection() {
                 src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2073&auto=format&fit=crop"
                 alt="Fondo de características"
                 fill
-                className="opacity-5 dark:opacity-10"
+                className="object-cover opacity-5 dark:opacity-10"
                 data-ai-hint="team meeting"
             />
              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background"></div>
@@ -52,7 +53,7 @@ export function FeaturesSection() {
         </div>
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((feature) => (
-            <div key={feature.title} className="text-center p-6 rounded-lg hover:bg-card/50">
+            <div key={feature.title} className="text-center p-6 rounded-lg hover:bg-card/50 transition-colors">
               <div className="flex justify-center items-center h-20">
                 {feature.icon}
               </div>

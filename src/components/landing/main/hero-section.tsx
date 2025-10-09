@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -118,11 +119,12 @@ export function HeroSection() {
     <section className="relative bg-background overflow-hidden">
         <div className="absolute inset-0 z-0">
              <Image 
-                src="https://images.unsplash.com/photo-1556761175-b413da4b248b?q=80&w=2070&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2073&auto=format&fit=crop"
                 alt={t('hero.backgroundImageAlt')}
                 fill
-                className="opacity-20"
-                data-ai-hint="office workspace"
+                priority
+                className="object-cover opacity-20"
+                data-ai-hint="team meeting"
              />
              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
         </div>
