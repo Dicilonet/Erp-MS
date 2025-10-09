@@ -35,7 +35,7 @@ const countryList = {
     "Asia": [ { code: "AF", name: "Afganistán" }, { code: "SA", name: "Arabia Saudita" }, { code: "BD", name: "Bangladés" }, { code: "MM", name: "Birmania" }, { code: "BT", name: "Bután" }, { code: "KH", name: "Camboya" }, { code: "CN", name: "China" }, { code: "KP", name: "Corea del Norte" }, { code: "KR", name: "Corea del Sur" }, { code: "AE", name: "Emiratos Árabes Unidos" }, { code: "PH", name: "Filipinas" }, { code: "IN", name: "India" }, { code: "ID", name: "Indonesia" }, { code: "IQ", name: "Irak" }, { code: "IR", name: "Irán" }, { code: "IL", name: "Israel" }, { code: "JP", name: "Japón" }, { code: "JO", name: "Jordania" }, { code: "KG", name: "Kirguistán" }, { code: "KW", name: "Kuwait" }, { code: "LA", name: "Laos" }, { code: "LB", name: "Líbano" }, { code: "MY", name: "Malasia" }, { code: "MV", name: "Maldivas" }, { code: "MN", name: "Mongolia" }, { code: "NP", name: "Nepal" }, { code: "OM", name: "Omán" }, { code: "PK", name: "Pakistán" }, { code: "QA", name: "Catar" }, { code: "SG", name: "Singapur" }, { code: "SY", name: "Siria" }, { code: "LK", name: "Sri Lanka" }, { code: "TH", name: "Tailandia" }, { code: "TJ", name: "Tayikistán" }, { code: "TM", name: "Turkmenistán" }, { code: "UZ", name: "Uzbekistán" }, { code: "VN", name: "Vietnam" }, { code: "YE", name: "Yemen" }, ]
 };
 
-const allCountryCodes = Object.values(countryList).flat().map(c => c.code);
+const allCountryCodes = Object.values(countryList).flat().map(c => c.code as string);
 
 const formSchema = z.object({
   name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres.' }),
@@ -137,13 +137,13 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-3xl">
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-            <DialogHeader>
-            <DialogTitle>{isEditMode ? t('form.editTitle') : t('form.createTitle')}</DialogTitle>
-            <DialogDescription>{isEditMode ? t('form.editDescription') : t('form.createDescription')}</DialogDescription>
-            </DialogHeader>
-            <div className="py-4">
-                <Form {...form}>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+                <DialogHeader>
+                <DialogTitle>{isEditMode ? t('form.editTitle') : t('form.createTitle')}</DialogTitle>
+                <DialogDescription>{isEditMode ? t('form.editDescription') : t('form.createDescription')}</DialogDescription>
+                </DialogHeader>
+                <div className="py-4">
                     <Tabs defaultValue="mainInfo">
                     <TabsList className="grid w-full grid-cols-3">
                         <TabsTrigger value="mainInfo">{t('form.tabs.mainInfo')}</TabsTrigger>
@@ -188,16 +188,16 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
                         <FormField name="hasPromoPrice" render={({ field }) => (<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm"><div className="space-y-0.5"><FormLabel>{t('form.plan.promoPrice')}</FormLabel></div><FormControl><Switch checked={field.value} onCheckedChange={field.onChange} /></FormControl></FormItem>)} />
                     </TabsContent>
                     </Tabs>
-                </Form>
-            </div>
-            <DialogFooter>
-            <Button type="button" variant="ghost" onClick={() => setOpen(false)}>{t('form.actions.cancel')}</Button>
-            <Button type="submit" disabled={isLoading}>
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isLoading ? t('form.actions.saving') : (isEditMode ? t('form.actions.saveChanges') : t('form.actions.create'))}
-            </Button>
-            </DialogFooter>
-        </form>
+                </div>
+                <DialogFooter>
+                <Button type="button" variant="ghost" onClick={() => setOpen(false)}>{t('form.actions.cancel')}</Button>
+                <Button type="submit" disabled={isLoading}>
+                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {isLoading ? t('form.actions.saving') : (isEditMode ? t('form.actions.saveChanges') : t('form.actions.create'))}
+                </Button>
+                </DialogFooter>
+            </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

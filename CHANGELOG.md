@@ -218,7 +218,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
 *   **¿Qué se hizo?** Se solucionó un error fundamental en la funcionalidad de los códigos QR y se rediseñó la tarjeta de cupones para optimizar el espacio y la jerarquía visual.
     1.  **Corrección de Lógica del QR:** Se diagnosticó que el código QR estaba codificando incorrectamente solo el texto del código del cupón (ej. `DI-202509-0001`) en lugar de la URL completa necesaria para el canje. Se corrigió el componente `CouponCard.tsx` para que el QR ahora genere la URL completa y funcional (`/redeem?code=...`), permitiendo que el escaneo inicie el proceso de canje como se esperaba.
     2.  **Rediseño del Layout:** Se reorganizó completamente la estructura del cupón para priorizar el espacio para los términos y condiciones. El título, subtítulo, valor y código QR se movieron a la parte superior de la tarjeta, liberando toda la sección inferior para el texto legal, tal como se solicitó.
-    3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta utilizando la librería `react-to-print`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
+    3.  **Implementación de Impresión Profesional:** Se reemplazó la función de impresión defectuosa por una solución robusta en `AdminList.tsx`. Ahora, al hacer clic en "Imprimir Lote", se genera una vista de impresión limpia y optimizada que permite guardar los cupones como un archivo PDF perfecto para su distribución.
     4.  **Documentación:** Se documentó este cambio crítico en el `CHANGELOG.md`.
 
 *   **¿Por qué se hizo?** Para restaurar la funcionalidad principal de canje de cupones, que estaba rota debido a la codificación incorrecta del QR, y para alinear el diseño final del cupón con los requisitos de negocio, asegurando que la información más importante (términos y condiciones) tenga el espacio y la visibilidad adecuados. Además, se proporcionó una solución de impresión funcional que era una carencia crítica del módulo.
@@ -433,3 +433,4 @@ Este documento sirve como un registro manual de los cambios significativos reali
 *   **¿Por qué se hizo?** Las versiones anteriores mezclaban incorrectamente sintaxis del SDK de cliente y de admin, lo que impedía su ejecución y el despliegue de las funciones. La corrección era necesaria para que ambas características (sincronizar nuevos clientes y limpiar duplicados) pudieran funcionar.
 
     
+```

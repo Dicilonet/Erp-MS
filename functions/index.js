@@ -1206,7 +1206,7 @@ exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
 });
 
 
-// --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP ---
+// --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP (CORREGIDAS) ---
 exports.syncNewCustomersFromWebsite = onCall(
   { region: 'europe-west1' },
   async (request) => {
@@ -2305,3 +2305,4 @@ exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (req
         throw new HttpsError('internal', 'No se pudo guardar el contenido.');
     }
 });
+    

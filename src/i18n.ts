@@ -6,8 +6,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 export const i18n = i18next;
 
 // Solo inicializar en el cliente
-if (typeof window !== 'undefined') {
-  i18n
+if (typeof window !== 'undefined' && !i18next.isInitialized) {
+  i18next
     .use(LanguageDetector) // Detecta el idioma del navegador
     .use(initReactI18next) // Pasa i18n a react-i18next
     .use(resourcesToBackend((language: string, namespace: string) => import(`../locales/${language}/${namespace}.json`)))

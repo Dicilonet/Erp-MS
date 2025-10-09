@@ -2,7 +2,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Bot, Clipboard, Loader2 } from 'lucide-react';
+import { Bot, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -54,24 +54,6 @@ export function AiSummary() {
     }
   }
 
-  const copyToClipboard = () => {
-    if (typeof window !== 'undefined' && window.navigator) {
-        navigator.clipboard.writeText(summary).then(() => {
-            toast({
-                title: t('aiSummary.toast.copiedTitle'),
-                description: t('aiSummary.toast.copiedDescription'),
-            });
-        }).catch(err => {
-            console.error('Clipboard error:', err);
-            toast({
-                variant: 'destructive',
-                title: 'Error al Copiar',
-                description: 'No se pudo copiar el texto. Es posible que el navegador no lo permita.'
-            });
-        });
-    }
-  }
-
   return (
     <Card>
       <CardHeader>
@@ -109,10 +91,6 @@ export function AiSummary() {
                 <FormLabel>{t('aiSummary.suggestedSummaryLabel')}</FormLabel>
                 <div className="relative">
                     <Textarea readOnly value={summary} rows={4} className="bg-secondary pr-12"/>
-                     <Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2 h-7 w-7" onClick={copyToClipboard}>
-                        <Clipboard className="h-4 w-4" />
-                        <span className="sr-only">{t('aiSummary.copyAction')}</span>
-                    </Button>
                 </div>
                </div>
             )}
