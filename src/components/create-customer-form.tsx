@@ -119,8 +119,9 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
 
   const selectedCategory = form.watch('category');
 
+  // CORRECCIÓN: Filtrar por el ID de la categoría, que es más robusto.
   const filteredLandingPages = landingPageCategories
-    .find(cat => cat.titleKey.split('.').pop() === selectedCategory.toLowerCase())?.pages || [];
+    .find(cat => cat.id.toLowerCase() === selectedCategory.toLowerCase())?.pages || [];
 
 
   async function onSubmit(values: FormData) {

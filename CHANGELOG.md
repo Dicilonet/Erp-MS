@@ -3,16 +3,16 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
-## 31 de Julio de 2024
+## 17 de Agosto de 2024
 
-### 1. [ID de Cambio: 4b1a8c3] Corrección Crítica de Backend: Sintaxis en Cloud Functions de Gestión de Clientes
+### 1. [ID de Cambio: 17a5b3c2] Corrección del Filtro de Landing Pages en Formulario de Cliente
 
-*   **¿Qué se hizo?** Se refactorizaron las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` para solucionar un error de ejecución que impedía su funcionamiento.
-    1.  **Análisis:** Se diagnosticó que las funciones mezclaban sintaxis del SDK de cliente de Firebase v9 (como `getDocs(collection(...))`) con el SDK de Admin, que utiliza una sintaxis diferente (`db.collection(...).get()`). Esta incompatibilidad provocaba un fallo interno en el servidor cada vez que se intentaba ejecutar la sincronización o limpieza de clientes, lo que resultaba en un "Internal Server Error" en la aplicación.
-    2.  **Corrección:** Se reescribieron ambas funciones utilizando exclusivamente la sintaxis del SDK de Admin de Firebase. Esto incluye cambiar la forma en que se obtienen y se iteran los documentos para que sean compatibles con el entorno de backend de las Cloud Functions.
-    3.  **Resultado:** Las funciones ahora se ejecutan correctamente, permitiendo la sincronización de nuevos clientes desde la colección `businesses` y la limpieza de duplicados sin errores.
+*   **¿Qué se hizo?** Se solucionó un error de regresión que impedía que el menú desplegable para asignar landing pages se filtrara correctamente según la categoría de negocio seleccionada.
+    1.  **Diagnóstico:** Se identificó que la lógica de comparación en el componente `create-customer-form.tsx` era incorrecta. El sistema intentaba hacer coincidir la clave de traducción de la categoría (ej. `landingPages.categories.gastronomy`) con el valor seleccionado en el formulario (ej. "Gastronomie"), lo cual fallaba.
+    2.  **Corrección:** Se reescribió la lógica para que la comparación se haga de manera robusta utilizando el `id` de la categoría (ej. `gastronomie`) contra el valor seleccionado (convertido a minúsculas). Esto asegura que el filtro funcione de manera predecible y correcta.
+    3.  **Resultado:** El menú de "Asignar Plantilla de Landing Page" ahora se actualiza dinámicamente, mostrando solo las plantillas relevantes para la categoría de negocio elegida, restaurando la funcionalidad inteligente del formulario.
 
-*   **¿Por qué se hizo?** Para eliminar un error crítico de backend que impedía el funcionamiento de características clave del módulo de clientes. Esta corrección estabiliza la lógica de negocio del servidor y restaura la capacidad de gestionar la base de datos de clientes de forma automatizada.
+*   **¿Por qué se hizo?** Para corregir un error funcional crítico que se introdujo en una actualización anterior y que degradaba la experiencia de usuario al crear o editar un cliente, asegurando que el flujo de trabajo sea tan eficiente e intuitivo como se diseñó originalmente.
 
 ---
 ## 16 de Agosto de 2024
@@ -226,6 +226,18 @@ Este documento sirve como un registro manual de los cambios significativos reali
 
 *   **¿Por qué se hizo?** Para eliminar un error crítico de base de datos que bloqueaba una funcionalidad clave del módulo de cupones. Esta corrección asegura la infraestructura de datos necesaria para que el panel de administración de cupones sea funcional.
 
+
+---
+## 31 de Julio de 2024
+
+### 1. [ID de Cambio: 4b1a8c3] Corrección Crítica de Backend: Sintaxis en Cloud Functions de Gestión de Clientes
+
+*   **¿Qué se hizo?** Se refactorizaron las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` para solucionar un error de ejecución que impedía su funcionamiento.
+    1.  **Análisis:** Se diagnosticó que las funciones mezclaban sintaxis del SDK de cliente de Firebase v9 (como `getDocs(collection(...))`) con el SDK de Admin, que utiliza una sintaxis diferente (`db.collection(...).get()`). Esta incompatibilidad provocaba un fallo interno en el servidor cada vez que se intentaba ejecutar la sincronización o limpieza de clientes, lo que resultaba en un "Internal Server Error" en la aplicación.
+    2.  **Corrección:** Se reescribieron ambas funciones utilizando exclusivamente la sintaxis del SDK de Admin de Firebase. Esto incluye cambiar la forma en que se obtienen y se iteran los documentos para que sean compatibles con el entorno de backend de las Cloud Functions.
+    3.  **Resultado:** Las funciones ahora se ejecutan correctamente, permitiendo la sincronización de nuevos clientes desde la colección `businesses` y la limpieza de duplicados sin errores.
+
+*   **¿Por qué se hizo?** Para eliminar un error crítico de backend que impedía el funcionamiento de características clave del módulo de clientes. Esta corrección estabiliza la lógica de negocio del servidor y restaura la capacidad de gestionar la base de datos de clientes de forma automatizada.
 
 ---
 ## 30 de Julio de 2024
