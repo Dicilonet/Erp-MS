@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -97,10 +96,10 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
       name: '',
       contactEmail: '',
       description: '',
-      planId: undefined,
+      planId: 'plan_einzelhandler',
       paymentCycle: 'anual',
       hasPromoPrice: false,
-      country: undefined,
+      country: 'DE',
       location: '',
       fullAddress: '',
       coordinates: { latitude: 0, longitude: 0 },

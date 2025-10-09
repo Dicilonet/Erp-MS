@@ -3,6 +3,18 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 18 de Agosto de 2024
+
+### 1. [ID de Cambio: 18d9e4a3] Corrección de Lógica en Formulario de Creación de Cliente
+
+*   **¿Qué se hizo?** Se solucionó un error crítico que impedía que los clientes se guardaran en la base de datos de Firebase.
+    1.  **Diagnóstico:** Se detectó que el formulario de creación de clientes, aunque visualmente completo, no tenía su lógica de envío conectada al botón "Kunde erstellen" (Crear Cliente). Esto hacía que el botón no realizara ninguna acción al hacer clic.
+    2.  **Corrección:** Se reestructuró el componente `create-customer-form.tsx` para asegurar que el `form` de React Hook Form se vincule correctamente con la función `onSubmit` a través del botón de envío.
+    3.  **Resultado:** El formulario ahora funciona como se espera, validando los datos y guardando exitosamente el nuevo cliente en la colección `customers` de Firestore, lo que restaura una funcionalidad esencial del CRM.
+
+*   **¿Por qué se hizo?** Para corregir un error funcional grave que impedía la creación de nuevos clientes, una de las operaciones más fundamentales del sistema, y para asegurar que la lógica del frontend se comunique correctamente con el backend.
+
+---
 ## 17 de Agosto de 2024
 
 ### 1. [ID de Cambio: 17a5b3c2] Corrección del Filtro de Landing Pages en Formulario de Cliente
