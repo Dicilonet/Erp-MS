@@ -1187,55 +1187,6 @@ exports.setSuperAdminRole = onCall(
   }
 );
 
-exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, res) => {
-    const DEFAULT_COMPANY_ID = 'mhc-int';
-
-    const EXECUTION_TOKEN = 'ejecutar-ahora';
-    if (req.query.token !== EXECUTION_TOKEN) {
-      console.warn('Intento de ejecución sin token de seguridad.');
-      return res
-        .status(403)
-        .send('Acceso denegado. Se requiere token de seguridad.');
-    }
-
-    try {
-      console.log('Iniciando script para añadir companyId a usuarios...');
-      const usersSnapshot = await db.collection('users').get();
-      const batch = db.batch();
-      let updatedCount = 0;
-
-      usersSnapshot.forEach((doc) => {
-        const userData = doc.data();
-        if (userData.companyId === undefined) {
-          batch.update(doc.ref, { companyId: DEFAULT_COMPANY_ID });
-          updatedCount++;
-        }
-      });
-
-      if (updatedCount === 0) {
-        const zeroMessage =
-          'No se encontraron usuarios que necesiten ser actualizados. Todos ya tienen un companyId.';
-        console.log(zeroMessage);
-        return res.status(200).send(zeroMessage);
-      }
-
-      await batch.commit();
-      const successMessage = `Proceso completado. ${updatedCount} usuarios han sido actualizados con el companyId: '${DEFAULT_COMPANY_ID}'.`;
-      console.log(successMessage);
-      res.status(200).send(successMessage);
-    } catch (error) {
-      console.error(
-        'Error catastrófico al actualizar usuarios con companyId:',
-        error
-      );
-      res
-        .status(500)
-        .send(
-          'Error en el servidor. Revisa los logs de Firebase para más detalles.'
-        );
-    }
-  });
-
 // --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP ---
 exports.syncNewCustomersFromWebsite = onCall(
   { region: 'europe-west1' },
@@ -2274,5 +2225,27 @@ exports.getBusinessesInArea = onCall({region: 'europe-west1', timeoutSeconds: 60
 });
     
 
+exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (request) => {
+    if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
+    }
+
+    const { customerId, content } = request.data;
+    if (!customerId || !content) {
+        throw new HttpsError('invalid-argument', 'Faltan datos para actualizar el contenido.');
+    }
+
+    try {
+        const contentRef = db.collection('customers').doc(customerId).collection('landingPageContent').doc('main');
+        await contentRef.set(content, { merge: true });
+        
+        return { success: true };
+
+    } catch (error) {
+        console.error("Error guardando contenido de landing page:", error);
+        throw new HttpsError('internal', 'No se pudo guardar el contenido.');
+    }
+});
     
 
+```

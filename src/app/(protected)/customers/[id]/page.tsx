@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -11,10 +10,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { User, Calendar, Shield, ClipboardList, KeyRound, FileText, AlertTriangle } from 'lucide-react';
+import { User, Calendar, Shield, ClipboardList, KeyRound, FileText, AlertTriangle, LayoutTemplate } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { InteractionLog } from '@/components/interaction-log';
+import { LandingPageEditor } from '@/components/customers/landing-page-editor';
 
 const statusColors: { [key in ServiceStatus]: 'default' | 'secondary' | 'destructive' | 'outline' } = {
   'Pendiente': 'secondary',
@@ -100,7 +100,12 @@ export default function CustomerDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Columna Izquierda y Central */}
           <div className="lg:col-span-2 space-y-6">
+              
               <InteractionLog customerId={customer.customerId} />
+              
+              {customer.assignedLandingPage && (
+                  <LandingPageEditor customer={customer} />
+              )}
 
               <Card>
                   <CardHeader>
@@ -159,6 +164,19 @@ export default function CustomerDetailPage() {
                           <span>{(customer.accountManager && customer.accountManager.userName) || 'No asignado'}</span>
                       </div>
                        <p className="text-xs text-muted-foreground pl-7">{(customer.accountManager && customer.accountManager.userEmail) || ''}</p>
+                       <Separator />
+                       <h4 className="font-semibold pt-2">Landing Page Asignada</h4>
+                       <div className="flex items-center gap-3">
+                            <LayoutTemplate className="h-4 w-4 text-muted-foreground" />
+                            <span>{customer.assignedLandingPage || 'Ninguna'}</span>
+                       </div>
+                       {customer.landingPageSubdomain && (
+                            <p className="text-xs text-muted-foreground pl-7">
+                                <a href={`https://${customer.landingPageSubdomain}.dicilo.app`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                    {customer.landingPageSubdomain}.dicilo.app
+                                </a>
+                            </p>
+                       )}
                   </CardContent>
               </Card>
                             
