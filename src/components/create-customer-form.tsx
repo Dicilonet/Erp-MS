@@ -101,7 +101,7 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
   }, [open, customerToEdit, isEditMode, form]);
 
   const selectedCategory = form.watch('category');
-  const filteredLandingPages = landingPageCategories.find(cat => t(`articles:landingPages.categories.${cat.id}`).toLowerCase() === selectedCategory.toLowerCase())?.pages || [];
+  const filteredLandingPages = selectedCategory ? landingPageCategories.find(cat => t(`articles:landingPages.categories.${cat.id}`).toLowerCase() === selectedCategory.toLowerCase())?.pages || [] : [];
 
 
   async function onSubmit(values: FormData) {
