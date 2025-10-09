@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useTranslation } from 'react-i18next';
@@ -30,13 +31,11 @@ interface SettingsLayoutProps {
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   const { t } = useTranslation(['settings', 'common']);
 
-  // Creamos una nueva lista de items que incluye el de cerrar sesión
   const navItems = [
     ...sidebarNavItems.map(item => ({...item, title: t(item.titleKey as any, { ns: 'settings' })})),
-    // Añadimos el nuevo item de logout
     {
       title: t('logout.button', { ns: 'common' }),
-      href: '#logout', // Usamos un href especial para identificar la acción
+      href: '#logout',
       icon: <LogOut />
     }
   ];
@@ -50,7 +49,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
             </div>
         </div>
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <aside className="-mx-4 lg:w-1/5">
+        <aside className="lg:w-1/5">
           <SidebarNav items={navItems} />
         </aside>
         <div className="flex-1 lg:max-w-4xl">{children}</div>

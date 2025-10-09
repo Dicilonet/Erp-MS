@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -44,7 +45,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   return (
     <nav
       className={cn(
-        "flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1",
+        "flex flex-col gap-1",
         className
       )}
       {...props}

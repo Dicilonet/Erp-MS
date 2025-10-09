@@ -21,7 +21,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const publicRoutes = ['/login', '/signup', '/redeem', '/forms/embed'];
+const publicRoutes = ['/login', '/signup', '/redeem'];
 const landingPagesPrefix = '/articulos/landing-pages';
 const mainLanding = '/';
 
@@ -38,10 +38,12 @@ function AuthRedirect({ children }: { children: React.ReactNode }) {
         if (!user && !isPublic) {
             router.push('/login');
         }
-
-        if (user && (pathname === '/login' || pathname === '/signup' || pathname === mainLanding)) {
+        
+        // CORRECCIÓN: Evitar el bucle de redirección en la página de inicio
+        if (user && (pathname === '/login' || pathname === '/signup')) {
             router.push('/dashboard');
         }
+
     }, [isLoading, user, pathname, router]);
 
     return <>{children}</>;
@@ -84,7 +86,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     { href: "/chat", label: t('nav.chat'), icon: <MessageSquare /> },
     { href: "/customers", label: t('nav.customers'), icon: <Users /> },
     { href: "/admin/projects", label: t('nav.projects'), icon: <FolderKanban /> },
-    { href: "/marketing", label: t('nav.marketing', {ns: 'common'}), icon: <Briefcase /> },
+    { href: "/marketing/coupons", label: t('nav.marketing', {ns: 'common'}), icon: <Briefcase /> },
     { href: "/articulos", label: t('nav.articles'), icon: <Package /> },
     { href: "/offers", label: t('nav.offers'), icon: <FileText /> },
     { href: "/expenses", label: t('nav.expenses'), icon: <Receipt /> },
