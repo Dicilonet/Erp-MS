@@ -2284,25 +2284,3 @@ exports.submitPublicContactForm = onCall({ cors: true }, async (request) => {
 });
 
     
-exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (request) => {
-    if (!request.auth) {
-        throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
-    }
-
-    const { customerId, content } = request.data;
-    if (!customerId || !content) {
-        throw new HttpsError('invalid-argument', 'Faltan datos para actualizar el contenido.');
-    }
-
-    try {
-        const contentRef = db.collection('customers').doc(customerId).collection('landingPageContent').doc('main');
-        await contentRef.set(content, { merge: true });
-        
-        return { success: true };
-
-    } catch (error) {
-        console.error("Error guardando contenido de landing page:", error);
-        throw new HttpsError('internal', 'No se pudo guardar el contenido.');
-    }
-});
-    
