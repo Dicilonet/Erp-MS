@@ -2244,3 +2244,64 @@ exports.getBusinessesInArea = onCall({region: 'europe-west1', timeoutSeconds: 60
     
 
     
+exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (request) => {
+    if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
+    }
+
+    const { customerId, content } = request.data;
+    if (!customerId || !content) {
+        throw new HttpsError('invalid-argument', 'Faltan datos para actualizar el contenido.');
+    }
+
+    try {
+        const contentRef = db.collection('customers').doc(customerId).collection('landingPageContent').doc('main');
+        await contentRef.set(content, { merge: true });
+        
+        return { success: true };
+
+    } catch (error) {
+        console.error("Error guardando contenido de landing page:", error);
+        throw new HttpsError('internal', 'No se pudo guardar el contenido.');
+    }
+});
+    
+exports.submitPublicContactForm = onCall({ cors: true }, async (request) => {
+    const { email, companyName } = request.data;
+
+    if (!email || !companyName) {
+        throw new HttpsError('invalid-argument', 'Email y nombre de empresa son requeridos.');
+    }
+    
+    // Aquí podrías añadir el lead a una colección 'leads' en Firestore
+    // o enviarlo a un webhook de un CRM externo.
+    console.log(`Nuevo lead recibido de la landing page: ${companyName} (${email})`);
+
+    // Podríamos también enviar un email de notificación
+    // await sendEmailWithNodemailer(...)
+
+    return { success: true, message: 'Lead recibido correctamente.' };
+});
+
+    
+exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (request) => {
+    if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
+    }
+
+    const { customerId, content } = request.data;
+    if (!customerId || !content) {
+        throw new HttpsError('invalid-argument', 'Faltan datos para actualizar el contenido.');
+    }
+
+    try {
+        const contentRef = db.collection('customers').doc(customerId).collection('landingPageContent').doc('main');
+        await contentRef.set(content, { merge: true });
+        
+        return { success: true };
+
+    } catch (error) {
+        console.error("Error guardando contenido de landing page:", error);
+        throw new HttpsError('internal', 'No se pudo guardar el contenido.');
+    }
+});

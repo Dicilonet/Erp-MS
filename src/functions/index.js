@@ -1187,9 +1187,8 @@ exports.setSuperAdminRole = onCall(
   }
 );
 
-// --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP ---
 exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
-    if (!request.auth?.token?.role) {
+    if (request.auth?.token?.role !== 'superadmin' && request.auth?.token?.role !== 'colaborador') {
         throw new HttpsError('permission-denied', 'No tienes permiso para realizar esta acción.');
     }
     const { customerId, data } = request.data;
@@ -1207,6 +1206,7 @@ exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
 });
 
 
+// --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP (CORREGIDAS) ---
 exports.syncNewCustomersFromWebsite = onCall(
   { region: 'europe-west1' },
   async (request) => {
@@ -2243,6 +2243,7 @@ exports.getBusinessesInArea = onCall({region: 'europe-west1', timeoutSeconds: 60
 });
     
 
+    
 exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (request) => {
     if (!request.auth) {
         throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
@@ -2282,4 +2283,26 @@ exports.submitPublicContactForm = onCall({ cors: true }, async (request) => {
     return { success: true, message: 'Lead recibido correctamente.' };
 });
 
+    
+exports.updateLandingPageContent = onCall({ region: 'europe-west1' }, async (request) => {
+    if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'El usuario debe estar autenticado.');
+    }
+
+    const { customerId, content } = request.data;
+    if (!customerId || !content) {
+        throw new HttpsError('invalid-argument', 'Faltan datos para actualizar el contenido.');
+    }
+
+    try {
+        const contentRef = db.collection('customers').doc(customerId).collection('landingPageContent').doc('main');
+        await contentRef.set(content, { merge: true });
+        
+        return { success: true };
+
+    } catch (error) {
+        console.error("Error guardando contenido de landing page:", error);
+        throw new HttpsError('internal', 'No se pudo guardar el contenido.');
+    }
+});
     
