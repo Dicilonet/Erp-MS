@@ -56,10 +56,18 @@ export function AiSummary() {
 
   const copyToClipboard = () => {
     if (typeof window !== 'undefined' && window.navigator) {
-        navigator.clipboard.writeText(summary);
-        toast({
-            title: t('aiSummary.toast.copiedTitle'),
-            description: t('aiSummary.toast.copiedDescription'),
+        navigator.clipboard.writeText(summary).then(() => {
+            toast({
+                title: t('aiSummary.toast.copiedTitle'),
+                description: t('aiSummary.toast.copiedDescription'),
+            });
+        }).catch(err => {
+            console.error('Clipboard error:', err);
+            toast({
+                variant: 'destructive',
+                title: 'Error al Copiar',
+                description: 'No se pudo copiar el texto. Es posible que el navegador no lo permita.'
+            });
         });
     }
   }

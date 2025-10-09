@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -28,7 +29,7 @@ export function CustomerList() {
     const { t } = useTranslation('customers');
     const { user, isSuperadmin } = useAuth();
     const [customers, setCustomers] = useState<ErpCustomer[]>([]);
-    const [loading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [isSyncing, setIsSyncing] = useState(false);
     const [isCleaning, setIsCleaning] = useState(false);
     const [isDeleting, setIsDeleting] = useState<string | null>(null);
@@ -346,3 +347,4 @@ export function CustomerList() {
         </Card>
     );
 }
+
