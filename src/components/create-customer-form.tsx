@@ -68,7 +68,7 @@ interface CreateCustomerFormProps {
 }
 
 export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerFormProps) {
-  const { t } = useTranslation('customers');
+  const { t } = useTranslation(['customers', 'articles']);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -80,7 +80,7 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
 
   useEffect(() => {
     if (open) {
-      if (isEditMode) {
+      if (isEditMode && customerToEdit) {
         form.reset({
           ...customerToEdit,
           planId: customerToEdit.planId as CustomerPlanId,
@@ -101,8 +101,10 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
   }, [open, customerToEdit, isEditMode, form]);
 
   const selectedCategory = form.watch('category');
-  const filteredLandingPages = selectedCategory ? landingPageCategories.find(cat => t(`articles:landingPages.categories.${cat.id}`).toLowerCase() === selectedCategory.toLowerCase())?.pages || [] : [];
 
+  const filteredLandingPages = selectedCategory
+    ? landingPageCategories.find(cat => cat.id.toLowerCase() === selectedCategory.toLowerCase())?.pages || []
+    : [];
 
   async function onSubmit(values: FormData) {
     setIsLoading(true);
