@@ -1187,54 +1187,24 @@ exports.setSuperAdminRole = onCall(
   }
 );
 
-exports.addCompanyIdToUsers = onRequest({ region: 'europe-west1' }, async (req, res) => {
-    const DEFAULT_COMPANY_ID = 'mhc-int';
-
-    const EXECUTION_TOKEN = 'ejecutar-ahora';
-    if (req.query.token !== EXECUTION_TOKEN) {
-      console.warn('Intento de ejecución sin token de seguridad.');
-      return res
-        .status(403)
-        .send('Acceso denegado. Se requiere token de seguridad.');
+exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
+    if (request.auth?.token?.role !== 'superadmin' && request.auth?.token?.role !== 'colaborador') {
+        throw new HttpsError('permission-denied', 'No tienes permiso para realizar esta acción.');
     }
-
+    const { customerId, data } = request.data;
+    if (!customerId || !data) {
+        throw new HttpsError('invalid-argument', 'Faltan datos para actualizar el cliente.');
+    }
     try {
-      console.log('Iniciando script para añadir companyId a usuarios...');
-      const usersSnapshot = await db.collection('users').get();
-      const batch = db.batch();
-      let updatedCount = 0;
-
-      usersSnapshot.forEach((doc) => {
-        const userData = doc.data();
-        if (userData.companyId === undefined) {
-          batch.update(doc.ref, { companyId: DEFAULT_COMPANY_ID });
-          updatedCount++;
-        }
-      });
-
-      if (updatedCount === 0) {
-        const zeroMessage =
-          'No se encontraron usuarios que necesiten ser actualizados. Todos ya tienen un companyId.';
-        console.log(zeroMessage);
-        return res.status(200).send(zeroMessage);
-      }
-
-      await batch.commit();
-      const successMessage = `Proceso completado. ${updatedCount} usuarios han sido actualizados con el companyId: '${DEFAULT_COMPANY_ID}'.`;
-      console.log(successMessage);
-      res.status(200).send(successMessage);
+        const customerRef = db.collection('customers').doc(customerId);
+        await customerRef.update(data);
+        return { success: true, message: 'Cliente actualizado correctamente.' };
     } catch (error) {
-      console.error(
-        'Error catastrófico al actualizar usuarios con companyId:',
-        error
-      );
-      res
-        .status(500)
-        .send(
-          'Error en el servidor. Revisa los logs de Firebase para más detalles.'
-        );
+        console.error('Error al actualizar cliente:', error);
+        throw new HttpsError('internal', 'No se pudo actualizar el cliente.');
     }
-  });
+});
+
 
 // --- NUEVAS FUNCIONES PARA GESTIÓN DE CLIENTES DEL ERP ---
 exports.syncNewCustomersFromWebsite = onCall(

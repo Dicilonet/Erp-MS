@@ -2281,3 +2281,5 @@ exports.submitPublicContactForm = onCall({ cors: true }, async (request) => {
 
     return { success: true, message: 'Lead recibido correctamente.' };
 });
+
+    

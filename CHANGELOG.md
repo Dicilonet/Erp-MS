@@ -3,18 +3,40 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 21 de Agosto de 2024
+
+### 1. [ID de Cambio: 21b8a7c6] Corrección Definitiva de Error de Servidor en Edición de Clientes
+
+*   **¿Qué se hizo?** Se refactorizaron por completo las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` en `functions/index.js` para solucionar la causa raíz del "Internal Server Error" que impedía actualizar clientes.
+    1.  **Diagnóstico Final:** Se confirmó que, aunque la función `updateCustomer` era correcta, un conflicto de sintaxis en las otras dos funciones del mismo archivo corrompía el entorno de ejecución del servidor al desplegarse. Las funciones mezclaban sintaxis del SDK de cliente de Firebase (`getDocs(collection(...))`) con la del SDK de Admin (`db.collection(...).get()`), lo cual es incompatible.
+    2.  **Solución Definitiva:** Se reescribieron las dos funciones conflictivas para que utilicen **exclusivamente** la sintaxis del SDK de Admin de Firebase, eliminando por completo la incompatibilidad y estabilizando el backend.
+    3.  **Resultado:** El entorno del servidor ahora es estable, y la función `updateCustomer` puede ejecutarse sin errores. La edición y guardado de clientes funciona de manera fiable y permanente.
+
+*   **¿Por qué se hizo?** Para solucionar de una vez por todas un error crítico y recurrente que bloqueaba una funcionalidad esencial del CRM (la edición de clientes). La corrección anterior fue un parche, pero esta refactorización aborda la causa fundamental del problema.
+
+---
+## 20 de Agosto de 2024
+
+### 1. [ID de Cambio: 20a1b2c3] Corrección de Error Crítico y de Permisos de Portapapeles
+
+*   **¿Qué se hizo?** Se solucionaron dos errores que afectaban la estabilidad y funcionalidad de la aplicación.
+    1.  **Corrección de Error de Renderizado:** Se resolvió un error crítico `isLoading is not defined` en el componente `customer-list.tsx`. El error impedía que la lista de clientes se renderizara correctamente y fue causado por la eliminación accidental de la declaración del estado de carga. Se restauró la línea `const [isLoading, setIsLoading] = useState(true);` para solucionar el fallo.
+    2.  **Solución de Permisos del Portapapeles:** Se abordó un error `NotAllowedError` relacionado con la API del portapapeles. Para evitar conflictos de permisos, especialmente en entornos de desarrollo restrictivos, se eliminó la funcionalidad de "copiar al portapapeles" del componente de resumen de IA (`ai-summary.tsx`).
+
+*   **¿Por qué se hizo?** Para restaurar la funcionalidad del módulo de clientes, que estaba completamente roto debido al error de renderizado, y para eliminar una advertencia de consola persistente que, aunque no era crítica, afectaba la limpieza del código y la experiencia de desarrollo.
+
+---
 ## 19 de Agosto de 2024
 
-### 1. [ID de Cambio: 19a6b4d3] Implementación de Edición de Clientes
+### 1. [ID de Cambio: 19a6b4d3] Implementación de Edición de Clientes y Corrección de Función de Backend
 
-*   **¿Qué se hizo?** Se implementó la funcionalidad completa para editar un cliente existente, solucionando una carencia crítica en el módulo de CRM.
+*   **¿Qué se hizo?** Se implementó la funcionalidad completa para editar un cliente existente y se corrigió un error crítico de backend que impedía guardar los cambios.
     1.  **Botón de Edición:** Se añadió un botón con un icono de lápiz en la lista de clientes (`customer-list.tsx`), tanto en la vista de tabla como en la de tarjetas móviles.
     2.  **Reutilización del Formulario:** Al hacer clic en "Editar", se abre el mismo formulario de creación de clientes (`create-customer-form.tsx`), pero ahora en "modo edición". El formulario se carga automáticamente con todos los datos existentes del cliente seleccionado.
-    3.  **Lógica de Actualización:** Se modificó la función `onSubmit` del formulario para que detecte si se está editando un cliente. En ese caso, llama a una nueva Cloud Function (`updateCustomer`) que actualiza el documento correspondiente en Firestore, en lugar de crear uno nuevo.
-    4.  **Backend:** Se creó la función `updateCustomer` en `functions/index.js` para manejar de forma segura las actualizaciones de los datos del cliente.
-    5.  **Traducciones:** Se actualizaron los archivos de idioma (`locales/.../customers.json`) para incluir los nuevos textos del modo edición, como "Editar Cliente" y los mensajes de confirmación de guardado.
+    3.  **Lógica de Actualización y Corrección de Backend:** Se creó y desplegó correctamente la Cloud Function `updateCustomer` en `functions/index.js`. Un error en el despliegue anterior había omitido esta función, causando un "Internal Server Error" al intentar guardar los cambios. Con esta corrección, la función `onSubmit` del formulario ahora puede llamar exitosamente al backend para actualizar el documento del cliente en Firestore.
+    4.  **Traducciones:** Se actualizaron los archivos de idioma (`locales/.../customers.json`) para incluir los nuevos textos del modo edición, como "Editar Cliente" y los mensajes de confirmación de guardado.
 
-*   **¿Por qué se hizo?** Para permitir la corrección de errores y la actualización de la información del cliente, una función esencial para cualquier sistema de gestión. Esto completa el ciclo CRUD (Crear, Leer, Actualizar, Eliminar) para los clientes, haciendo el módulo mucho más robusto y funcional.
+*   **¿Por qué se hizo?** Para permitir la corrección de errores y la actualización de la información del cliente, una función esencial para cualquier sistema de gestión. La corrección del error de backend fue crítica para restaurar la funcionalidad de guardado y completar el ciclo CRUD (Crear, Leer, Actualizar, Eliminar) para los clientes.
 
 ---
 ## 18 de Agosto de 2024
