@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,7 +27,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -43,40 +44,144 @@ const businessCategories = [
     "Sport", "Reise", "Technologie", "Tier", "Transport", "Umwelt", "Unterhaltung"
 ];
 
+// --- LISTA DE PAÍSES AMPLIADA ---
+const countryList = {
+    "Norteamérica": [
+        { code: "US", name: "Estados Unidos" },
+        { code: "CA", name: "Canadá" },
+        { code: "MX", name: "México" },
+    ],
+    "América del Sur": [
+        { code: "AR", name: "Argentina" },
+        { code: "BO", name: "Bolivia" },
+        { code: "BR", name: "Brasil" },
+        { code: "CL", name: "Chile" },
+        { code: "CO", name: "Colombia" },
+        { code: "EC", name: "Ecuador" },
+        { code: "GY", name: "Guyana" },
+        { code: "PY", name: "Paraguay" },
+        { code: "PE", name: "Perú" },
+        { code: "SR", name: "Surinam" },
+        { code: "UY", name: "Uruguay" },
+        { code: "VE", name: "Venezuela" },
+    ],
+    "Europa": [
+        { code: "AL", name: "Albania" },
+        { code: "DE", name: "Alemania" },
+        { code: "AD", name: "Andorra" },
+        { code: "AM", name: "Armenia" },
+        { code: "AT", name: "Austria" },
+        { code: "AZ", name: "Azerbaiyán" },
+        { code: "BE", name: "Bélgica" },
+        { code: "BY", name: "Bielorrusia" },
+        { code: "BA", name: "Bosnia y Herzegovina" },
+        { code: "BG", name: "Bulgaria" },
+        { code: "CY", name: "Chipre" },
+        { code: "VA", name: "Ciudad del Vaticano" },
+        { code: "HR", name: "Croacia" },
+        { code: "DK", name: "Dinamarca" },
+        { code: "SK", name: "Eslovaquia" },
+        { code: "SI", name: "Eslovenia" },
+        { code: "ES", name: "España" },
+        { code: "EE", name: "Estonia" },
+        { code: "FI", name: "Finlandia" },
+        { code: "FR", name: "Francia" },
+        { code: "GE", name: "Georgia" },
+        { code: "GR", name: "Grecia" },
+        { code: "HU", name: "Hungría" },
+        { code: "IE", name: "Irlanda" },
+        { code: "IS", name: "Islandia" },
+        { code: "IT", name: "Italia" },
+        { code: "KZ", name: "Kazajistán" },
+        { code: "LV", name: "Letonia" },
+        { code: "LI", name: "Liechtenstein" },
+        { code: "LT", name: "Lituania" },
+        { code: "LU", name: "Luxemburgo" },
+        { code: "MK", name: "Macedonia del Norte" },
+        { code: "MT", name: "Malta" },
+        { code: "MD", name: "Moldavia" },
+        { code: "MC", name: "Mónaco" },
+        { code: "ME", name: "Montenegro" },
+        { code: "NO", name: "Noruega" },
+        { code: "NL", name: "Países Bajos" },
+        { code: "PL", name: "Polonia" },
+        { code: "PT", name: "Portugal" },
+        { code: "GB", name: "Reino Unido" },
+        { code: "CZ", name: "República Checa" },
+        { code: "RO", name: "Rumanía" },
+        { code: "RU", name: "Rusia" },
+        { code_: "SM", name: "San Marino" },
+        { code: "RS", name: "Serbia" },
+        { code: "SE", name: "Suecia" },
+        { code: "CH", name: "Suiza" },
+        { code: "TR", name: "Turquía" },
+        { code: "UA", name: "Ucrania" },
+    ],
+    "Asia": [
+        { code: "AF", name: "Afganistán" },
+        { code: "SA", name: "Arabia Saudita" },
+        { code: "BD", name: "Bangladés" },
+        { code: "MM", name: "Birmania" },
+        { code: "BT", name: "Bután" },
+        { code: "KH", name: "Camboya" },
+        { code: "CN", name: "China" },
+        { code: "KP", name: "Corea del Norte" },
+        { code: "KR", name: "Corea del Sur" },
+        { code: "AE", name: "Emiratos Árabes Unidos" },
+        { code: "PH", name: "Filipinas" },
+        { code: "IN", name: "India" },
+        { code: "ID", name: "Indonesia" },
+        { code: "IQ", name: "Irak" },
+        { code: "IR", name: "Irán" },
+        { code: "IL", name: "Israel" },
+        { code: "JP", name: "Japón" },
+        { code: "JO", name: "Jordania" },
+        { code: "KG", name: "Kirguistán" },
+        { code: "KW", name: "Kuwait" },
+        { code: "LA", name: "Laos" },
+        { code: "LB", name: "Líbano" },
+        { code: "MY", name: "Malasia" },
+        { code: "MV", name: "Maldivas" },
+        { code: "MN", name: "Mongolia" },
+        { code: "NP", name: "Nepal" },
+        { code: "OM", name: "Omán" },
+        { code: "PK", name: "Pakistán" },
+        { code: "QA", name: "Catar" },
+        { code: "SG", name: "Singapur" },
+        { code: "SY", name: "Siria" },
+        { code: "LK", name: "Sri Lanka" },
+        { code: "TH", name: "Tailandia" },
+        { code: "TJ", name: "Tayikistán" },
+        { code: "TM", name: "Turkmenistán" },
+        { code: "UZ", name: "Uzbekistán" },
+        { code: "VN", name: "Vietnam" },
+        { code: "YE", name: "Yemen" },
+    ]
+};
+
+const allCountryCodes = Object.values(countryList).flat().map(c => c.code);
+
 const formSchema = z.object({
-  // --- Info Principal ---
   name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres.' }),
   contactEmail: z.string().email({ message: 'Debe ser un email válido.' }),
   description: z.string().min(10, { message: 'La descripción debe tener al menos 10 caracteres.' }),
-
-  // --- Plan y Facturación ---
-  planId: z.enum(['plan_privatkunde', 'plan_spender', 'plan_einzelhandler', 'plan_premium'], {
-      required_error: 'Debes seleccionar un plan.'
-  }),
+  planId: z.enum(['plan_privatkunde', 'plan_spender', 'plan_einzelhandler', 'plan_premium']),
   paymentCycle: z.enum(['mensual', 'semestral', 'anual']),
   hasPromoPrice: z.boolean().default(false),
-  country: z.enum(['ES', 'DE', 'GB', 'US', 'OTHER'], { required_error: 'Debes seleccionar un país.' }),
-
-  // --- Ubicación ---
+  country: z.enum(allCountryCodes as [string, ...string[]], { required_error: 'Debes seleccionar un país.' }),
   location: z.string().min(3, { message: 'La ubicación es requerida.' }),
   fullAddress: z.string().min(10, { message: 'La dirección completa es requerida.' }),
   coordinates: z.object({
     latitude: z.coerce.number(),
     longitude: z.coerce.number(),
   }),
-
-  // --- Contacto y Enlaces ---
   phone: z.string().min(8, { message: 'El teléfono debe tener al menos 8 caracteres.' }),
   website: z.string().url({ message: 'La URL del sitio web no es válida.' }).or(z.literal('')),
   currentOfferUrl: z.string().url({ message: 'La URL de la oferta no es válida.' }).or(z.literal('')),
   logoUrl: z.string().url({ message: 'La URL del logo no es válida.' }).or(z.literal('')),
-
-  // --- Metadatos ---
   diciloSearchId: z.string().optional(),
   imageHint: z.string().optional(),
   rating: z.coerce.number().min(0).max(5).default(0),
-
-  // --- Nuevos campos ---
   category: z.string().min(1, { message: 'La categoría es requerida.' }),
   assignedLandingPage: z.string().optional(),
   landingPageSubdomain: z.string().optional(),
@@ -117,8 +222,6 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
   });
 
   const selectedCategory = form.watch('category');
-
-  // CORRECCIÓN: Filtrar por el ID de la categoría, que es más robusto.
   const filteredLandingPages = landingPageCategories
     .find(cat => cat.id.toLowerCase() === selectedCategory.toLowerCase())?.pages || [];
 
@@ -314,7 +417,17 @@ export function CreateCustomerForm({ children }: { children: React.ReactNode }) 
                      <FormField name="country" control={form.control} render={({ field }) => (
                         <FormItem><FormLabel>{t('form.plan.country.label')}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder={t('form.plan.country.placeholder')} /></SelectTrigger></FormControl>
-                        <SelectContent><SelectItem value="DE">{t('form.plan.country.de')}</SelectItem><SelectItem value="ES">{t('form.plan.country.es')}</SelectItem><SelectItem value="GB">{t('form.plan.country.gb')}</SelectItem><SelectItem value="US">{t('form.plan.country.us')}</SelectItem><SelectItem value="OTHER">{t('form.plan.country.other')}</SelectItem></SelectContent></Select><FormMessage /></FormItem>
+                        <SelectContent>
+                            {Object.entries(countryList).map(([region, countries]) => (
+                                <SelectGroup key={region}>
+                                    <SelectLabel>{region}</SelectLabel>
+                                    {countries.map(country => (
+                                        <SelectItem key={country.code} value={country.code}>{country.name}</SelectItem>
+                                    ))}
+                                </SelectGroup>
+                            ))}
+                            <SelectItem value="OTHER">{t('form.plan.country.other')}</SelectItem>
+                        </SelectContent></Select><FormMessage /></FormItem>
                     )} />
                  </div>
                  <div className="grid grid-cols-2 gap-4">
