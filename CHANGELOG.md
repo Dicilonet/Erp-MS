@@ -3,6 +3,19 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
+## 22 de Agosto de 2024
+
+### 1. [ID de Cambio: 22c8a9d1] Sincronización con Airtable y Mapeo de Campos
+
+*   **¿Qué se hizo?** Se implementó la lógica de backend para conectar y sincronizar clientes desde una tabla de Airtable, utilizando las credenciales proporcionadas de forma segura.
+    1.  **Configuración de Secretos:** Se preparó el backend (`functions/index.js`) para utilizar secretos de Google Cloud Secret Manager (`AIRTABLE_API_KEY`, `AIRTABLE_BASE_ID`, `AIRTABLE_TABLE_NAME`), permitiendo al usuario introducir sus credenciales de forma segura.
+    2.  **Mapeo de Campos Personalizado:** Se actualizó la función `syncNewCustomersFromWebsite` para que lea los campos específicos de la tabla "Empresas España" del usuario (`Nombre de Empresa`, `Teléfono`, `Página Web`, etc.) y los asigne correctamente a los campos correspondientes en la base de datos de clientes de Firestore.
+    3.  **Inclusión de Nuevos Datos:** Se añadieron campos adicionales al modelo de datos del cliente en Firestore para almacenar información extra proveniente de Airtable, como `Fecha de llamada` y `Fecha para contactar`.
+    4.  **Lógica Anti-Duplicados Mejorada:** Se aseguró que la sincronización identifique a los clientes ya existentes por su email para evitar crear registros duplicados.
+
+*   **¿Por qué se hizo?** Para cumplir con el requisito de importar clientes desde una fuente de datos externa (Airtable) de manera automatizada y segura. Esta actualización permite al usuario centralizar su información y aprovechar los datos existentes de Airtable dentro del ERP.
+
+---
 ## 21 de Agosto de 2024
 
 ### 1. [ID de Cambio: 21b8a7c6] Corrección Definitiva de Error de Servidor en Edición de Clientes
@@ -431,3 +444,4 @@ Este documento sirve como un registro manual de los cambios significativos reali
 
 *   **¿Qué se hizo?** Se reescribieron las Cloud Functions `syncNewCustomersFromWebsite` y `cleanupDuplicateCustomers` utilizando la sintaxis correcta del SDK de Admin de Firebase para solucionar errores de despliegue (`getDocs is not defined`).
 *   **¿Por qué se hizo?** Las versiones anteriores mezclaban incorrectamente sintaxis del SDK de cliente y de admin, lo que impedía su ejecución y el despliegue de las funciones. La corrección era necesaria para que ambas características (sincronizar nuevos clientes y limpiar duplicados) pudieran funcionar.
+

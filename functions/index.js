@@ -1211,8 +1211,14 @@ exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
         await customerRef.update(data);
         return { success: true, message: 'Cliente actualizado correctamente.' };
     } catch (error) {
-        console.error('Error al actualizar cliente:', error);
-        throw new HttpsError('internal', 'No se pudo actualizar el cliente.');
+        // Log detallado para depuración
+        console.error('--- Fallo en la función updateCustomer ---');
+        console.error(`Error al actualizar cliente: ${customerId}`);
+        console.error('Datos que causaron el error:', JSON.stringify(data, null, 2));
+        console.error('Error original:', error);
+        
+        // Re-lanzar el error para que el cliente sepa que algo falló
+        throw new HttpsError('internal', `No se pudo actualizar el cliente. Revisa los logs de la función para más detalles. Error: ${error.message}`);
     }
 });
 
@@ -1251,17 +1257,28 @@ exports.syncNewCustomersFromWebsite = onCall(
         const businessData = record.fields;
 
         const newCustomerData = {
-          name: businessData['Name'] || 'Nombre no disponible',
+          // --- Mapeo de campos desde Airtable a Firestore ---
+          name: businessData['Nombre de Empresa'] || `${businessData['Nombre'] || ''} ${businessData['Apellido'] || ''}`.trim() || 'Nombre no disponible',
           contactEmail: businessData['Email'] || `no-email-${newCustomerRef.id}@example.com`,
-          category: businessData['Category'] || 'Sin categoría',
-          description: businessData['Notes'] || 'Cliente sincronizado desde Airtable.',
+          category: businessData['Category'] || 'Sin categoría', // Asume que puede haber un campo Category
+          description: `Cliente sincronizado desde Airtable. Contacto original: ${businessData['Nombre'] || ''} ${businessData['Apellido'] || ''}`.trim(),
           planId: 'plan_privatkunde',
           paymentCycle: 'anual',
-          country: 'DE', // O mapear desde Airtable si existe el campo
-          location: businessData['City'] || 'Ubicación no disponible',
-          fullAddress: businessData['Address'] || 'Dirección no disponible',
-          phone: businessData['Phone'] || 'N/A',
-          website: businessData['Website'] || '',
+          country: 'ES', // Ajustado a España
+          location: businessData['Ciudad'] || 'Ubicación no disponible',
+          fullAddress: businessData['Dirección'] || 'Dirección no disponible',
+          phone: businessData['Teléfono'] || 'N/A',
+          website: businessData['Página Web'] || '',
+          
+          // --- Guardar datos extra de Airtable ---
+          airtableData: {
+              callDate: businessData['Fecha de llamada'] || null,
+              contactDate: businessData['Fecha para contactar'] || null,
+              firstName: businessData['Nombre'] || null,
+              lastName: businessData['Apellido'] || null,
+          },
+
+          // --- Metadatos del ERP ---
           status: 'activo',
           registrationDate: new Date().toISOString(),
           originalId: `airtable-${record.id}`,
@@ -2280,4 +2297,6 @@ exports.submitPublicContactForm = onCall({ cors: true }, async (request) => {
     return { success: true, message: 'Lead recibido correctamente.' };
 });
     
+
+
 
