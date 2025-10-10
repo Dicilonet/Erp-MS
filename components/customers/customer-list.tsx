@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, RefreshCw, PlusCircle, Trash2 } from 'lucide-react';
+import { Loader2, RefreshCw, PlusCircle, Trash2, Pencil } from 'lucide-react';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import type { Customer } from '@/lib/types';
 import Link from 'next/link';
@@ -250,6 +250,9 @@ export function CustomerList() {
                                         {t('list.table.viewButton')}
                                     </Button>
                                 </Link>
+                                <CreateCustomerForm customerToEdit={customer}>
+                                    <Button variant="secondary" size="icon"><Pencil className="h-4 w-4" /></Button>
+                                </CreateCustomerForm>
                                 {isSuperadmin && (
                                     <AlertDialog>
                                         <AlertDialogTrigger asChild>
@@ -306,7 +309,10 @@ export function CustomerList() {
                                     <TableCell>{customer.category}</TableCell>
                                     <TableCell>{customer.location}</TableCell>
                                     <TableCell>{customer.accountManager?.userName || t('list.table.unassigned')}</TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell className="text-right space-x-2">
+                                        <CreateCustomerForm customerToEdit={customer}>
+                                            <Button variant="ghost" size="icon"><Pencil className="h-4 w-4" /></Button>
+                                        </CreateCustomerForm>
                                         <Link href={`/customers/${customer.customerId}`} passHref>
                                             <Button variant="outline" size="sm">
                                                 {t('list.table.viewButton')}
@@ -315,7 +321,7 @@ export function CustomerList() {
                                         {isSuperadmin && (
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant="ghost" size="icon" disabled={isDeleting === customer.customerId} className="ml-2 text-destructive hover:text-destructive">
+                                                    <Button variant="ghost" size="icon" disabled={isDeleting === customer.customerId} className="text-destructive hover:text-destructive">
                                                             {isDeleting === customer.customerId ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                                                     </Button>
                                                 </AlertDialogTrigger>
@@ -341,5 +347,3 @@ export function CustomerList() {
         </Card>
     );
 }
-
-    

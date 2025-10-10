@@ -53,7 +53,7 @@ service cloud.firestore {
     }
     
     match /projects/{projectId} {
-        allow read: if request.auth != null && (isSuperadmin() || request.auth.uid in resource.data.assignedTeam);
+        allow read: if request.auth != null && (isSuperadmin() || (('assignedTeam' in resource.data) && request.auth.uid in resource.data.assignedTeam));
         allow create, update, delete: if isTeamMember();
 
         match /tasks/{taskId} {
@@ -76,10 +76,10 @@ service cloud.firestore {
     }
     
     match /conversations/{conversationId} {
-        allow read, write: if request.auth.uid in resource.data.participantUids;
+        allow read, write: if ('participantUids' in resource.data) && (request.auth.uid in resource.data.participantUids);
         
         match /messages/{messageId} {
-            allow read, write: if request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids;
+            allow read, write: if ('participantUids' in get(/databases/$(database)/documents/conversations/$(conversationId)).data) && (request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids);
         }
     }
 
