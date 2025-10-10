@@ -4,6 +4,7 @@
 import { HeroSection } from '@/components/landing/main/hero-section';
 import { FeaturesSection } from '@/components/landing/main/features-section';
 import { ModulesSection } from '@/components/landing/main/modules-section';
+import { StrategiesSection } from '@/components/landing/main/strategies-section';
 import { CtaSection } from '@/components/landing/main/cta-section';
 import { Footer } from '@/components/landing/main/footer';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +34,7 @@ export default function LandingPage() {
         <HeroSection />
         <FeaturesSection />
         <ModulesSection />
+        <StrategiesSection />
         <CtaSection />
       </main>
       <Footer />

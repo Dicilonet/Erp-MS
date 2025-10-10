@@ -1,3 +1,4 @@
+
 {
     "hero": {
         "title1": "Das Betriebssystem",
@@ -75,6 +76,34 @@
         "teams": {
             "title": "Team- & Berechtigungsverwaltung",
             "description": "Steuern Sie mit einem flexiblen und sicheren Rollensystem, wer auf welches Modul zugreift."
+        }
+    },
+    "strategies": {
+        "title": "Strategien für Ihr Wachstum",
+        "subtitle": "Ein integriertes Ökosystem für lokale Sichtbarkeit und Markendifferenzierung.",
+        "localMarketing": {
+            "title": "Intelligentes Lokales Marketing",
+            "description": "Automatisierte Kampagnen in sozialen Medien und lokalen Medien, mit segmentierter Verteilung für maximale Wirkung."
+        },
+        "alliances": {
+            "title": "Strategische Netzwerke & Allianzen",
+            "description": "Kooperationsprogramme mit lokalen Fachleuten und Unternehmen, um Synergien zu schaffen und Ihre Reichweite zu erweitern."
+        },
+        "sponsorship": {
+            "title": "Soziale Verantwortung & Sponsoring",
+            "description": "Erhöhen Sie die Sichtbarkeit Ihrer Marke und stärken Sie die Bindungen zur Gemeinschaft durch Sponsoring und soziale Projekte."
+        },
+        "connectedService": {
+            "title": "Personalisierter & Vernetzter Service",
+            "description": "Automatisieren Sie die Terminverwaltung und die Multi-Channel-Kommunikation, um ein außergewöhnliches Kundenerlebnis zu bieten."
+        },
+        "reputation": {
+            "title": "Digitale Reputation & Empfehlungen",
+            "description": "Verwalten Sie Ihre Online-Reputation und fördern Sie Mundpropaganda mit Empfehlungskampagnen und Markenbotschaftern."
+        },
+        "expertise": {
+            "title": "Expertise & Fortgeschrittene Spezialisierung",
+            "description": "Nutzen Sie KI für Zielgruppenanalysen, Trendvorhersagen und die Produktion von wirkungsvollen Marketingmaterialien."
         }
     },
     "cta": {

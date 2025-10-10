@@ -78,6 +78,34 @@
             "description": "Controla quién accede a qué módulo con un sistema de roles flexible y seguro."
         }
     },
+    "strategies": {
+        "title": "Estrategias para tu Crecimiento",
+        "subtitle": "Un ecosistema integrado para la visibilidad local y la diferenciación de tu marca.",
+        "localMarketing": {
+            "title": "Marketing Local Inteligente",
+            "description": "Campañas automatizadas en redes sociales y medios locales, con distribución segmentada para un máximo impacto."
+        },
+        "alliances": {
+            "title": "Redes y Alianzas Estratégicas",
+            "description": "Programas de colaboración con profesionales y empresas locales para crear sinergias y expandir tu alcance."
+        },
+        "sponsorship": {
+            "title": "Responsabilidad Social y Patrocinios",
+            "description": "Aumenta la visibilidad de tu marca y fortalece lazos con la comunidad a través de patrocinios y proyectos sociales."
+        },
+        "connectedService": {
+            "title": "Servicio Personalizado y Conectado",
+            "description": "Automatiza la gestión de citas y la comunicación multicanal para ofrecer una experiencia de cliente excepcional."
+        },
+        "reputation": {
+            "title": "Reputación Digital y Recomendaciones",
+            "description": "Gestiona tu reputación online y potencia el boca a boca con campañas de referidos y embajadores de marca."
+        },
+        "expertise": {
+            "title": "Expertise y Especialización Avanzada",
+            "description": "Utiliza la IA para análisis de audiencias, predicción de tendencias y producción de materiales de marketing de alto impacto."
+        }
+    },
     "cta": {
         "title": "¿Listo para transformar tu negocio?",
         "subtitle": "Deja de hacer malabares con múltiples herramientas. Centraliza, automatiza y escala con M&SOLUTIONS.",

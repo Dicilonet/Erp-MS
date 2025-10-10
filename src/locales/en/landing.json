@@ -1,3 +1,4 @@
+
 {
     "hero": {
         "title1": "The Operating System",
@@ -75,6 +76,34 @@
         "teams": {
             "title": "Team & Permissions Management",
             "description": "Control who accesses which module with a flexible and secure role system."
+        }
+    },
+    "strategies": {
+        "title": "Strategies for Your Growth",
+        "subtitle": "An integrated ecosystem for local visibility and brand differentiation.",
+        "localMarketing": {
+            "title": "Smart Local Marketing",
+            "description": "Automated campaigns on social media and local media, with segmented distribution for maximum impact."
+        },
+        "alliances": {
+            "title": "Strategic Networks & Alliances",
+            "description": "Collaboration programs with local professionals and businesses to create synergies and expand your reach."
+        },
+        "sponsorship": {
+            "title": "Social Responsibility & Sponsorships",
+            "description": "Increase your brand's visibility and strengthen community ties through sponsorships and social projects."
+        },
+        "connectedService": {
+            "title": "Personalized & Connected Service",
+            "description": "Automate appointment management and multi-channel communication to offer an exceptional customer experience."
+        },
+        "reputation": {
+            "title": "Digital Reputation & Referrals",
+            "description": "Manage your online reputation and boost word-of-mouth with referral campaigns and brand ambassadors."
+        },
+        "expertise": {
+            "title": "Expertise & Advanced Specialization",
+            "description": "Use AI for audience analysis, trend prediction, and the production of high-impact marketing materials."
         }
     },
     "cta": {
