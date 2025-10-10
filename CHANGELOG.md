@@ -3,18 +3,6 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
-## 22 de Agosto de 2024
-
-### 1. [ID de Cambio: 22c8d9e0] Corrección de Bug Crítico en Formulario de Cliente
-
-*   **¿Qué se hizo?** Se solucionó un error crítico `Invalid enum value` que impedía guardar los datos en el formulario de creación y edición de clientes.
-    1.  **Diagnóstico:** Se identificó que la lista de países en el formulario incluía una opción "Otro" (`OTHER`), pero esta opción no estaba contemplada en las reglas de validación del formulario (esquema Zod). Esto provocaba que, al intentar guardar, el sistema rechazara el valor por considerarlo inválido.
-    2.  **Solución:** Se actualizó el esquema de validación en el componente `create-customer-form.tsx` para incluir explícitamente el valor `"OTHER"` en la lista de códigos de país permitidos.
-    3.  **Resultado:** El formulario ahora valida correctamente todos los países, incluyendo la opción "Otro", eliminando el error y permitiendo que los clientes se guarden sin problemas.
-
-*   **¿Por qué se hizo?** Para corregir un error de validación que bloqueaba una funcionalidad esencial del CRM (la creación y edición de clientes) y que se introdujo al ampliar la lista de países en una actualización anterior.
-
----
 ## 21 de Agosto de 2024
 
 ### 1. [ID de Cambio: 21b8a7c6] Corrección Definitiva de Error de Servidor en Edición de Clientes
