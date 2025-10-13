@@ -3,19 +3,6 @@
 Este documento sirve como un registro manual de los cambios significativos realizados en el proyecto. El objetivo es mantener un historial claro para facilitar la depuración, la planificación y el seguimiento del desarrollo.
 
 ---
-## 22 de Agosto de 2024
-
-### 1. [ID de Cambio: 22c8a9d1] Sincronización con Airtable y Mapeo de Campos
-
-*   **¿Qué se hizo?** Se implementó la lógica de backend para conectar y sincronizar clientes desde una tabla de Airtable, utilizando las credenciales proporcionadas de forma segura.
-    1.  **Configuración de Secretos:** Se preparó el backend (`functions/index.js`) para utilizar secretos de Google Cloud Secret Manager (`AIRTABLE_API_KEY`, `AIRTABLE_BASE_ID`, `AIRTABLE_TABLE_NAME`), permitiendo al usuario introducir sus credenciales de forma segura.
-    2.  **Mapeo de Campos Personalizado:** Se actualizó la función `syncNewCustomersFromWebsite` para que lea los campos específicos de la tabla "Empresas España" del usuario (`Nombre de Empresa`, `Teléfono`, `Página Web`, etc.) y los asigne correctamente a los campos correspondientes en la base de datos de clientes de Firestore.
-    3.  **Inclusión de Nuevos Datos:** Se añadieron campos adicionales al modelo de datos del cliente en Firestore para almacenar información extra proveniente de Airtable, como `Fecha de llamada` y `Fecha para contactar`.
-    4.  **Lógica Anti-Duplicados Mejorada:** Se aseguró que la sincronización identifique a los clientes ya existentes por su email para evitar crear registros duplicados.
-
-*   **¿Por qué se hizo?** Para cumplir con el requisito de importar clientes desde una fuente de datos externa (Airtable) de manera automatizada y segura. Esta actualización permite al usuario centralizar su información y aprovechar los datos existentes de Airtable dentro del ERP.
-
----
 ## 21 de Agosto de 2024
 
 ### 1. [ID de Cambio: 21b8a7c6] Corrección Definitiva de Error de Servidor en Edición de Clientes
@@ -299,6 +286,7 @@ Este documento sirve como un registro manual de los cambios significativos reali
     3.  **Resultado:** Las funciones ahora se ejecutan correctamente, permitiendo la sincronización de nuevos clientes desde la colección `businesses` y la limpieza de duplicados sin errores.
 
 *   **¿Por qué se hizo?** Para eliminar un error crítico de backend que impedía el funcionamiento de características clave del módulo de clientes. Esta corrección estabiliza la lógica de negocio del servidor y restaura la capacidad de gestionar la base de datos de clientes de forma automatizada.
+
 
 ---
 ## 30 de Julio de 2024

@@ -115,12 +115,12 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
         await updateCustomer({ customerId: customerToEdit.customerId, data: values });
         toast({ title: t('form.toast.updateSuccessTitle'), description: t('form.toast.updateSuccessDescription', { customerName: values.name }) });
       } else {
-          const newCustomerData: Omit<Customer, 'customerId'> = {
+        const newCustomerData = {
             ...values,
             status: 'activo',
             registrationDate: new Date().toISOString(),
             accountManager: { userId: 'adminUserId123', userName: 'Juan Pérez', userEmail: 'juan.perez@dicilo.com' },
-          };
+        };
         await addDoc(collection(db, 'customers'), newCustomerData);
         toast({ title: t('form.toast.successTitle'), description: t('form.toast.successDescription', { customerName: values.name }) });
       }

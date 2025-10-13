@@ -1208,7 +1208,19 @@ exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
     }
     try {
         const customerRef = db.collection('customers').doc(customerId);
-        await customerRef.update(data);
+        
+        // --- CORRECCIÓN: Eliminar campos `undefined` antes de actualizar ---
+        // Firestore no permite valores `undefined`. Si el formulario envía campos opcionales
+        // que no se han rellenado, estos llegan como `undefined`, causando un error en `update`.
+        // Este código limpia el objeto `data` de dichos campos.
+        const cleanData = {};
+        for (const key in data) {
+            if (data[key] !== undefined) {
+                cleanData[key] = data[key];
+            }
+        }
+
+        await customerRef.set(cleanData, { merge: true });
         return { success: true, message: 'Cliente actualizado correctamente.' };
     } catch (error) {
         // Log detallado para depuración
@@ -2297,6 +2309,7 @@ exports.submitPublicContactForm = onCall({ cors: true }, async (request) => {
     return { success: true, message: 'Lead recibido correctamente.' };
 });
     
+
 
 
 
