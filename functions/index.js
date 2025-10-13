@@ -1198,7 +1198,7 @@ exports.setSuperAdminRole = onCall(
   }
 );
 
-exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
+exports.updateCustomer = onCall({ region: 'europe-west1', cors: ['https://mediensolutions.de', 'https://erp-dicilo.web.app'] }, async (request) => {
     if (request.auth?.token?.role !== 'superadmin' && request.auth?.token?.role !== 'colaborador') {
         throw new HttpsError('permission-denied', 'No tienes permiso para realizar esta acción.');
     }
