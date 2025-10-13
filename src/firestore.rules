@@ -1,0 +1,133 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // --- Helper Functions ---
+    function isSuperadmin() {
+      return request.auth.token.role == 'superadmin';
+    }
+    
+    function isEditor() {
+      return request.auth.token.role == 'superadmin' || request.auth.token.role == 'colaborador';
+    }
+
+    // --- Reglas para Usuarios ---
+    match /users/{userId} {
+      // Un usuario solo puede leer y escribir su propio perfil
+      allow read, write: if request.auth.uid == userId;
+      // Los superadmins pueden leer perfiles de otros
+      allow get: if isSuperadmin();
+    }
+    
+    match /users/{userId}/todos/{todoId} {
+      // Los usuarios solo pueden acceder a su propia lista de tareas
+      allow read, write, delete: if request.auth.uid == userId;
+    }
+
+    // --- Reglas para Clientes y sus subcolecciones ---
+    match /customers/{customerId} {
+      // Cualquiera autenticado puede leer la lista de clientes o un cliente específico
+      allow read: if request.auth != null;
+      // Solo editores (superadmin/colaborador) pueden crear, actualizar o eliminar clientes
+      allow create, update, delete: if isEditor();
+      
+      // Reglas para subcolecciones de clientes
+      match /interactions/{interactionId} {
+        allow read, write: if isEditor();
+      }
+      match /customerServices/{serviceId} {
+        allow read, write: if isEditor();
+      }
+      match /offers/{offerId} {
+         allow read, write: if isEditor();
+      }
+       match /metrics/{metricId} {
+        allow read, write: if isEditor();
+      }
+    }
+    
+    // --- Reglas para Proyectos y Tareas ---
+    match /projects/{projectId} {
+      // Un usuario puede leer un proyecto si está en su equipo. Superadmins pueden leer todo.
+      allow get: if request.auth.uid in resource.data.assignedTeam || isSuperadmin();
+      // Un usuario puede listar proyectos si está en el equipo o es superadmin.
+      allow list: if request.auth != null; 
+      // Solo usuarios autenticados pueden crear proyectos.
+      allow create: if request.auth != null;
+      // Solo miembros del equipo o superadmins pueden actualizar.
+      allow update, delete: if request.auth.uid in resource.data.assignedTeam || isSuperadmin();
+    }
+
+    match /projects/{projectId}/tasks/{taskId} {
+      // Miembros del equipo del proyecto pueden leer y escribir tareas.
+      allow read, write: if exists(/databases/$(database)/documents/projects/$(projectId)) && 
+                           (request.auth.uid in get(/databases/$(database)/documents/projects/$(projectId)).data.assignedTeam || isSuperadmin());
+    }
+
+    // --- Reglas para Artículos (Productos/Servicios) ---
+    match /articles/{articleId} {
+        // Cualquiera autenticado puede leer
+        allow read: if request.auth != null;
+        // Solo editores pueden modificar
+        allow write: if isEditor();
+    }
+    
+    // --- Reglas para Marketing ---
+    match /contentAssets/{assetId} {
+        allow read, write: if isEditor();
+    }
+    match /marketingSchedule/{eventId} {
+        allow read, write: if isEditor();
+    }
+
+    // --- Reglas para Gastos ---
+    match /expenses/{expenseId} {
+        allow read, write: if isEditor();
+    }
+
+    // --- Reglas para Soporte ---
+    match /tickets/{ticketId} {
+        allow read, write: if isEditor();
+    }
+    
+    // --- Reglas para Chat ---
+    match /conversations/{conversationId} {
+        allow read, write: if request.auth.uid in resource.data.participantUids;
+        
+        match /messages/{messageId} {
+            allow read, create: if request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids;
+        }
+    }
+
+    // --- Reglas para Cupones ---
+    match /coupons/{couponId} {
+      // Cualquiera puede leer un cupón para canjearlo.
+      allow read: if true;
+      // Solo superadmins pueden crearlos o modificarlos.
+      allow write: if isSuperadmin();
+    }
+    
+    match /counters/{counterId} {
+        allow read, write: if isSuperadmin();
+    }
+    
+    // --- Reglas para Conexiones y Programas ---
+     match /connections/{connectionId} {
+      allow read, write: if isSuperadmin();
+    }
+     match /programs/{programId} {
+      allow read, write: if isSuperadmin();
+    }
+
+    // --- Reglas para Recomendaciones ---
+     match /recommendations/{recommendationId} {
+        // Permitir creación pública (desde la landing) y lectura/escritura para admins.
+        allow create: if true;
+        allow read, write, delete: if isEditor();
+    }
+  }
+}
+
+    

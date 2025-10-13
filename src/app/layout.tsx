@@ -1,9 +1,11 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/components/auth-provider';
 import I18nProvider from '@/components/i18n-provider';
 import { ThemeProvider } from '@/components/theme-provider';
+import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 
 export const metadata: Metadata = {
   title: 'M&SOLUTIONS',
@@ -33,6 +35,7 @@ export default function RootLayout({
           <I18nProvider>
             <AuthProvider>
               {children}
+              <FirebaseErrorListener />
             </AuthProvider>
           </I18nProvider>
           <Toaster />
@@ -41,3 +44,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

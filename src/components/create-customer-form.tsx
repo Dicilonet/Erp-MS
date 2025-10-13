@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,11 +17,12 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { db, app } from '@/lib/firebase';
-import { getFunctions, httpsCallable } from 'firebase/functions';
+import { db } from '@/lib/firebase';
 import type { Customer, CustomerPlanId, PaymentCycle, CountryCode } from '@/lib/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { landingPageCategories } from '@/app/(protected)/articulos/landing-pages/page';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 const businessCategories = [
     "Beratung", "Bildung", "Finanzdienstleistung", "Gastronomie", "Gesundheit",
@@ -47,7 +49,7 @@ const formSchema = z.object({
   country: z.enum(allCountryCodes as [string, ...string[]], { required_error: 'Debes seleccionar un país.' }),
   location: z.string().min(3, { message: 'La ubicación es requerida.' }),
   fullAddress: z.string().min(10, { message: 'La dirección completa es requerida.' }),
-  coordinates: z.object({ latitude: z.coerce.number(), longitude: z.coerce.number(), }),
+  coordinates: z.object({ latitude: z.coerce.number().transform(val => isNaN(val) ? 0 : val), longitude: z.coerce.number().transform(val => isNaN(val) ? 0 : val), }),
   phone: z.string().min(8, { message: 'El teléfono debe tener al menos 8 caracteres.' }),
   website: z.string().url({ message: 'La URL del sitio web no es válida.' }).or(z.literal('')),
   currentOfferUrl: z.string().url({ message: 'La URL de la oferta no es válida.' }).or(z.literal('')),
@@ -109,19 +111,34 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
   async function onSubmit(values: FormData) {
     setIsLoading(true);
     try {
-      const functions = getFunctions(app, 'europe-west1');
+      const cleanValues = Object.fromEntries(Object.entries(values).filter(([_, v]) => v !== undefined));
+
       if (isEditMode && customerToEdit) {
-        const updateCustomer = httpsCallable(functions, 'updateCustomer');
-        await updateCustomer({ customerId: customerToEdit.customerId, data: values });
+        const customerRef = doc(db, 'customers', customerToEdit.customerId);
+        setDoc(customerRef, cleanValues, { merge: true }).catch(async (serverError) => {
+            const permissionError = new FirestorePermissionError({
+              path: customerRef.path,
+              operation: 'update',
+              requestResourceData: cleanValues
+            });
+            errorEmitter.emit('permission-error', permissionError);
+        });
         toast({ title: t('form.toast.updateSuccessTitle'), description: t('form.toast.updateSuccessDescription', { customerName: values.name }) });
       } else {
         const newCustomerData = {
-            ...values,
+            ...cleanValues,
             status: 'activo',
             registrationDate: new Date().toISOString(),
             accountManager: { userId: 'adminUserId123', userName: 'Juan Pérez', userEmail: 'juan.perez@dicilo.com' },
         };
-        await addDoc(collection(db, 'customers'), newCustomerData);
+        addDoc(collection(db, 'customers'), newCustomerData).catch(async (serverError) => {
+            const permissionError = new FirestorePermissionError({
+              path: 'customers',
+              operation: 'create',
+              requestResourceData: newCustomerData
+            });
+            errorEmitter.emit('permission-error', permissionError);
+        });
         toast({ title: t('form.toast.successTitle'), description: t('form.toast.successDescription', { customerName: values.name }) });
       }
       setOpen(false);
@@ -202,3 +219,5 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
     </Dialog>
   );
 }
+
+    

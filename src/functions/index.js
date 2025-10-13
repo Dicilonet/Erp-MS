@@ -19,6 +19,7 @@ const { getAuth } = require('firebase-admin/auth');
 const { defineSecret } = require('firebase-functions/params');
 const { createProfessionalEmail } = require('./emailTemplate');
 const { google } = require('googleapis');
+const Airtable = require('airtable');
 
 
 // Define los secretos que tu código necesitará
@@ -27,10 +28,13 @@ const smtpPassAccounting = defineSecret('SMTP_PASS_ACCOUNTING');
 const smtpPassMedia = defineSecret('SMTP_PASS_MEDIA');
 const smtpPassNoreply = defineSecret('SMTP_PASS_NOREPLY');
 
-// --- Nuevos Secretos para la API de Gmail ---
+// --- Nuevos Secretos para la API de Gmail y Airtable ---
 const GMAIL_CLIENT_ID = defineSecret("GMAIL_CLIENT_ID");
 const GMAIL_CLIENT_SECRET = defineSecret("GMAIL_CLIENT_SECRET");
 const GMAIL_REDIRECT_URI = defineSecret("GMAIL_REDIRECT_URI");
+const AIRTABLE_API_KEY = defineSecret("AIRTABLE_API_KEY");
+const AIRTABLE_BASE_ID = defineSecret("AIRTABLE_BASE_ID");
+const AIRTABLE_TABLE_NAME = defineSecret("AIRTABLE_TABLE_NAME");
 
 
 // Carga la configuración local y las plantillas
@@ -42,7 +46,14 @@ const { serviceCatalogData } = require('./service-catalog-data');
 initializeApp();
 const db = getFirestore();
 const auth = getAuth();
-setGlobalOptions({ region: 'europe-west1', secrets: [GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REDIRECT_URI, smtpPassDefault, smtpPassAccounting, smtpPassMedia, smtpPassNoreply] });
+setGlobalOptions({ 
+    region: 'europe-west1', 
+    secrets: [
+        GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REDIRECT_URI, 
+        smtpPassDefault, smtpPassAccounting, smtpPassMedia, smtpPassNoreply,
+        AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME
+    ] 
+});
 
 // --- Lógica para Gmail ---
 const createOAuth2Client = () => {
@@ -1197,11 +1208,24 @@ exports.updateCustomer = onCall({ region: 'europe-west1' }, async (request) => {
     }
     try {
         const customerRef = db.collection('customers').doc(customerId);
-        await customerRef.update(data);
+        
+        // --- CORRECCIÓN: Eliminar campos `undefined` antes de actualizar ---
+        const cleanData = {};
+        for (const key in data) {
+            if (data[key] !== undefined) {
+                cleanData[key] = data[key];
+            }
+        }
+
+        await customerRef.set(cleanData, { merge: true });
         return { success: true, message: 'Cliente actualizado correctamente.' };
     } catch (error) {
-        console.error('Error al actualizar cliente:', error);
-        throw new HttpsError('internal', 'No se pudo actualizar el cliente.');
+        console.error('--- Fallo en la función updateCustomer ---');
+        console.error(`Error al actualizar cliente: ${customerId}`);
+        console.error('Datos que causaron el error:', JSON.stringify(data, null, 2));
+        console.error('Error original:', error);
+        
+        throw new HttpsError('internal', `No se pudo actualizar el cliente. Revisa los logs de la función para más detalles. Error: ${error.message}`);
     }
 });
 
@@ -1218,71 +1242,59 @@ exports.syncNewCustomersFromWebsite = onCall(
     }
 
     try {
-      const sourceSnapshot = await db.collection('businesses').get();
-      const erpSnapshot = await db.collection('customers').get();
+      const base = new Airtable({ apiKey: AIRTABLE_API_KEY.value() }).base(AIRTABLE_BASE_ID.value());
+      const airtableRecords = await base(AIRTABLE_TABLE_NAME.value()).select().all();
 
+      const erpSnapshot = await db.collection('customers').get();
       const erpEmails = new Set(erpSnapshot.docs.map(doc => doc.data().contactEmail?.toLowerCase()).filter(Boolean));
-      const erpNames = new Set(erpSnapshot.docs.map(doc => doc.data().name?.toLowerCase()).filter(Boolean));
-      const erpOriginalIds = new Set(erpSnapshot.docs.map(doc => doc.data().originalId).filter(Boolean));
       
-      const newDocsToCopy = sourceSnapshot.docs.filter(doc => {
-        const data = doc.data();
-        const email = data.email?.toLowerCase();
-        const name = data.name?.toLowerCase();
-        return !erpOriginalIds.has(doc.id) && (!email || !erpEmails.has(email)) && (!name || !erpNames.has(name));
+      const newRecords = airtableRecords.filter(record => {
+        const email = record.get('Email')?.toString().toLowerCase();
+        return email && !erpEmails.has(email);
       });
 
-
-      if (newDocsToCopy.length === 0) {
-        return {
-          success: true,
-          newCount: 0,
-          message: 'No se encontraron clientes nuevos para añadir.',
-        };
+      if (newRecords.length === 0) {
+        return { success: true, newCount: 0, message: 'No se encontraron clientes nuevos para añadir desde Airtable.' };
       }
 
       const batch = db.batch();
-      newDocsToCopy.forEach((doc) => {
-        const businessData = doc.data();
+      newRecords.forEach((record) => {
         const newCustomerRef = db.collection('customers').doc();
+        const businessData = record.fields;
 
         const newCustomerData = {
-          name: businessData.name || 'Nombre no disponible',
-          contactEmail:
-            businessData.email || `no-email-${newCustomerRef.id}@example.com`,
-          category: businessData.category || 'Sin categoría',
-          description: businessData.description || 'Cliente sincronizado.',
+          name: businessData['Nombre de Empresa'] || `${businessData['Nombre'] || ''} ${businessData['Apellido'] || ''}`.trim() || 'Nombre no disponible',
+          contactEmail: businessData['Email'] || `no-email-${newCustomerRef.id}@example.com`,
+          category: businessData['Category'] || 'Sin categoría',
+          description: `Cliente sincronizado desde Airtable. Contacto original: ${businessData['Nombre'] || ''} ${businessData['Apellido'] || ''}`.trim(),
           planId: 'plan_privatkunde',
           paymentCycle: 'anual',
-          country: 'DE',
-          location: businessData.location || 'Ubicación no disponible',
-          fullAddress: businessData.address || 'Dirección no disponible',
-          coordinates: {
-            latitude: businessData.coords?.latitude || 0,
-            longitude: businessData.coords?.longitude || 0,
+          country: 'ES',
+          location: businessData['Ciudad'] || 'Ubicación no disponible',
+          fullAddress: businessData['Dirección'] || 'Dirección no disponible',
+          phone: businessData['Teléfono'] || 'N/A',
+          website: businessData['Página Web'] || '',
+          airtableData: {
+              callDate: businessData['Fecha de llamada'] || null,
+              contactDate: businessData['Fecha para contactar'] || null,
+              firstName: businessData['Nombre'] || null,
+              lastName: businessData['Apellido'] || null,
           },
-          phone: businessData.phone || 'N/A',
-          website: businessData.website || '',
-          logoUrl: businessData.imageUrl || '',
-          rating: businessData.rating || 0,
           status: 'activo',
           registrationDate: new Date().toISOString(),
-          originalId: doc.id,
+          originalId: `airtable-${record.id}`,
           erpStatus: 'nuevo',
-          accountManager: null, // Asignar explícitamente null
+          accountManager: null,
           createdAtErp: FieldValue.serverTimestamp(),
-          serviceUsage: {
-            socialPosts_monthly: { used: 0, limit: 60 },
-            kiCourses_yearly: { used: 0, limit: 4 },
-          },
+          serviceUsage: { socialPosts_monthly: { used: 0, limit: 60 }, kiCourses_yearly: { used: 0, limit: 4 }, },
         };
         batch.set(newCustomerRef, newCustomerData);
       });
 
       await batch.commit();
-      return { success: true, newCount: newDocsToCopy.length };
+      return { success: true, newCount: newRecords.length };
     } catch (error) {
-      console.error('--- ERROR DURANTE LA SINCRONIZACIÓN ---:', error);
+      console.error('--- ERROR DURANTE LA SINCRONIZACIÓN CON AIRTABLE ---:', error);
       throw new HttpsError(
         'internal',
         `Ocurrió un error inesperado durante la sincronización: ${error.message}`
