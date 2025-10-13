@@ -1,112 +1,106 @@
 rules_version = '2';
 
-function isSuperadmin() {
-  return request.auth.token.role == 'superadmin';
-}
-
-function isTeamMember() {
-    return request.auth.token.role in ['superadmin', 'colaborador', 'teamoffice'];
-}
-
-function isOwner(userId) {
-    return request.auth.uid == userId;
-}
-
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    // --- Funciones de Ayuda ---
+    function isSuperadmin() {
+      return request.auth.token.role == 'superadmin';
+    }
 
+    function isColaborador() {
+      return request.auth.token.role == 'colaborador';
+    }
+    
+    function isEditor() {
+        return isSuperadmin() || isColaborador();
+    }
+
+    // --- Reglas de Usuario ---
     match /users/{userId} {
-      allow read, write: if isOwner(userId) || isSuperadmin();
+      allow read, write: if request.auth.uid == userId || isSuperadmin();
       
       match /todos/{todoId} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if request.auth.uid == userId || isSuperadmin();
       }
-
       match /connections/{connectionId} {
-        allow read, write: if isOwner(userId);
-      }
-    }
-
-    match /customers/{customerId} {
-      allow read: if request.auth != null;
-      allow create, update, delete: if isSuperadmin();
-
-      match /interactions/{interactionId} {
-        allow read, write: if isTeamMember();
-      }
-
-      match /offers/{offerId} {
-        allow read, write: if isTeamMember();
-      }
-      
-      match /customerServices/{serviceId} {
-        allow read, write: if isTeamMember();
-      }
-
-      match /metrics/{metricId} {
-        allow read, write: if isTeamMember();
-      }
-
-      match /landingPageContent/{contentId} {
-        allow read, write: if isTeamMember();
+          allow read, write: if request.auth.uid == userId || isSuperadmin();
       }
     }
     
-    match /projects/{projectId} {
-        allow read: if request.auth != null && (isSuperadmin() || (('assignedTeam' in resource.data) && request.auth.uid in resource.data.assignedTeam));
-        allow create, update, delete: if isTeamMember();
+    // --- Reglas de Cliente (CORREGIDAS) ---
+    match /customers/{customerId} {
+      // Cualquiera autenticado puede leer datos de un cliente.
+      allow read: if request.auth != null;
+      // Solo editores (superadmin/colaborador) pueden crear, actualizar o borrar clientes.
+      allow create, update, delete: if isEditor();
 
-        match /tasks/{taskId} {
-            allow read, write: if isTeamMember();
-        }
+      // Reglas para subcolecciones de clientes
+      match /customerServices/{serviceId} {
+        allow read, write: if isEditor();
+      }
+      match /interactions/{interactionId} {
+        allow read, write: if isEditor();
+      }
+      match /offers/{offerId} {
+        allow read, write: if isEditor();
+      }
+       match /metrics/{metricId} {
+        allow read, write: if isEditor();
+      }
+       match /landingPageContent/{contentId} {
+        allow read, write: if isEditor();
+      }
     }
-
+    
+    // --- Reglas de Proyectos y Tareas ---
+    match /projects/{projectId} {
+      allow read, write: if request.auth.uid in resource.data.assignedTeam || isSuperadmin();
+      
+      match /tasks/{taskId} {
+         allow read, write: if get(/databases/$(database)/documents/projects/$(projectId)).data.assignedTeam.hasAny([request.auth.uid]) || isSuperadmin();
+      }
+    }
+    
+    // --- Reglas de Artículos ---
     match /articles/{articleId} {
         allow read: if request.auth != null;
-        allow create, update, delete: if isTeamMember();
+        allow write: if isEditor();
     }
     
-    match /expenses/{expenseId} {
-        allow read: if request.auth != null;
-        allow create, update, delete: if isTeamMember();
+    // --- Reglas de Contadores ---
+    match /counters/{counterId} {
+      allow read, write: if isEditor();
     }
 
-    match /supportTickets/{ticketId} {
-        allow read, write: if isTeamMember();
+    // --- Reglas de Cupones ---
+    match /coupons/{couponId} {
+      // Cualquiera puede leer para canjear, pero solo los editores pueden modificar.
+      allow read: if true;
+      allow create, update, delete: if isEditor();
     }
     
-    match /conversations/{conversationId} {
-        allow read, write: if ('participantUids' in resource.data) && (request.auth.uid in resource.data.participantUids);
-        
-        match /messages/{messageId} {
-            allow read, write: if ('participantUids' in get(/databases/$(database)/documents/conversations/$(conversationId)).data) && (request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids);
-        }
+     // --- Reglas de Contenido y Marketing ---
+    match /contentAssets/{assetId} {
+      allow read, write: if isEditor();
     }
 
     match /marketingSchedule/{eventId} {
-        allow read, write: if isTeamMember();
-    }
-    
-    match /contentAssets/{assetId} {
-        allow read, write: if isTeamMember();
-    }
-    
-    match /counters/{counterId} {
-        allow read, write: if isTeamMember();
-    }
-    
-    match /coupons/{couponId} {
-      allow read: if true;
-      allow create, update, delete: if isSuperadmin();
-    }
-     match /recommendations/{recommendationId} {
-      allow create: if true;
-      allow read, update, delete: if isTeamMember();
-    }
-     match /programs/{programId} {
-      allow read: if request.auth != null;
-      allow create, update, delete: if isSuperadmin();
+      allow read, write: if isEditor();
     }
 
+     // --- Reglas de Soporte ---
+    match /tickets/{ticketId} {
+        allow read, write: if isEditor();
+    }
+
+    // --- Reglas de Chat ---
+    match /conversations/{conversationId} {
+        allow read, write: if request.auth.uid in resource.data.participantUids;
+        
+        match /messages/{messageId} {
+            allow read, write: if request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantUids;
+        }
+    }
   }
 }
