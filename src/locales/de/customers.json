@@ -1,3 +1,4 @@
+
 {
     "page": {
         "title": "Kundenverwaltung",
@@ -29,6 +30,10 @@
             "description": {
                 "label": "Beschreibung des Unternehmens",
                 "placeholder": "Beschreiben Sie kurz das Unternehmen, seine Hauptdienstleistungen usw."
+            },
+            "accountManager": {
+                "label": "Zuständiger Mitarbeiter",
+                "placeholder": "Mitarbeiter zuweisen..."
             }
         },
         "location": {

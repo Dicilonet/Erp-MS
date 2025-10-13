@@ -4,10 +4,10 @@
       "command": "npx",
       "args": [
         "-y",
-        "firebase-tools@latest",
+        "firebase-tools@14.19.1",
         "experimental:mcp",
         "--only",
-        "auth,firestore"
+        "auth,firestore,functions,storage"
       ]
     }
   }

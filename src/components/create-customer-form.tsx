@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
+import { getFunctions, httpsCallable } from 'firebase/functions';
+
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -17,8 +19,8 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { db } from '@/lib/firebase';
-import type { Customer, CustomerPlanId, PaymentCycle, CountryCode } from '@/lib/types';
+import { app, db } from '@/lib/firebase';
+import type { Customer, CustomerPlanId, PaymentCycle, CountryCode, InternalUser } from '@/lib/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { landingPageCategories } from '@/app/(protected)/articulos/landing-pages/page';
 import { errorEmitter } from '@/firebase/error-emitter';
@@ -60,6 +62,7 @@ const formSchema = z.object({
   category: z.string().min(1, { message: 'La categoría es requerida.' }),
   assignedLandingPage: z.string().optional(),
   landingPageSubdomain: z.string().optional(),
+  accountManager: z.string().optional(), // Este será el UID del usuario
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -73,12 +76,27 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
   const { t } = useTranslation(['customers', 'articles']);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [teamMembers, setTeamMembers] = useState<InternalUser[]>([]);
   const { toast } = useToast();
   const isEditMode = !!customerToEdit;
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
+  
+    useEffect(() => {
+        if (open) {
+            const functions = getFunctions(app, 'europe-west1');
+            const getTeamMembers = httpsCallable(functions, 'getDashboardData');
+            
+            getTeamMembers().then(result => {
+                const data = result.data as { success: boolean, collaborators: InternalUser[], teamOffice: InternalUser[] };
+                if (data.success) {
+                    setTeamMembers([...data.collaborators, ...data.teamOffice]);
+                }
+            }).catch(console.error);
+        }
+    }, [open]);
 
   useEffect(() => {
     if (open) {
@@ -90,13 +108,14 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
           country: customerToEdit.country as CountryCode,
           hasPromoPrice: customerToEdit.hasPromoPrice || false,
           coordinates: customerToEdit.coordinates || { latitude: 0, longitude: 0 },
+          accountManager: customerToEdit.accountManager?.userId || '',
         });
       } else {
         form.reset({
           name: '', contactEmail: '', description: '', planId: 'plan_einzelhandler', paymentCycle: 'anual',
           hasPromoPrice: false, country: 'DE', location: '', fullAddress: '', coordinates: { latitude: 0, longitude: 0 },
           phone: '', website: '', currentOfferUrl: '', logoUrl: '', diciloSearchId: '', imageHint: '',
-          rating: 0, category: '', assignedLandingPage: '', landingPageSubdomain: '',
+          rating: 0, category: '', assignedLandingPage: '', landingPageSubdomain: '', accountManager: '',
         });
       }
     }
@@ -111,31 +130,44 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
   async function onSubmit(values: FormData) {
     setIsLoading(true);
     try {
-      const cleanValues = Object.fromEntries(Object.entries(values).filter(([_, v]) => v !== undefined));
+        const selectedUser = teamMembers.find(user => user.uid === values.accountManager);
+        const accountManagerData = selectedUser ? {
+            userId: selectedUser.uid,
+            userName: selectedUser.profile.fullName,
+            userEmail: selectedUser.email
+        } : null;
+
+        const dataToSave: Partial<Customer> & { registrationDate?: string } = {
+            ...values,
+            accountManager: accountManagerData,
+        };
+
+        if (!isEditMode) {
+             dataToSave.registrationDate = new Date().toISOString();
+             dataToSave.status = 'activo';
+        }
+
+        const cleanData = Object.fromEntries(
+            Object.entries(dataToSave).filter(([, v]) => v !== undefined)
+        );
 
       if (isEditMode && customerToEdit) {
         const customerRef = doc(db, 'customers', customerToEdit.customerId);
-        setDoc(customerRef, cleanValues, { merge: true }).catch(async (serverError) => {
+        setDoc(customerRef, cleanData, { merge: true }).catch(async (serverError) => {
             const permissionError = new FirestorePermissionError({
               path: customerRef.path,
               operation: 'update',
-              requestResourceData: cleanValues
+              requestResourceData: cleanData
             });
             errorEmitter.emit('permission-error', permissionError);
         });
         toast({ title: t('form.toast.updateSuccessTitle'), description: t('form.toast.updateSuccessDescription', { customerName: values.name }) });
       } else {
-        const newCustomerData = {
-            ...cleanValues,
-            status: 'activo',
-            registrationDate: new Date().toISOString(),
-            accountManager: { userId: 'adminUserId123', userName: 'Juan Pérez', userEmail: 'juan.perez@dicilo.com' },
-        };
-        addDoc(collection(db, 'customers'), newCustomerData).catch(async (serverError) => {
+        addDoc(collection(db, 'customers'), cleanData).catch(async (serverError) => {
             const permissionError = new FirestorePermissionError({
               path: 'customers',
               operation: 'create',
-              requestResourceData: newCustomerData
+              requestResourceData: cleanData
             });
             errorEmitter.emit('permission-error', permissionError);
         });
@@ -172,6 +204,7 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
                         <FormField name="name" render={({ field }) => (<FormItem><FormLabel>{t('form.main.name.label')}</FormLabel><FormControl><Input placeholder={t('form.main.name.placeholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
                         <FormField name="contactEmail" render={({ field }) => (<FormItem><FormLabel>{t('form.main.email.label')}</FormLabel><FormControl><Input placeholder={t('form.main.email.placeholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
                         <FormField name="description" render={({ field }) => (<FormItem><FormLabel>{t('form.main.description.label')}</FormLabel><FormControl><Textarea placeholder={t('form.main.description.placeholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
+                        <FormField name="accountManager" render={({ field }) => (<FormItem><FormLabel>{t('form.main.accountManager.label')}</FormLabel><Select onValueChange={field.onChange} value={field.value}><FormControl><SelectTrigger><SelectValue placeholder={t('form.main.accountManager.placeholder')} /></SelectTrigger></FormControl><SelectContent>{teamMembers.map(member => (<SelectItem key={member.uid} value={member.uid}>{member.profile.fullName}</SelectItem>))}</SelectContent></Select><FormMessage /></FormItem>)} />
                     </TabsContent>
                     
                     <TabsContent value="locationContact" className="space-y-4 py-4">
@@ -219,5 +252,3 @@ export function CreateCustomerForm({ children, customerToEdit }: CreateCustomerF
     </Dialog>
   );
 }
-
-    
