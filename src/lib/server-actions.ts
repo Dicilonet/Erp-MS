@@ -17,8 +17,8 @@ import { processReceiptPrompt } from '@/ai/flows/process-receipt';
 import { generateMarketingCampaignPrompt } from '@/ai/flows/generate-marketing-campaign';
 import { generateSocialMediaImagePrompt } from '@/ai/flows/generate-social-media-image';
 
-// --- Inicialización de Genkit y configuración exclusiva del servidor ---
-const serverConfig: GenkitConfig = {
+// Función auxiliar para obtener una instancia configurada de Genkit
+const getAI = () => genkit({
   plugins: [
     googleAI({
       apiKey: process.env.GEMINI_API_KEY,
@@ -26,16 +26,14 @@ const serverConfig: GenkitConfig = {
   ],
   logLevel: 'debug',
   enableTracingAndMetrics: false,
-};
-
-const configuredAi = genkit(serverConfig);
-
+});
 
 // --- Flow para Resumen de Interacción ---
 export async function suggestInteractionSummary(
   input: z.infer<typeof InteractionSummaryInputSchema>
 ): Promise<z.infer<typeof InteractionSummaryOutputSchema>> {
-  const summaryFlow = configuredAi.definePrompt({
+  const ai = getAI();
+  const summaryFlow = ai.definePrompt({
     name: 'suggestInteractionSummaryAction',
     input: { schema: InteractionSummaryInputSchema },
     output: { schema: InteractionSummaryOutputSchema },
@@ -51,7 +49,8 @@ export async function suggestInteractionSummary(
 export async function processReceipt(
   input: z.infer<typeof ReceiptInputSchema>
 ): Promise<z.infer<typeof ReceiptOutputSchema>> {
-  const receiptFlow = configuredAi.definePrompt({
+  const ai = getAI();
+  const receiptFlow = ai.definePrompt({
     name: 'processReceiptAction',
     input: { schema: ReceiptInputSchema },
     output: { schema: ReceiptOutputSchema },
@@ -67,7 +66,8 @@ export async function processReceipt(
 export async function generateMarketingCampaign(
   input: z.infer<typeof MarketingCampaignInputSchema>
 ): Promise<z.infer<typeof MarketingCampaignOutputSchema>> {
-  const campaignFlow = configuredAi.definePrompt({
+  const ai = getAI();
+  const campaignFlow = ai.definePrompt({
     name: 'generateMarketingCampaignAction',
     input: { schema: MarketingCampaignInputSchema },
     output: { schema: MarketingCampaignOutputSchema },
@@ -81,7 +81,8 @@ export async function generateMarketingCampaign(
 
 // --- Flow para Generación de Imágenes ---
 export async function generateSocialMediaImage(prompt: string): Promise<string> {
-    const { media } = await configuredAi.generate({
+    const ai = getAI();
+    const { media } = await ai.generate({
         model: 'googleai/imagen-2.0-latest',
         prompt: generateSocialMediaImagePrompt,
         input: { prompt },
